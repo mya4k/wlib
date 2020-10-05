@@ -90,6 +90,7 @@
 #define CM_DECC __DECCXX_VER
 #else
 #define CM_DECC __DECC_VER
+#endif
 #endif /* Compaq C/C++ */
 
 /* To be continued */
