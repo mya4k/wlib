@@ -1,19 +1,6 @@
 #ifndef ARCH_H
 #define ARCH_H
 
-/* Template
-#if !defined(AR_) && defined()
-#define
-#endif
-
-#if !defined(AR_)	&&(	\
-	defined()		||	\
-	defined()			\
-)
-#define
-#endif
-*/
-
 /* Alpha */
 #if !defined(AR_ALPHA)	&&(	\
 	defined(__alpha__)	||	\
@@ -43,14 +30,14 @@
 	defined(__arm)					\
 ) 
 
-#define ARM_2	2.0
-#define ARM_3	3.0
-#define ARM_4T	4.1
-#define ARM_5	5.0
-#define ARM_5T	5.1
-#define ARM_6	6.0
-#define ARM_6T2	6.1
-#define ARM_7	7.0
+#define ARM_2	20
+#define ARM_3	30
+#define ARM_4T	41
+#define ARM_5	50
+#define ARM_5T	51
+#define ARM_6	60
+#define ARM_6T2	61
+#define ARM_7	70
 
 #if		defined(__ARM_ARCH_2__)
 #define AR_ARM ARM_2
@@ -58,18 +45,18 @@
 #define AR_ARM ARM_3
 #elif	defined(__ARM_ARCH_4T__)
 #define AR_ARM ARM_4T
-#elif	defined(__ARM_ARCH_5__) || (_M_ARM == 5)
+#elif	defined(__ARM_ARCH_5__) || (_M_ARM == 50)
 #define AR_ARM ARM_5
 #elif	defined(__ARM_ARCH_5T__)
 #define AR_ARM ARM_5T
-#elif	defined(__ARM_ARCH_6__) || (_M_ARM == 6)
+#elif	defined(__ARM_ARCH_6__) || (_M_ARM == 60)
 #define AR_ARM ARM_6
 #elif	defined(__ARM_ARCH_6T2__)
 #define AR_ARM ARM_6T2
-#elif	defined(__ARM_ARCH_7__) || (_M_ARM == 7)
+#elif	defined(__ARM_ARCH_7__) || (_M_ARM == 70)
 #define AR_ARM ARM_7
 #else	
-#define AR_ARM 0.0f
+#define AR_ARM 0
 #endif
 
 #endif /* ARM */
@@ -111,13 +98,14 @@
 /* HP/PA RISC */
 #if !defined(AR_HPPA) && defined(__hppa)
 #if		defined(_PA_RISC1_0)
-#define AR_HPPA	1.0
+#define AR_HPPA	10
 #elif	defined(_PA_RISC1_1)
-#define AR_HPPA 1.1
+#define AR_HPPA 11
 #elif	defined(_PA_RISC2_0)
-#define AR_HPPA 2.0
+#define AR_HPPA 20
 #else
-#define AR_HPPA 0.0
+#define AR_HPPA 0
+#endif
 #endif /* HP/PA RISC */
 
 /* Intel x86 */
@@ -145,6 +133,7 @@
 #define AR_I86 6
 #else
 #define AR_I86 0
+#endif
 #endif /* Intel x86 */
 
 /* Intel Itanium (IA-64) */
@@ -158,7 +147,7 @@
 #endif /* Intel Itanium (IA-64) */
 
 /* Motorola MC68000 */
-#if !defined(AR_M68K)	&&( \ 
+#if !defined(AR_M68K)	&&( \
 	defined(__m68k__)	||	\
 	defined(M68000)		||	\
 	defined(__MC68K__) 		\
@@ -251,6 +240,7 @@
 #define AR_RS6000 9
 #else
 #define AR_RS6000 0
+#endif
 #endif /* SPARC */
 
 /* SuperH */
@@ -281,32 +271,45 @@
 #define AR_Z
 #endif /* SystemZ */
 
+/* Template
+#if !defined(AR_) && defined()
+#define
+#endif
+
+#if !defined(AR_)	&&(	\
+	defined()		||	\
+	defined()			\
+)
+#define
+#endif
+*/
+
 /* Is 32-bit architecture */
-#if	!defined(AR_BIT)	&&(	\
-	defined(AR_ARM)		||	\
-	defined(AR_BFIN)	||	\
-	AP_HPPA < 2.0		||	\
-	defined(AR_I86)		||	\
-	defined(AR_M68K)	||	\
-	AR_MIPS < 3			||	\
-	AR_PPC < 620		||	\
-	AR_SPARC < 9		||	\
-	AR_SH < 5				\
+#if	!defined(AR_BIT)					&&(	\
+	defined(AR_ARM)						||	\
+	defined(AR_BFIN)					||	\
+	defined(AP_HPPA) && (AP_HPPA < 20)	||	\
+	defined(AR_I86)						||	\
+	defined(AR_M68K)					||	\
+	AR_MIPS < 3							||	\
+	AR_PPC < 620						||	\
+	AR_SPARC < 9						||	\
+	AR_SH < 5								\
 )
 #define AR_BIT 32
 #endif /* Is 32-bit architecture */
 
 /* Is 64-bit architecture */
 #if !defined(AR_BIT)	&&(	\
-	defined(AR_ALPHA)	||	\
-	defined(AR_AMD64)	||	\
-	defined(AR_ARM64)	||	\
-	AR_HPPA >= 2.0		||	\
-	defined(AR_IA64)	||	\
-	AR_MIPS >= 3		||	\
-	AR_PPC >= 620		||	\
-	AR_SPARC >= 9		||	\
-	AR_SH >= 5				\
+	defined(AR_ALPHA)					||	\
+	defined(AR_AMD64)					||	\
+	defined(AR_ARM64)					||	\
+	defined(AP_HPPA) && (AP_HPPA < 20)	||	\
+	defined(AR_IA64)					||	\
+	AR_MIPS >= 3						||	\
+	AR_PPC >= 620						||	\
+	AR_SPARC >= 9						||	\
+	AR_SH >= 5								\
 )
 #define AR_BIT 64
 #endif /* Is 64-bit architecture */
