@@ -1,6 +1,8 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 
+#define NO_IMAGINARY
+
 /* 7.3.1 Introduction */
 #define complex			_Complex
 #define _Complex_I		(const float _Complex)1.0iF
