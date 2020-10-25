@@ -2,6 +2,7 @@
 #define DAMO_H
 
 #include <wl/DATA/ARCH.h>
+#include <wl/DATA/COMP.h>
 #include <wl/DATA/OSYS.h>
 
 /* Data model "NULL" assumes that
@@ -41,12 +42,23 @@
 #endif /* ILP32 */
 
 /* LLP64 */
-#if defined(OS_WIN64)
+#if defined(OS_WIN64)						&&	\
+	(defined(AR_I86) || defined(AR_IA64))	&&	\
+	defined(CM_MSC)							||	\
+	defined(CM_MINGW)
 #define DATA_MODEL DM_LLP64
 #endif /* LLP64 */
 
 /* LP64 */
-#if defined(_LP64) || defined(__LP64__)
+#if defined(_LP64)		||	\
+	defined(__LP64__)	||	\
+	defined(OS_UNIX)	||	\
+	defined(OS_SUN)		||	\
+	defined(OS_LINUX)	||	\
+	defined(OS_BSD)		||	\
+	defined(OS_MAC)		||	\
+	defined(OS_ZOS)		||	\
+	defined(OS_CYGWIN)
 #define DATA_MODEL DM_LP64
 #endif /* LP64 */
 
@@ -54,12 +66,15 @@
 #if	(AR_BIT == 64) 		&&(	\
 	defined(OS_UNIX)	||	\
 	defined(OS_LINUX)	||	\
-	defined(OS_MAC))		\
+	defined(OS_MAC))
 )
 #define DATA_MODEL DM_ILP64
 #endif /* ILP64 */
 
-/* To be continued... */
+/* SILP64 */
+#if defined(OS_UNICOS)
+#define DATA_MODEL DM_SILP64
+#endif /* SILP64 */
 
 #endif /* Automatic data model definition */
 
