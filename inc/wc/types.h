@@ -4,79 +4,78 @@
 /* Include data model information*/
 #include <wl/DATA/DAMO.h>
 #include <wl/DATA/LANG.h>
-#include <wc/core/error.h>
 
 #if		defined(LG_C)	/* Follows ISO C standard */
 
 #if LG_C >= VR_C99
 
-#ifndef TYPE__BOOL
-#define TYPE__BOOL		1
+#ifndef DEF__BOOL
+#define DEF__BOOL		1
 #endif
 
 
-#ifndef TYPE_LONG_LONG
-#define TYPE_LONG_LONG	1
+#ifndef DEF_LONG_LONG
+#define DEF_LONG_LONG	1
 #endif
 
 #endif	/* LG_C >= VR_C99 */
 
-#ifndef TYPE_VOID
-#define TYPE_VOID		1
+#ifndef DEF_VOID
+#define DEF_VOID		1
 #endif
 
-#ifndef TYPE_BOOL
-#define TYPE_BOOL		0
+#ifndef DEF_BOOL
+#define DEF_BOOL		0
 #endif
 
-#ifndef TYPE__BOOL
-#define TYPE__BOOL		0
+#ifndef DEF__BOOL
+#define DEF__BOOL		0
 #endif
 
-#ifndef TYPE_LONG_LONG
-#define TYPE_LONG_LONG	0
+#ifndef DEF_LONG_LONG
+#define DEF_LONG_LONG	0
 #endif
 
 #elif	defined(LG_CPP)	/* Follows ISO C++ standard */
 
 #if LG_CPP >= VR_CPP11
-#ifndef TYPE_LONG_LONG
-#define TYPE_LONG_LONG	1
+#ifndef DEF_LONG_LONG
+#define DEF_LONG_LONG	1
 #endif
 #endif
 
-#ifndef TYPE_VOID
-#define TYPE_VOID		1
+#ifndef DEF_VOID
+#define DEF_VOID		1
 #endif
 
-#ifndef TYPE__BOOL
-#define TYPE__BOOL		0
+#ifndef DEF__BOOL
+#define DEF__BOOL		0
 #endif
 
-#ifndef TYPE_BOOL
-#define TYPE_BOOL		1
+#ifndef DEF_BOOL
+#define DEF_BOOL		1
 #endif
 
-#ifndef TYPE_LONG_LONG
-#define TYPE_LONG_LONG	0
+#ifndef DEF_LONG_LONG
+#define DEF_LONG_LONG	0
 #endif
 
 #else					/* Follows another standard */
 
-#ifndef TYPE_VOID
-#define TYPE_VOID		0
+#ifndef DEF_VOID
+#define DEF_VOID		0
 #endif
 
-#ifndef TYPE_BOOL
-#define TYPE_BOOL		0
+#ifndef DEF_BOOL
+#define DEF_BOOL		0
 #endif
 
-#ifndef TYPE__BOOL
-#define TYPE__BOOL		0
+#ifndef DEF__BOOL
+#define DEF__BOOL		0
 #endif
 
-#ifndef TYPE_LONG_LONG
-#define TYPE_LONG_LONG	0
+#ifndef DEF_LONG_LONG
+#define DEF_LONG_LONG	0
 #endif
 #endif
 
@@ -154,7 +153,6 @@ typedef unsigned long		u64,	U64;
 #if DEF_VOID == 1
 typedef void				vo, VO;
 #else
-WARN("Void type is not supported.")
 typedef char				vo, VO;
 #endif /* Void type */
 
@@ -180,7 +178,6 @@ typedef unsigned long long	u64, U64;
 
 #if		DATA_MODEL < DM_LP64
 #define NO_I64 1
-WARN("64-bit types are not supported. I64 is 32-bits")
 typedef long				i64, I64;
 typedef unsigned long		u64, U64;
 #endif

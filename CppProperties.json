@@ -15,7 +15,7 @@
         "UNICODE",
         "_UNICODE"
       ],
-      "intelliSenseMode": "linux-gcc-x64"
+      "intelliSenseMode": "windows-msvc-x64"
     }
   ]
 }

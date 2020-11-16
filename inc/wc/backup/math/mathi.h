@@ -1,7 +1,7 @@
 #ifndef WC_MATHI_H
 #define WC_MATHI_H
 
-#include <wc/core/types.h>
+#include <wc/types.h>
 
 /* Absolute */
 extern I32	ab	(I32 x);

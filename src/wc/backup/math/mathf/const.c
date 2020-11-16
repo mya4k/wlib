@@ -1,0 +1,32 @@
+#include <wc/types.h>
+
+#define USE_VARS	0
+#define USE_MACROS	1
+
+#ifndef MATH_CONST
+#define MATH_CONST USE_VARS
+#endif 
+
+#if MATH_CONST != USE_MACROS
+/* Euler's number (F32) */
+const F32 _ef = 2.71828174591064453125F;
+/* Euler-Mascheroni constant (F32) */
+const F32 emf = 0.577215671539306640625F;
+/* Golden Ratio (F32) */
+const F32 grf = 1.61803400516510009765625F;
+/* Pi constant (F32)*/
+const F32 pif = 3.1415927410125732421875F;
+/* Tau constant (F32) */
+const F32 tauf = 6.283185482025146484375F;
+
+/* Euler's number (F64) */
+const F64 _e = 2.71828182845904509079559829842764884233474731445312;
+/* Euler-Mascheroni constant (F64) */
+const F64 em = 0.57721566490153286554942724251304753124713897705078125;
+/* Golden Ratio (F64) */
+const F64 gr = 1.6180339887498949025257388711906969547271728515625;
+/* Pi constant (F64) */
+const F64 pi = 3.141592653589793115997963468544185161590576171875;
+/* Tau constant (F64) */
+const F64 tau = 6.28318530717958623199592693708837032318115234375;
+#endif
