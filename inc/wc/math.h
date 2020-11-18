@@ -3,6 +3,10 @@
 
 #include <wc/types.h>
 
+#define fc		fcu
+#define fcl		fcq
+#define div		qtd
+#define mod		rmd
 #define log		lgd
 #define exp		pwd
 #define root	rtd
@@ -15,7 +19,8 @@
 #define ctg		ctd
 
 /* Factorial */
-extern U32	fc	(I8		x);			/* (U32) Factorial */
+extern U32	fcu	(I8		x);			/* (U32) Factorial */
+extern U32	fcq	(I8		x);			/* (U32) Factorial */
 
 /* Division */
 extern F32	qtf	(F32	x, F32 y);	/* (F32) Quotient	*/
