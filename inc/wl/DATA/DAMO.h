@@ -36,7 +36,7 @@
 		defined(OS_WIN32)	||	\
 		defined(OS_UNIX)	||	\
 		defined(OS_LINUX)	||	\
-		defined(OS_MAC)) 		\
+		defined(OS_MAC) 		\
 	)
 #define DATA_MODEL DM_ILP32
 #endif /* ILP32 */

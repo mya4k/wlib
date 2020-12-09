@@ -1,2 +1,8 @@
 # Visual Studio Folders and Files
 .vs/
+x64/
+.editorconfig
+.gitattributes
+.gitignore
+CppProperties.json
+wlib-test.*

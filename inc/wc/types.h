@@ -80,6 +80,8 @@
 #endif
 
 /* Fixed-size integer types */
+typedef char				ch, Ch, CH;
+
 #ifndef NO_FIXED_TYPES
 
 #if	DATA_MODEL == DM_LP32
@@ -194,34 +196,34 @@ typedef double				f64, F64;
 #define	I16B	16
 #define	I32B	32
 
-#define I8N		(I8)	-128
-#define I16N	(I16)	-32768
-#define I32N	(I32)	-2147483648
+#define I8N		(I8)	0x80
+#define I16N	(I16)	0x8000
+#define I32N	(I32)	0x80000000
 
-#define I8X		(I8)	127
-#define I16X	(I16)	32767
-#define I32X	(I32)	2147483647
+#define I8X		(I8)	0x7F
+#define I16X	(I16)	0x7FFF
+#define I32X	(I32)	0x7FFFFFFF
 
-#define U8X		(U8)	0
-#define U16X	(U16)	0
-#define U32X	(U32)	0
+#define U8N		(U8)	0
+#define U16N	(U16)	0
+#define U32N	(U32)	0
 
-#define U8X		(U8)	-1
-#define U16X	(U16)	-1
-#define U32X	(U32)	-1
+#define U8X		(U8)	0xFF
+#define U16X	(U16)	0xFFFF
+#define U32X	(U32)	0xFFFFFFFF
 
 #if NO_I64	/* Abnormal behavior */
 #define I64B	32
-#define I64N	(I64)	-2147483648
-#define I64X	(I64)	2147483647
+#define I64N	(I64)	0x80000000
+#define I64X	(I64)	0x7FFFFFFF
 #define U64N	(U64)	0
-#define U64X	(U64)	-1
+#define U64X	(U64)	0xFFFFFFFF
 #else		/* Optimal behavior */
 #define I64B	64
-#define I64N	(I64)	-9223372036854775808
-#define I64X	(I64)	9223372036854775807
+#define I64N	(I64)	0x8000000000000000
+#define I64X	(I64)	0x7FFFFFFFFFFFFFFF
 #define U64N	(U64)	0
-#define U64X	(U64)	-1
+#define U64X	(U64)	0xFFFFFFFFFFFFFFFF
 #endif		/* NO_I64 */
 
 #endif

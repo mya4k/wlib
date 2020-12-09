@@ -123,13 +123,13 @@
 )
 #if		defined(__I86__)
 #define	AR_I86 __I86__
-#elif	defined(__i386__) || (_M_IX86 = 300)
+#elif	defined(__i386__) || (_M_IX86 == 300)
 #define AR_I86 3
-#elif	defined(__i486__) || (_M_IX86 = 400)
+#elif	defined(__i486__) || (_M_IX86 == 400)
 #define AR_I86 4
-#elif	defined(__i586__) || (_M_IX86 = 500)
+#elif	defined(__i586__) || (_M_IX86 == 500)
 #define AR_I86 5
-#elif	defined(__i686__) || (_M_IX86 = 600)
+#elif	defined(__i686__) || (_M_IX86 == 600)
 #define AR_I86 6
 #else
 #define AR_I86 0

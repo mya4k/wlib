@@ -1,26 +1,5 @@
-/* Method:
-	1.	Store Bitwise representation of base ("x")
-		and the exponent ("y"). Nowadays, it's
-		better to use more RAM memory in favor of
-		speedy execution.
-	2.	Check the sign of the exponent:
-			if y < 0, x^y = -(x^-y),
-			if y = 0, x^y = +1,
-			if y > 0, x^y.
-	4.	Roll out obvious results:
-			x^
-			0^y = 0
-			1^y = 1
-	3.	Figure out whether y can be representented
-		by an integer, if so just do exponentiation
-		by squaring, otherwise calculate x^y using
-		one of logarithmic properties, where
-			x^y = 2 ^ (y * log2(x))
-*/
-
-
-
 /* Includes */
+#include <wl/DATA/COMP.h>
 #include <wc/types.h>
 
 
@@ -43,197 +22,234 @@
 #define VPF			(U32)0x40490FDBF		/* (F32) Bitwise representation of Pi constant */
 #define VTF			(U32)0x40C90FDB			/* (F32) Bitwise representation of Tau constant */
 
-#define NIF			-1.0f/0.0f				/* (F32) Negative Infinity */
+/* Floating-point constants */
+#ifdef CM_MSC
+#define NIF			-1e30f*1e30f			/* (F32) Negative Infinity */
+#define NNF			NIF*0.0f				/* (F32) Negative NaN */
+#define PIF			1e30f*1e30f				/* (F32) Positive Infinity */
+#define PNF			PIF*0.0f				/* (F32) Positive NaN */
+#define NID			-1e300*1e300			/* (F64) Negative Infinity */
+#define NND			NID*0.0					/* (F64) Negative NaN */
+#define PID			-1e300*1e300			/* (F64) Positive Infinity */
+#define PND			PID*0.0					/* (F64) Positive NaN */
+#else
+#define NIF			-1e39f					/* (F32) Negative Infinity */
 #define NNF			-0.0f/0.0f				/* (F32) Negative NaN */
-#define PIF			1.0f/0.0f				/* (F32) Positive Infinity */
-#define PNF			0.0f/0.0f				/* (F32) Positive NaN */
-
-#define _LN2F		0.693147182464599609375F
-
-#define NID			-1.0/0.0				/* (F64) Negative Infinity */
+#define PIF			1e39f					/* (F32) Positive Infinity */
+#define PNF			(0.0f/0.0f)				/* (F32) Positive NaN */
+#define NID			-1e309					/* (F64) Negative Infinity */
 #define NND			-0.0/0.0				/* (F64) Negative NaN */
-#define PID			1.0/0.0					/* (F64) Positive Infinity */
+#define PID			-1e309					/* (F64) Positive Infinity */
 #define PND			0.0/0.0					/* (F64) Positive NaN */
+#endif
 
-#define od(X) X&1							/* Check if X is odd */
+/* (F32) Natural logarithm of 2 */
+#define LN2F		0.693147182464599609375F
+/* (F64) Natural logarithm of 2 */
+#define LN2			0.69314718055994528622676398299518041312694549560546875
 
-
-
-/* Extern functions */
-/* We need to link them to use them */
-
-extern U32	fcu		(U8		y);		/* (U32) Factorial	*/
-extern F32	_pw2f	(F32	y);		/* (F32) pwf(2, y)	*/
-extern F64	_pw2d	(F64	y);		/* (F64) pwf(2, y)	*/
-extern F32	_lg2f	(F32	z);		/* (F32) lgf(2, z)	*/
-extern F64	_lg2d	(F64	z);		/* (F32) lgf(2, z)	*/
+#define OD(X)		X&1
 
 
+
+/* Function declarations */
+extern U64 fcq	(U8		n);		/* (U64) Factorial */
+
+/* Stolen from <math/lgf.c> */
+extern F32 lg2f	(F32	z);		/* (F32) Binary logarithm */
+extern F64 lg2d	(F64	z);		/* (F32) Binary logarithm */
+
+/* Native */
+extern F32 pw2f	(F32	y);		/* (F32) Binary exponentiation */
+extern F64 pw2d	(F64	y);		/* (F64) Binary exponentiation */
+extern F32 _pwif(F32 x, U64 y);	/* (F32) Integer exponent exponentiation */
+extern F64 _pwid(F64 x, U64 y);	/* (F64) Integer exponent exponentiation */
+
+
+
+/* (F32) Integer exponent power functions */
+F32 _pwif(F32 x, U64 y) {
+	F32 r = 1.0F;
+	
+	while (y > 1.0F) {
+		if (y&1) r *= x;
+		x *= x;
+		y >>= 1;
+	}
+
+	return r * x;
+}
 
 /* Static functions */
-
-/* (F32) The main body of the power function */
-static F32	_pwf(F32 x, F32 y) {
+static F32 _pwf(F32 x, F32 y) {
 	/* Bitwise representation */
 	I32 vx = *(I32*)&x;
 	I32 vy = *(I32*)&y;
 
 	/* If x = 0, x^y = 0 */
-	if (vx&VP0F) return 0.0F;
+	if (vx==VP0F)	return 0.0F;
 	/* If x = 1, x^y = 1 */
-	if (vx&VP1F) return 1.0F;
+	if (vx==VP1F)	return 1.0F;
+
+	/* If y = 1, x^y = x */
+	if (vy==VP1F)	return x;
+	/* If y = 2, x^y = x*x */
+	if (vy==VP2F)	return x * x;
+	/* If y = 3, x^y = x*x*x */
+	if (vy==VP3F)	return x * x * x;
+	/* If y = inf, x^y = inf */
+	if (vy==VPIF)	return PIF;
+	/* If y = nan, x^y = nan */
+	if (vy==VPNF)	return PNF;
 	/* If x = 2, x^y = _pw2f(y) */
-	if (vx&VP2F) return _pw2f(y);
-
-	switch (vy) {
-	/* If y = +1, x^y = x */
-	case VP1F: return x;
-	/* If y = +2, x^y = x*x */
-	case VP2F: return x * x;
-	/* If y = +3, x^y = x*x*x */
-	case VP3F: return x * x * x;
-	/* If y = +inf, x^y = +inf */
-	case VPIF: return PIF;
-	/* If y = +nan, x^y = +nan */
-	case VPNF: return PNF;
-	/* Otherwise */
-	default: {
-		/* Integer exponent */
-		I64 iy = (I64)y;
-
-		/* If y can't be represented by an integer */
-		if (y - iy) {
-			return _pw2f(y * _lg2f(x));
-		}
-		/* If y can be represented by an integer */
-		else {
-			/* Result of calculation */
-			F32 r = 1;
-			/* Result sign */
-			I8 a = 1;
-
-			/* If x < 0: */
-			if (vx & VN0F) {
-				/* If y is odd, x^y = -(-x)^y */
-				/* If y is even, x^y = (-x)^y */
-				x = -x;
-				if (iy & 1) a = -1;
-			}
-
-			/* Calculation by square takes place here */
-			for (;;) {
-				if (iy & 1) r *= x;
-				iy >>= 1;
-				if (!iy) break;
-				x *= x;
-			}
-
-			return a * r;
-		}
-	}
-	}
+	if (vx==VP2F)	return pw2f(y);
+	/* If y can't be represented by an integer */
+	if (y - (U64)y) return pw2f(y * lg2f(x));
+	/* If y can be represented by an integer */
+	else return _pwif(x, y);
 }
-
-/* (F32) Integer exponent power functions */
-static F32 _pwif(F32 x, U64 y) {
-	/* Result of calculation */
-	F64 r = 1;
-	/* Result sign */
-	I8 a = 1;
-
-	/* If x < 0: */
-	if (*(I64*)&x & VN0F) {
-		/* If y is odd, x^y = -(-x)^y */
-		/* If y is even, x^y = (-x)^y */
-		x = -x;
-		if (y&1) a = -1;
-	}
-
-	/* Calculation by square takes place here */
-	for (;;) {
-		if (y&1) r *= x;
-		y >>= 1;
-		if (!y) break;
-		x *= x;
-	}
-
-	return a * r;
-}
-
-/* Function Definitions */
 
 /* (F32) 2^y */
-F32	_pw2f(F32 y) {
+F32	pw2f(F32 y) {
 	const U64 iy = (U64)y;
-	y = y - iy;
+	F32 r = 0;
 
-	F32 l = y;
-	F32 h = y * _LN2F;
+	if (iy==0)	r = 1.0F;
+	else if (iy==1)	r = 2.0F;
+	else if (iy==2)	r = 4.0F;
+	else if (iy==3)	r = 8.0F;
+	else			r = _pwif(2.0F, iy);
 
-	for (U32 n = 2; ; n++) {
-		l = h;
-		if (l==h) break;
-		h += _pwif(y*_LN2F, n) / fc(n);
-	}
+	y -= iy;
 
-	return _pwif(2,iy) * h;
-}
+	F32 l = -1.0F;
+	F32 h = 1.0F;
 
-/* (F32) lgf(2, z)	*/
-extern F32	_lg2f(F32	z) {
-	U32 vz = *(U32*)&z;
+	if (y) {
+		y *= LN2F;
 
-	if (vz & I32X) {
-		z = -z;
-		vz &= I32X;
-	}
-	if (vz == VP0F)	return NIF;
-	if (vz == VP1F)	return 0.0F;
-	if (vz == VP2F)	return 1.0F;
-	if (vz == VEF)	return 1.44269502162933349609375F;
-	if (vz == VPF)	return 1.6514961719512939453125F;
-	if (vz == VTF)	return 2.6514961719512939453125F;
-
-	if (vz < VP2F) {
-		const U64 iz = (U64)z;
-		const U64 z1 = z - 1;
-
-		F32 l = 0;
-		F32 h = _LN2F * z;
-		F32 pz = z * z;
-		F32 pz1 = z1 * z1;
-
-		for (U32 n = 2; ; n++) {
+		for (U8 n = 1; l != h; n++) {
 			l = h;
-			if (l == h) break;
-			pz *= z;
-			pz1 *= z1;
-			h += pz1 / (n * _LN2F * pz);
+			h += _pwif(y,n) / fcq(n);
 		}
-
-		return h;
+		return r * h;
 	}
-	else return _lg2f(z / 2.0F) + 1.0F;
+	else return r;
 }
+
 
 /* (F32) Power */
 F32	pwf(F32 x, F32 y) {
 	/* If y != 0... */
-	if ((*(I32*)&x) & VPNF) {
+	if ((*(U32*)&x) & VPNF) {
 		/* If y < 0, x^y = -(x^y) */
-		if ((*(I32*)&y) & VPNF) return 1.0F / _pwf(x, -y);
+		if ((*(U32*)&y) & I32N) {
+			return 1.0F / _pwf(x, -y);
+		}
 		/* If y > 0... */
-		else return _pwf(x, y);
+		else {
+			return _pwf(x, y);
+		}
 	}
 	/* If y == 0, x^y = 0 */
 	else return 1.0F;
 }
 
+
+
+/* (F64) Integer exponent power functions */
+F64 _pwid(F64 x, U64 y) {
+	F64 r = 1.0;
+
+	while (y > 1.0) {
+		if (y & 1) r *= x;
+		x *= x;
+		y >>= 1;
+	}
+
+	return r * x;
+}
+
+/* (F64) 2^y */
+F64	pw2d(F64 y) {
+	const U64 iy = (U64)y;
+	F64 r = 0;
+
+	if (iy==0)		r = 1.0;
+	else if (iy==1)	r = 2.0;
+	else if (iy==2)	r = 4.0;
+	else if (iy==3)	r = 8.0;
+	else			r = _pwid(2.0, iy);
+
+	y -= iy;
+
+	F64 l = 0.0;
+	F64 h = 1.0;
+
+	if (y) {
+		y *= LN2;
+
+		for (U8 n = 1; l != h; n++) {
+			l = h;
+			h += _pwid(y,n) / fcq(n);
+		}
+		return r * h;
+	}
+	else return r;
+}
+
 #if NO_I64
+
+/* Macros */
+
 #define _E			2.71828182845904509079559829842764884233474731445312
 #define _PI			3.141592653589793115997963468544185161590576171875
 #define _TAU		6.28318530717958623199592693708837032318115234375
+
+
+
+/* Static functions */
+
+/* (F64) The main body of the power function */
+static F64	_pwd(F64 x, F64 y) {
+	/* If x = 0, x^y = 0 */
+	if (x == 0.0)	return 0.0;
+	/* If x = 1, x^y = 1 */
+	if (x == 1.0)	return 1.0;
+	/* If y = 1, x^y = x */
+	if (y == 1.0)	return x;
+	/* If y = 2, x^y = x*x */
+	if (y == 2.0)	return x*x;
+	/* If y = 3, x^y = x*x*x */
+	if (y == 3.0)	return x*x*x;
+	/* If y = inf, x^y = inf */
+	if (y == PID)	return PID;
+	/* If y = +nan, x^y = +nan */
+	if (y == PND)	return PND;
+	/* If x = 2, x^y = _pw2f(y) */
+	if (x == 2.0)	return pw2d(y);
+	/* If y can't be represented by an integer */
+	if (y - (U64)y) return pw2d(y * lg2d(x));
+	/* If y can be represented by an integer */
+	else return _pwid(x, y);
+}
+
+
+
+/* (F64) Power */
+F64	pwd(F64 x, F64 y) {
+	/* If y == 0... */
+	if (y == 0.0)	return 1.0;
+	/* If y < 0, x^y = 1/(x^y) */
+	if (y < 0.0)	return 1.0 / _pwd(x, -y);
+	/* If y < 0, x^y... */
+	else			return _pwd(x,y);
+}
+
+
+
 #else
+
 /* Macros */
 
 #define VN0D		(U64)0x8000000000000000	/* (F64) Bitwise representation of Negative 0 */
@@ -248,9 +264,9 @@ F32	pwf(F32 x, F32 y) {
 #define VP3D		(U64)0x4040000000000000	/* (F64) Bitwise representation of Positive 3 */
 #define VPID		(U64)0x7F80000000000000	/* (F64) Bitwise representation of Positive Infinity */
 #define VPND		(U64)0x7FFFFFFFFFFFFFFF	/* (F64) Bitwise representation of Positive NaN */
-#define VED			(U32)0x4005BF0A8B145769	/* (F64) Bitwise representation of Euler's constant */
-#define VPD			(U32)0x400921FB54442D18	/* (F64) Bitwise representation of Pi constant */
-#define VTD			(U32)0x401921FB54442D18	/* (F64) Bitwise representation of Tau constant */
+#define VED			(U64)0x4005BF0A8B145769	/* (F64) Bitwise representation of Euler's constant */
+#define VPD			(U64)0x400921FB54442D18	/* (F64) Bitwise representation of Pi constant */
+#define VTD			(U64)0x401921FB54442D18	/* (F64) Bitwise representation of Tau constant */
 
 
 
@@ -263,128 +279,43 @@ static F64	_pwd(F64 x, U64 y) {
 	U64 vy = *(U64*)&y;
 
 	/* If x = 0, x^y = 0 */
-	if (vx&VP0D) return 0.0F;
+	if (vx==VP0D)	return 0.0;
 	/* If x = 1, x^y = 1 */
-	if (vx&VP1D) return 1.0F;
+	if (vx==VP1D)	return 1.0;
+
+	/* If y = 1, x^y = x */
+	if (vy==VP1D)	return x;
+	/* If y = 2, x^y = x*x */
+	if (vy==VP2D)	return x * x;
+	/* If y = 3, x^y = x*x*x */
+	if (vy==VP3D)	return x * x * x;
+	/* If y = inf, x^y = inf */
+	if (vy==VPID)	return PID;
+	/* If y = nan, x^y = nan */
+	if (vy>VPID)	return PND;
 	/* If x = 2, x^y = _pw2f(y) */
-	if (vx&VP2D) return _pw2d(y);
-
-	switch (vy) {
-	/* If y = +1, x^y = x */
-	case VP1D: return x;
-	/* If y = +2, x^y = x*x */
-	case VP2D: return x * x;
-	/* If y = +3, x^y = x*x*x */
-	case VP3D: return x * x * x;
-	/* If y = +inf, x^y = +inf */
-	case VPID: return PID;
-	/* If y = +nan, x^y = +nan */
-	case VPND: return PND;
-	/* Otherwise */
-	default: {
-		/* Integer exponent */
-
-		/* If y can't be represented by an integer */
-		if (y - (I64)y) return _pw2d(y * _lg2d(x));
-		/* If y can be represented by an integer */
-		else return _pwid(x, y);
-		}
-	}
-	}
-}
-
-/* (F64) Integer exponent power functions */
-static F64 _pwid(F64 x, U64 y) {
-	/* Result of calculation */
-	F64 r = 1;
-	/* Result sign */
-	I8 a = 1;
-
-	/* If x < 0: */
-	if (*(I64*)&x & VN0F) {
-		/* If y is odd, x^y = -(-x)^y */
-		/* If y is even, x^y = (-x)^y */
-		x = -x;
-		if (y&1) a = -1;
-	}
-
-	/* Calculation by square takes place here */
-	for (;;) {
-		if (y&1) r *= x;
-		y >>= 1;
-		if (!y) break;
-		x *= x;
-	}
-
-	return a * r;
-}
-
-
-
-/* (F64) 2^y */
-F64	_pw2d(F64 y) {
-	const U64 iy = (U64)y;
-	y = y - iy;
-
-	F64 l = 0;
-	F64 h = y * _LN2F + y;
-
-	for (U32 n = 2; ; n++) {
-		l = h;
-		if (l == h) break;
-		h += _pwid(y * _LN2F, n) / fc(n);
-	}
-
-	return _pwid(2, iy) * h;
-}
-
-/* (F32) lgd(2, z)	*/
-extern F64	_lg2d(F64	z) {
-	U64 vz = *(U64*)&z;
-
-	if (vz & I64X) {
-		z = -z;
-		vz &= I64X;
-	}
-	if (vz == VP0D)	return NID;
-	if (vz == VP1D)	return 0.0;
-	if (vz == VP2D)	return 1.0;
-	if (vz == VED)	return 1.442695040888963387004650940070860087871551513671875;
-	if (vz == VPD)	return 1.6514961294723189411115527036599814891815185546875;
-	if (vz == VTD)	return 2.6514961294723189411115527036599814891815185546875;
-
-	if (vz < VP2D) {
-		const U64 iz = (U64)z;
-		const U64 z1 = z - 1;
-
-		F64 l = 0;
-		F64 h = _LN2D * z;
-		F64 pz = z * z;
-		F64 pz1 = z1 * z1;
-
-		for (U32 n = 2; ; n++) {
-			l = h;
-			if (l==h) break;
-			pz *= z;
-			pz1 *= z1;
-			h += pz1 / (n * _LN2D * pz);
-		}
-
-		return h;
-	}
-	else return _lg2d(z / 2.0) + 1.0;
+	if (vx==VP2F)	return pw2d(y);
+	/* If y can't be represented by an integer */
+	if (y - (U64)y) return pw2d(y * lg2d(x));
+	/* If y can be represented by an integer */
+	else return _pwid(x, y);
 }
 
 /* (F64) Power */
 F64	pwd(F64 x, F64 y) {
 	/* If y != 0... */
-	if ((*(I64*)&x) & VPND) {
+	if ((*(U32*)&x) & VPNF) {
 		/* If y < 0, x^y = -(x^y) */
-		if ((*(I64*)&y) & VPND) return 1.0 / _pwd(x, -y);
+		if ((*(U32*)&y) & I32N) {
+			return 1.0F / _pwd(x, -y);
+		}
 		/* If y > 0... */
-		else return _pwd(x, y);
+		else {
+			return _pwd(x, y);
+		}
 	}
 	/* If y == 0, x^y = 0 */
-	else return 1.0;
+	else return 1.0F;
 }
+
 #endif
