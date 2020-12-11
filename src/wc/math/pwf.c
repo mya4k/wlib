@@ -1,8 +1,14 @@
 /* Includes */
-#include <wl/DATA/COMP.h>
 #include <wc/types.h>
 
 
+
+/* Compatibility with MVSC */
+/* Better than including the whole <wl/DATA/COMP.h>
+/* Microsoft Visual C++ */
+#if !defined(CM_MSC) && defined(_MSC_VER)
+#define CM_MSC _MSC_VER
+#endif /* Microsoft Visual C++ */
 
 /* Macros */
 

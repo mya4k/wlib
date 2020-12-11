@@ -6,28 +6,6 @@
 
 
 
-#ifdef WC_RETRO
-/* Constants */
-#define EF		2.71828174591064453125F
-#define PIF		3.1415927410125732421875F
-#define E		2.71828182845904509079559829842764884233474731445312
-#define PI		3.141592653589793115997963468544185161590576171875
-
-/* Functions */
-extern F32	abf	(F32	x);			/* (F32) Absolute			*/
-extern F64	abd	(F64	x);			/* (F64) Absolute			*/
-extern U32	fcu	(I8		x);			/* (U32) Factorial 			*/
-extern U64	fcq	(I8		x);			/* (U32) Factorial 			*/
-extern F32	lg2f(F32	z);			/* (F32) Binary Logarithm	*/
-extern F64	lg2d(F64	z);			/* (F64) Binary Logarithm	*/
-extern F32	lgf	(F32	x, F32 z);	/* (F32) Logarithm			*/
-extern F64	lgd	(F64	x, F64 z);	/* (F64) Logarithm			*/
-extern F32	pw2f(F32	y);			/* (F32) Binary Exponent	*/
-extern F64	pw2d(F64	y);			/* (F64) Binary Exponent	*/
-extern F32	pwf	(F32	x, F32 y);	/* (F32) Power				*/
-extern F64	pwd	(F64	x, F64 y);	/* (F64) Power				*/
-#else
-
 /* Constants */
 #define EF		2.71828174591064453125F
 #define PIF		3.1415927410125732421875F
@@ -99,5 +77,4 @@ extern F64	abd	(F64	x);			/* (F64) Absolute			*/
 extern I8	sgf	(F32	x);			/* (F32) Sign				*/
 extern I8	sgd	(F64	x);			/* (F64) Sign				*/
 
-#endif
 #endif
