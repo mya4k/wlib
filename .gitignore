@@ -1,5 +1,7 @@
 # Visual Studio Folders and Files
 .vs/
+.vscode/
+wlib-test/
 x64/
 .editorconfig
 .gitattributes
