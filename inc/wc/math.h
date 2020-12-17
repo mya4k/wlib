@@ -2,6 +2,7 @@
 #define WC_MATH_H
 
 /* Fixed-type numeric types */
+#include <wc/core.h>
 #include <wc/types.h>
 
 
@@ -37,9 +38,10 @@
 
 
 
+C_DECL_BEGIN
 /* Factorial */
 extern U32	fcu	(I8		x);			/* (U32) Factorial 			*/
-extern U32	fcq	(I8		x);			/* (U32) Factorial 			*/
+extern U64	fcq	(I8		x);			/* (U32) Factorial 			*/
 
 /* Division */
 extern F32	qtf	(F32	x, F32 y);	/* (F32) Quotient			*/
@@ -71,10 +73,11 @@ extern F64	tnd	(F64	x);			/* (F64) Tangent			*/
 extern F32	ctf	(F32	x);			/* (F32) Cotangent			*/
 extern F64	ctd	(F64	x);			/* (F64) Cotangent			*/
 
-/* Special Functions */
+/* Sign Functions */
 extern F32	abf	(F32	x);			/* (F32) Absolute			*/
 extern F64	abd	(F64	x);			/* (F64) Absolute			*/
 extern I8	sgf	(F32	x);			/* (F32) Sign				*/
 extern I8	sgd	(F64	x);			/* (F64) Sign				*/
+C_DECL_END
 
 #endif

@@ -1,17 +1,19 @@
+#include <wl/DATA/CONF.h>
 #include <wc/types.h>
 
 
 
+/* If use of pointers of floating-point addresses is allowed (optimal behavior) */
+#ifndef FLT_NOPTR
+/* (F32) Absolute */
 F32 abf(F32 x) {
-	return (x < 0.0F) ? -x : x;
+	return (*(U32*)&x) & I32X;
 }
 
-#if NO_I64
-F64 abd(F64 x) {
-	return (x < 0.0) ? -x : x;
-}
+/* If use of pointers of floating-point addresses is forbidden */
 #else
-F64 abd(F64 x) {
-	return (*(U64*)&x) & I64X;
+/* (F32) Absolute */
+F32 abf(F32 x) {
+	return (x < 0.0F) ? -x : x;
 }
 #endif
