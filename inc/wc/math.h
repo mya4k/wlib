@@ -40,8 +40,8 @@
 
 C_DECL_BEGIN
 /* Factorial */
-extern U32	fcu	(I8		x);			/* (U32) Factorial 			*/
-extern U64	fcq	(I8		x);			/* (U32) Factorial 			*/
+extern U32	fcu	(U8		x);			/* (U32) Factorial 			*/
+extern U64	fcq	(U8		x);			/* (U32) Factorial 			*/
 
 /* Division */
 extern F32	qtf	(F32	x, F32 y);	/* (F32) Quotient			*/
