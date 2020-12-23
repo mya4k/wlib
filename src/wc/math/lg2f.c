@@ -1,15 +1,11 @@
-/* Includes */
 #include <wc/types.h>
 
 
 
-/* Macros */
-
 #define VP0F		(U32)0x00000000			/* (F32) Bitwise representation of Positive 0 */
 #define VP1F		(U32)0x3F800000			/* (F32) Bitwise representation of Positive 1 */
 #define VP2F		(U32)0x40000000			/* (F32) Bitwise representation of Positive 2 */
-#define VPIF		(U64)0x7F800000			/* (F64) Bitwise representation of Positive Infinity */
-#define VPNF		(U64)0x7FFFFFFF			/* (F64) Bitwise representation of Positive NaN */
+#define VPNF		(U64)0x7FFFFFFF			/* (F32) Bitwise representation of Positive NaN */
 #define VEF			(U32)0x402DF854			/* (F32) Bitwise representation of Euler's constant */
 #define VPF			(U32)0x40490FDBF		/* (F32) Bitwise representation of Pi constant */
 #define VTF			(U32)0x40C90FDB			/* (F32) Bitwise representation of Tau constant */
@@ -32,32 +28,40 @@
 
 
 /* Declarations */
-extern F32 abf	(F32 x);		/* (F64) Absolute */
-extern F32 _pwif(F32 x, U64 y);	/* (F32) Integer exponent exponentiation */
+/* Stolen from <math/pw.c>*/
+extern F64 _pwid(F64 x, U64 y);	/* (F64) Integer exponent exponentiation */
 
 
 
-/* Function definitions */
+/* (F32) Binary Logarithm	*/
+F32	lg2f(F32	z) {
+	U32 vz = *(U32*)&z;
 
-/* (F32) Logarithm			*/
-F32	lgf(F32	x, F32 z) {
-	U32 vx, vz;
-
-	vx = *(U32*)&x;
-	vz = *(U32*)&z;
-
-	if (vz & I32N) {
+	if (vz&I32N) {
 		vz &= I32X;
-		if (vz < VP1F) return NNF;
+		if (vz<VP1F) return NNF;
 		return PNF;
 	}
 
 	if (vz==VP0F)	return NIF;
-	if (vz==VP1F)	return 0.0f;
-	if (vz == VPIF)	return PIF;
-	if (vz > VPIF)	return PNF;
-	if (vx==vz)		return 1.0f;
-	if (vx == VP2F)	return lg2f(z);
-	 
-	return lg2f(z) / lg2f(x);
+	if (vz==VP1F)	return 0.0F;
+	if (vz==VP2F)	return 1.0F;
+	if (vz==VEF)	return 1.44269502162933349609375F;
+	if (vz==VPF)	return 1.6514961719512939453125F;
+	if (vz==VTF)	return 2.6514961719512939453125F;
+	if (vz==VTF)	return 2.6514961719512939453125F;
+
+	if (vz<VP2F) {
+		z = -(z - 1.0F);
+		F32 l = 69.0F;
+		F32 h = 0.0F;
+
+		for (U8 n = 1; l!=h; n++) {
+			l = h;
+			h += _pwif(z,n) / -n;
+		}
+
+		return h / LN2F;
+	}
+	else return lg2f(z/2.0F) + 1.0F;
 }
