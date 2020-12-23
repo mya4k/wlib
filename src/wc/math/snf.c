@@ -4,61 +4,65 @@
 
 
 /* Macros */
-#define HPI			1.57079637050628662109375F	/* (F32) Pi/2 (quarter-turn)*/
-#define _PI			3.1415927410125732421875F	/* (F32) Pi constant (half-turn) */
-#define TAU			6.283185482025146484375F	/* (F32) Tau constant (full-turn) */
-#define VPF			(U32)0x40490FDB				/* (F32) Bitwise representation of Pi constant (half-turn)*/
-#define VPIF		(U32)0x7F800000				/* (F32) Bitwise representation of Positive Infinity */
+#define VP0F		(U32)0x00000000			/* (F32) Bitwise representation of Positive 0 */
+#define VPHF		(U32)0x3F000000			/* (F32) Bitwise representation of Positive 1/2 (0.5) */
+#define VP1F		(U32)0x3F800000			/* (F32) Bitwise representation of Positive 1 */
 
 
 
-/* Function declarations */
-extern U64	fcq		(U8		n);			/* (U64) Factorial */
-extern F32	rmf		(F32	x, F32 y);	/* (F32) Remainder */
-extern F32	_pwif	(F32	x, U64 y);	/* (F32) Integer exponent exponentiation */
 
+/* Declarations */
+extern F32 abf	(F32	x);			/* (F32) Absolute */
+extern U64 fcq	(U8		n);			/* (U64) Factorial */
+extern F32 rmf	(F32	x, F32 y);	/* (F32) Remainder */
+/* Stolen from <math/pwf.c> */
+extern F32 _pwif(F32	x, U64 y);	/* (F32) Integer exponent exponentiation */
+extern F64 _pwid(F64	x, U64 y);	/* (F64) Integer exponent exponentiation */
 
-
-/* N-th derivative of sin(0) */
-static F32 _snf(I64 n) {
-	n %= 4;
-	switch (n) {
-	case 0: return 0.0;
-	case 1: return 1.0;
-	case 2: return 0.0;
-	case 3: return -1.0;
-	default: return *(F32*)"err";
-	}
-}
-
-/* (F32) Sine (rad) */
-F32 snf(F32 x) {
-	I8 a = 1;
+/* */
+static F32 _snf(F32 x) {
 	U32 bx = *(U32*)&x;
 
-	if (bx&I32N) {
-		x = -x;
+	if (bx > VP1F) {
+		x = rmf(x + 1.0F, 2.0F) - 1.0F;
 		bx = *(U32*)&x;
-		a = -1;
-	}
-	if (bx>=VPIF)	return 0.0F;
-	if (bx>VPF) {
-		x = rmf(x-_PI, TAU) - _PI;
 	}
 
-	U64 q = x / HPI;
+	if (bx & I32N) return -_snf(abf(x));
 
-	if (x-q) {
-		F32 l = 42.0F;
-		F32 h = 0.0F;
-
-		for (U8 n = 1; l != h; n += 2) {
-			l = h;
-			h += _snf(n) * _pwif(x, n) / fcq(n);
-		}
-
-		return a * h;
+	switch (bx) {
+	case VP0F: return 0.0F;
+	case VPHF: return 1.0F;
+	case VP1F: return 0.0F;
 	}
 
-	return _snf(q);
+	return 0.0F;
+}
+
+/* (F32) Sine */
+F32 snf(F32 x) {	
+	U32 bx = *(U32*)&x;
+	F32 l = -1.0F;
+	F32 h = 0.0F;
+
+	if (bx > VP1F) {
+		x = rmf(x + 1.0F, 2.0F) - 1.0F;
+		bx = *(U32*)&x;
+	}
+
+		if (bx & I32N) return -snf(abf(x));
+
+	switch (bx) {
+	case VP0F: return 0.0F;
+	case VPHF: return 1.0F;
+	case VP1F: return 0.0F;
+	}
+
+	for (U8 n = 1; /*l != h &&*/ n < 32; n += 2) {
+		l = h;
+		h += /*_pwif(x,n)* */ _snf(n/2.0F) /*/ fcq(n)*/;
+		printf("%f\n", h);
+	}
+
+	return h;
 }

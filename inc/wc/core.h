@@ -11,4 +11,6 @@
 #define C_DECL_END
 #endif
 
+#define _00(T, F1, F2)
+
 #endif

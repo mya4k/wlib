@@ -9,12 +9,10 @@
 
 /* Constants */
 #define EF		2.71828174591064453125F
-#define RHOF	1.57079637050628662109375F
 #define PIF		3.1415927410125732421875F
 #define TAUF	6.283185482025146484375F
 
 #define E		2.71828182845904509079559829842764884233474731445312
-#define RHO		1.5707963267948965579989817342720925807952880859375
 #define PI		3.141592653589793115997963468544185161590576171875
 #define TAU		6.28318530717958623199592693708837032318115234375
 
@@ -42,8 +40,8 @@
 
 C_DECL_BEGIN
 /* Factorial */
-extern U32	fcu	(U8		x);			/* (U32) Factorial 			*/
-extern U64	fcq	(U8		x);			/* (U64) Factorial 			*/
+extern U32	fcu	(I8		x);			/* (U32) Factorial 			*/
+extern U64	fcq	(I8		x);			/* (U32) Factorial 			*/
 
 /* Division */
 extern F32	qtf	(F32	x, F32 y);	/* (F32) Quotient			*/

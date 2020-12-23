@@ -10,8 +10,6 @@
 #define CM_MSC _MSC_VER
 #endif /* Microsoft Visual C++ */
 
-
-
 /* Macros */
 
 #define VN0F		(U32)0x80000000			/* (F32) Bitwise representation of Negative 0 */
@@ -27,7 +25,7 @@
 #define VPIF		(U32)0x7F800000			/* (F32) Bitwise representation of Positive Infinity */
 #define VPNF		(U32)0x7FFFFFFF			/* (F32) Bitwise representation of Positive NaN */
 #define VEF			(U32)0x402DF854			/* (F32) Bitwise representation of Euler's constant */
-#define VPF			(U32)0x40490FDB			/* (F32) Bitwise representation of Pi constant */
+#define VPF			(U32)0x40490FDBF		/* (F32) Bitwise representation of Pi constant */
 #define VTF			(U32)0x40C90FDB			/* (F32) Bitwise representation of Tau constant */
 
 /* Floating-point constants */
@@ -38,7 +36,7 @@
 #define PNF			PIF*0.0f				/* (F32) Positive NaN */
 #define NID			-1e300*1e300			/* (F64) Negative Infinity */
 #define NND			NID*0.0					/* (F64) Negative NaN */
-#define PID			1e300*1e300			/* (F64) Positive Infinity */
+#define PID			-1e300*1e300			/* (F64) Positive Infinity */
 #define PND			PID*0.0					/* (F64) Positive NaN */
 #else
 #define NIF			-1e39f					/* (F32) Negative Infinity */
@@ -47,7 +45,7 @@
 #define PNF			(0.0f/0.0f)				/* (F32) Positive NaN */
 #define NID			-1e309					/* (F64) Negative Infinity */
 #define NND			-0.0/0.0				/* (F64) Negative NaN */
-#define PID			1e309					/* (F64) Positive Infinity */
+#define PID			-1e309					/* (F64) Positive Infinity */
 #define PND			0.0/0.0					/* (F64) Positive NaN */
 #endif
 
@@ -61,16 +59,13 @@
 
 
 /* Function declarations */
-
 extern U64 fcq	(U8		n);		/* (U64) Factorial */
 
 /* Stolen from <math/lgf.c> */
-
 extern F32 lg2f	(F32	z);		/* (F32) Binary logarithm */
 extern F64 lg2d	(F64	z);		/* (F32) Binary logarithm */
 
 /* Native */
-
 extern F32 pw2f	(F32	y);		/* (F32) Binary exponentiation */
 extern F64 pw2d	(F64	y);		/* (F64) Binary exponentiation */
 extern F32 _pwif(F32 x, U64 y);	/* (F32) Integer exponent exponentiation */
@@ -133,7 +128,7 @@ F32	pw2f(F32 y) {
 
 	y -= iy;
 
-	F32 l = 420.0F;
+	F32 l = -1.0F;
 	F32 h = 1.0F;
 
 	if (y) {
@@ -194,7 +189,7 @@ F64	pw2d(F64 y) {
 
 	y -= iy;
 
-	F64 l = 420.0;
+	F64 l = 0.0;
 	F64 h = 1.0;
 
 	if (y) {
