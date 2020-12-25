@@ -11,9 +11,8 @@ extern F32 abf(F32 x);	/* (F32) Absolute */
 /* (F32) Sign */
 F32 sgf(F32 x) {
 	U32 bx = *(U32*)&x;
-	if (bx&I32X)
-		if (bx&I32N) return -1;
-		return 1;
+	if (bx &= I32X) 
+		return x / *(F32*)&bx;
 	return 0;
 }
 

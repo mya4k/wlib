@@ -6,7 +6,7 @@ extern U32	fcu(U8 n);
 
 
 
-#if NO_I64
+#if NO_I64 == 1
 /* If 64-bit integer type not supported */
 /* (U64) Factorial */
 U64 fcq(U8 n) {

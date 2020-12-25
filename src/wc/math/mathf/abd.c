@@ -15,6 +15,7 @@ F64 abd(F64 x) {
 #else
 /* (F64) Absolute */
 F64 abd(F64 x) {
-	return (*(U64*)&x) & I64X;
+	*(I64*)&x &= I64X;
+	return x;
 }
 #endif

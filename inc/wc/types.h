@@ -5,6 +5,10 @@
 #include <wl/DATA/DAMO.h>
 #include <wl/DATA/LANG.h>
 
+#if !defined(DATA_MODEL)
+#define DATA_MODEL DM_NULL
+#endif
+
 #if		defined(LG_C)	/* Follows ISO C standard */
 
 #if LG_C >= VR_C99
@@ -170,7 +174,7 @@ typedef char				bl, BL;
 /* Long long integer type */
 #if		DEF_LONG_LONG == 1
 
-#if		DATA_MODEL < DM_LP64
+#if		(DATA_MODEL == DM_LP32) || (DATA_MODEL == DM_ILP32)
 #define NO_I64 0
 typedef long long			i64, I64;
 typedef unsigned long long	u64, U64;
@@ -178,10 +182,9 @@ typedef unsigned long long	u64, U64;
 
 #else	/* Long long integer type */
 
-#if		DATA_MODEL < DM_LP64
-#define NO_I64 1
-typedef long				i64, I64;
-typedef unsigned long		u64, U64;
+#if		(DATA_MODEL == DM_LLP64)
+typedef long long			i64, I64;
+typedef unsigned long long	u64, U64;
 #endif
 
 #endif	/* Long long integer type */

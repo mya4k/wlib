@@ -7,7 +7,8 @@
 #ifndef FLT_NOPTR
 /* (F32) Absolute */
 F32 abf(F32 x) {
-	return (*(I32*)&x & I32X;
+	*(I32*)&x &= I32X;
+	return x;
 }
 
 /* If use of pointers of floating-point addresses is forbidden */

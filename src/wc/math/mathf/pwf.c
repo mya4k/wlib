@@ -38,7 +38,7 @@
 #define PNF			PIF*0.0f				/* (F32) Positive NaN */
 #define NID			-1e300*1e300			/* (F64) Negative Infinity */
 #define NND			NID*0.0					/* (F64) Negative NaN */
-#define PID			1e300*1e300			/* (F64) Positive Infinity */
+#define PID			1e300*1e300				/* (F64) Positive Infinity */
 #define PND			PID*0.0					/* (F64) Positive NaN */
 #else
 #define NIF			-1e39f					/* (F32) Negative Infinity */
@@ -62,34 +62,15 @@
 
 /* Function declarations */
 
-extern U64 fcq	(U8		n);		/* (U64) Factorial */
-
-/* Stolen from <math/lgf.c> */
-
-extern F32 lg2f	(F32	z);		/* (F32) Binary logarithm */
-extern F64 lg2d	(F64	z);		/* (F32) Binary logarithm */
-
-/* Native */
-
-extern F32 pw2f	(F32	y);		/* (F32) Binary exponentiation */
-extern F64 pw2d	(F64	y);		/* (F64) Binary exponentiation */
-extern F32 _pwif(F32 x, U64 y);	/* (F32) Integer exponent exponentiation */
-extern F64 _pwid(F64 x, U64 y);	/* (F64) Integer exponent exponentiation */
+extern U64 fcq	(U8		n);			/*	(U64) Factorial							*/
+extern F32 lg2f	(F32	z);			/* (F32) Binary logarithm					*/
+extern F64 lg2d	(F64	z);			/* (F32) Binary logarithm					*/
+extern F32 pw2f	(F32	y);			/* (F32) Binary exponentiation				*/
+extern F64 pw2d	(F64	y);			/* (F64) Binary exponentiation				*/
+extern F32 _pwif(F32	x, U64 y);	/* (F32) Integer exponent exponentiation	*/
+extern F64 _pwid(F64	x, U64 y);	/* (F64) Integer exponent exponentiation	*/
 
 
-
-/* (F32) Integer exponent power functions */
-F32 _pwif(F32 x, U64 y) {
-	F32 r = 1.0F;
-	
-	while (y > 1.0F) {
-		if (y&1) r *= x;
-		x *= x;
-		y >>= 1;
-	}
-
-	return r * x;
-}
 
 /* Static functions */
 static F32 _pwf(F32 x, F32 y) {
@@ -120,34 +101,6 @@ static F32 _pwf(F32 x, F32 y) {
 	else return _pwif(x, y);
 }
 
-/* (F32) 2^y */
-F32	pw2f(F32 y) {
-	const U64 iy = (U64)y;
-	F32 r = 0;
-
-	if (iy==0)	r = 1.0F;
-	else if (iy==1)	r = 2.0F;
-	else if (iy==2)	r = 4.0F;
-	else if (iy==3)	r = 8.0F;
-	else			r = _pwif(2.0F, iy);
-
-	y -= iy;
-
-	F32 l = 420.0F;
-	F32 h = 1.0F;
-
-	if (y) {
-		y *= LN2F;
-
-		for (U8 n = 1; l != h; n++) {
-			l = h;
-			h += _pwif(y,n) / fcq(n);
-		}
-		return r * h;
-	}
-	else return r;
-}
-
 
 /* (F32) Power */
 F32	pwf(F32 x, F32 y) {
@@ -167,47 +120,6 @@ F32	pwf(F32 x, F32 y) {
 }
 
 
-
-/* (F64) Integer exponent power functions */
-F64 _pwid(F64 x, U64 y) {
-	F64 r = 1.0;
-
-	while (y > 1.0) {
-		if (y & 1) r *= x;
-		x *= x;
-		y >>= 1;
-	}
-
-	return r * x;
-}
-
-/* (F64) 2^y */
-F64	pw2d(F64 y) {
-	const U64 iy = (U64)y;
-	F64 r = 0;
-
-	if (iy==0)		r = 1.0;
-	else if (iy==1)	r = 2.0;
-	else if (iy==2)	r = 4.0;
-	else if (iy==3)	r = 8.0;
-	else			r = _pwid(2.0, iy);
-
-	y -= iy;
-
-	F64 l = 420.0;
-	F64 h = 1.0;
-
-	if (y) {
-		y *= LN2;
-
-		for (U8 n = 1; l != h; n++) {
-			l = h;
-			h += _pwid(y,n) / fcq(n);
-		}
-		return r * h;
-	}
-	else return r;
-}
 
 #if NO_I64
 
