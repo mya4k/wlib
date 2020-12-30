@@ -20,8 +20,6 @@
 
 
 /* Aliases */
-#define fc		fcu
-#define fcl		fcq
 #define div		qtd
 #define mod		rmd
 #define log		lgd
@@ -41,10 +39,10 @@
 
 C_DECL_BEGIN
 /* Division */
-extern F32	qtf	(F32	x, F32 y);	/* (F32) Quotient			*/
-extern F64	qtd	(F64	x, F64 y);	/* (F64) Quotient			*/
-extern F32	rmf	(F32	x, F32 y);	/* (F32) Remainder			*/
-extern F64	rmd	(F64	x, F64 y);	/* (F64) Remainder			*/
+extern F32	qtf	(F32	x, F32 y);	/* (F32) Quotient [x div y]		*/
+extern F64	qtd	(F64	x, F64 y);	/* (F64) Quotient [x div y]		*/
+extern F32	rmf	(F32	x, F32 y);	/* (F32) Remainder [x mod y]	*/
+extern F64	rmd	(F64	x, F64 y);	/* (F64) Remainder [x mod y]	*/
 
 /* Exponential Functions */
 extern F32	lg2f(F32	z);			/* (F32) Binary Logarithm	*/
