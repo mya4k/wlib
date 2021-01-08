@@ -19,5 +19,5 @@ U8 lg2q(U64 z) {
 		}
 	}
 	/* If z == 0, error */
-	else return U64X;
+	return U8X;
 }

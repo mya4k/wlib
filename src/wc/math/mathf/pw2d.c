@@ -3,6 +3,11 @@
 
 
 
+/* Macros */
+#define LN2			0.69314718055994528622676398299518041312694549560546875
+
+
+
 /* Declarations */
 extern U64 fcq	(U8		x);
 extern F64 _pwid(F64	x, I64 y);
@@ -14,11 +19,13 @@ F64	pw2d(F64 y) {
 	const U64 iy = (U64)y;
 	F64 r = 0;
 
-	if (iy == 0)		r = 1.0;
-	else if (iy == 1)	r = 2.0;
-	else if (iy == 2)	r = 4.0;
-	else if (iy == 3)	r = 8.0;
-	else			r = _pwid(2.0, iy);
+	switch (iy) {
+	case 0:		r = 1.0; break;
+	case 1:		r = 2.0; break;
+	case 2:		r = 4.0; break;
+	case 3:		r = 8.0; break;
+	default:	r = _pwid(2.0, iy); break;
+	}
 
 	y -= iy;
 

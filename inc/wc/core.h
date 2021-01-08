@@ -3,6 +3,7 @@
 
 #include <wl/DATA/STND.h>
 #include <wl/DATA/LANG.h>
+#include <wc/types.h>
 
 
 /* C and C++ compatibility*/
@@ -17,12 +18,12 @@
 #endif
 
 /* pre-C89 and post-C89 compatibility */
-#if LG_C <= VR_C89
-#undef	return_void
-#define return_void return '\000';
-#else
+#if DEF_VOID == 1
 #undef	return_void
 #define return_void
+#else
+#undef	return_void
+#define return_void return '\000';
 #endif
 
 #endif

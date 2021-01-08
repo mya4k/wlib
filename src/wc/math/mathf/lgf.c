@@ -32,7 +32,7 @@
 
 
 /* Declarations */
-extern F32 abf	(F32 x);		/* (F64) Absolute */
+extern F32 lg2f	(F32 z);		/* (F64) Binary Logarithm */
 extern F32 _pwif(F32 x, U64 y);	/* (F32) Integer exponent exponentiation */
 
 

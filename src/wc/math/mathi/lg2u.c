@@ -19,5 +19,5 @@ U8 lg2u(U32 z) {
 		}
 	}
 	/* If z == 0, error */ 
-	else return U32X;
+	return U8X;
 }

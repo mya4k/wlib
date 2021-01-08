@@ -28,8 +28,7 @@
 
 
 /* Declarations */
-/* Stolen from <math/pw.c>*/
-extern F64 _pwid(F64 x, U64 y);	/* (F64) Integer exponent exponentiation */
+extern F32 _pwif(F32 x, U32 y);	/* (F64) Integer exponent exponentiation */
 
 
 

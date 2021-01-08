@@ -3,9 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${default}",
-                "${workspaceFolder}/inc/**",
-                "${workspaceFolder}/inc"
+                "${default}"
             ],
             "defines": [
                 "_DEBUG",
@@ -15,8 +13,13 @@
             "windowsSdkVersion": "10.0.18362.0",
             "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.25.28610/bin/Hostx64/x64/cl.exe",
             "intelliSenseMode": "msvc-x64",
-            "cStandard": "c18",
-            "cppStandard": "c++20"
+            "compilerArgs": [
+                "-I D:/wlib/inc",
+                "-stdc=c2x",
+                "-Wall",
+                "-Wpedantic",
+                "-Wextra"
+            ]
         }
     ],
     "version": 4

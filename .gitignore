@@ -1,7 +1,9 @@
 # Visual Studio Folders and Files
 .vs/
 .vscode/
-out/
+bat/
+obj/
+lib/
 wlib-test/
 x64/
 wlib-test.*

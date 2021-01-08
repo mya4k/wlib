@@ -22,18 +22,21 @@
 
 
 /* Declarations */
-extern F64 abd	(F64 x);		/* (F64) Absolute */
-/* Stolen from <math/pw.c>*/
+extern F64 lg2d	(F64 z);		/* (F64) Binary Logarithm */
 extern F64 _pwid(F64 x, U64 y);	/* (F64) Integer exponent exponentiation */
 
 
 
 #if NO_I64
 /* Macros */
-
 #define _E			2.71828182845904509079559829842764884233474731445312
 #define _PI			3.141592653589793115997963468544185161590576171875
 #define _TAU		6.28318530717958623199592693708837032318115234375
+
+
+
+/* Declarations */
+extern F64 abd(F64 x);		/* (F64) Absolute */
 
 
 

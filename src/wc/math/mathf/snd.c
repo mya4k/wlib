@@ -81,7 +81,7 @@ F64 snd(F64 x) {
 		a = -1;
 	}
 	if (bx>=VPID)	return 0.0;
-	if (bx>VPD)		x = rmf(x-_PI, TAU) - _PI;
+	if (bx>VPD)		x = rmd(x-_PI, TAU) - _PI;
 
 	U64 q = x / HPI;
 
