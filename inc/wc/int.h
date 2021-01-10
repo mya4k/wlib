@@ -1,4 +1,7 @@
-/* <int.h> Functions for  */
+#ifndef WC_INT_H
+#define WC_INT_H
+
+
 
 #include <wc/core.h>
 #include <wc/types.h>
@@ -36,3 +39,7 @@ extern VO	dsq(U64*	x, U32 n, U8 i);	/* (U64) Set digit (*number, base, #digit) *
 extern VO	dsi(I32*	x, U16 n, U8 i);	/* (I32) Set digit (*number, base, #digit) */
 extern VO	dsl(I64*	x, U32 n, U8 i);	/* (I64) Set digit (*number, base, #digit) */
 C_DECL_END
+
+
+
+#endif

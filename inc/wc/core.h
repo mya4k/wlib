@@ -5,7 +5,6 @@
 #include <wl/DATA/LANG.h>
 #include <wc/types.h>
 
-
 /* C and C++ compatibility*/
 #if defined(ST_ISO_CPP)
 #undef	C_DECL_BEGIN
