@@ -1,5 +1,4 @@
-#include <wl/DATA/CONF.h>
-#include <wc/types.h>
+#include <wc/core.h>
 
 
 

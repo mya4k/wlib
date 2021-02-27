@@ -7,12 +7,6 @@
 #include <wc/core.h>	/* Compatibility */
 #include <wc/types.h>	/* Numeric types */
 
-
-
-#define factorial	fcu
-
-
-
 /* Declaration */
 C_DECL_BEGIN
 /* Absolute */

@@ -1,8 +1,9 @@
 #ifndef WC_CORE_H
 #define WC_CORE_H
 
-#include <wl/DATA/STND.h>
-#include <wl/DATA/LANG.h>
+#include <sys/conf.h>
+#include <sys/stnd.h>
+#include <sys/lang.h>
 #include <wc/types.h>
 
 /* C and C++ compatibility*/

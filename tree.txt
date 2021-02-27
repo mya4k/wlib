@@ -1,0 +1,6 @@
+inc
+├── math
+│   ├── mathi.h
+│   └── mathf.h
+├── math.h
+└── types.h

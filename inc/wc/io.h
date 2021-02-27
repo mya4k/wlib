@@ -10,7 +10,8 @@
 #define rd read			/* Reads from file */
 #define wr write		/* Write into file */
 
-typedef long int ssize_t;
+typedef unsigned int    size_t;
+typedef long int        ssize_t;
 
 /* System calls */
 extern int		close	(int fd);

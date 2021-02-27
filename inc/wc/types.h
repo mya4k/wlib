@@ -2,8 +2,8 @@
 #define WC_TYPES_H
 
 /* Include data model information*/
-#include <wl/DATA/DAMO.h>
-#include <wl/DATA/LANG.h>
+#include <sys/damo.h>
+#include <sys/lang.h>
 
 #if !defined(DATA_MODEL)
 #define DATA_MODEL DM_NULL
