@@ -21,15 +21,15 @@
 /* Delete a file */
 #	define dl(path)				unlink(path)
 /* Open a file */
-#	define op(path, flags)		open(path, flag)
+#	define op(path, flags)		open(path, flags)
 /* Close a file */
-#	define cl(file)				close(file, flags)
+#	define cl(file)				close(file)
 /* Read a file */
 #	define rd(file, buf, size)	read(file, buf, size)
 /* Write a file */
 #	define wr(file, buf, size)	write(file, buf, size)
 /* Execute a file */
-#	define ex(file, args)		execve(file, args)
+#	define ex(file, args)		execve(file, args, 0)
 #else
 #	error Not Implimented Yet
 #endif

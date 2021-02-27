@@ -1,9 +1,5 @@
 # Visual Studio Folders and Files
 .vs/
 .vscode/
-bat/
-obj/
-lib/
-wlib-test/
-x64/
-wlib-test.*
+backup/
+test/
