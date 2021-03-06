@@ -1,22 +1,45 @@
+/************************
+ * Standard I/O library	*
+ * Wispy (c) 2021		*
+ ************************/
+
 #ifndef WC_IO_H
 #define WC_IO_H
 
-#define RD_FLAG	0		/* Read only flag */
-#define WR_FLAG	1		/* Write only flag */
-#define RW_FLAG	2		/* Read-Write flag */
-#define WR_FLAG	RW_FLAG	/* Read-Write flag */
-#define cl close		/* Closes file */
-#define op open			/* Opens file */
-#define rd read			/* Reads from file */
-#define wr write		/* Write into file */
+#include <wc/core.h>
+#include <wc/file.h>
+#include <wc/types.h>
 
-typedef unsigned int    size_t;
-typedef long int        ssize_t;
+C_DECL_BEGIN
 
-/* System calls */
-extern int		close	(int fd);
-extern int		open	(const char *pathname, int flags);
-extern ssize_t	read	(int fd, void *buf, size_t count);
-extern ssize_t	write	(int fd, const void *buf, size_t count);
+/* Stardard Input */
+VO	in	(char* ptr);
+
+/* String length */
+U32	sln	(char* str);
+
+C_DECL_END
+
+/* Write to a buffer from STDIN */
+#undef	_in
+#define	_in(buf, size)	fr(STDIN_FILENO, buf, size);
+
+/* Write from a buffer to STDOUT */
+#undef	_ou
+#define	_ou(buf, size)	fw(STDOUT_FILENO, buf, size)
+#undef	_out
+#define	_out			_ou
+
+/* Stardard Output */
+#undef	ou
+#define ou(buf)			_ou(buf, sln(buf))
+#undef	out
+#define out				ou
+
+/* Standard Output but it adds a newline character at the end */
+#undef	oul
+#define oul(buf)			ou(buf); _ou("\n", 1)
+#undef	outl
+#define outl				oul
 
 #endif

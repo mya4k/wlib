@@ -75,7 +75,7 @@ static F32 _pwf(F32 x, F32 y) {
 	/* If y = inf, x^y = inf */
 	if (vy==VPIF)	return PIF;
 	/* If y = nan, x^y = nan */
-	if (vy==VPNF)	return PNF;
+	if (vy > VPIF)	return PNF;
 	/* If x = 2, x^y = _pw2f(y) */
 	if (vx==VP2F)	return pw2f(y);
 	/* If y can't be represented by an integer */

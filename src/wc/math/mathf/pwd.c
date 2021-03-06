@@ -40,6 +40,7 @@
 /* Static functions */
 
 /* (F64) The main body of the power function */
+#undef _pwd
 static F64	_pwd(F64 x, F64 y) {
 	/* If x = 0, x^y = 0 */
 	if (x == 0.0)	return 0.0;
@@ -66,6 +67,7 @@ static F64	_pwd(F64 x, F64 y) {
 
 
 /* (F64) Power */
+#undef pwd
 F64	pwd(F64 x, F64 y) {
 	/* If y == 0... */
 	if (y == 0.0)	return 1.0;
@@ -110,10 +112,11 @@ extern F64 _pwid(F64	x, U64 y);	/* (F64) Integer exponent exponentiation	*/
 /* Static functions */
 
 /* (F64) The main body of the power function */
-static F64	_pwd(F64 x, U64 y) {
+#undef _pwd
+static F64	_pwd(F64 x, F64 y) {
 	/* Bitwise representation */
-	U64 vx = *(U64*)&x;
-	U64 vy = *(U64*)&y;
+	I64 vx = *(I64*)&x;
+	I64 vy = *(I64*)&y;
 
 	/* If x = 0, x^y = 0 */
 	if (vx == VP0D)	return 0.0;
@@ -141,12 +144,13 @@ static F64	_pwd(F64 x, U64 y) {
 
 
 /* (F64) Power */
+#undef pwd
 F64	pwd(F64 x, F64 y) {
 	/* If y != 0... */
-	if ((*(U32*)&x) & VPND) {
+	if ((*(U64*)&x) & VPND) {
 		/* If y < 0, x^y = -(x^y) */
-		if ((*(U32*)&y) & I32N) {
-			return 1.0F / _pwd(x, -y);
+		if ((*(U64*)&y) & I64N) {
+			return 1.0 / _pwd(x, -y);
 		}
 		/* If y > 0... */
 		else {
@@ -154,7 +158,7 @@ F64	pwd(F64 x, F64 y) {
 		}
 	}
 	/* If y == 0, x^y = 0 */
-	else return 1.0F;
+	else return 1.0;
 }
 
 #endif

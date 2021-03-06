@@ -6,7 +6,6 @@
 #ifndef WC_FILE
 #define WC_FILE
 
-#include <wc/types.h>
 #include <sys/osys.h>
 
 /* If Linux system calls are avaliable and allowed, rely on them */
@@ -18,18 +17,25 @@
 
 /* Create a file */
 #	define cr(path)				creat(path, O_CREAT)
+#	define fC					cr
 /* Delete a file */
 #	define dl(path)				unlink(path)
+#	define fd					dl
 /* Open a file */
 #	define op(path, flags)		open(path, flags)
+#	define fo					op
 /* Close a file */
 #	define cl(file)				close(file)
+#	define fc					cl
 /* Read a file */
 #	define rd(file, buf, size)	read(file, buf, size)
+#	define fr					rd
 /* Write a file */
 #	define wr(file, buf, size)	write(file, buf, size)
+#	define fw					wr
 /* Execute a file */
 #	define ex(file, args)		execve(file, args, 0)
+#	define fx					ex
 #else
 #	error Not Implimented Yet
 #endif
