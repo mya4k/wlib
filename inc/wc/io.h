@@ -11,10 +11,6 @@
 #include <wc/types.h>
 #include <wc/types/char.h>
 
-C_DECL_BEGIN
-
-C_DECL_END
-
 /* Write to a buffer from STDIN */
 #undef	_in
 #define	_in(buf, size)	fr(STDIN_FILENO, buf, size)
