@@ -115,8 +115,8 @@ extern F64 _pwid(F64	x, U64 y);	/* (F64) Integer exponent exponentiation	*/
 #undef _pwd
 static F64	_pwd(F64 x, F64 y) {
 	/* Bitwise representation */
-	I64 vx = *(I64*)&x;
-	I64 vy = *(I64*)&y;
+	U64 vx = *(U64*)&x;
+	U64 vy = *(U64*)&y;
 
 	/* If x = 0, x^y = 0 */
 	if (vx == VP0D)	return 0.0;

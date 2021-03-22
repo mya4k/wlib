@@ -58,8 +58,8 @@ extern F32 _pwif(F32	x, U64 y);	/* (F32) Integer exponent exponentiation	*/
 /* Static functions */
 static F32 _pwf(F32 x, F32 y) {
 	/* Bitwise representation */
-	I32 vx = *(I32*)&x;
-	I32 vy = *(I32*)&y;
+	U32 vx = *(U32*)&x;
+	U32 vy = *(U32*)&y;
 
 	/* If x = 0, x^y = 0 */
 	if (vx==VP0F)	return 0.0F;
