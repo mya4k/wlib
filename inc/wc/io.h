@@ -9,38 +9,19 @@
 #include <wc/core.h>
 #include <wc/file.h>
 #include <wc/types.h>
+#include <wc/types/char.h>
 
 C_DECL_BEGIN
-
-/* String length
- * Arguments:
- * char*	str	String
- * 
- * Description:
- * Calculates the length of a given null-terminated string in characters, 
- * including the NUL character
- * 
- * Method:
- * Let "i" represent the length of the string. Check every character whether 
- * it's NUL, if it's not NUL then "i" increases by 1, otherwise function 
- * returns the value of "i".
- */
-static U32 sln(char* str) {
-	U32 i = 1;
-	
-	while (str[i]) i++;
-
-	return i;
-}
-
-/* Stardard Input */
-VO	in	(char* ptr);
 
 C_DECL_END
 
 /* Write to a buffer from STDIN */
 #undef	_in
 #define	_in(buf, size)	fr(STDIN_FILENO, buf, size)
+
+/* Stardard Input */
+#undef	in
+#define	in(buf)			_in(buf, sln(buf))
 
 /* Write from a buffer to STDOUT */
 #undef	_ou
