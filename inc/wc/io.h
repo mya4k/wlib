@@ -22,7 +22,7 @@ C_DECL_END
 
 /* Write to a buffer from STDIN */
 #undef	_in
-#define	_in(buf, size)	fr(STDIN_FILENO, buf, size);
+#define	_in(buf, size)	fr(STDIN_FILENO, buf, size)
 
 /* Write from a buffer to STDOUT */
 #undef	_ou

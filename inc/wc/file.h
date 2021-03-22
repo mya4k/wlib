@@ -6,7 +6,7 @@
 #ifndef WC_FILE
 #define WC_FILE
 
-#include <sys/osys.h>
+#include <wc/sys/osys.h>
 
 /* If Linux system calls are avaliable and allowed, rely on them */
 #if defined(OS_LINUX) && !defined(NO_LINUX)
@@ -15,7 +15,9 @@
 #	include <sys/stat.h>
 #	include <unistd.h>
 
-/* Create a file */
+/*	Create a file
+ *	path -- path/name of the file
+ */
 #	define cr(path)				creat(path, O_CREAT)
 #	define fC					cr
 /* Delete a file */

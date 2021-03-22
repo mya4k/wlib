@@ -3,7 +3,7 @@
  * Wispy (c) 2021	*
  ********************/
 
-#include <io.h>		/* For _in */
+#include <wc/io.h>	/* For _in */
 
 #define _SIZE 64	/* Segment size */
 

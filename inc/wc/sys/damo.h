@@ -1,9 +1,9 @@
 #ifndef DAMO_H
 #define DAMO_H
 
-#include <sys/arch.h>
-#include <sys/comp.h>
-#include <sys/osys.h>
+#include <wc/sys/arch.h>
+#include <wc/sys/comp.h>
+#include <wc/sys/osys.h>
 
 /* Data model "NULL" assumes that
 	* char		is 8-bit
