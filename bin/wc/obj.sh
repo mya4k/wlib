@@ -1,0 +1,1 @@
+gcc -c src/wc/$1 -o obj/wc/${1//.c/.o} -I inc/
