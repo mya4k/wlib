@@ -4,6 +4,7 @@
  ****************************/
 
 #ifndef WC_CHAR_H
+#define WC_CHAR_H
 
 #include <wc/core.h>
 #include <wc/types.h>
@@ -106,10 +107,6 @@ BL iwc(char a);	/* Is Whitespace Character	*/
  * returns the value of "i".
  */
 U32 sln(char* str);
-
-
-
-
 
 C_DECL_END
 
