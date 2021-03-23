@@ -11,19 +11,11 @@
 #include <wc/types.h>
 #include <wc/types/char.h>
 
-/* Island */
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-int fstat(int fd, struct stat *buf);
-static struct stat _stat;
-/* Island */
-
 /* Write to a buffer from STDIN */
 #undef	_in
 #define	_in(buf, size)	fr(STDIN_FILENO, buf, size)
 
-VO in(const char* buf);
+VO in(/*const*/ char* buf);
 
 /* Write from a buffer to STDOUT */
 #undef	_ou

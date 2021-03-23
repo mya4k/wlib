@@ -1,4 +1,5 @@
 #include <wc/types.h>
+#include <wc/io.h>
 
 /*	Get one character from STDIN
 	(It's a macro purely for readility's sake)*/
@@ -6,9 +7,9 @@
 #define GET(addr)	_in(&c, 1)
 
 /* Stardard Input */
-VO in(const char* buf) {
-	register char c;	/* The received character */
-	register char* p = buf-1;
+VO in(/*const*/ char* buf) {
+	/*register*/ char c;	/* The received character */
+	register char* p = buf;
 
 
 
