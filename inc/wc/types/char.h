@@ -93,7 +93,8 @@ BL iwc(char a);	/* Is Whitespace Character	*/
 
 
 /*--- Essential Functions -------------------------------*/
-/* String length
+
+/* [String length]
  * Arguments:
  * char*	str	-- String
  * 
@@ -107,6 +108,8 @@ BL iwc(char a);	/* Is Whitespace Character	*/
  * returns the value of "i".
  */
 U32 sln(char* str);
+
+
 
 C_DECL_END
 
