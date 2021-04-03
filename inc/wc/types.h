@@ -95,25 +95,42 @@ typedef long				i32,	I32;
 typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned long		u32,	U32;
+typedef U32					_Ptr;			/* Pointer type (experimental)	*/
 
 #define CHB	8
 #define SHB	16
 #define INB	16
 #define LOB 32
+#define PTB	32								/* Pointer size (experimental) */
 
-#elif	(DATA_MODEL == DM_ILP32) && \
-		(DATA_MODEL == DM_LLP64)
+#elif	DATA_MODEL == DM_ILP32
 typedef char				i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
 typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
+typedef U32					_Ptr;			/* Pointer type (experimental)	*/
 
 #define CHB	8
 #define SHB	16
 #define INB	32
 #define LOB 32
+#define PTB	32								/* Pointer size (experimental) */
+
+#elif	DATA_MODEL == DM_LLP64
+typedef char				i8,		I8;
+typedef short				i16,	I16;
+typedef int					i32,	I32;
+typedef unsigned char		u8,		U8;
+typedef unsigned short		u16,	U16;
+typedef unsigned int		u32,	U32;
+typedef U64					_Ptr;			/* Pointer type (experimental) */
+
+#define CHB	8
+#define SHB	16
+#define INB	32
+#define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_LP64
 typedef char				i8,		I8;
@@ -124,11 +141,13 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef unsigned long		u64,	U64;
+typedef U64					_Ptr;			/* Pointer type (experimental) */
 
 #define CHB	8
 #define SHB	16
 #define INB	32
 #define LOB 64
+#define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_ILP64
 typedef char				i8,		I8;
@@ -139,11 +158,13 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef unsigned int		u64,	U64;
+typedef U64					_Ptr;			/* Pointer type (experimental) */
 
 #define CHB	8
 #define SHB	16
 #define INB	64
 #define LOB 64
+#define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_SILP64
 typedef char				i8,		I8;
@@ -154,11 +175,13 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned short		u32,	U32;
 typedef unsigned short		u64,	U64;
+typedef U64					_Ptr;			/* Pointer type (experimental) */
 
 #define CHB	8
 #define SHB	64
 #define INB	64
 #define LOB 64
+#define PTB	64								/* Pointer size (experimental) */
 
 #else
 typedef char				i8,		I8;
@@ -169,11 +192,13 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef unsigned long		u64,	U64;
+typedef U64					_Ptr;			/* Pointer type (experimental) */
 
 #define CHB	8
 #define SHB	16
 #define INB	32
 #define LOB 64
+#define PTB	64								/* Pointer size (experimental) */
 
 #endif
 

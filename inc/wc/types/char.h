@@ -81,14 +81,14 @@
 
 C_DECL_BEGIN
 /*--- Boolean Functions ---------------------------------*/
-BL iLc(char a);	/* Is Lowercase Character	*/
-BL iUc(char a);	/* Is Uppercase Character	*/
-BL iac(char a);	/* Is Alphanumeric Character*/
-BL icc(char a);	/* Is Contol Character		*/
-BL idc(char a);	/* Is Digit Character		*/
-BL ilc(char a);	/* Is Letter Character		*/
-BL isc(char a);	/* Is Symbol Character		*/
-BL iwc(char a);	/* Is Whitespace Character	*/
+BL iL(char a);	/* Is Lowercase Character	*/
+BL iU(char a);	/* Is Uppercase Character	*/
+BL ia(char a);	/* Is Alphanumeric Character*/
+BL ic(char a);	/* Is Contol Character		*/
+BL id(char a);	/* Is Digit Character		*/
+BL il(char a);	/* Is Letter Character		*/
+BL is(char a);	/* Is Symbol Character		*/
+BL iw(char a);	/* Is Whitespace Character	*/
 
 
 
@@ -107,7 +107,7 @@ BL iwc(char a);	/* Is Whitespace Character	*/
  * it's NUL, if it's not NUL then "i" increases by 1, otherwise function 
  * returns the value of "i".
  */
-U32 sln(char* str);
+U32 sl(char* str);
 
 
 
