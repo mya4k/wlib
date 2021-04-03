@@ -372,11 +372,19 @@ ADECL2(anx);
  *			instances of array B as the size of array A can handle.
  *	\return	The array A
  *	Method:
- *		-# If 
+ *		-#	If /e a = NULL, then the array of size /e sa will be allocated
+ *		-#	If /e b = NULL and /e sb = 0, then array will be filled with zeros
+ *		-#	If /e sb = 0, the function does nothing and returns NULL
+ *		-#	Declares a variable /e i, this is be the pointer offset
+ *		-#	Assignes array /e b to array /e a offsetted by /e i, and incriments
+ *			/e i by /e sb. This step is repeated until less than sb bytes are
+ *			left untreated
+ *		-#	Assignes the remaining part of array /e a with whatever piece of 
+ *			array /e b fits
  */
 VO* afl(register	const	U16	sa, 
 		register			VO*	a, 
-		register	const	U8	sb, 
+		register			U8	sb, 
 		register	const	VO*	b	);
 
 C_DECL_END
