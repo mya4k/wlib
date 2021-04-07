@@ -107,9 +107,12 @@ BL iw(char a);	/* Is Whitespace Character	*/
  * it's NUL, if it's not NUL then "i" increases by 1, otherwise function 
  * returns the value of "i".
  */
-U32 sl(char* str);
+U16 sl(const char* str);
 
-
+ch* u2s(const U32	x);
+ch* q2s(const U64	x);
+ch* i2s(const I32	x);
+ch* l2s(const I64	x);
 
 C_DECL_END
 
