@@ -20,7 +20,7 @@ ch* uS(const U32 x, const U8 flags) {
 	/* GCC complains, so here's an extra declaration */
 	const U8 l;
 				   
-	ch* r = ma(0, (l-1)/3 + l + 1);
+	ch* r = mal(0, (l-1)/3 + l + 1);
 
 	;
 }

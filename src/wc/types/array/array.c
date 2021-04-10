@@ -1,6 +1,6 @@
 #include <wc/types/array.h>
 
-/**	\fn		Array Assignment
+/**	\fn		ADEF1(aas, NO)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -9,7 +9,7 @@
  */
 ADEF1(aas, NO);
 
-/**	\fn		Array NOT-gate
+/**	\fn		ADEF1(ant, NT)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -19,7 +19,7 @@ ADEF1(aas, NO);
  */
 ADEF1(ant, NT);
 
-/**	\fn		Array AND-gate
+/**	\fn		ADEF2(aan, AN)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -30,7 +30,7 @@ ADEF1(ant, NT);
  */
 ADEF2(aan, AN);
 
-/**	\fn		Array OR-gate
+/**	\fn		ADEF2(aor, OR)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -41,7 +41,7 @@ ADEF2(aan, AN);
  */
 ADEF2(aor, OR);
 
-/**	\fn		Array XOR-gate
+/**	\fn		ADEF2(axr, XR)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -52,7 +52,7 @@ ADEF2(aor, OR);
  */
 ADEF2(axr, XR);
 
-/**	\fn		Array NAND-gate
+/**	\fn		ADEF2(ann, NN)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -63,7 +63,7 @@ ADEF2(axr, XR);
  */
 ADEF2(ann, NN);
 
-/**	\fn		Array NOR-gate
+/**	\fn		ADEF2(anr, NR)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -74,7 +74,7 @@ ADEF2(ann, NN);
  */
 ADEF2(anr, NR);
 
-/**	\fn		Array NXOR-gate
+/**	\fn		ADEF2(anx, NX)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A

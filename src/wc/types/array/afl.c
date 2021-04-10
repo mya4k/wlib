@@ -1,7 +1,10 @@
 #include <wc/types.h>
 #include <wc/types/array.h>
 
-/**	\fn		Array Fill
+/**	\fn		VO* afl(register	const	U16	sa, 		\
+ *				register			VO*	a, 	\
+ *				register			U8	sb, 	\
+ *				register	const	VO*	b	)
  *	\param	sa	size of the array A in bytes
  *	\param	a	the array A
  *	\param	sb	size of the array B in bytes

@@ -16,7 +16,7 @@
  * it's NUL, if it's not NUL then "i" increases by 1, otherwise function 
  * returns the value of "i".
  */
-U16 sln(const char* str) {
+U16 sl(const char* str) {
 	register U16 i = 0;
 
 	while (str[i++]);

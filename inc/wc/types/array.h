@@ -49,21 +49,23 @@
 
 
 #undef	ADECL1
-/** \def	Declaration for unioperand functions
+/** 
+ * 	\def	Declaration for unioperand functions
  *	\param	NAME	Function name
  *	\brief	Most unioperand functions only require next 
  *			parameters
  *			- `s`	size of the operands in bytes
  *			- `r`	the array where the result is stored
  *			- `a`	the operand
-
+ *
  *			return type is `VO*`
  */
 #define ADECL1(NAME)	\
 	VO* NAME(const U16 s, register VO* r, register const VO* a)
 
 #undef	ADECL2
-/** \def	Declaration for bioperand functions
+/** 
+ * 	\def	Declaration for bioperand functions
  *	\param	NAME	Function name
  *	\brief	Most bioperand functions only require next 
  *			parameters
@@ -82,7 +84,8 @@
 
 #undef	ADEF1
 #if	NO_I64
-/** \def	Definition of unioperand logic array operation (32-bit)
+/** 
+ * 	\def	Definition of unioperand logic array operation (32-bit)
  *  \brief	Definition of unioperand logic array operation for systems where
  * 			a 64-bit type is not supported.
  *	\param	NAME	Function name
@@ -127,7 +130,8 @@
 		return r;												\
 	}
 #else
-/** \def	Definition of unioperand logic array operations (64-bit)
+/** 
+ * 	\def	Definition of unioperand logic array operations (64-bit)
  *  \brief	Definition of unioperand logic array operations for systems where
  * 			a 64-bit type is supported.
  *	\param	NAME	Function name
@@ -180,7 +184,8 @@
 
 #undef	ADEF2
 #if	NO_I64
-/** \def	Definition of bioperand logic array operations (32-bit)
+/** 
+ * 	\def	Definition of bioperand logic array operations (32-bit)
  *  \brief	Definition of bioperand logic array operations for systems where
  * 			a 64-bit type is not supported.
  *	\param	NAME	Function name
@@ -225,7 +230,8 @@
 		return r;												\
 	}
 #else
-/** \def	Definition of bioperand logic array operation (64-bit)
+/** 
+ * 	\def	Definition of bioperand logic array operation (64-bit)
  *  \brief	Definition of bioperand logic array operation for systems where
  * 			a 64-bit type is supported.
  *	\param	NAME	Function name
@@ -278,7 +284,8 @@
 
 C_DECL_BEGIN
 
-/**	\fn		Array Assignment
+/**	
+ * 	\fn		Array Assignment
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -287,28 +294,31 @@ C_DECL_BEGIN
  */
 ADECL1(aas);
 
-/**	\fn		Array NOT-gate
+/**	
+ * 	\fn		Array NOT-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
  *	\brief	Performes bitwise NOT to the operand A to `s` bytes and assignes
-			the result in array R
+ *			the result in array R
  *	\return	The array of object that have been inverted
  */
 ADECL1(ant);
 
-/**	\fn		Array AND-gate
+/**	
+ *	\fn		Array AND-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
-  *	\param	b	the operand B
+ *	\param	b	the operand B
  *	\brief	Performes bitwise AND to the operand A and B to `s` bytes and assignes
-			the result in array R
+ *			the result in array R
  *	\return	The array of object that have been conjuncted
  */
 ADECL2(aan);
 
-/**	\fn		Array OR-gate
+/**	
+ * 	\fn		Array OR-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -319,7 +329,8 @@ ADECL2(aan);
  */
 ADECL2(aor);
 
-/**	\fn		Array XOR-gate
+/**	
+ * 	\fn		Array XOR-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -330,7 +341,8 @@ ADECL2(aor);
  */
 ADECL2(axr);
 
-/**	\fn		Array NAND-gate
+/**	
+ * 	\fn		Array NAND-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -341,7 +353,8 @@ ADECL2(axr);
  */
 ADECL2(ann);
 
-/**	\fn		Array NOR-gate
+/**	
+ * 	\fn		Array NOR-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -352,7 +365,8 @@ ADECL2(ann);
  */
 ADECL2(anr);
 
-/**	\fn		Array NXOR-gate
+/**	
+ * 	\fn		Array NXOR-gate
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -363,7 +377,8 @@ ADECL2(anr);
  */
 ADECL2(anx);
 
-/**	\fn		Array Fill
+/**	
+ * 	\fn		Array Fill
  *	\param	sa	size of the array A in bytes
  *	\param	a	the array A
  *	\param	sb	size of the array B in bytes
