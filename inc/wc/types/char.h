@@ -1,7 +1,7 @@
-/****************************
- * Character type utilities	*
- * Wispy (c) 2021			*
- ****************************/
+/********************************
+ * Character type operations	*
+ * Wispy (c) 2021				*
+ ********************************/
 
 #ifndef WC_CHAR_H
 #define WC_CHAR_H
@@ -109,10 +109,10 @@ BL iw(char a);	/* Is Whitespace Character	*/
  */
 U16 sl(const char* str);
 
-ch* u2s(const U32	x);
-ch* q2s(const U64	x);
-ch* i2s(const I32	x);
-ch* l2s(const I64	x);
+char* uS(const U32	x, const U8 flags);
+char* qS(const U64	x, const U8 flags);
+char* iS(const I32	x, const U8 flags);
+char* lS(const I64	x, const U8 flags);
 
 C_DECL_END
 
