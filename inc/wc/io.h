@@ -25,7 +25,7 @@ VO in(/*const*/ char* buf);
 
 /* Stardard Output */
 #undef	ou
-#define ou(buf)			_ou(buf, sln(buf))
+#define ou(buf)			_ou(buf, sl(buf))
 #undef	out
 #define out				ou
 

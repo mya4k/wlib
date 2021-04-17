@@ -37,14 +37,9 @@
             "compilerArgs": [
                 "-Wall",
                 "-Wextra",
-                "-Wpedantic",
-                "-I ./inc ",
-                "-I ./inc/wc"
+                "-I inc ",
+                "-I inc/wc"
             ],
-            "intelliSenseModeIsExplicit": true,
-            "cStandardIsExplicit": true,
-            "cppStandardIsExplicit": true,
-            "compilerPathIsExplicit": true,
             "browse": {
                 "path": [
                     "${workspaceFolder}",

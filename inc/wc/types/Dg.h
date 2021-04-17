@@ -43,6 +43,4 @@ inline static char dc(Digit x) {
 	else return 'E';
 }
 
-inline 
-
 #endif

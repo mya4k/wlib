@@ -47,91 +47,91 @@ typedef U8 Dg, Digit;
 #define _dc(X)	(x+'0')
 
 /**
- * \fn		inline static char dC(Digit x)
+ * \fn		inline static char dC(const Digit x)
  * \brief	Digit to Char (with type-check)
  * \param	X	Digit
  * \return	char
  * Checks whether the value belongs to the range of values of Digit type.
  */
-inline static char dc(Digit x) {
+inline static char dc(const Digit x) {
 	if (dr(x)) return _dc(x);
 	else return 'E';
 }
 
 /**
- * @fn			U8 dcu(U32 x, U8 base);
+ * @fn			U8 dcu(const U32 x, const U8 base)
  * @brief 		Counts digits in base
  * @param x		The number
  * @param base 	The base
  * @return U8	
  */
-U8 dcu(U32 x, U8 base);
+U8 dcu(const U32 x, const U8 base);
 
 /**
- * @fn			U8 dcq(U64 x, U8 base);
+ * @fn			U8 dcq(const U64 x, const U8 base)
  * @brief 		Counts digits in base
  * @param x		The number
  * @param base 	The base
  * @return U8	
  */
-U8 dcq(U64 x, U8 base);
+U8 dcq(const U64 x, const U8 base);
 
 /**
- * @fn			U8 dci(U32 x, U8 base);
+ * @fn			U8 dci(const U32 x, const U8 base)
  * @brief 		Counts digits in base
  * @param x		The number
  * @param base 	The base
  * @return U8	
  */
-U8 dci(U32 x, U8 base);
+U8 dci(const U32 x, const U8 base);
 
 /**
- * @fn			U8 dcl(U64 x, U8 base);
+ * @fn			U8 dcl(const U64 x, const U8 base)
  * @brief 		Counts digits in base
  * @param x		The number
  * @param base 	The base
  * @return U8	
  */
-U8 dcl(U64 x, U8 base);
+U8 dcl(const U64 x, const U8 base);
 
 /**
- * @fn			Digit dgu(U32 x, U8 n, U8 base);
+ * @fn			Digit dgu(const U32 x, const U8 n, const U8 base)
  * @brief 		Get the nth digit
  * @param x		The number
  * @param n		The digit number
  * @param base 	The base
  * @return Digit	
  */
-Digit dgu(U32 x, U8 n, U8 base);
+Digit dgu(const U32 x, const U8 n, const U8 base);
 
 /**
- * @fn			Digit dgq(U64 x, U8 n, U8 base);
+ * @fn			Digit dgq(const U64 x, const U8 n, const U8 base)
  * @brief 		Get the nth digit
  * @param x		The number
  * @param n		The digit number
  * @param base 	The base
  * @return Digit	
  */
-Digit dgq(U64 x, U8 n, U8 base);
+Digit dgq(const U64 x, const U8 n, const U8 base);
 
 /**
- * @fn			Digit dgi(I32 x, U8 n, U8 base);
+ * @fn			Digit dgi(const I32 x, const U8 n, const U8 base)
  * @brief 		Get the nth digit
  * @param x		The number
  * @param n		The digit number
  * @param base 	The base
  * @return Digit	
  */
-Digit dgi(I32 x, U8 n, U8 base);
+Digit dgi(const I32 x, const U8 n, const U8 base);
 
 /**
- * @fn			Digit dgl(I64 x, U8 n, U8 base);
+ * @fn			Digit dgl(const I64 x, const U8 n, const U8 base)
  * @brief 		Get the nth digit
  * @param x		The number
  * @param n		The digit number
  * @param base 	The base
  * @return Digit	
  */
-Digit dgl(I64 x, U8 n, U8 base);
+Digit dgl(const I64 x, const U8 n, const U8 base);
 
 #endif
