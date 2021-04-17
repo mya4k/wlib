@@ -31,5 +31,5 @@ char dc(const Digit x, const U8 base) {
 	if (x == 95)	return DEL;
 	if (x <= 190)	return x-96+161;
 	if (x <= 223)	return x-191;
-	if (x >= 224)	return x-191+128;
+	else			return x-191+128;
 }

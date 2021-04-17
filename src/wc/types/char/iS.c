@@ -1,5 +1,6 @@
 #include <wc/types.h>
 #include <wc/types/int.h>
+#include <wc/math/mathi.h>
 #include <wc/memory.h>
 #include <stdio.h>
 
@@ -9,11 +10,12 @@
 #define S_HEX	0b11	/* Hexadecimal		*/
 #define S_COMMA	0b100	/* Comma delimeters	*/
 #define S_DOT	0b1000	/* Dot delimeters	*/
+#define S_PLUS	0b10000 /* Plus sign */
 
 /**
- * @fn		ch* uS(const U32 x, ch* str, const U8 flags)
- * @brief	U32 to ch*
- * @param	x		U32
+ * @fn		ch* iS(I32 x, ch* str, const U8 flags)
+ * @brief	I32 to ch*
+ * @param	x		I32
  * @param	str		string	(optional)
  * @param 	flags	flags	(optional)
  * @return	ch* 
@@ -31,8 +33,10 @@
  * 2) Delimeter (choose only one)
  * 	S_COMMA	A comma will separate every triplet of digits
  * 	S_DOT	A dot (period) will separate every triplet of digits
+ * 3) Other
+ * 	S_PLUS	Whether to add the plus sign to positive numbers or not
  */
-ch* uS(const U32 x, ch* str, const U8 flags) {
+ch* iS(I32 x, ch* str, const U8 flags) {
 	/* Base */
 	register U8 b;
 
@@ -44,9 +48,15 @@ ch* uS(const U32 x, ch* str, const U8 flags) {
 		default:	b = 10;	break;
 	}
 
-	register const U8 xs = dcu(x,b);								/**<Number digit count */
-	register const U8 rs = ((flags & 0b1100) ? (xs + xs/3) : xs);	/**<String length */
-	register const ch d = (flags & 0b100 ? '.' : (					/**<Delimeter */
+	/**<Number digit count */
+	register const U8 xs = dcu(x,b);
+	/**<`i` parameters limit */
+	register const I8 _li = ((x && flags & 0b10000) || x < 0 ? 1 : 0);
+	/**<String length */
+	register const U8 rs = 
+		(flags & 0b1100 ? xs + xs/3 : xs) + _li;
+	/**<Delimeter */
+	register const ch d = (flags & 0b100 ? '.' : (
 		flags & 0b1000 ? ',' : 0
 	));
 				   
@@ -56,10 +66,16 @@ ch* uS(const U32 x, ch* str, const U8 flags) {
 	/* Null */
 	str[rs] = 0;
 
+	/* Sign */
+	if (_li) str[0] = (x<0 ? '-' : '+');
+
+	/* The sign bit shall not be proccessed */
+	x = abi(x);
+
 	/* If delimiter is provided */
 	if (flags & 0b1100) {
 		for (	register I8 i = rs-1, j = 0; 
-				i >= 0 && j < xs; 
+				i >= _li && j < xs; 
 				i--							)
 			if (i%4 == 2) str[i] = d;
 			else {
