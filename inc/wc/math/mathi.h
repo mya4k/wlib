@@ -15,7 +15,6 @@ extern I32	abi(I32		x);			/* (I32) Absolute			*/
 extern I64	abl(I64		x);			/* (I64) Absolute			*/
 
 /* Factorial */
-#define fc		fcu					/* (U32) Factorial			*/
 #define fci		fcu					/* (U32) Factorial			*/
 #define fcl		fcq					/* (U64) Factorial			*/
 extern U32	fcu	(U8		x);			/* (U32) Factorial			*/

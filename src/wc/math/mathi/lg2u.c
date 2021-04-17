@@ -8,7 +8,7 @@ U8 lg2u(U32 z) {
 	/* If z != 0, */
 	if (z) {
 		U8 r = I32B - 1;
-		I32 s = I32X;
+		U32 s = I32N;
 
 		while (s) {
 			if (z&s) return r;

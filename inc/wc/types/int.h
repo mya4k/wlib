@@ -21,42 +21,33 @@
 /**
  * @typedef	Dg
  * @brief	Digit type
- * Digits can hold values from 0 to 9 inclusively
+ * Digits are intended to hold a single digit
  */
 /**
  * @typedef	Digit
  * @brief	Digit type
- * Digits can hold values from 0 to 9 inclusively
+ * Digits are intended to hold a single digit
  */
 typedef U8 Dg, Digit;
 
 /**
- * @def		dr(X)
- * @brief	Is in digit range
- * @arg		X
- * Checks whether the value belongs to the range of values of Digit type
- */
-#define dr(X)	(X >= 0 && X <= 9)
-
-/**
- * \def		_dc(X)
- * \brief	Digit to Char (no type-check)
- * \param	X	Digit
- * Checks whether the value belongs to the range of values of Digit type.
- */
-#define _dc(X)	(x+'0')
-
-/**
- * \fn		inline static char dC(const Digit x)
- * \brief	Digit to Char (with type-check)
- * \param	X	Digit
+ * \fn		char dc(const Digit x, const U8 base)
+ * \brief	Digit to Char
+ * \param	x		Digit
+ * \param	base	base
  * \return	char
- * Checks whether the value belongs to the range of values of Digit type.
+ * Converts a number into a character representation of a digit
+ * If `x` exceeds the base, DEL character is returned
+ * Table (0--96):
+ * 0 1 2 3 4 5 6 7 8 9 A B C D E F
+ * G H I J K L M N O P Q R S T U V
+ * W X Y Z a b c d e f g h i j k l
+ * m n o p q r s t u v w x y z ! "
+ * # $ % & ' ( ) * + , - . / : ; <
+ * = > ? @ [ \ ] ^ _ ` { | } ~   
+ * The last two characters are SPACE and DEL respectively
  */
-inline static char dc(const Digit x) {
-	if (dr(x)) return _dc(x);
-	else return 'E';
-}
+char dc(const Digit x, const U8 base);
 
 /**
  * @fn			U8 dcu(const U32 x, const U8 base)
