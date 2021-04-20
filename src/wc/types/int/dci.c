@@ -11,5 +11,5 @@ typedef	U8	Digit;
  * @return U8	
  */
 Digit dci(I32 x, U8 base) {
-	return abi( lgi(base, x) + 1 );
+	return lgi(base, abi(x)) + 1;
 }

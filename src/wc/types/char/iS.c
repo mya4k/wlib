@@ -49,12 +49,12 @@ ch* iS(I32 x, ch* str, const U8 flags) {
 	}
 
 	/**<Number digit count */
-	register const U8 xs = dcu(x,b);
+	register const U8 xs = dci(x,b);
 	/**<`i` parameters limit */
 	register const I8 _li = ((x && flags & 0b10000) || x < 0 ? 1 : 0);
 	/**<String length */
 	register const U8 rs = 
-		(flags & 0b1100 ? xs + xs/3 : xs) + _li;
+		((flags & 0b1100) ? (xs + xs/3) : xs) + _li;
 	/**<Delimeter */
 	register const ch d = (flags & 0b100 ? '.' : (
 		flags & 0b1000 ? ',' : 0
@@ -77,7 +77,7 @@ ch* iS(I32 x, ch* str, const U8 flags) {
 		for (	register I8 i = rs-1, j = 0; 
 				i >= _li && j < xs; 
 				i--							)
-			if (i%4 == 2) str[i] = d;
+			if (i%4 == 2 + _li) str[i] = d;
 			else {
 				str[i] = dc(dgu(x, j, b), b);
 				j++;
@@ -86,7 +86,7 @@ ch* iS(I32 x, ch* str, const U8 flags) {
 	/* Without delimiters */
 	else {
 		for (	register I8 i = rs-1, j = 0; 
-				i >= 0 && j < xs; 
+				i >= _li && j < xs; 
 				i--, j++					) {
 			str[i] = dc(dgu(x, j, b), b);
 		}

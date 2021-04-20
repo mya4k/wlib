@@ -11,5 +11,5 @@ typedef	U8	Digit;
  * @return U8	
  */
 Digit dcl(I64 x, U8 base) {
-	return abl( lgl(base, x) + 1 );
+	return lgl(base, abl(x)) + 1;
 }
