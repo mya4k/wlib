@@ -109,11 +109,6 @@ BL iw(char a);	/* Is Whitespace Character	*/
  */
 U16 sl(const char* str);
 
-char* uS(U32	x, ch* str, const U8 flags);
-char* qS(U64	x, ch* str, const U8 flags);
-char* iS(I32	x, ch* str, const U8 flags);
-char* lS(I64	x, ch* str, const U8 flags);
-
 C_DECL_END
 
 #endif

@@ -11,12 +11,22 @@
 
 #include <wc/types.h>
 
+#undef	digitToChar
+#define digitToChar		dc
 #undef	digitCount
-#define	digitCount	dcu
+#define	digitCount		dcu
 #undef	digitGet
-#define	digitGet	dgu
+#define	digitGet		dgu
 #undef	digitSet
-#define digitSet	dsu
+#define digitSet		dsu
+#undef	U32ToString		
+#define U32ToString		uS
+#undef	I32ToString		
+#define I32ToString		iS
+#undef	U64ToString		
+#define U64ToString		qS
+#undef	I64ToString		
+#define I64ToString		lS
 
 /**
  * @typedef	Dg
@@ -124,5 +134,10 @@ Digit dgi(const I32 x, const U8 n, const U8 base);
  * @return Digit	
  */
 Digit dgl(const I64 x, const U8 n, const U8 base);
+
+char* uS(U32	x, ch* str, const U8 flags);
+char* qS(U64	x, ch* str, const U8 flags);
+char* iS(I32	x, ch* str, const U8 flags);
+char* lS(I64	x, ch* str, const U8 flags);
 
 #endif
