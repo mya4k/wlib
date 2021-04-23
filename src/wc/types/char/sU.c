@@ -21,6 +21,13 @@ inline static bl charInDigitRange(char c, u8 base) {
  * @param	size 
  * @param	flags 
  * @return	u32 
+ *
+ * Converts string of cgaracter `str` a U32, ignores non-digit characters
+ * Flags (apply only one):
+ * 	S_DEC	Digits in `str` are decimal
+ * 	S_BIN	Digits in `str` are binary
+ * 	S_OCT	Digits in `str` are octal
+ * 	S_HEX	Digits in `str` are hexadecimal
  */
 u32 sU(char* str, u8 size, u8 flags) {
 	if (!str) return 0;
