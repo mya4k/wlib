@@ -1,6 +1,5 @@
 #include <wc/types.h>
 #include <wc/types/char.h>
-#include <wc/types/int.h>
 
 #define S_DEC	0b00	/* Decimal			*/
 #define S_BIN	0b01	/* Binary			*/
@@ -38,7 +37,11 @@ u32 sU(char* str, u8 size, u8 flags) {
 		case S_HEX: base = 16;	break;
 	}
 
-	for (u8 i = 0; i < size; i++) {
-		if (dc())
-	}
+	for (
+		u8 i = 0, a = 0, s = 1; 
+		i < size; 
+		i++, s *= 10;
+	)
+		if ( (a = cd(str[i],base)) != 255)
+			r += (a != 255) * r * s;
 }
