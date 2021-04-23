@@ -38,10 +38,12 @@ u32 sU(char* str, u8 size, u8 flags) {
 	}
 
 	for (
-		u8 i = 0, a = 0, s = 1; 
-		i < size; 
-		i++, s *= 10;
+		u8 i = sl() - 1, a = 0, s = 1; 
+		i < size;
+		i--;
 	)
-		if ( (a = cd(str[i],base)) != 255)
+		if ( (a = cd(str[i],base)) != 255) {
 			r += (a != 255) * r * s;
+			s *= 10;
+		}
 }
