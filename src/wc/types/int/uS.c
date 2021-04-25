@@ -44,7 +44,7 @@ ch* uS(const U32 x, ch* str, const U8 flags) {
 		default:	b = 10;	break;
 	}
 
-	register const U8 xs = dcu(x,b);								/**<Number digit count */
+	register const U8 xs = (x ? dcu(x,b) : 1);						/**<Number digit count */
 	register const U8 rs = ((flags & 0b1100) ? (xs + xs/3) : xs);	/**<String length */
 	register const ch d = (flags & 0b100 ? '.' : (					/**<Delimeter */
 		flags & 0b1000 ? ',' : 0
@@ -60,11 +60,12 @@ ch* uS(const U32 x, ch* str, const U8 flags) {
 	if (flags & 0b1100) {
 		for (	register I8 i = rs-1, j = 0; 
 				i >= 0 && j < xs; 
-				i--							)
-			if (i%4 == 2) str[i] = d;
-			else {
-				str[i] = dc(dgu(x, j, b), b);
-				j++;
+				i--							) {
+				if (i%4 == 2) str[i] = d;
+				else {
+					str[i] = dc(dgu(x, j, b), b);
+					j++;
+				}
 			}
 	}
 	/* Without delimiters */

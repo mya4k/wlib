@@ -10,6 +10,7 @@ typedef	U8	Digit;
  * @param base 	The base
  * @return U8	
  */
-Digit dcq(U64 x, U8 base) {
-	return lgq(base, x) + 1;
+U8 dcq(const U64 x, const U8 base) {
+	if (x && base) return lgq(base, x) + 1;
+	else return 0;
 }

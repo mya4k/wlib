@@ -8,6 +8,7 @@
 
 #include <wc/core.h>
 #include <wc/types.h>
+#include <wc/types/int.h>
 
 /* Control characters */
 #undef	NUL
@@ -77,6 +78,19 @@
 #undef	DEL
 #define	DEL	'\177'
 
+/*--- DEFINED -------------------------------------------*/
+#undef	SS_NOT_FOUND
+#define SS_NOT_FOUND	255		/* String search failure	*/
+#undef	CS_REVERSE	
+#define CS_REVERSE		1		/* Search from the end		*/
+#undef	S_DEC
+#define S_DEC			0b00	/* Decimal					*/
+#undef	S_BIN
+#define S_BIN			0b01	/* Binary					*/
+#undef	S_OCT
+#define S_OCT			0b10	/* Octal					*/
+#undef	S_HEX
+#define S_HEX			0b11	/* Hexadecimal				*/
 
 
 C_DECL_BEGIN
@@ -93,21 +107,16 @@ BL iw(char a);	/* Is Whitespace Character	*/
 
 
 /*--- Essential Functions -------------------------------*/
-
-/* [String length]
- * Arguments:
- * char*	str	-- String
- * 
- * Description:
- * Calculates the length of a given null-terminated string in characters, 
- * including the NUL character
- * 
- * Method:
- * Let "i" represent the length of the string. Check every character whether 
- * it's NUL, if it's not NUL then "i" increases by 1, otherwise function 
- * returns the value of "i".
- */
-U16 sl(const char* str);
+/* String length */
+Dg cd(const unsigned char x, const U8 base);
+/* Char search */
+U8 cs(register const char* str, register char find, u8 flags);
+/* String length */
+U8 sl(register const char* str);
+/* String search */
+u8 ss(const char* str, const char* find);
+/* Hash */
+U8 hs(const char* str, const char** set, const u8 size);
 
 C_DECL_END
 

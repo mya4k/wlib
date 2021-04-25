@@ -23,7 +23,7 @@
  *		-#	Assignes the remaining part of array /e a with whatever piece of 
  *			array /e b fits
  */
-VO* afl(register	const	U16	sa, 
+VO* afl(register	const	U8	sa, 
 		register			VO*	a, 
 		register			U8	sb, 
 		register	const	VO*	b	) {

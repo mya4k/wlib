@@ -254,8 +254,8 @@
 #endif /* Palm OS */
 
 /* Plan 9 */
-#if !defined(OS_PLAN) && defined(EPLAN9)
-#define OS_PLAN
+#if !defined(OS_PLAN9) && defined(EPLAN9)
+#define OS_PLAN9
 #endif /* Plan 9 */
 
 /* Pyramid DC/OSx */
@@ -401,6 +401,22 @@
 #define OS_ZOS
 #endif
 /* z/OS */
+
+/* Unix-like */
+#if !defined(OS_UNIXLIKE) && ( \
+	defined(OS_MINIX)		||\
+	defined(OS_BSD)			||\
+	defined(OS_GNU)			||\
+	defined(OS_LINUX)		||\
+	defined(OS_GNU_LINUX)	||\
+	defined(OS_ANDROID)		||\
+	defined(OS_CRAY)		||\
+	defined(OS_SUN)			||\
+	defined(OS_PLAN9)		\
+	/*Feel free to add any other Unix-likes above */\
+)
+#define	OS_UNIXLIKE
+#endif
 
 /*
 #if !defined(OS_) && defined()

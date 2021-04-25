@@ -10,6 +10,7 @@ typedef	U8	Digit;
  * @param base 	The base
  * @return U8	
  */
-Digit dcl(I64 x, U8 base) {
-	return lgl(base, abl(x)) + 1;
+U8 dcl(const U64 x, const U8 base) {
+	if (x && base) return lgl(base, abl(x)) + 1;
+	else return 0;
 }

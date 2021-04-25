@@ -1,10 +1,6 @@
 #include <wc/types.h>
 #include <wc/types/char.h>
-
-#define S_DEC	0b00	/* Decimal			*/
-#define S_BIN	0b01	/* Binary			*/
-#define S_OCT	0b10	/* Octal			*/
-#define S_HEX	0b11	/* Hexadecimal		*/
+#include <wc/types/int.h>
 
 /* #define inRange(x, _min, _max) (x >= _min && x <= _max)
 
@@ -45,12 +41,14 @@ u32 sU(char* str, u8 size, u8 flags) {
 	}
 
 	for (
-		u8 i = sl() - 1, a = 0, s = 1; 
+		u8 i = size - 1, a = 0, s = 1; 
 		i < size;
-		i--;
+		i--
 	)
 		if ( (a = cd(str[i],base)) != 255) {
 			r += (a != 255) * r * s;
 			s *= 10;
 		}
+
+	return r;
 }

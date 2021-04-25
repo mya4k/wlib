@@ -44,7 +44,7 @@ ch* qS(const U64 x, ch* str, const U8 flags) {
 		default:	b = 10;	break;
 	}
 
-	register const U8 xs = dcq(x,b);								/**<Number digit count */
+	register const U8 xs = (x ? dcq(x,b) : 1);						/**<Number digit count */
 	register const U8 rs = ((flags & 0b1100) ? (xs + xs/3) : xs);	/**<String length */
 	register const ch d = (flags & 0b100 ? '.' : (					/**<Delimeter */
 		flags & 0b1000 ? ',' : 0

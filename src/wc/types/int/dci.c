@@ -1,8 +1,6 @@
 #include <wc/types.h>
 #include <wc/math/mathi.h>
 
-typedef	U8	Digit;
-
 /**
  * @fn			Digit dci(I32 x, U8 base)
  * @brief 		Counts digits in base
@@ -10,6 +8,7 @@ typedef	U8	Digit;
  * @param base 	The base
  * @return U8	
  */
-Digit dci(I32 x, U8 base) {
-	return lgi(base, abi(x)) + 1;
+U8 dci(I32 x, U8 base) {
+	if (x && base) return lgl(base, abl(x)) + 1;
+	else return 0;
 }

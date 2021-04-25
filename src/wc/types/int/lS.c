@@ -13,7 +13,7 @@
 #define S_PLUS	0b10000 /* Plus sign */
 
 /**
- * @fn		ch* lS(I32 x, ch* str, const U8 flags)
+ * @fn		ch* lS(I64 x, ch* str, const U8 flags)
  * @brief	I64 to ch*
  * @param	x		I64
  * @param	str		string	(optional)
@@ -36,7 +36,7 @@
  * 3) Other
  * 	S_PLUS	Whether to add the plus sign to positive numbers or not
  */
-ch* lS(I32 x, ch* str, const U8 flags) {
+ch* lS(I64 x, ch* str, const U8 flags) {
 	/* Base */
 	register U8 b;
 
@@ -49,7 +49,7 @@ ch* lS(I32 x, ch* str, const U8 flags) {
 	}
 
 	/**<Number digit count */
-	register const U8 xs = dcq(x,b);
+	register const U8 xs = (x ? dcq(x,b) : 1);
 	/**<`i` parameters limit */
 	register const I8 _li = ((x && flags & 0b10000) || x < 0 ? 1 : 0);
 	/**<String length */

@@ -10,6 +10,7 @@ typedef	U8	Digit;
  * @param base 	The base
  * @return U8	
  */
-Digit dcu(const U32 x, const U8 base) {
-	return lgu(base, x) + 1;
+U8 dcu(const U32 x, const U8 base) {
+	if (x && base) return lgu(base, x) + 1;
+	else return 0;
 }

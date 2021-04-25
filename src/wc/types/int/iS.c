@@ -49,7 +49,7 @@ ch* iS(I32 x, ch* str, const U8 flags) {
 	}
 
 	/**<Number digit count */
-	register const U8 xs = dci(x,b);
+	register const U8 xs = (x ? dci(x,b) : 1);
 	/**<`i` parameters limit */
 	register const I8 _li = ((x && flags & 0b10000) || x < 0 ? 1 : 0);
 	/**<String length */

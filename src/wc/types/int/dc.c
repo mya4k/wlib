@@ -18,12 +18,12 @@
  * = > ? @ [ \ ] ^ _ ` { | } ~   
  * The last two characters are SPACE and DEL respectively
  */
-char dc(const Digit x, const U8 base) {
+char dc(const Dg x, const U8 base) {
 	/* This code executes the chunk of code commented out below, but three times faster */
 	if (x>base)	return DEL;
 	else if(x == 94) return ' ';
 	else if(x == 95) return DEL;
-	else
+	else return
 		x 
 		+ '0' 
 		+ (x>9)		* ('0'-'A'-10) 
