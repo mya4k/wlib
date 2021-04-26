@@ -2,13 +2,16 @@
  * Character type operations	*
  * Wispy (c) 2021				*
  ********************************/
-
 #ifndef WC_CHAR_H
 #define WC_CHAR_H
+
+
 
 #include <wc/core.h>
 #include <wc/types.h>
 #include <wc/types/int.h>
+
+
 
 /* Control characters */
 #undef	NUL
@@ -93,19 +96,22 @@
 #define S_HEX			0b11	/* Hexadecimal				*/
 
 
-C_DECL_BEGIN
+
 /*--- Boolean Functions ---------------------------------*/
-BL iL(char a);	/* Is Lowercase Character	*/
-BL iU(char a);	/* Is Uppercase Character	*/
-BL ia(char a);	/* Is Alphanumeric Character*/
-BL ic(char a);	/* Is Contol Character		*/
-BL id(char a);	/* Is Digit Character		*/
-BL il(char a);	/* Is Letter Character		*/
-BL is(char a);	/* Is Symbol Character		*/
-BL iw(char a);	/* Is Whitespace Character	*/
+#define iL(a) (a >= 'a' && a <= 'z')			/* Is Lowercase Character	*/
+#define iU(a) (a >= 'A' && a <= 'Z')			/* Is Uppercase Character	*/
+#define ic(a) (a < ' ' || a == DEL)				/* Is Contol Character		*/
+#define id(a) (a >= '0' && a <= '9')			/* Is Digit Character		*/
+#define is(a) 								\	/* Is Symbol Character		*/
+	(a >= '!' && a <= '/' || a >= ':' && a <= '@' || a >= '[' && a <= '`' || a >= '{' && a <= '~')
+#define iw(a) (a >= HT && a <= CR || a == ' ')	/* Is Whitespace Character	*/
+#define ie(a) (a > DEL)							/* Is Ext. ASCII Character	*/
+#define ia(a) (il(a) || id(a))					/* Is Alphanumeric Character*/
+#define il(a) (iL(a) || iU(a))					/* Is Letter Character		*/
 
 
 
+C_DECL_BEGIN
 /*--- Essential Functions -------------------------------*/
 /* String length */
 Dg cd(const unsigned char x, const U8 base);
@@ -117,7 +123,8 @@ U8 sl(register const char* str);
 u8 ss(const char* str, const char* find);
 /* Hash */
 U8 hs(const char* str, const char** set, const u8 size);
-
 C_DECL_END
+
+
 
 #endif
