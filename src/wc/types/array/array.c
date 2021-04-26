@@ -84,3 +84,18 @@ ADEF2(anr, NR);
  *	\return	The array of object that have been exclusively disjuncted and inversed
  */
 ADEF2(anx, NX);
+
+ADEF1B(anol, NOL);	/* Array Logical No Operation */
+ADEF1B(antl, NTL);	/* Array Logical NOT */
+ADEF2B(aanl, ANL);	/* Array Logical AND */
+ADEF2B(aorl, ORL);	/* Array Logical OR */
+ADEF2B(axrl, XRL);	/* Array Logical XOR */
+ADEF2B(annl, NNL);	/* Array Logical NAND */
+ADEF2B(anrl, NRL);	/* Array Logical NOR */
+ADEF2B(anxl, NXL);	/* Array Logical NXOR */
+ADEF2B(aeq, EQ);	/* Array Equals */
+ADEF2B(anq, NQ);	/* Array Not Equals */
+ADEF2B(agt, GT);	/* Array Greater Than */
+ADEF2B(alt, LT);	/* Array Less Than */
+ADEF2B(agq, GQ);	/* Array Greater Than Or Equal */
+ADEF2B(alq, LQ);	/* Array Less Than Or Equal */ 
