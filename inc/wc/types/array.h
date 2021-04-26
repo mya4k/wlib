@@ -522,38 +522,97 @@
 	}
 #endif
 
+/**
+ */
+#undef	ADEFB1
+#define	ADEFB1(NAME,FUNC)										\
+	ADECL1B(NAME) {												\
+		register U8 d = s/8;									\
+		register U8 m = s%8;									\
+		register U16 i = 0;										\
+																\
+		for (; i < d; i++)										\
+			if ( FUNC((U64*)a)[i] ) return 0;					\
+																\
+		i *= 8;													\
+																\
+		if (m&0x1) {											\
+			if ( FUNC((U8*)a)[i] ) return 0;					\
+			i++;												\
+		}														\
+		if (m&0x2) {											\
+			if ( FUNC((U16*)a)[i] ) return 0;					\
+			i += 2;												\
+		}														\
+		if (m&0x4)	{											\
+			if ( FUNC((U32*)a)[i] ) return 0;					\
+			i += 4;												\
+		}														\
+																\
+		return 1;												\
+	}
+
+/**
+ */
+#undef	ADEFB2
+#define	ADEFB2(NAME,FUNC)										\
+	ADECL2B(NAME) {												\
+		register U8 d = s/8;									\
+		register U8 m = s%8;									\
+		register U16 i = 0;										\
+																\
+		for (; i < d; i++)										\
+			if ( FUNC((U64*)a)[i], ((U64*)b)[i]) ) return 0;	\
+																\
+		i *= 8;													\
+																\
+		if (m&0x1) {											\
+			if ( FUNC((U8*)a)[i], ((U8*)b)[i]) ) return 0;		\
+			i++;												\
+		}														\
+		if (m&0x2) {											\
+			if ( FUNC((U16*)a)[i], ((U16*)b)[i]) ) return 0;	\
+			i += 2;												\
+		}														\
+		if (m&0x4)	{											\
+			if ( FUNC((U32*)a)[i], ((U32*)b)[i]),  ) return 0;	\
+			i += 4;												\
+		}														\
+																\
+		return 1;												\
+	}
+
 
 
 C_DECL_BEGIN
 
-/* Array Assignment */
-ADECL1(aas);
+ADECL1(aas);	/* Array Assignment */
+ADECL1(ant);	/* Array NOT */
+ADECL2(aan);	/* Array AND */
+ADECL2(aor);	/* Array OR */
+ADECL2(axr);	/* Array XOR */
+ADECL2(ann);	/* Array NAND */
+ADECL2(anr);	/* Array NOR */
+ADECL2(anx);	/* Array NXOR */
 
-/* Array NOT */
-ADECL1(ant);
+ADECL1B(anol);	/* Array Logical No Operation */
+ADECL1B(antl);	/* Array Logical NOT */
+ADECL2B(aanl);	/* Array Logical AND */
+ADECL2B(aorl);	/* Array Logical OR */
+ADECL2B(axrl);	/* Array Logical XOR */
+ADECL2B(annl);	/* Array Logical NAND */
+ADECL2B(anrl);	/* Array Logical NOR */
+ADECL2B(anxl);	/* Array Logical NXOR */
+ADECL2B(aeq);	/* Array Equals */
+ADECL2B(anq);	/* Array Not Equals */
+ADECL2B(agt);	/* Array Greater Than */
+ADECL2B(alt);	/* Array Less Than */
+ADECL2B(agq);	/* Array Greater Than Or Equal */
+ADECL2B(alq);	/* Array Less Than Or Equal */
 
-/* Array AND */
-ADECL2(aan);
-
-/* Array OR */
-ADECL2(aor);
-
-/* Array XOR */
-ADECL2(axr);
-
-/* Array NAND */
-ADECL2(ann);
-
-/* Array NOR */
-ADECL2(anr);
-
-/* Array NXOR */
-ADECL2(anx);
-
-/* Array Equals */
-bl	aeq(	register	const	U8	s,
+/*bl	aeq(	register	const	U8	s,
 					register	const	VO*	a,
-					register	const	VO* b	);
+					register	const	VO* b	);*/
 
 /* Array fill */
 VO*	afl(	register	const	U8	sa, 
