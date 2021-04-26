@@ -98,16 +98,29 @@
 
 
 /*--- Boolean Functions ---------------------------------*/
+#undef	iL
 #define iL(a) (a >= 'a' && a <= 'z')			/* Is Lowercase Character	*/
+#undef	iU
 #define iU(a) (a >= 'A' && a <= 'Z')			/* Is Uppercase Character	*/
+#undef	ic
 #define ic(a) (a < ' ' || a == DEL)				/* Is Contol Character		*/
+#undef	id
 #define id(a) (a >= '0' && a <= '9')			/* Is Digit Character		*/
+#undef	is
 #define is(a) 								\	/* Is Symbol Character		*/
 	(a >= '!' && a <= '/' || a >= ':' && a <= '@' || a >= '[' && a <= '`' || a >= '{' && a <= '~')
+#undef	iw
 #define iw(a) (a >= HT && a <= CR || a == ' ')	/* Is Whitespace Character	*/
+#undef	ie
 #define ie(a) (a > DEL)							/* Is Ext. ASCII Character	*/
+#undef	ia
 #define ia(a) (il(a) || id(a))					/* Is Alphanumeric Character*/
+#undef	il
 #define il(a) (iL(a) || iU(a))					/* Is Letter Character		*/
+#undef	lc
+#define lc(a) (a - iU(a)*0x20)					/* To Lowercase Character	*/
+#undef	uc
+#define uc(a) (a + iL(a)*0x20)					/* To Uppercase Character	*/
 
 
 
