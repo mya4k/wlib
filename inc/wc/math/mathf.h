@@ -1,12 +1,16 @@
 #ifndef WC_MATHF_H
 
-/* Fixed-type numeric types */
-#include <wc/core.h>
-#include <wc/types.h>
+/*
+ *	Include
+ */
+#include <wc/core.h>	/* C & C++ compatibility	*/
+#include <wc/types.h>	/* Fixed-type numeric types	*/
 
 
 
-/* Constants */
+/*
+ *	Constants
+ */
 #define EF		2.71828174591064453125F
 #define RHOF	1.57079637050628662109375F
 #define PIF		3.1415927410125732421875F
@@ -19,7 +23,9 @@
 
 
 
-/* Aliases */
+/* 
+ *	Aliases
+ */
 #define div		qtd
 #define mod		rmd
 #define log		lgd
@@ -35,6 +41,47 @@
 #define abs		abd
 #define sgn		sgd
 
+
+
+/*
+ *	Statics
+ */
+
+/**
+ *	@brief	(F32) Absolute
+ *	@fn		inline static F32 abf()
+ *	@param	x
+ *	@return	F32
+ *	If NO_FLT_PTR is defined `abf` is defined as 
+ */
+#ifndef NO_FLT_PTR	/* Optimal behavior	*/
+inline static F32 abf(F32 x) {
+	*(I32*)&x &= I32X;
+	return x;
+}
+#else
+#define abf(x)	((x<0.0F) ? -x : x)
+#endif
+
+#if defined(NO_FLT_PTR) && NO_I64
+#define abd(x)	((x<0.0) ? -x : x)
+#else	/* Optimal behavior	*/
+inline static F64 abf(F64 x) {
+	*(I64*)&x &= I64X;
+	return x;
+}
+#endif
+
+
+
+/*
+ *	Declarations
+ */
+C_DECL_BEGIN
+
+
+
+C_DECL_END
 
 
 C_DECL_BEGIN
