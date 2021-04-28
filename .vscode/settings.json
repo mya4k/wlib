@@ -4,6 +4,7 @@
 		"bitset": "c",
 		"set": "c",
 		"sstream": "c",
-		"ranges": "c"
+		"ranges": "c",
+		"mathf.h": "c"
 	}
 }

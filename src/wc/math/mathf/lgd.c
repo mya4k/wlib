@@ -1,5 +1,6 @@
 /* Includes */
 #include <wc/types.h>
+#include <wc/math/mathf.h>
 
 
 
@@ -16,13 +17,8 @@
 #define PND			0.0/0.0					/* (F64) Positive NaN */
 #endif
 
-/* (F64) Natural logarithm of 2 */
-#define LN2			0.69314718055994528622676398299518041312694549560546875
 
 
-
-/* Declarations */
-extern F64 lg2d	(F64 z);		/* (F64) Binary Logarithm */
 extern F64 _pwid(F64 x, U64 y);	/* (F64) Integer exponent exponentiation */
 
 

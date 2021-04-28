@@ -1,16 +1,7 @@
 /* Includes */
 #include <wc/types.h>
-
-
-
-/* Macros */
-#define LN2			0.69314718055994528622676398299518041312694549560546875
-
-
-
-/* Declarations */
-extern U64 fcq	(U8		x);
-extern F64 _pwid(F64	x, I64 y);
+#include <wc/math/mathi.h>
+#include <wc/math/mathf.h>
 
 
 

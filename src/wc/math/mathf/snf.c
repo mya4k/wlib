@@ -1,5 +1,7 @@
 /* Numeric Types */
 #include <wc/types.h>
+#include <wc/math/mathi.h>
+#include <wc/math/mathf.h>
 
 
 
@@ -12,9 +14,6 @@
 
 
 
-/* Function declarations */
-extern U64	fcq		(U8		n);			/* (U64) Factorial */
-extern F32	rmf		(F32	x, F32 y);	/* (F32) Remainder */
 extern F32	_pwif	(F32	x, U64 y);	/* (F32) Integer exponent exponentiation */
 
 
