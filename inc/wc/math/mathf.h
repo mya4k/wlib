@@ -1,12 +1,23 @@
+/********************************
+ * Floating-point Mathmatics	*
+ * Wispy (C) 2021				* 
+ ********************************/
 #ifndef WC_MATHF_H
-
-/* Fixed-type numeric types */
-#include <wc/core.h>
-#include <wc/types.h>
+#define WC_MATHF_H
 
 
 
-/* Constants */
+/*
+ *	Includes
+ */
+#include <wc/core.h>	/* Compatibility */
+#include <wc/types.h>	/* Numeric types */
+
+
+
+/* 
+ *	Constants
+ */
 #define EF		2.71828174591064453125F
 #define RHOF	1.57079637050628662109375F
 #define PIF		3.1415927410125732421875F
