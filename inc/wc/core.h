@@ -1,10 +1,16 @@
+/********************************
+ *  Core development definition *
+ *  Mostly for compatibility    *
+ *  Wispy (c) 2021              *
+ ********************************/
 #ifndef WC_CORE_H
 #define WC_CORE_H
-
-#include <wc/sys/conf.h>
-#include <wc/sys/stnd.h>
-#include <wc/sys/lang.h>
-#include <wc/types.h>
+							/************************/
+#include <wc/sys/conf.h>	/* User configuration	*/
+#include <wc/sys/stnd.h>	/* C or C++				*/
+#include <wc/sys/lang.h>	/* C/C++ version		*/
+#include <wc/types.h>		/* Fixed numeric types	*/
+							/************************/
 
 /* C and C++ compatibility*/
 #if defined(ST_ISO_CPP)
