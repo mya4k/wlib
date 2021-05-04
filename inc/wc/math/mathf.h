@@ -243,18 +243,19 @@ inline static F64 sgd(F64 x) {
 C_DECL_BEGIN
 
 /* Exponential Functions */
-extern F32	lg2f(F32	z);			/* (F32) Binary Logarithm	*/
-extern F64	lg2d(F64	z);			/* (F64) Binary Logarithm	*/
-extern F32	lgf	(F32	x, F32 z);	/* (F32) Logarithm			*/
-extern F64	lgd	(F64	x, F64 z);	/* (F64) Logarithm			*/
-extern F32	pw2f(F32	y);			/* (F32) Binary Exponent	*/
-extern F64	pw2d(F64	y);			/* (F64) Binary Exponent	*/
-extern F32	pwf	(F32	x, F32 y);	/* (F32) Power				*/
-extern F64	pwd	(F64	x, F64 y);	/* (F64) Power				*/
+F32	lg2f(F32	z);			/* (F32) Binary Logarithm	*/
+F64	lg2d(F64	z);			/* (F64) Binary Logarithm	*/
+F32	lgf	(F32	x, F32 z);	/* (F32) Logarithm			*/
+F64	lgd	(F64	x, F64 z);	/* (F64) Logarithm			*/
+F32	pw2f(F32	y);			/* (F32) Binary Exponent	*/
+F64	pw2d(F64	y);			/* (F64) Binary Exponent	*/
+F32	pwf	(F32	x, F32 y);	/* (F32) Power				*/
+F64	pwd	(F64	x, F64 y);	/* (F64) Power				*/
 
 /* Trigonometric Functions */
-extern F32	snf	(F32	x);			/* (F32) Sine				*/
-extern F64	snd	(F64	x);			/* (F64) Sine				*/
+F32	snf	(F32	x);			/* (F32) Sine				*/
+F64	snd	(F64	x);			/* (F64) Sine				*/
+
 C_DECL_END
 
 #endif
