@@ -25,7 +25,7 @@
 #define I32ToString		iS
 #undef	U64ToString		
 #define U64ToString		qS
-#undef	I64ToString		
+#undef	I64ToString			
 #define I64ToString		lS
 
 /**
@@ -135,9 +135,13 @@ Digit dgi(const I32 x, const U8 n, const U8 base);
  */
 Digit dgl(const I64 x, const U8 n, const U8 base);
 
+/* U32 to string */
 char* uS(U32	x, ch* str, const U8 flags);
+/* U64 to string */
 char* qS(U64	x, ch* str, const U8 flags);
+/* I32 to string */
 char* iS(I32	x, ch* str, const U8 flags);
+/* I64 to string */
 char* lS(I64	x, ch* str, const U8 flags);
 
 #endif
