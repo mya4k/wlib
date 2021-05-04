@@ -5,6 +5,9 @@
 		"set": "c",
 		"sstream": "c",
 		"ranges": "c",
-		"mathf.h": "c"
+		"mathf.h": "c",
+		"random": "c",
+		"cstdlib": "c",
+		"*.tcc": "c"
 	}
 }
