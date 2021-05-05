@@ -89,7 +89,7 @@ typedef char				ch, Ch, CH;
 #ifndef NO_FIXED_TYPES
 
 #if	DATA_MODEL == DM_LP32
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef long				i32,	I32;
 typedef unsigned char		u8,		U8;
@@ -104,7 +104,7 @@ typedef U32					_Ptr;			/* Pointer type (experimental)	*/
 #define PTB	32								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_ILP32
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
 typedef unsigned char		u8,		U8;
@@ -119,7 +119,7 @@ typedef U32					_Ptr;			/* Pointer type (experimental)	*/
 #define PTB	32								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_LLP64
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
 typedef unsigned char		u8,		U8;
@@ -133,7 +133,7 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_LP64
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
 typedef long				i64,	I64;
@@ -150,7 +150,7 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_ILP64
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
 typedef int					i64,	I64;
@@ -167,7 +167,7 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_SILP64
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef short				i32,	I32;
 typedef short				i64,	I64;
@@ -184,7 +184,7 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #else
-typedef char				i8,		I8;
+typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
 typedef long				i64,	I64;

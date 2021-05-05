@@ -10,5 +10,5 @@
  * @return Digit	
  */
 Digit dgi(const I32 x, const U8 n, const U8 base) {
-	return abi( x / pwu(base,n) % base );
+	return abl(x) / pwu(base,n) % base;
 }

@@ -9,6 +9,6 @@
  * @return U8	
  */
 U8 dci(I32 x, U8 base) {
-	if (x && base) return lgl(base, abl(x)) + 1;
+	if (x && base) return lgu(base, abl(x)) + 1;
 	else return 0;
 }

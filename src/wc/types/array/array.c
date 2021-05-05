@@ -85,6 +85,7 @@ ADEF2(anr, NR);
  */
 ADEF2(anx, NX);
 
+#ifdef NOT_IMPLIMENTED_YET
 ADEF1B(anol, NOL);	/* Array Logical No Operation */
 ADEF1B(antl, NTL);	/* Array Logical NOT */
 ADEF2B(aanl, ANL);	/* Array Logical AND */
@@ -99,3 +100,4 @@ ADEF2B(agt, GT);	/* Array Greater Than */
 ADEF2B(alt, LT);	/* Array Less Than */
 ADEF2B(agq, GQ);	/* Array Greater Than Or Equal */
 ADEF2B(alq, LQ);	/* Array Less Than Or Equal */ 
+#endif
