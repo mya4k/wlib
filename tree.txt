@@ -1,3 +1,30 @@
+wlib/wc
+├── core.h
+│   ├── C_DECL_BEGIN
+│   ├── C_DECL_END
+│   └── return_void
+├── types.h
+|	├── _Ptr
+|	├── CH
+|	├── CHB
+|	├── Ch
+|	├── ch
+|   ├── I8
+|   ├── I16
+|   ├── I32
+|   ├── I64
+|   ├── i8
+|   ├── i16
+|   ├── i32
+|   ├── i64
+|	├── DEF__BOOL
+|	├── DEF_BOOL
+|	├── DEF_LONG_LONG
+|	├── DEF_VOID
+|	├── INB
+|	├── lB
+|	├── SHB
+
 inc
 ├── math
 │   ├── mathi.h

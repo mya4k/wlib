@@ -2,7 +2,6 @@
 #include <wc/types/int.h>
 #include <wc/math/mathi.h>
 #include <wc/memory.h>
-#include <stdio.h>
 
 #define S_DEC	0b00	/* Decimal			*/
 #define S_BIN	0b01	/* Binary			*/

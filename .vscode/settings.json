@@ -5,6 +5,7 @@
 		"set": "c",
 		"sstream": "c",
 		"ranges": "c",
-		"mathf.h": "c"
+		"mathf.h": "c",
+		"future": "c"
 	}
 }
