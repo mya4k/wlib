@@ -8,7 +8,7 @@ Libraries of WLib:
 This git repository is the source code of WLib, for ready binary libraries see [wlib-bin](https://github.com/wspvlv/wlib-bin)
 
 ## Installation
-To build a library from source use follow instructons below.
+To build a library from source follow the instructons below.
 ### Core library
 ```
 make core
