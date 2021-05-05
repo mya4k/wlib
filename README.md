@@ -1,4 +1,3 @@
-# wlib
 **WLib** is a collection of free open-source lightweight general-purpose libraries for C language.
 
 Libraries of WLib:
@@ -7,13 +6,13 @@ Libraries of WLib:
 
 This git repository is the source code of WLib, for ready binary libraries see [wlib-bin](https://github.com/wspvlv/wlib-bin)
 
-## Installation
+# Installation
 To build a library from source follow the instructons below.
-### Core library
+## Core library
 ```
 make core
 ```
-### Types library
+## Types library
 ```
 make types
 ```
