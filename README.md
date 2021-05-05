@@ -7,7 +7,11 @@ Libraries of WLib:
 
 Installation:
 To build a library from source use follow instructons below.
-Core library:
-```make core```
-Types library:
-```make types```
+## Core library:
+```
+make core
+```
+## Types library:
+```
+make types
+```
