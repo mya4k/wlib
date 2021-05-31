@@ -36,6 +36,20 @@
 /* 
  *	Aliases
  */
+#define divf	qtd
+#define modf	rmd
+#define logf	lgd
+#define expf	pwd
+#define rootf	rtd
+#define cosf	csd
+#define sinf	snd
+#define tanf	tnd
+#define cotf	ctd
+#define tgf		tnd
+#define ctgf	ctd
+#define absf	abd
+#define sgnf	sgd
+
 #define div		qtd
 #define mod		rmd
 #define log		lgd

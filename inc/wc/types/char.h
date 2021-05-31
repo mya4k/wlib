@@ -117,25 +117,25 @@
 #define ia(a) (il(a) || id(a))							/* Is Alphanumeric Character*/
 #undef	il
 #define il(a) (iL(a) || iU(a))							/* Is Letter Character		*/
-#undef	lc
-#define lc(a) ((a) - iU(a)*0x20)						/* To Lowercase Character	*/
-#undef	uc
-#define uc(a) ((a) + iL(a)*0x20)						/* To Uppercase Character	*/
+#undef	cl
+#define cl(a) ((a) - iU(a)*0x20)						/* Character To Lowercase	*/
+#undef	cu
+#define cu(a) ((a) + iL(a)*0x20)						/* Character To Uppercase	*/
 
 
 
 C_DECL_BEGIN
 /*--- Essential Functions -------------------------------*/
-/* String length */
+/* Char to Digit */
 Dg cd(const unsigned char x, const U8 base);
 /* Char search */
-U8 cs(register const char* str, register char find, u8 flags);
+U8 cs(register const char* str, register char find, U8 flags);
 /* String length */
 U8 sl(register const char* str);
 /* String search */
-u8 ss(const char* str, const char* find);
+U8 ss(const char* str, const char* find);
 /* Hash */
-U8 hs(const char* str, const char** set, const u8 size);
+U8 hs(const char* str, const char** set, const U8 size);
 C_DECL_END
 
 
