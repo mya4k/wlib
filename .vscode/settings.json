@@ -1,0 +1,17 @@
+{
+	"files.associations": {
+		"types.h": "c",
+		"bitset": "c",
+		"set": "c",
+		"sstream": "c",
+		"ranges": "c",
+		"mathf.h": "c",
+<<<<<<< HEAD
+		"future": "c"
+=======
+		"random": "c",
+		"cstdlib": "c",
+		"*.tcc": "c"
+>>>>>>> 3dfd6a824cf937c67bdc5ecc1cd28db6627c7b60
+	}
+}
