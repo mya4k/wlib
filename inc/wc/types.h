@@ -88,7 +88,23 @@ typedef char				ch, Ch, CH;
 
 #ifndef NO_FIXED_TYPES
 
-#if	DATA_MODEL == DM_LP32
+/* From C99 there's <stdint.h> header which defines fixed-size types */
+#if	(LG_C >= VR_C99) && defined(USE_STDLIB)
+#include <stdint.h>
+typedef int8_t				i8,		I8;
+typedef int16_t				i16,	I16;
+typedef int32_t				i32,	I32;
+typedef int64_t				i64,	I64;
+typedef uint8_t				u8,		U8;
+typedef uint16_t			u16,	U16;
+typedef uint32_t			u32,	U32;
+typedef uint64_t			u64,	U64;
+typedef uintptr_t			_Ptr;			/* Pointer type (experimental)	*/
+/*#endif	*/
+
+#elif	DATA_MODEL == DM_LP32
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef long				i32,	I32;
@@ -96,6 +112,7 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned long		u32,	U32;
 typedef U32					_Ptr;			/* Pointer type (experimental)	*/
+#endif
 
 #define CHB	8
 #define SHB	16
@@ -104,6 +121,8 @@ typedef U32					_Ptr;			/* Pointer type (experimental)	*/
 #define PTB	32								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_ILP32
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
@@ -111,6 +130,7 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef U32					_Ptr;			/* Pointer type (experimental)	*/
+#endif
 
 #define CHB	8
 #define SHB	16
@@ -119,6 +139,8 @@ typedef U32					_Ptr;			/* Pointer type (experimental)	*/
 #define PTB	32								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_LLP64
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
@@ -126,6 +148,7 @@ typedef unsigned char		u8,		U8;
 typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef U64					_Ptr;			/* Pointer type (experimental) */
+#endif
 
 #define CHB	8
 #define SHB	16
@@ -133,6 +156,8 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_LP64
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
@@ -142,6 +167,7 @@ typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef unsigned long		u64,	U64;
 typedef U64					_Ptr;			/* Pointer type (experimental) */
+#endif
 
 #define CHB	8
 #define SHB	16
@@ -150,6 +176,8 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_ILP64
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
@@ -159,6 +187,7 @@ typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef unsigned int		u64,	U64;
 typedef U64					_Ptr;			/* Pointer type (experimental) */
+#endif
 
 #define CHB	8
 #define SHB	16
@@ -167,6 +196,8 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #elif	DATA_MODEL == DM_SILP64
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef short				i32,	I32;
@@ -176,6 +207,7 @@ typedef unsigned short		u16,	U16;
 typedef unsigned short		u32,	U32;
 typedef unsigned short		u64,	U64;
 typedef U64					_Ptr;			/* Pointer type (experimental) */
+#endif
 
 #define CHB	8
 #define SHB	64
@@ -184,6 +216,8 @@ typedef U64					_Ptr;			/* Pointer type (experimental) */
 #define PTB	64								/* Pointer size (experimental) */
 
 #else
+
+#if	!defined(USE_STDLIB)
 typedef signed char			i8,		I8;
 typedef short				i16,	I16;
 typedef int					i32,	I32;
@@ -193,6 +227,7 @@ typedef unsigned short		u16,	U16;
 typedef unsigned int		u32,	U32;
 typedef unsigned long		u64,	U64;
 typedef U64					_Ptr;			/* Pointer type (experimental) */
+#endif
 
 #define CHB	8
 #define SHB	16

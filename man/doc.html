@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<!-- -->
+<h1>Input/Output</h1>
+<ol>
+	<li style="padding-bottom: 4em;">
+		<h2>wl_out: Output string</h2>
+		<p><b>Name:</b> wl_out</p>
+		<p><b>Aliases:</b> out</p>
+		<p><b>Mnemonics:</b> Output string</p>
+		<p><b>Synopsis:</b></p>
+		<p><code class='c_code'>#define wl_out(STR)</code></p>
+		<p><b>Parameters:</b></p>
+		<p style="padding-left: 4em;"><code>STR</code> — String to output</p>
+		<p><b>Defined in</b> io.h</p>
+		<p><b>Description:</b></p>
+		<p style="padding-left: 4em;">Writes the string <code>STR</code> into <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)">Standard Output stream</a></p>
+	</li>
+	
+	<li style="padding-bottom: 4em;">
+		<h2>wl_in: Input string</h2>
+		<p></p><b>Name:</b> wl_in</p>
+		<p><b>Aliases:</b> in</p>
+		<p><b>Mnemonics:</b> Input string</p>
+		<table style="width: 100%;">
+			<tr>
+				<th>Based on the C library</th>
+				<th>Based on System call interfaces</th>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Synopsis:</b></p>
+					<p><code class='c_code'>#define wl_in(STR, MAXSIZE)</code></p>
+				</td>
+				<td>
+					<p><b>Synopsis:</b></p>
+					<p><code class='c_code'>char* wl_in(char* str, size_t maxSize);</code></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Parameters:</b></p>
+					<p style="padding-left: 4em;"><code>STR</code> — Pointer to the input string</p>
+					<p style="padding-left: 4em;"><code>MAXSIZE</code> — Maximal input length in bytes</p>
+				</td>
+				<td>
+					<p><b>Parameters:</b></p>
+					<p style="padding-left: 4em;"><code>str</code> — Pointer to the input string</p>
+					<p style="padding-left: 4em;"><code>maxSize</code> — Maximal input length in bytes</p>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<p><b>Returns:</b> Pointer to the input string</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Defined in</b> io.h</p>
+				</td>
+				<td>
+					<p><b>Declared in</b> io.h</p>
+					<p><b>Defined in</b> io.c</p>
+				</td>
+			</tr>
+		</table>
+		<p><b>Description:</b></p>
+		<p style="padding-left: 4em;">Reads from <a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_input_(stdin)">Standard Input stream</a> and stores it into <code>STR</code> pointer.</a></p>
+	</li>
+</ol>
+
+<h1>Character manipulation</h1>
+<ol>
+	<li>
+		<h2>wl_lens: String length</h2>
+		<p></p><b>Name:</b> wl_lens</p>
+		<p><b>Aliases:</b>lens</p>
+		<p><b>Mnemonics:</b>String length</p>
+		<table style="width: 100%;">
+			<tr>
+				<th>Based on the C library</th>
+				<th>Based on System call interfaces</th>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Synopsis:</b></p>
+					<p><code class='c_code'>#define wl_lens(STR)	strlen(STR)</code></p>
+				</td>
+				<td>
+					<p><b>Synopsis:</b></p>
+					<p><code class='c_code'>_StrSize wl_lens(const char* str);</code></p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Parameters:</b></p>
+					<p style="padding-left: 4em;"><code>STR</code> — Pointer to a string</p>
+				</td>
+				<td>
+					<p><b>Parameters:</b></p>
+					<p style="padding-left: 4em;"><code>str</code> — Pointer to a string
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<p><b>Returns:</b> Pointer to the input string</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Defined in</b> char.h</p>
+				</td>
+				<td>
+					<p><b>Declared in</b> char.h</p>
+					<p><b>Defined in</b> char.c</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p><b>Description:</b></p>
+					<p style="padding-left: 4em;">Counts the amount of characters in a null-terminated string.</p>
+				</td>
+				<td>
+					<p><b>Declared in</b> char.h</p>
+					<p><b>Defined in</b> char.c</p>
+				</td>
+			</tr>
+		</table>
+	</li>
+</ol>
