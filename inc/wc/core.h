@@ -13,6 +13,7 @@
 
 
 #include <wc/sys/lang.h>
+#include <wc/io.h>
 
 
 
@@ -28,6 +29,10 @@
 
 #ifndef NULL
 #define NULL	((void*)0)
+#endif
+
+#ifndef ERR
+#define ERR		
 #endif
 
 

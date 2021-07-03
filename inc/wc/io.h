@@ -49,6 +49,9 @@
 #	include <stdio.h>	/* Standard I/O */
 #	define wl_out(STR)			puts(STR)
 #	define wl_in(STR, MAXSIZE)	fgets(STR, MAXSIZE, stdin)
+#	ifndef NO_FUNC_DEBUG
+#		define wl_err(STR)		fputs(STR, stderr);
+#	endif 
 /* Otherwise */
 #else	/* Optimal behavior	*/
 /*		If we can use unix system calls */
@@ -57,6 +60,8 @@
 #		define _wl_out(STR, SIZE)	write(STDOUT_FILENO, STR, SIZE)
 #		define wl_out(STR)			_wl_out( STR, wl_lens(STR) )
 #		define _wl_in(STR, SIZE)	read(STDIN_FILENO, STR, SIZE)
+#		define _wl_err(STR, SIZE)	write(STDERR_FILENO, STR, SIZE)
+#		define wl_err(STR)			_wl_out( STR, wl_lens(STR) )
 		extern char*	wl_in	(char* str, size_t maxSize);
 #	elif defined(OS_WIN)
 		/* F*CK WINDOWS */

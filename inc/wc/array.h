@@ -139,7 +139,7 @@
  */
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
-		if (!r) r = mal(0,s);											\
+		if (!r) r = wl_mal(0,s);										\
 		register wl_U8 d = s/4;											\
 		register wl_U8 m = s%4;											\
 		register wl_U16 i = 0;											\
@@ -186,7 +186,7 @@
  */
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
-		if (!r) r = mal(0,s);											\
+		if (!r) r = wl_mal(0,s);										\
 		register wl_U8 d = s/8;											\
 		register wl_U8 m = s%8;											\
 		register wl_U16 i = 0;											\
@@ -239,7 +239,7 @@
  */
 #define ADEF2(NAME, FUNC) 												\
 	ADECL2(NAME) {														\
-		if (!r) r = mal(0,s);											\
+		if (!r) r = wl_mal(0,s);										\
 		register wl_U8 d = s/4;											\
 		register wl_U8 m = s%4;											\
 		register wl_U16 i = 0;											\
@@ -286,7 +286,7 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = mal(0,s);									\
+		if (!r) r = wl_mal(0,s);								\
 		register U8 d = s/8;									\
 		register U8 m = s%8;									\
 		register U16 i = 0;										\
@@ -366,7 +366,7 @@
  */
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
-		if (!r) r = mal(0,s);									\
+		if (!r) r = wl_mal(0,s);								\
 		register U8 d = s/4;									\
 		register U8 m = s%4;									\
 		register U16 i = 0;										\
@@ -413,7 +413,7 @@
  */
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
-		if (!r) r = mal(0,s);									\
+		if (!r) r = wl_mal(0,s);								\
 		register const U8 d = s/8;								\
 		register const U8 m = s%8;								\
 		register U16 i = 0;										\
@@ -466,7 +466,7 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = mal(0,s);									\
+		if (!r) r = wl_mal(0,s);								\
 		register U8 d = s/4;									\
 		register U8 m = s%4;									\
 		register U16 i = 0;										\
@@ -513,7 +513,7 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = mal(0,s);									\
+		if (!r) r = wl_mal(0,s);								\
 		register U8 d = s/8;									\
 		register U8 m = s%8;									\
 		register U16 i = 0;										\
@@ -603,6 +603,7 @@
 
 
 #ifndef NO_SHORT_NAMES
+#define AA0		WL_AA0
 #define aas		wl_aas
 #define anot	wl_anot
 #define aand	wl_aand
@@ -619,9 +620,24 @@
 #define anandl	wl_anandl
 #define anorl	wl_anorl
 #define anxorl	wl_anxorl
+#endif
+
+/**
+ * \brief	Array Allocate and set 0
+ * \def		WL_AA0
+ * \param	s Size
+ * \return	wl_Vo*
+ */
+#define WL_AA0(s)	(wl_afl(s, NULL, 1, ""))
 
 
 
+/*--- Types ---------------------------------------------*/
+/*typedef wl_Vo* wl_PointerOrCount*/
+
+
+
+/*--- Declarations --------------------------------------*/
 EXTERN ADECL1(aas);		/* Array Assignment */
 EXTERN ADECL1(anot);	/* Array NOT */
 EXTERN ADECL2(aand);	/* Array AND */
@@ -646,7 +662,27 @@ EXTERN ADECL2B(alt);	/* Array Less Than */
 EXTERN ADECL2B(agtq);	/* Array Greater Than Or Equal */
 EXTERN ADECL2B(altq);	/* Array Less Than Or Equal */
 
-/* Array fill */
+/**	\fn		VO* afl(register 8 sa, register VO* a, register U8 sb, register VO* b)
+ *	\param	sa	size of the array A in bytes
+ *	\param	a	the array A
+ *	\param	sb	size of the array B in bytes
+ *	\param	b	the array B
+ *	\brief	Takes two arrays and their sizes. Fills the array A with as many
+ *			instances of array B as the size of array A can handle.
+ *	\return	The array A
+ *	Method:
+ *		-#	If /e a = NULL, then the array of size /e sa will be allocated
+ *		-#	If /e b = NULL and /e sb = 0, then array will be filled with zeros
+ *		-#	If /e sb = 0, the function does nothing and returns NULL
+ *		-#	Declares a variable /e i, this is be the pointer offset
+ *		-#	Assignes array /e b to array /e a offsetted by /e i, and incriments
+ *			/e i by /e sb. This step is repeated until less than sb bytes are
+ *			left untreated
+ *		-#	Assignes the remaining part of array /e a with whatever piece of 
+ *			array /e b fits
+ *	\sa	wl_aas
+ *	\sa wl_mal
+ */
 EXTERN wl_Vo*	wl_afl(	register wl_U8	sa, 
 						register wl_Vo*	a, 
 						register wl_U8	sb, 
@@ -660,13 +696,31 @@ EXTERN wl_Vo*	wl_afl(	register wl_U8	sa,
  * \param	_byte	Byte to find
  * \param	flags	Flags
  * \return	wl_u8* 
+ * Searches for the occurance of \p _byte in anywhere in \p src .
+ * -	If \c SEARCH_COUNT flag was not set, the function returns true, if any
+ * 		occurance was found, false otherwise
+ * -	If no flags were provided the algorithm searches for the first \p _byte
+ * 		and stores in location in \p srcSize
+ * -	If \c SEARCH_RESERVE flag is set, the address of last occurance will be
+ *		stored in \p srcSize
+ * -	If nothing was found (unless \c SEARCH_COUNT flag is set) \p srcSize
+ * 		will be a null pointer
+ * -	If \c SEARCH_COUNT flag is set, \p srcSize won't change, but the
+ * 		function will return the amount of occurances
+ * Regardless of flags used, if any occurance was found the function will
+ * return a true (>0) value, and false (0) otherwise
  */
-EXTERN wl_Vo*	wl_asb(	register wl_Vo*	src,
+EXTERN wl_U8	wl_asb(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_U8	_byte,
-						register wl_U8	flags		);
+						register wl_U8	flags	);
 
-#endif
+
+EXTERN wl_U8	wl_asa(	register wl_Vo*	src,
+						register wl_U8	srcSize,
+						register wl_Vo*	target,
+						register wl_U8	targetSize,
+						register wl_U8	flags	);
 
 
 
