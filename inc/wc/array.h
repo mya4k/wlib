@@ -92,7 +92,7 @@
  *			return type is `Vo*`
  */
 #define ADECL1(NAME)	\
-	wl_vo* wl_##NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a)
+	wl_vo* NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a)
 
 #undef	ADECL2
 /** 
@@ -111,7 +111,7 @@
  *			return type is `VO*`
  */
 #define ADECL2(NAME)	\
-	wl_vo* wl_##NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a, register const wl_Vo* b)
+	wl_vo* NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a, register const wl_Vo* b)
 
 #undef	ADEF1
 #if	NO_I64
@@ -324,7 +324,7 @@
  *			return type is `BL`
  */
 #define ADECL1B(NAME)	\
-	wl_Bl wl_##NAME(const wl_U8 s, register const wl_Vo* a)
+	wl_Bl NAME(const wl_U8 s, register const wl_Vo* a)
 
 #undef	ADECL2B
 /** 
@@ -338,7 +338,7 @@
  *			return type is `BL`
  */
 #define ADECL2B(NAME)	\
-	wl_Bl wl_##NAME(const wl_U8 s, register const wl_Vo* a, register const wl_Vo* b)
+	wl_Bl NAME(const wl_U8 s, register const wl_Vo* a, register const wl_Vo* b)
 
 #undef	ADEF1
 #if	NO_I64
@@ -633,34 +633,42 @@
 
 
 /*--- Types ---------------------------------------------*/
-/*typedef wl_Vo* wl_PointerOrCount*/
+/**
+ * \brief	wl_Vo* or integer
+ * \typedef	wl_Vopu
+ * \typedef wl_vopu
+ * \typedef	wl_Vopi
+ * \typedef	wl_vopi
+ * A type for functions that return wl_Vo* and an integer
+ */
+typedef wl_Vo* wl_Vopu, wl_vopu, wl_Vopi, wl_vopi;
 
 
 
 /*--- Declarations --------------------------------------*/
-EXTERN ADECL1(aas);		/* Array Assignment */
-EXTERN ADECL1(anot);	/* Array NOT */
-EXTERN ADECL2(aand);	/* Array AND */
-EXTERN ADECL2(aor);		/* Array OR */
-EXTERN ADECL2(axor);	/* Array XOR */
-EXTERN ADECL2(anand);	/* Array NAND */
-EXTERN ADECL2(anor);	/* Array NOR */
-EXTERN ADECL2(anxor);	/* Array NXOR */
+EXTERN ADECL1(wl_aas);		/* Array Assignment */
+EXTERN ADECL1(wl_anot);		/* Array NOT */
+EXTERN ADECL2(wl_aand);		/* Array AND */
+EXTERN ADECL2(wl_aor);		/* Array OR */
+EXTERN ADECL2(wl_axor);		/* Array XOR */
+EXTERN ADECL2(wl_anand);	/* Array NAND */
+EXTERN ADECL2(wl_anor);		/* Array NOR */
+EXTERN ADECL2(wl_anxor);	/* Array NXOR */
 
-EXTERN ADECL1B(anol);	/* Array Logical No Operation */
-EXTERN ADECL1B(anotl);	/* Array Logical NOT */
-EXTERN ADECL2B(aandl);	/* Array Logical AND */
-EXTERN ADECL2B(aorl);	/* Array Logical OR */
-EXTERN ADECL2B(axorl);	/* Array Logical XOR */
-EXTERN ADECL2B(anandl);	/* Array Logical NAND */
-EXTERN ADECL2B(anorl);	/* Array Logical NOR */
-EXTERN ADECL2B(anxorl);	/* Array Logical NXOR */
-EXTERN ADECL2B(aeq);	/* Array Equals */
-EXTERN ADECL2B(aneq);	/* Array Not Equals */
-EXTERN ADECL2B(agt);	/* Array Greater Than */
-EXTERN ADECL2B(alt);	/* Array Less Than */
-EXTERN ADECL2B(agtq);	/* Array Greater Than Or Equal */
-EXTERN ADECL2B(altq);	/* Array Less Than Or Equal */
+EXTERN ADECL1B(wl_anol);	/* Array Logical No Operation */
+EXTERN ADECL1B(wl_anotl);	/* Array Logical NOT */
+EXTERN ADECL2B(wl_aandl);	/* Array Logical AND */
+EXTERN ADECL2B(wl_aorl);	/* Array Logical OR */
+EXTERN ADECL2B(wl_axorl);	/* Array Logical XOR */
+EXTERN ADECL2B(wl_anandl);	/* Array Logical NAND */
+EXTERN ADECL2B(wl_anorl);	/* Array Logical NOR */
+EXTERN ADECL2B(wl_anxorl);	/* Array Logical NXOR */
+EXTERN ADECL2B(wl_aeq);		/* Array Equals */
+EXTERN ADECL2B(wl_aneq);	/* Array Not Equals */
+EXTERN ADECL2B(wl_agt);		/* Array Greater Than */
+EXTERN ADECL2B(wl_alt);		/* Array Less Than */
+EXTERN ADECL2B(wl_agtq);	/* Array Greater Than Or Equal */
+EXTERN ADECL2B(wl_altq);	/* Array Less Than Or Equal */
 
 /**	\fn		VO* afl(register 8 sa, register VO* a, register U8 sb, register VO* b)
  *	\param	sa	size of the array A in bytes
@@ -710,13 +718,13 @@ EXTERN wl_Vo*	wl_afl(	register wl_U8	sa,
  * Regardless of flags used, if any occurance was found the function will
  * return a true (>0) value, and false (0) otherwise
  */
-EXTERN wl_U8	wl_asb(	register wl_Vo*	src,
+EXTERN wl_Vopu	wl_asb(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_U8	_byte,
 						register wl_U8	flags	);
 
 
-EXTERN wl_U8	wl_asa(	register wl_Vo*	src,
+EXTERN wl_Vopu	wl_asa(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_Vo*	target,
 						register wl_U8	targetSize,

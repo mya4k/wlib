@@ -370,7 +370,7 @@ typedef wl_U8 wl_StrSize;
 	 *	2. while (str[i] != CH_NUL) i = i+1; (Check every character and incriment the `i` until the character is null)
 	 *	3. return i; (Return the length of the string)
 	 */
-	EXTERN wl_StrSize	wl_lens	(char* str);
+	EXTERN wl_StrSize	wl_lens	(const char* str);
 #endif
 
 

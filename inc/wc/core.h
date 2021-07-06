@@ -13,18 +13,23 @@
 
 
 #include <wc/sys/lang.h>
-#include <wc/io.h>
 
 
 
 #ifdef LC_CPP
-#define EXTERN			extern "C"
-#define C_DECL_BEGIN	EXTERN {
-#define C_DECL_END		}
+#	undef	EXTERN
+#	define	EXTERN			extern "C"
+#	undef	C_DECL_BEGIN
+#	define	C_DECL_BEGIN	EXTERN {
+#	undef	C_DECL_END
+#	define	C_DECL_END		}
 #else
-#define EXTERN			extern
-#define C_DECL_BEGIN
-#define C_DECL_END
+#	undef	EXTERN
+#	define	EXTERN			extern
+#	undef	C_DECL_BEGIN
+#	define	C_DECL_BEGIN
+#	undef	C_DECL_END
+#	define C_DECL_END
 #endif
 
 #ifndef NULL
@@ -34,6 +39,9 @@
 #ifndef ERR
 #define ERR		
 #endif
+
+#include <stdio.h>
+#define DEBUG	printf
 
 
 #endif

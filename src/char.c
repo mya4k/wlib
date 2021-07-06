@@ -24,8 +24,8 @@
  *	2. while (str[i] != CH_NUL) i = i+1; (Check every character and incriment the `i` until the character is null)
  *	3. return i; (Return the length of the string)
  */
-_StrSize wl_lens(const char* str) {
-	register _StrSize i = 0;	/**< The length of a string */
+wl_StrSize wl_lens(const char* str) {
+	register wl_StrSize i = 0;	/**< The length of a string */
 	/* Incriment `i` until a null-character is captured */
 	while (str[i++]);
 	return i;

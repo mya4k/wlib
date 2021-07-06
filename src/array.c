@@ -1,4 +1,5 @@
 #include <wc/array.h>
+#include <wc/memory.h>
 
 /**	\fn		ADEF1(aas, NO)
  *	\param	s	size of the operands in bytes
@@ -7,7 +8,7 @@
  *	\brief	Assigns `s` bytes of objects of array A to array R
  *	\return	The array of object that are assigned
  */
-ADEF1(aas, NO);
+ADEF1(wl_aas, NO);
 
 /**	\fn		ADEF1(ant, NT)
  *	\param	s	size of the operands in bytes
@@ -17,7 +18,7 @@ ADEF1(aas, NO);
 			the result in array R
  *	\return	The array of object that have been inverted
  */
-ADEF1(ant, NT);
+ADEF1(wl_ant, NT);
 
 /**	\fn		ADEF2(aan, AN)
  *	\param	s	size of the operands in bytes
@@ -28,7 +29,7 @@ ADEF1(ant, NT);
 			the result in array R
  *	\return	The array of object that have been conjuncted
  */
-ADEF2(aan, AN);
+ADEF2(wl_aan, AN);
 
 /**	\fn		ADEF2(aor, OR)
  *	\param	s	size of the operands in bytes
@@ -39,7 +40,7 @@ ADEF2(aan, AN);
  *			the result in array R
  *	\return	The array of object that have been disjuncted
  */
-ADEF2(aor, OR);
+ADEF2(wl_aor, OR);
 
 /**	\fn		ADEF2(axr, XR)
  *	\param	s	size of the operands in bytes
@@ -50,7 +51,7 @@ ADEF2(aor, OR);
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted
  */
-ADEF2(axr, XR);
+ADEF2(wl_axr, XR);
 
 /**	\fn		ADEF2(ann, NN)
  *	\param	s	size of the operands in bytes
@@ -61,7 +62,7 @@ ADEF2(axr, XR);
 			the result in array R
  *	\return	The array of object that have been conjuncted and inversed
  */
-ADEF2(ann, NN);
+ADEF2(wl_ann, NN);
 
 /**	\fn		ADEF2(anr, NR)
  *	\param	s	size of the operands in bytes
@@ -72,7 +73,7 @@ ADEF2(ann, NN);
  *			the result in array R
  *	\return	The array of object that have been disjuncted and inversed
  */
-ADEF2(anr, NR);
+ADEF2(wl_anr, NR);
 
 /**	\fn		ADEF2(anx, NX)
  *	\param	s	size of the operands in bytes
@@ -83,7 +84,7 @@ ADEF2(anr, NR);
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted and inversed
  */
-ADEF2(anx, NX);
+ADEF2(wl_anx, NX);
 
 /**
  * \brief	Array equals
@@ -96,28 +97,30 @@ ADEF2(anx, NX);
 wl_Bl	wl_aeq(	register const wl_U8	s,
 				register const wl_Vo*	a,
 				register const wl_Vo*	b	) {
-	if (!a) a = mal(NULL, s);
+	if (!a) a = wl_mal(NULL, s);
 
 	register const wl_U8 d = s/8;
 	register const wl_U8 m = s%8;
-	register U16 i = 0;
+	register wl_U8 i = 0;
 
 	for (; i < d; i++)
 		if (((wl_U64*)a)[i] != ((wl_U64*)b)[i]) return 0;
 	
-	i *= 8;
+	i = s;
+
+	if (m&0b100) {
+		i-=4;
+		if (*(wl_U32*)(a+i) != *(wl_U32*)(b+i)) return 0;
+	}
+
+	if (m&0b010) {
+		i-=2;
+		if (*(wl_U16*)(a+i) != *(wl_U16*)(b+i)) return 0;
+	}
 
 	if (m&0b001) {
-		if (((wl_U8*)a)[i] != ((wl_U8*)b)[i]) return 0;
-		i++;
-	}
-	if (m&0b010) {
-		if (((wl_U16*)a)[i] != ((wl_U16*)b)[i]) return 0;
-		i += 2;
-	}
-	if (m&0b100)	{
-		if (((wl_U16*)a)[i] != ((wl_U16*)b)[i]) return 0;
-		i += 4;
+		i--;
+		if (*(wl_U8*)(a+i) != *(wl_U8*)(b+i)) return 0;
 	}
 
 	return 1;
@@ -148,7 +151,7 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
 				register wl_Vo*	a, 
 				register wl_U8	sb, 
 				register wl_Vo*	b		) {
-	if (!a) a = mal(0,sa);
+	if (!a) a = wl_mal(0,sa);
 
 	if (!sb) {
 		if (b) return 0;
@@ -163,9 +166,9 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
 			wl_U16	i = 0;
 
 	for (; i<d; i+=sb)
-		aas(sb, a+i, b);
+		wl_aas(sb, a+i, b);
 
-	aas(sa-d, a+i, b);
+	wl_aas(sa-d, a+i, b);
 
 	return a;
 }
@@ -195,7 +198,7 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
  * true if _byte is 0, otherwise false. (Basically it will try to find _byte 
  * in 0). \p srcSize will never change in this context.
  */
-wl_U8	wl_asb(	register wl_Vo*	src,
+wl_Vopu	wl_asb(	register wl_Vo*	src,
 				register wl_U8	srcSize,
 				register wl_U8	_byte,
 				register wl_U8	flags	) {
@@ -204,46 +207,44 @@ wl_U8	wl_asb(	register wl_Vo*	src,
 		/* If SEARCH_COUNT was set */
 		if (flags&SEARCH_COUNT) {
 			/* Occurance count accumulator */
-			wl_U8 r = 0;
+			wl__Ptr r = 0;
 			/* Search! */
-			for (wl_U8 i = 0; i<srcSize; i++)
-				if (*(char*)(src+i) == _byte)
+			wl_U8* ilimit = src+srcSize;
+			for (wl_U8* i = src; i<ilimit; i++)
+				if (*i == _byte)
 					/* Yay! We found something! Incriment */
 					r++;
 			/* When we have searched everything, return the count */
-			return r;
+			return (wl_Vopu)r;
 		} 
 		/* Otherwise */
 		else
 			/* If SEARCH_REVERSE was set */
 			if (flags&SEARCH_REVERSE) {
-				register const wl_Vo* ilimit = src;
+				register const wl_U8* ilimit = src;
 				/* Search! (but we start from the very end) */
-				for (register wl_Vo* i = src+srcSize; i<ilimit; i--) {
+				for (register wl_U8* i = src+srcSize; i>ilimit; i -= 1) {
 					if (*(char*)i==_byte) {
-						/* Yay! We found something! Return */
-						src = i;
-						return 1;
+						return (wl_Vopu)i;
 					} 
 				}
-				return 0;
+				return (wl_Vopu)0;
 			}
 			/* Otherwise */
 			else {
 				/* Search! */
-				register const wl_Vo* ilimit = src+srcSize;
-				for (register wl_Vo* i = src; i<ilimit; i++) {
-					if (*(char*)i==_byte) {
+				register const wl_U8* ilimit = src+srcSize;
+				for (register wl_U8* i = src; i<ilimit; i += 1) {
+					if (*i==_byte) {
 						/* Yay! We found something! Return */
-						src = i;
-						return 1;
-					} 
+						return (wl_Vopu)i;
+					}
 				}
-				return 0;
+				return (wl_Vopu)0;
 			}
 	}
 	/* Otherwise error */
-	return !_byte;
+	return (wl_Vopu)(wl__Ptr)!_byte;
 }
 
 /**
@@ -258,7 +259,7 @@ wl_U8	wl_asb(	register wl_Vo*	src,
  * If \f$ \c (target \neq NULL) \land (targetSize \neq 0) \f$ 
  * Otherwise returns true
  */
-wl_U8	wl_asa(	register wl_Vo*	src,
+wl_Vopu	wl_asa(	register wl_Vo*	src,
 				register wl_U8	srcSize,
 				register wl_Vo*	target,
 				register wl_U8	targetSize,
@@ -271,73 +272,80 @@ wl_U8	wl_asa(	register wl_Vo*	src,
 			/* If SEARCH_COUNT was set */
 			if (flags&SEARCH_COUNT) {
 				/* Occurance count accumulator */
-				wl_U8 r = 0;
+				wl__Ptr r = 0;
 				/* Search! */
-				for (wl_Vo* i = 0; i<src+srcSize; i++) {
-					/* At least one character matches target */
-					if (*(char*)i == *(char*)target) {
-						if (wl_aeq(targetSize, target+1, i++)) {
-							r++;
-							i += targetSize;
+				wl_U8* ilimit = src+srcSize;
+
+				if (targetSize)
+					for (wl_U8* i = src; i<ilimit; i++) {
+						/* At least one character matches target */
+						if (*i == *(wl_U8*)target) {
+							if (wl_aeq(targetSize, target+1, i++)) {
+								r++;
+								i += targetSize;
+							}
 						}
 					}
-				}
+				else
+					for (wl_U8* i = src; i<ilimit; i++)
+						/* At least one character matches target */
+						if (*i == *(wl_U8*)target) 
+							r++;
+
 				/* When we have searched everything, return the count */
-				return r;
+				return (wl_Vopu)r;
 			}
 			/* Otherwise */
 		else
 			/* If SEARCH_REVERSE was set */
 			if (flags&SEARCH_REVERSE) {
 				/* Search! */
-				register const wl_Vo* ilimit = src;
+				register const wl_U8* ilimit = src;
 				register const wl_U8 t_1 = targetSize-1;
-				for (register wl_Vo* i = src+srcSize; i<ilimit; i--) {
-					if (*(char*)i == *(char*)(target+targetSize)) {
+				for (register wl_U8* i = src+srcSize; i>ilimit; i--) {
+					if (*i == *(char*)(target+targetSize)) {
 						if (wl_aeq(targetSize, target-t_1, i-=t_1)) {
-							src = i;
-							return 1;
+							return (wl_Vopu)i;
 						}
 					}
 				}
-				return 0;
+				return (wl_Vopu)0;
 			}
 			/* Otherwise */
 			else {
 				/* Search! */
-				register const wl_Vo* ilimit = src+srcSize;
-				for (register wl_Vo* i = src; i<ilimit; i++) {
+				register const wl_U8* ilimit = src+srcSize;
+				for (register wl_U8* i = src; i<ilimit; i++) {
 					if (*(char*)i == *(char*)target) {
 						if (wl_aeq(targetSize, target+1, i++)) {
-							src = i;
-							return 1;
+							return (wl_Vopu)i;
 						}
 					}
 				}
-				return 0;
+				return (wl_Vopu)0;
 			}
 		}
-		else return wl_aeq(targetSize, WL_AA0(targetSize), target);
+		else return (wl_Vopu)wl_aeq(targetSize, WL_AA0(targetSize), target);
 	}
 	/* There was nothing to find, so return true */
-	else return 1;
+	return (wl_Vopu)1;
 }
 
 
 
 #ifdef NOT_IMPLIMENTED_YET
-ADEF1B(anol, NOL);	/* Array Logical No Operation */
-ADEF1B(antl, NTL);	/* Array Logical NOT */
-ADEF2B(aanl, ANL);	/* Array Logical AND */
-ADEF2B(aorl, ORL);	/* Array Logical OR */
-ADEF2B(axrl, XRL);	/* Array Logical XOR */
-ADEF2B(annl, NNL);	/* Array Logical NAND */
-ADEF2B(anrl, NRL);	/* Array Logical NOR */
-ADEF2B(anxl, NXL);	/* Array Logical NXOR */
-ADEF2B(aeq, EQ);	/* Array Equals */
-ADEF2B(anq, NQ);	/* Array Not Equals */
-ADEF2B(agt, GT);	/* Array Greater Than */
-ADEF2B(alt, LT);	/* Array Less Than */
-ADEF2B(agq, GQ);	/* Array Greater Than Or Equal */
-ADEF2B(alq, LQ);	/* Array Less Than Or Equal */ 
+ADEF1B(wl_anol, NOL);	/* Array Logical No Operation */
+ADEF1B(wl_antl, NTL);	/* Array Logical NOT */
+ADEF2B(wl_aanl, ANL);	/* Array Logical AND */
+ADEF2B(wl_aorl, ORL);	/* Array Logical OR */
+ADEF2B(wl_axrl, XRL);	/* Array Logical XOR */
+ADEF2B(wl_annl, NNL);	/* Array Logical NAND */
+ADEF2B(wl_anrl, NRL);	/* Array Logical NOR */
+ADEF2B(wl_anxl, NXL);	/* Array Logical NXOR */
+ADEF2B(wl_aeq, EQ);		/* Array Equals */
+ADEF2B(wl_anq, NQ);		/* Array Not Equals */
+ADEF2B(wl_agt, GT);		/* Array Greater Than */
+ADEF2B(wl_alt, LT);		/* Array Less Than */
+ADEF2B(wl_agq, GQ);		/* Array Greater Than Or Equal */
+ADEF2B(wl_alq, LQ);		/* Array Less Than Or Equal */ 
 #endif
