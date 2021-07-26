@@ -721,14 +721,14 @@ EXTERN wl_Vo*	wl_afl(	register wl_U8	sa,
 EXTERN wl_Vopu	wl_asb(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_U8	_byte,
-						register wl_U8	flags	);
+						register wl_U8	flags		);
 
 
 EXTERN wl_Vopu	wl_asa(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_Vo*	target,
 						register wl_U8	targetSize,
-						register wl_U8	flags	);
+						register wl_U8	flags		);
 
 
 
