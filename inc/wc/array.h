@@ -16,55 +16,6 @@
 
 /* ALL FUNCTIONS DECLARED THROUGH "ADECL" ARE DEFINED IN "array.c" */
 
-
-/*--- Macros --------------------------------------------*/
-#undef	NO
-#define NO(X)		(X)
-#undef	NT
-#define NT(X)		(~X)
-#undef	AN
-#define AN(X,Y)		(X&Y)
-#undef	OR
-#define OR(X,Y)		(X|Y)
-#undef	XR
-#define XR(X,Y)		(X^Y)
-#undef	NN
-#define NN(X,Y)		(~(X&Y))
-#undef	NR
-#define NR(X,Y)		(~(X|Y))
-#undef	NX
-#define NX(X,Y)		(~(X^Y))
-
-#undef	EQ
-#define	EQ(X,Y)		(X==Y)
-#undef	NQ
-#define NQ(X,Y)		(X!=Y)
-#undef	GT
-#define GT(X,Y)		(X>Y)
-#undef	LT
-#define LT(X,Y)		(X<Y)
-#undef	GQ
-#define GQ(X,Y)		(X>=Y)
-#undef	LQ
-#define LQ(X,Y)		(X<=Y)
-
-#undef	NG
-#define NG(X)		(-X)
-#undef	IC
-#define	IC(X)		(X++)
-#undef	DC
-#define DC(X)		(X--)
-#undef	AD
-#define	AD(X,Y)		(X+Y)
-#undef	SB
-#define SB(X,Y)		(X-Y)
-#undef	ML
-#define ML(X,Y)		(X*Y)
-#undef	DV
-#define DV(X,Y)		(X/Y)
-#undef	MD
-#define MD(X,Y)		(X%Y)
-
 /**
  * \brief	Flag for memory search functions to search for the last occurance 
  * \def		SEARCH_REVERSE

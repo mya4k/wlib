@@ -14,34 +14,58 @@
 
 #include <wc/sys/lang.h>
 
-
-
-#ifdef LC_CPP
-#	undef	EXTERN
-#	define	EXTERN			extern "C"
-#	undef	C_DECL_BEGIN
-#	define	C_DECL_BEGIN	EXTERN {
-#	undef	C_DECL_END
-#	define	C_DECL_END		}
-#else
-#	undef	EXTERN
-#	define	EXTERN			extern
-#	undef	C_DECL_BEGIN
-#	define	C_DECL_BEGIN
-#	undef	C_DECL_END
-#	define C_DECL_END
+#ifndef NO_SHORT_NAMES
+#	undef	NULL
+#	define	NULL	WL_NULL
+#	undef	FALSE
+#	define	FALSE	WL_FALSE
+#	undef	TRUE
+#	define	TRUE	WL_TRUE
 #endif
 
-#ifndef NULL
-#define NULL	((void*)0)
+#ifndef REGION_C_CPP_COMPATIBILITY
+#	ifdef LC_CPP
+#		undef	EXTERN
+#		define	EXTERN			extern "C"
+#		undef	C_DECL_BEGIN
+#		define	C_DECL_BEGIN	EXTERN {
+#		undef	C_DECL_END
+#		define	C_DECL_END		}
+#	else
+#		undef	EXTERN
+#		define	EXTERN			extern
+#		undef	C_DECL_BEGIN
+#		define	C_DECL_BEGIN
+#		undef	C_DECL_END
+#		define	C_DECL_END
+#	endif
 #endif
 
-#ifndef ERR
-#define ERR		
+#ifndef REGION_VALUES
+/**
+ * \brief Null pointer 
+ * \def WL_NULL
+ */
+#define WL_NULL	((void*)0)
+/**
+ * \brief Boolean false
+ * \def WL_FALSE
+ */
+/**
+ * \brief Boolean true
+ * \def WL_TRUE
+ */
+/* If using C language standard */
+#	if		defined(LG_C) && LG_C>=VR_C99
+#		define WL_FALSE	((_Bool)0)
+#		define WL_TRUE	((_Bool)1)
+#	elif	defined(LG_CPP)
+#		define WL_FALSE	((bool)0)
+#		define WL_TRUE	((bool)1)
+#	else
+#		define WL_FALSE	((char)0)
+#		define WL_TRUE	((char)1)
+#	endif
 #endif
-
-#include <stdio.h>
-#define DEBUG	printf
-
 
 #endif

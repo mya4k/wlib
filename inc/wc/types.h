@@ -10,11 +10,13 @@
  *  		WL_I8N, WL_I8X, WL_I16B, WL_I16N, WL_I16X,
  * 			WL_I32B, WL_I32N, WL_I32X, WL_I64B, WL_I64N, 
  * 			WL_I64X, WL_U8N, WL_U8X, WL_U16N, WL_U16X, 
- * 			WL_U32N, WL_U32X, WL_U64N, WL_U64X
- * 	Types:	wl_ch, wl_Ch, wl_vo, wl_Vo, wl_bl, wl_Bl, wl_i8,
- * 			wl_u8, wl_i16, wl_u16, wl_i32, wl_u32, wl_i64,
- * 			wl_u64, wl_I8, wl_U8, wl_I16, wl_U16, wl_I32, 
- * 			wl_U32, wl_I64, wl_U64, wl__Ptr
+ * 			WL_U32N, WL_U32X, WL_U64N, WL_U64X, WL_IMN, 
+ * 			WL_IMX, WL_UMN, WL_UMX
+ * 	Types:	wl_ch, wl_Ch, wl_vo, wl_Vo, wl_bl, wl_Bl, 
+ * 			wl_i8, wl_u8, wl_i16, wl_u16, wl_i32, wl_u32,
+ * 			wl_i64, wl_u64, wl_I8, wl_U8, wl_I16, wl_U16,
+ * 			wl_I32, wl_U32, wl_I64, wl_U64, wl_IMax,
+ * 			wl_imax, wl_UMax, wl_umax, wl__Ptr
  * 
  */
 #ifndef WC_TYPES_H
@@ -171,27 +173,29 @@ typedef char				wl_ch, wl_Ch;
 /* From C99 there's <stdint.h> header which defines fixed-size types */
 #if	(LG_C >= VR_C99) && defined(USE_STDLIB)
 #include <stdint.h>
-typedef int8_t				wl_i8,	wl_I8;
-typedef int16_t				wl_i16,	wl_I16;
-typedef int32_t				wl_i32,	wl_I32;
-typedef int64_t				wl_i64,	wl_I64;
-typedef uint8_t				wl_u8,	wl_U8;
-typedef uint16_t			wl_u16,	wl_U16;
-typedef uint32_t			wl_u32,	wl_U32;
-typedef uint64_t			wl_u64,	wl_U64;
-typedef uintptr_t				wl__Ptr;	/* Pointer type (experimental)	*/
-/*#endif	*/
+typedef int8_t				wl_i8,		wl_I8;
+typedef int16_t				wl_i16,		wl_I16;
+typedef int32_t				wl_i32,		wl_I32;
+typedef int64_t				wl_i64,		wl_I64;
+typedef uint8_t				wl_u8,		wl_U8;
+typedef uint16_t			wl_u16,		wl_U16;
+typedef uint32_t			wl_u32,		wl_U32;
+typedef uint64_t			wl_u64,		wl_U64;
+typedef uintptr_t			wl__Ptr;	/* Pointer type (experimental)	*/
+typedef intmax_t			wl_imax,	wl_IMax;
+typedef uintmax_t			wl_umax,	wl_UMax;
+#endif
 
-#elif	DATA_MODEL == DM_LP32
+#if	DATA_MODEL == DM_LP32
 
 #if	!defined(USE_STDLIB)
-typedef signed char			wl_i8,	wl_I8;
-typedef short				wl_i16,	wl_I16;
-typedef long				wl_i32,	wl_I32;
-typedef unsigned char		wl_u8,	wl_U8;
-typedef unsigned short		wl_u16,	wl_U16;
-typedef unsigned long		wl_u32,	wl_U32;
-typedef wl_U32					wl__Ptr;	/* Pointer type (experimental)	*/
+typedef signed char			wl_i8,		wl_I8;
+typedef short				wl_i16,		wl_I16;
+typedef long				wl_i32,		wl_I32;
+typedef unsigned char		wl_u8,		wl_U8;
+typedef unsigned short		wl_u16,		wl_U16;
+typedef unsigned long		wl_u32,		wl_U32;
+typedef wl_U32				wl__Ptr;	/* Pointer type (experimental)	*/
 #endif
 
 #define WL_CHB	8
@@ -210,6 +214,7 @@ typedef unsigned char		wl_u8,	wl_U8;
 typedef unsigned short		wl_u16,	wl_U16;
 typedef unsigned int		wl_u32,	wl_U32;
 typedef wl_U32					wl__Ptr;	/* Pointer type (experimental)	*/
+
 #endif
 
 #define WL_CHB	8
@@ -238,15 +243,17 @@ typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
 #elif	DATA_MODEL == DM_LP64
 
 #if	!defined(USE_STDLIB)
-typedef signed char			wl_i8,	wl_I8;
-typedef short				wl_i16,	wl_I16;
-typedef int					wl_i32,	wl_I32;
-typedef long				wl_i64,	wl_I64;
-typedef unsigned char		wl_u8,	wl_U8;
-typedef unsigned short		wl_u16,	wl_U16;
-typedef unsigned int		wl_u32,	wl_U32;
-typedef unsigned long		wl_u64,	wl_U64;
-typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
+typedef signed char			wl_i8,		wl_I8;
+typedef short				wl_i16,		wl_I16;
+typedef int					wl_i32,		wl_I32;
+typedef long				wl_i64,		wl_I64;
+typedef unsigned char		wl_u8,		wl_U8;
+typedef unsigned short		wl_u16,		wl_U16;
+typedef unsigned int		wl_u32,		wl_U32;
+typedef unsigned long		wl_u64,		wl_U64;
+typedef wl_U64				wl__Ptr;	/* Pointer type (experimental) */
+typedef wl_U64				wl_imax,	wl_IMax;
+typedef wl_U64				wl_umax,	wl_UMax;
 #endif
 
 #define WL_CHB	8
@@ -258,15 +265,17 @@ typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
 #elif	DATA_MODEL == DM_ILP64
 
 #if	!defined(USE_STDLIB)
-typedef signed char			wl_i8,	wl_I8;
-typedef short				wl_i16,	wl_I16;
-typedef int					wl_i32,	wl_I32;
-typedef int					wl_i64,	wl_I64;
-typedef unsigned char		wl_u8,	wl_U8;
-typedef unsigned short		wl_u16,	wl_U16;
-typedef unsigned int		wl_u32,	wl_U32;
-typedef unsigned int		wl_u64,	wl_U64;
-typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
+typedef signed char			wl_i8,		wl_I8;
+typedef short				wl_i16,		wl_I16;
+typedef int					wl_i32,		wl_I32;
+typedef int					wl_i64,		wl_I64;
+typedef unsigned char		wl_u8,		wl_U8;
+typedef unsigned short		wl_u16,		wl_U16;
+typedef unsigned int		wl_u32,		wl_U32;
+typedef unsigned int		wl_u64,		wl_U64;
+typedef wl_U64				wl__Ptr;	/* Pointer type (experimental) */
+typedef wl_U64				wl_imax,	wl_IMax;
+typedef wl_U64				wl_umax,	wl_UMax;
 #endif
 
 #define WL_CHB	8
@@ -278,35 +287,39 @@ typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
 #elif	DATA_MODEL == DM_SILP64
 
 #if	!defined(USE_STDLIB)
-typedef signed char			wl_i8,	wl_I8;
-typedef short				wl_i16,	wl_I16;
-typedef short				wl_i32,	wl_I32;
-typedef short				wl_i64,	wl_I64;
-typedef unsigned char		wl_u8,	wl_U8;
-typedef unsigned short		wl_u16,	wl_U16;
-typedef unsigned short		wl_u32,	wl_U32;
-typedef unsigned short		wl_u64,	wl_U64;
-typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
+typedef signed char			wl_i8,		wl_I8;
+typedef short				wl_i16,		wl_I16;
+typedef short				wl_i32,		wl_I32;
+typedef short				wl_i64,		wl_I64;
+typedef unsigned char		wl_u8,		wl_U8;
+typedef unsigned short		wl_u16,		wl_U16;
+typedef unsigned short		wl_u32,		wl_U32;
+typedef unsigned short		wl_u64,		wl_U64;
+typedef wl_U64				wl__Ptr;	/* Pointer type (experimental) */
+typedef wl_U64				wl_imax,	wl_IMax;
+typedef wl_U64				wl_umax,	wl_UMax;
 #endif
 
 #define WL_CHB	8
 #define WL_SHB	64
 #define WL_INB	64
-#define WL_LOB 64
+#define WL_LOB	64
 #define WL_PTB	64							/* Pointer size (experimental) */
 
 #else
 
 #if	!defined(USE_STDLIB)
-typedef signed char			wl_i8,	wl_I8;
-typedef short				wl_i16,	wl_I16;
-typedef int					wl_i32,	wl_I32;
-typedef long				wl_i64,	wl_I64;
-typedef unsigned char		wl_u8,	wl_U8;
-typedef unsigned short		wl_u16,	wl_U16;
-typedef unsigned int		wl_u32,	wl_U32;
-typedef unsigned long		wl_u64,	wl_U64;
-typedef wl_U64					wl__Ptr;	/* Pointer type (experimental) */
+typedef signed char			wl_i8,		wl_I8;
+typedef short				wl_i16,		wl_I16;
+typedef int					wl_i32,		wl_I32;
+typedef long				wl_i64,		wl_I64;
+typedef unsigned char		wl_u8,		wl_U8;
+typedef unsigned short		wl_u16,		wl_U16;
+typedef unsigned int		wl_u32,		wl_U32;
+typedef unsigned long		wl_u64,		wl_U64;
+typedef wl_U64				wl__Ptr;	/* Pointer type (experimental) */
+typedef wl_U64				wl_imax,	wl_IMax;
+typedef wl_U64				wl_umax,	wl_UMax;
 #endif
 
 #define WL_CHB	8
@@ -341,8 +354,10 @@ typedef char				wl_bl, wl_Bl;
 
 #if		(DATA_MODEL == DM_LP32) || (DATA_MODEL == DM_ILP32)
 #define NO_I64
-typedef long long			wl_i64, wl_I64;
-typedef unsigned long long	wl_u64, wl_U64;
+typedef long long			wl_i64, 	wl_I64;
+typedef unsigned long long	wl_u64, 	wl_U64;
+typedef wl_U32				wl_imax,	wl_IMax;
+typedef wl_U32				wl_umax,	wl_UMax;
 #endif
 
 #else	/* Long long integer type */
@@ -350,6 +365,8 @@ typedef unsigned long long	wl_u64, wl_U64;
 #if		(DATA_MODEL == DM_LLP64)
 typedef long long			wl_i64, wl_I64;
 typedef unsigned long long	wl_u64, wl_U64;
+typedef wl_U64				wl_imax,	wl_IMax;
+typedef wl_U64				wl_umax,	wl_UMax;
 #endif
 
 #endif	/* Long long integer type */
@@ -382,16 +399,22 @@ typedef double				wl_f64, wl_F64;
 
 #ifdef NO_I64	/* Abnormal behavior */
 #define WL_I64B	32
+#define WL_IMB	32
 #define WL_I64N	(wl_I64)	0x80000000
 #define WL_I64X	(wl_I64)	0x7FFFFFFF
 #define WL_U64N	(wl_U64)	0
 #define WL_U64X	(wl_U64)	0xFFFFFFFF
+#define WL_IMN	WL_U32N
+#define WL_IMX	WL_U32X
 #else		/* Optimal behavior */
 #define WL_I64B	64
+#define WL_IMB	64
 #define WL_I64N	(wl_I64)	0x8000000000000000
 #define WL_I64X	(wl_I64)	0x7FFFFFFFFFFFFFFF
 #define WL_U64N	(wl_U64)	0
 #define WL_U64X	(wl_U64)	0xFFFFFFFFFFFFFFFF
+#define WL_IMN	WL_U64N
+#define WL_IMX	WL_U64X
 #endif		/* NO_I64 */
 
 #endif
