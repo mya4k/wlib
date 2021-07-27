@@ -47,25 +47,5 @@
  * \def WL_NULL
  */
 #define WL_NULL	((void*)0)
-/**
- * \brief Boolean false
- * \def WL_FALSE
- */
-/**
- * \brief Boolean true
- * \def WL_TRUE
- */
-/* If using C language standard */
-#	if		defined(LG_C) && LG_C>=VR_C99
-#		define WL_FALSE	((_Bool)0)
-#		define WL_TRUE	((_Bool)1)
-#	elif	defined(LG_CPP)
-#		define WL_FALSE	((bool)0)
-#		define WL_TRUE	((bool)1)
-#	else
-#		define WL_FALSE	((char)0)
-#		define WL_TRUE	((char)1)
-#	endif
-#endif
 
 #endif

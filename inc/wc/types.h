@@ -10,8 +10,8 @@
  *  		WL_I8N, WL_I8X, WL_I16B, WL_I16N, WL_I16X,
  * 			WL_I32B, WL_I32N, WL_I32X, WL_I64B, WL_I64N, 
  * 			WL_I64X, WL_U8N, WL_U8X, WL_U16N, WL_U16X, 
- * 			WL_U32N, WL_U32X, WL_U64N, WL_U64X, WL_IMN, 
- * 			WL_IMX, WL_UMN, WL_UMX
+ * 			WL_U32N, WL_U32X, WL_U64N, WL_U64X, WL_IMB,
+ * 			WL_IMN, WL_IMX, WL_UMN, WL_UMX
  * 	Types:	wl_ch, wl_Ch, wl_vo, wl_Vo, wl_bl, wl_Bl, 
  * 			wl_i8, wl_u8, wl_i16, wl_u16, wl_i32, wl_u32,
  * 			wl_i64, wl_u64, wl_I8, wl_U8, wl_I16, wl_U16,
@@ -49,6 +49,8 @@
 #define I64B	WL_I64B
 #define I64N 	WL_I64N
 #define I64X 	WL_I64X
+#define IMN		WL_UMN
+#define IMX		WL_UMX
 #define U8		wl_U8
 #define U8B 	WL_U8B
 #define U8N 	WL_U8N
@@ -65,6 +67,9 @@
 #define U64B	WL_U64B
 #define U64N 	WL_U64N
 #define U64X 	WL_U64X
+#define UMN		WL_UMN
+#define UMX		WL_UMX
+#define IMB		WL_IMB
 #define INB		WL_INB
 #define LOB 	WL_LOB
 #define PTB 	WL_PTB
@@ -75,11 +80,16 @@
 #define i8		wl_i8
 #define i16		wl_i16
 #define i32		wl_i32
+#define i64		wl_i64
+#define iMax	wl_iMax
+#define imax	wl_imax
 #define u64		wl_u64
 #define u8		wl_u8
 #define u16		wl_u16
 #define u32		wl_u32
-#define i64		wl_i64
+#define u64		wl_i64
+#define uMax	wl_uMax
+#define umax	wl_umax
 #define vo		wl_vo
 #endif
 
@@ -402,6 +412,8 @@ typedef double				wl_f64, wl_F64;
 #define WL_IMB	32
 #define WL_I64N	(wl_I64)	0x80000000
 #define WL_I64X	(wl_I64)	0x7FFFFFFF
+#define WL_IMN	WL_I32N
+#define WL_IMX	WL_I32X
 #define WL_U64N	(wl_U64)	0
 #define WL_U64X	(wl_U64)	0xFFFFFFFF
 #define WL_IMN	WL_U32N
@@ -411,10 +423,12 @@ typedef double				wl_f64, wl_F64;
 #define WL_IMB	64
 #define WL_I64N	(wl_I64)	0x8000000000000000
 #define WL_I64X	(wl_I64)	0x7FFFFFFFFFFFFFFF
+#define WL_IMN	WL_I64N
+#define WL_IMX	WL_I64X
 #define WL_U64N	(wl_U64)	0
 #define WL_U64X	(wl_U64)	0xFFFFFFFFFFFFFFFF
-#define WL_IMN	WL_U64N
-#define WL_IMX	WL_U64X
+#define WL_UMN	WL_U64N
+#define WL_UMX	WL_U64X
 #endif		/* NO_I64 */
 
 #endif
