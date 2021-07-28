@@ -7,6 +7,8 @@
  * 
  * 
  */
+
+
 #ifndef WC_CORE_H
 #define WC_CORE_H
 
@@ -47,5 +49,6 @@
  * \def WL_NULL
  */
 #define WL_NULL	((void*)0)
+#endif
 
 #endif

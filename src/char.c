@@ -8,11 +8,10 @@
  * 
  */
 #include <wc/types.h>
-#include <wc/char.h>	/* <- _StrSize */
+#include <wc/char.h>	/* <- _Lens */
 
 
 
-/*--- Functions -----------------------------------------*/
 /**
  *	\fn			_StrSize wl_lens(const char* str)
  *	\brief		String length
@@ -24,7 +23,7 @@
  *	2. while (str[i] != CH_NUL) i = i+1; (Check every character and incriment the `i` until the character is null)
  *	3. return i; (Return the length of the string)
  */
-wl_StrSize wl_lens(const char* str) {
+Lens wl_lens(const char* str) {
 	register wl_StrSize i = 0;	/**< The length of a string */
 	/* Incriment `i` until a null-character is captured */
 	while (str[i++]);

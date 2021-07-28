@@ -6,7 +6,7 @@
 
 /* Or you can also just uncomment these definitions: */
 
-#define USE_STDLIB
+/* #define USE_STDLIB */
 /*#define NO_SHORT_NAMES*/
 
 #endif
