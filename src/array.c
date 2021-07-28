@@ -1,3 +1,12 @@
+/**
+ * \file	array.c
+ * \author	Wispy (wspvlv@gmail.com)
+ * \brief	Array manipulation functions
+ * \version	0.1
+ * \date	2021-07-28
+ * 
+ * 
+ */
 #include <wc/array.h>
 #include <wc/memory.h>
 
@@ -134,16 +143,17 @@ wl_Bl	wl_aeq(	register const wl_U8	s,
  *	\brief	Takes two arrays and their sizes. Fills the array A with as many
  *			instances of array B as the size of array A can handle.
  *	\return	The array A
+ *
  *	Method:
- *		-#	If /e a = NULL, then the array of size /e sa will be allocated
- *		-#	If /e b = NULL and /e sb = 0, then array will be filled with zeros
- *		-#	If /e sb = 0, the function does nothing and returns NULL
- *		-#	Declares a variable /e i, this is be the pointer offset
- *		-#	Assignes array /e b to array /e a offsetted by /e i, and incriments
- *			/e i by /e sb. This step is repeated until less than sb bytes are
+ *		-#	If \e a = NULL, then the array of size \e sa will be allocated
+ *		-#	If \e b = NULL and \e sb = 0, then array will be filled with zeros
+ *		-#	If \e sb = 0, the function does nothing and returns NULL
+ *		-#	Declares a variable \e i, this is be the pointer offset
+ *		-#	Assignes array \e b to array \e a offsetted by \e i, and incriments
+ *			\e i by \e sb. This step is repeated until less than sb bytes are
  *			left untreated
- *		-#	Assignes the remaining part of array /e a with whatever piece of 
- *			array /e b fits
+ *		-#	Assignes the remaining part of array \e a with whatever piece of 
+ *			array \e b fits
  *	\sa	wl_aas
  *	\sa wl_mal
  */
@@ -181,6 +191,7 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
  * \param	_byte	Byte to find
  * \param	flags	Flags
  * \return	wl_u8* 
+ * 
  * Searches for the occurance of \p _byte in anywhere in \p src .
  * -	If \c SEARCH_COUNT flag was not set, the function returns true, if any
  * 		occurance was found, false otherwise
@@ -250,13 +261,15 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 /**
  * \brief 	Array search array
  * \fn		wl_U8* wl_asa(register wl_Vo* src, register wl_U8 srcSize, register wl_Vo* target, register wl_U8 targetSize, register wl_U8 flags)
- * \param	src 
- * \param	srcSize 
- * \param	target 
- * \param	targetSize 
- * \param	flags 
+ * 
+ * \param	src			Source array
+ * \param	srcSize		Source array size
+ * \param	target		Array to find
+ * \param	targetSize	target array size
+ * \param	flags 		Flags
  * \return	wl_U8*
- * If \f$ \c (target \neq NULL) \land (targetSize \neq 0) \f$ 
+ * 
+ * If \f$(target \neq NULL) \land (targetSize \neq 0)\f$ 
  * Otherwise returns true
  */
 wl_Vopu	wl_asa(	register wl_Vo*	src,

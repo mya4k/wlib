@@ -1,3 +1,10 @@
+/**
+ * \file	memory.h
+ * \author	Wispy (wspvlv@gmail.com)
+ * \brief	Memory allocation and deallocation functions
+ * \version 0.1
+ * \date	2021-07-28
+ */
 #ifndef WC_MEMORY_H
 #define WC_MEMORY_H
 
@@ -7,10 +14,9 @@
 #ifdef USE_STDLIB
 #	include <stdlib.h>
 #	define wl_mal(addr, size)	malloc(size)
-#	define wl_mal0(addr, size) calloc(size)
+#	define wl_mal0(addr, size)	calloc(size)
 #	define wl_mfr(addr, size)	free(addr)
 #else
-
 	/* Linux */
 #	if defined(OS_LINUX) && !defined(NO_LINUX)
 #		include <sys/mman.h>

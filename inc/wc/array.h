@@ -14,20 +14,9 @@
 #include <wc/types.h>
 #include <wc/memory.h>
 
+
+
 /* ALL FUNCTIONS DECLARED THROUGH "ADECL" ARE DEFINED IN "array.c" */
-
-/**
- * \brief	Flag for memory search functions to search for the last occurance 
- * \def		SEARCH_REVERSE
- */
-#define SEARCH_REVERSE	(wl_U8)0x01
-/**
- * \brief	Flag for memory search functions to count amount of occurances
- * \def		SEARCH_COUNT
- */
-#define SEARCH_COUNT	(wl_U8)0x02
-
-
 
 /*--- Macro functions -----------------------------------*/
 #undef	ADECL1
@@ -583,6 +572,20 @@
 
 
 
+enum SEARCH_FLAG
+/**
+ * \brief	Flag for memory search functions to search for the last occurance 
+ * \def		SEARCH_REVERSE
+ */
+#define SEARCH_REVERSE	(wl_U8)0x01
+/**
+ * \brief	Flag for memory search functions to count amount of occurances
+ * \def		SEARCH_COUNT
+ */
+#define SEARCH_COUNT	(wl_U8)0x02
+
+
+
 /*--- Types ---------------------------------------------*/
 /**
  * \brief	wl_Vo* or integer
@@ -590,6 +593,7 @@
  * \typedef wl_vopu
  * \typedef	wl_Vopi
  * \typedef	wl_vopi
+ * 
  * A type for functions that return wl_Vo* and an integer
  */
 typedef wl_Vo* wl_Vopu, wl_vopu, wl_Vopi, wl_vopi;
@@ -621,54 +625,10 @@ EXTERN ADECL2B(wl_alt);		/* Array Less Than */
 EXTERN ADECL2B(wl_agtq);	/* Array Greater Than Or Equal */
 EXTERN ADECL2B(wl_altq);	/* Array Less Than Or Equal */
 
-/**	\fn		VO* afl(register 8 sa, register VO* a, register U8 sb, register VO* b)
- *	\param	sa	size of the array A in bytes
- *	\param	a	the array A
- *	\param	sb	size of the array B in bytes
- *	\param	b	the array B
- *	\brief	Takes two arrays and their sizes. Fills the array A with as many
- *			instances of array B as the size of array A can handle.
- *	\return	The array A
- *	Method:
- *		-#	If /e a = NULL, then the array of size /e sa will be allocated
- *		-#	If /e b = NULL and /e sb = 0, then array will be filled with zeros
- *		-#	If /e sb = 0, the function does nothing and returns NULL
- *		-#	Declares a variable /e i, this is be the pointer offset
- *		-#	Assignes array /e b to array /e a offsetted by /e i, and incriments
- *			/e i by /e sb. This step is repeated until less than sb bytes are
- *			left untreated
- *		-#	Assignes the remaining part of array /e a with whatever piece of 
- *			array /e b fits
- *	\sa	wl_aas
- *	\sa wl_mal
- */
 EXTERN wl_Vo*	wl_afl(	register wl_U8	sa, 
 						register wl_Vo*	a, 
 						register wl_U8	sb, 
 						register wl_Vo*	b		);
-
-/**
- * \brief	Find a byte in an array and return it's location relative to \a src address
- * \fn		wl_u8*	wl_asb(register wl_U8* src, register wl_U8 srcSize, register wl_U8 _byte);
- * \param	src		Source array
- * \param	srcSize	Array size
- * \param	_byte	Byte to find
- * \param	flags	Flags
- * \return	wl_u8* 
- * Searches for the occurance of \p _byte in anywhere in \p src .
- * -	If \c SEARCH_COUNT flag was not set, the function returns true, if any
- * 		occurance was found, false otherwise
- * -	If no flags were provided the algorithm searches for the first \p _byte
- * 		and stores in location in \p srcSize
- * -	If \c SEARCH_RESERVE flag is set, the address of last occurance will be
- *		stored in \p srcSize
- * -	If nothing was found (unless \c SEARCH_COUNT flag is set) \p srcSize
- * 		will be a null pointer
- * -	If \c SEARCH_COUNT flag is set, \p srcSize won't change, but the
- * 		function will return the amount of occurances
- * Regardless of flags used, if any occurance was found the function will
- * return a true (>0) value, and false (0) otherwise
- */
 EXTERN wl_Vopu	wl_asb(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_U8	_byte,

@@ -331,7 +331,7 @@
  * \attention Despite being heavily optimized, it still takes about 30 instructions
  * Converts a charcter representing a digit to a digit
  * If result exceeds the base, character 255 is returned
- * Table (0--95):
+ * Table (0—95):
  * 0 1 2 3 4 5 6 7 8 9 A B C D E F
  * G H I J K L M N O P Q R S T U V
  * W X Y Z a b c d e f g h i j k l
@@ -354,8 +354,6 @@
 		- 61		*((x)<'{'&&(x)>='a')	\
 		- 33		*((x)<127&&(x)>='{')	\
 )
-
-#define _RG(x, a, b) ((x)>=(a) && (x)<=(b))
 
 #endif
 
