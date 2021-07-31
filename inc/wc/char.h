@@ -71,6 +71,11 @@
 #	define lens		wl_lens
 #endif
 
+#ifndef REGION_ALIASES
+#define wl_ss			wl_lens
+#define wl_stringLength	wl_lens
+#endif
+
 
 
 #ifndef REGION_CONTROL_CHARS
@@ -385,7 +390,7 @@
 	 */
 #	define wl_lens(STR)	strlen(STR)
 #else
-#	include <core.h>
+#	include <wc/core.h>
 	/**
 	 * \brief	Maximal value of wl_Lens
 	 * \def		WL_LENS_MAX
