@@ -51,6 +51,7 @@
 #	define	NQ		WL_NQ
 #	define	NXOR	WL_NXOR
 #	define	NXORL	WL_NXORL
+#	undef	NO
 #	define	NO		WL_NO
 #	define	NOA		WL_NOA
 #	define	NOL		WL_NOL

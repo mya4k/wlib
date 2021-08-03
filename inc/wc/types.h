@@ -81,16 +81,17 @@
 #define i16		wl_i16
 #define i32		wl_i32
 #define i64		wl_i64
-#define iMax	wl_iMax
+#define IMax	wl_IMax
 #define imax	wl_imax
 #define u64		wl_u64
 #define u8		wl_u8
 #define u16		wl_u16
 #define u32		wl_u32
-#define u64		wl_i64
-#define uMax	wl_uMax
+#define UMax	wl_UMax
 #define umax	wl_umax
 #define vo		wl_vo
+#define PTM		WL_PTM
+#define PTX		WL_PTX
 #endif
 
 
@@ -430,5 +431,13 @@ typedef double				wl_f64, wl_F64;
 #define WL_UMN	WL_U64N
 #define WL_UMX	WL_U64X
 #endif		/* NO_I64 */
+
+#if WL_PTB == 64
+#define WL_PTM	WL_U64N
+#define WL_PTX	WL_U64X
+#else
+#define WL_PTM	WL_U32N
+#define WL_PTX	WL_U32X
+#endif
 
 #endif

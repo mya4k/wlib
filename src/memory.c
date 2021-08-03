@@ -1,77 +1,122 @@
-#define NOT_YET_IMPLIMENTED 1
-
-#if NOT_YET_IMPLIMENTED != 1
-
-/**
- * \file	memory.c
- * \author	Wispy (wspvlv@gmail.com)
- * \brief	Memory allocation
- * \version	0.1
- * \date	2021-07-28
- */
-#include <wc/core.h>
-#include <wc/types.h>
+#include <sys/mman.h>	/* `mmap`			*/
+#include <wc/types.h>	/* types			*/
+#include <wc/void.h>	/* `return_void`	*/
+#include <wc/memory.h>	/*  				*/
+#include <unistd.h>		/* sysconf & sbrk	*/
+#include <wc/bool.h>	/* TRUE & FALSE		*/
+#include <wc/array.h>	/* afl				*/
 
 
 
-#ifndef REGION_MOVE_TO_MEMORY_H
-#	define MSize	wl_MSize
-	typedef U32		wl_MSize;
+#ifndef REGION_MACROS
+#	define MAL_SMALL_REQUEST	0xFF
+#	define MMAP_THRESHOLD		0x100000
+#	define DEV_ZERO				(int)-1
+#	define ROUND2PAGESIZE(n)	(n/pagesize + (_Bool)(n%pagesize))
+#endif
+
+
+
+#ifndef REGION_TYPES
+typedef struct MChunk {
+	Bl	allocated:1;
+	Msz	size:(MSZB-1);
+	/* The rest is                data */
+} MChunk;
+#endif
+
+
+
+#ifndef REGION_VARS
+long pagesize = 0;
 #endif
 
 
 
 /**
- * \brief	Size classes
- * \var		const U16 _size_classes[]
+ * \brief	Allocates new pages
+ * \fn		static Vo* _new_page(Msz n)
+ * \param	n size in bytes
+ * \return	Vo* 
  */
-const U16 _size_classes[] = {
-	1, 2, 3, 4, 5, 6, 7, 8,
-	9, 10, 12, 15,
-	18, 20, 25, 31,
-	36, 42, 50, 63,
-	72, 84, 102, 127,
-	146, 170, 204, 255,
-	292, 340, 409, 511,
-	584, 682, 818, 1023,
-	1169, 1364, 1637, 2047,
-	2340, 2730, 3276, 4095,
-	4680, 5460, 6552, 8191,
-};
+static Vo* _new_page(Msz n) {
+	/* Ask what page size is from the kernel */
+	if (!pagesize) pagesize = sysconf(_SC_PAGESIZE);
 
-
-
-/**
- * \brief	Size to class
- * \fn		static inline int _s2c(wl_MSize n)
- * \param	n	size
- * \return	int	 Size class of \a n
- */
-static inline int _s2c(wl_MSize n)
-{
-	n = (n+3)>>4;
-	if (n<10) return n;
-	int i = (28-a_clz_32(n++))*4 + 8;
-	if (n>_size_classes[i+1])	i+=2;
-	if (n>_size_classes[i])		i++;
-	return i;
+	/* If we need to allocate a chunk so big that we need to use `mmap(2)` */
+	if (n >= MMAP_THRESHOLD)
+		return mmap(	(void*)0,
+						n, 
+						PROT_READ | PROT_WRITE,
+						MAP_PRIVATE | MAP_ANONYMOUS,
+						DEV_ZERO,
+						0							);
+	/* Otherwise just `sbrk(2)` it */
+	else {
+		/* Exist briefly, I don't think they deserve to utilize memory */
+		register Vo* a = sbrk(0);	/* Current break */
+		register Vo* b = sbrk(n);	/* New break */
+		afl(n, a, 1, 0);
+		return b;
+	};
 }
 
-
-
 /**
- * \brief	Dynamic memory allocator
- * \fn		Vo* wl_mal(MSize s)
- * \param	s	Size in bytes
- * \return	Vo* Pointer to then newly allocated space, NULL on failure
+ * \brief Allocates a new memory chunk in a page
+ * \b
+ * \param page 
+ * \param n 
+ * \return Vo* Pointer to the new chunk
+ * 
+ * 
  */
-Vo* wl_mal(MSize s) {
-	if (s) {
-		int c = _s2c(s);
-		
+static Vo* _new_mchunk(Vo* page, const Msz n) {
+	const Vo* page_end = (Vo*)((_Ptr)page+pagesize);
+	/* Search for any unallocated space in the page */
+	for (; page < page_end; ) {
+		/* If there's an allocated chuck, jump over it */
+		if ( (*(MChunk*)page).allocated )
+			page = (Vo*)((_Ptr)page + (_Ptr)(sizeof(MChunk)+(*(MChunk*)page).size));
+		/* Otherwise allocate a new chunk */
+		else {
+			/* If there's not enough space for the chunk*/
+			if (((_Ptr)page_end-(_Ptr)page) < (sizeof(MChunk)+n)) return NULL;
+			/* Otherwise, make the new chunk */
+			(*(MChunk*)page).allocated = TRUE;
+			(*(MChunk*)page).size = n;
+		}
 	}
-	/* If s = 0, nothing to allocate */
-	else return NULL;
+	return NULL;	/* Looks like the page is full of chunks */
 }
 
-#endif
+static Vo* _delete_mchunk(Vo* page) {
+
+}
+
+
+
+
+
+/**
+ * \brief	Allocates vitrual memory
+ * \fn		Vo* mal(Msz n)
+ * \param	n	bytes to allocate
+ * \return	Vo*
+ */
+Vo* mal(Msz n) {
+	return NULL;
+}
+
+/**
+ * \brief	Deallocates virtual memory
+ * \fn		Vo	mfr(Vo* p, Msz n)
+ * \param	p 
+ * \param	n 
+ * \return	Vo
+ */
+Vo	mfr(Vo* p, Msz n) {
+	if (p) {
+		brk( (Vo*)((_Ptr)p-n) );
+	}
+	return_void;
+}

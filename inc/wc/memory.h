@@ -8,7 +8,42 @@
 #ifndef WC_MEMORY_H
 #define WC_MEMORY_H
 
+
+
 #include <wc/sys/osys.h>
+#include <wc/core.h>		/* EXTERN */
+#include <wc/types.h>		/* wl_U32 */
+
+
+
+#ifndef NO_SHORT_NAMES
+#define mal		wl_mal
+#define mfr		wl_mfr
+#define MSize	wl_MSize
+#define Msz		wl_Msz
+#define MSZB	WL_MSZB
+#endif
+
+
+
+#define WL_MSZB	WL_PTB
+#define WL_MSZM	WL_PTM
+#if WL_MSZB == 64
+#define WL_MSZX WL_I64X
+#else
+#define WL_MSZX	WL_I32X
+#endif
+
+
+/**
+ * \brief	Memory size
+ * \typedef	wl_MSize
+ * \typedef wl_Msz 
+ */
+#include <stddef.h>
+typedef wl__Ptr wl_MSize, wl_Msz;
+
+
 
 /* Standard library*/
 #ifdef USE_STDLIB
@@ -17,14 +52,10 @@
 #	define wl_mal0(addr, size)	calloc(size)
 #	define wl_mfr(addr, size)	free(addr)
 #else
-	/* Linux */
-#	if defined(OS_LINUX) && !defined(NO_LINUX)
-#		include <sys/mman.h>
-
-#		define wl_mal(addr, size)	mmap(addr, size, PROT_READ|PROT_WRITE, MAP_ANONYMOUS|MAP_PRIVATE, -1, 0)
-#		define wl_mfr(addr, size)	munmap(addr, size)
-#	endif
-
+EXTERN Vo*	wl_mal(Msz n);
+EXTERN Vo	wl_mfr(Vo* p, Msz n);
 #endif
+
+
 
 #endif

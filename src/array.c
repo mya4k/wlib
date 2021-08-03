@@ -10,6 +10,8 @@
 #include <wc/array.h>
 #include <wc/memory.h>
 
+
+
 /**	\fn		ADEF1(aas, NO)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
@@ -19,7 +21,7 @@
  */
 ADEF1(wl_aas, NO);
 
-/**	\fn		ADEF1(ant, NT)
+/**	\fn		ADEF1(ant, NOT)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -27,9 +29,9 @@ ADEF1(wl_aas, NO);
 			the result in array R
  *	\return	The array of object that have been inverted
  */
-ADEF1(wl_ant, NT);
+ADEF1(wl_ant, NOT);
 
-/**	\fn		ADEF2(aan, AN)
+/**	\fn		ADEF2(aan, AND)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -38,7 +40,7 @@ ADEF1(wl_ant, NT);
 			the result in array R
  *	\return	The array of object that have been conjuncted
  */
-ADEF2(wl_aan, AN);
+ADEF2(wl_aan, AND);
 
 /**	\fn		ADEF2(aor, OR)
  *	\param	s	size of the operands in bytes
@@ -51,7 +53,7 @@ ADEF2(wl_aan, AN);
  */
 ADEF2(wl_aor, OR);
 
-/**	\fn		ADEF2(axr, XR)
+/**	\fn		ADEF2(axr, XOR)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -60,9 +62,9 @@ ADEF2(wl_aor, OR);
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted
  */
-ADEF2(wl_axr, XR);
+ADEF2(wl_axr, XOR);
 
-/**	\fn		ADEF2(ann, NN)
+/**	\fn		ADEF2(ann, NAND)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -71,9 +73,9 @@ ADEF2(wl_axr, XR);
 			the result in array R
  *	\return	The array of object that have been conjuncted and inversed
  */
-ADEF2(wl_ann, NN);
+ADEF2(wl_ann, NAND);
 
-/**	\fn		ADEF2(anr, NR)
+/**	\fn		ADEF2(anr, NOR)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -82,9 +84,9 @@ ADEF2(wl_ann, NN);
  *			the result in array R
  *	\return	The array of object that have been disjuncted and inversed
  */
-ADEF2(wl_anr, NR);
+ADEF2(wl_anr, NOR);
 
-/**	\fn		ADEF2(anx, NX)
+/**	\fn		ADEF2(anx, NXOR)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored
  *	\param	a	the operand A
@@ -93,7 +95,7 @@ ADEF2(wl_anr, NR);
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted and inversed
  */
-ADEF2(wl_anx, NX);
+ADEF2(wl_anx, NXOR);
 
 /**
  * \brief	Array equals

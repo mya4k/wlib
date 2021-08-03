@@ -12,6 +12,7 @@
 
 #include <wc/core.h>
 #include <wc/types.h>
+#include <wc/logic.h>
 #include <wc/memory.h>
 
 
@@ -560,6 +561,9 @@
 #define anandl	wl_anandl
 #define anorl	wl_anorl
 #define anxorl	wl_anxorl
+#define afl		wl_afl
+#define asb		wl_asb
+#define asa		wl_asa
 #endif
 
 /**
@@ -572,7 +576,7 @@
 
 
 
-enum SEARCH_FLAG
+/* enum SEARCH_FLAG */
 /**
  * \brief	Flag for memory search functions to search for the last occurance 
  * \def		SEARCH_REVERSE
@@ -629,6 +633,7 @@ EXTERN wl_Vo*	wl_afl(	register wl_U8	sa,
 						register wl_Vo*	a, 
 						register wl_U8	sb, 
 						register wl_Vo*	b		);
+
 EXTERN wl_Vopu	wl_asb(	register wl_Vo*	src,
 						register wl_U8	srcSize,
 						register wl_U8	_byte,
