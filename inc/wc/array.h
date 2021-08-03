@@ -80,7 +80,7 @@
  */
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
-		if (!r) r = wl_mal(0,s);										\
+		if (!r) r = wl_mal(s);											\
 		register wl_U8 d = s/4;											\
 		register wl_U8 m = s%4;											\
 		register wl_U16 i = 0;											\
@@ -127,7 +127,7 @@
  */
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
-		if (!r) r = wl_mal(0,s);										\
+		if (!r) r = wl_mal(0);											\
 		register wl_U8 d = s/8;											\
 		register wl_U8 m = s%8;											\
 		register wl_U16 i = 0;											\
@@ -180,7 +180,7 @@
  */
 #define ADEF2(NAME, FUNC) 												\
 	ADECL2(NAME) {														\
-		if (!r) r = wl_mal(0,s);										\
+		if (!r) r = wl_mal(s);											\
 		register wl_U8 d = s/4;											\
 		register wl_U8 m = s%4;											\
 		register wl_U16 i = 0;											\
@@ -227,7 +227,7 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(0,s);								\
+		if (!r) r = wl_mal(s);									\
 		register U8 d = s/8;									\
 		register U8 m = s%8;									\
 		register U16 i = 0;										\
@@ -307,7 +307,7 @@
  */
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
-		if (!r) r = wl_mal(0,s);								\
+		if (!r) r = wl_mal(s);									\
 		register U8 d = s/4;									\
 		register U8 m = s%4;									\
 		register U16 i = 0;										\
@@ -354,7 +354,7 @@
  */
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
-		if (!r) r = wl_mal(0,s);								\
+		if (!r) r = wl_mal(s);									\
 		register const U8 d = s/8;								\
 		register const U8 m = s%8;								\
 		register U16 i = 0;										\
@@ -407,7 +407,7 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(0,s);								\
+		if (!r) r = wl_mal(s);									\
 		register U8 d = s/4;									\
 		register U8 m = s%4;									\
 		register U16 i = 0;										\
@@ -454,7 +454,7 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(0,s);								\
+		if (!r) r = wl_mal(s);								\
 		register U8 d = s/8;									\
 		register U8 m = s%8;									\
 		register U16 i = 0;										\

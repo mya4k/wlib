@@ -108,7 +108,7 @@ ADEF2(wl_anx, NXOR);
 wl_Bl	wl_aeq(	register const wl_U8	s,
 				register const wl_Vo*	a,
 				register const wl_Vo*	b	) {
-	if (!a) a = wl_mal(NULL, s);
+	if (!a) a = wl_mal(s);
 
 	register const wl_U8 d = s/8;
 	register const wl_U8 m = s%8;
@@ -163,7 +163,7 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
 				register wl_Vo*	a, 
 				register wl_U8	sb, 
 				register wl_Vo*	b		) {
-	if (!a) a = wl_mal(0,sa);
+	if (!a) a = wl_mal(sa);
 
 	if (!sb) {
 		if (b) return 0;

@@ -4,7 +4,6 @@
 #include <wc/memory.h>	/*  				*/
 #include <unistd.h>		/* sysconf & sbrk	*/
 #include <wc/bool.h>	/* TRUE & FALSE		*/
-#include <wc/array.h>	/* afl				*/
 
 
 
@@ -18,10 +17,14 @@
 
 
 #ifndef REGION_TYPES
+/**
+ * \brief 
+ * 
+ */
 typedef struct MChunk {
-	Bl	allocated:1;
-	Msz	size:(MSZB-1);
-	/* The rest is                data */
+	Bl		allocated:1;		/* Wether the chunk is allocated */
+	_Ptr	ptr2next:(PTB-1);	/* Pointer to the next chunk*/
+	/* The rest is data */
 } MChunk;
 #endif
 
@@ -37,7 +40,7 @@ long pagesize = 0;
  * \brief	Allocates new pages
  * \fn		static Vo* _new_page(Msz n)
  * \param	n size in bytes
- * \return	Vo* 
+ * \return	Vo* Pointer to the new page
  */
 static Vo* _new_page(Msz n) {
 	/* Ask what page size is from the kernel */
@@ -48,21 +51,20 @@ static Vo* _new_page(Msz n) {
 		return mmap(	(void*)0,
 						n, 
 						PROT_READ | PROT_WRITE,
-						MAP_PRIVATE | MAP_ANONYMOUS,
+						MAP_PRIVATE,
 						DEV_ZERO,
 						0							);
 	/* Otherwise just `sbrk(2)` it */
 	else {
-		/* Exist briefly, I don't think they deserve to utilize memory */
-		register Vo* a = sbrk(0);	/* Current break */
-		register Vo* b = sbrk(n);	/* New break */
-		afl(n, a, 1, 0);
-		return b;
+		/* Exists briefly, I don't think they deserve to utilize memory */
+		const register Vo* a = sbrk(0);	/* Current break */
+		sbrk(n);
+		return a;
 	};
 }
 
 /**
- * \brief Allocates a new memory chunk in a page
+ * \brief Creates a new memory chunk in a page
  * \b
  * \param page 
  * \param n 
@@ -83,13 +85,24 @@ static Vo* _new_mchunk(Vo* page, const Msz n) {
 			if (((_Ptr)page_end-(_Ptr)page) < (sizeof(MChunk)+n)) return NULL;
 			/* Otherwise, make the new chunk */
 			(*(MChunk*)page).allocated = TRUE;
-			(*(MChunk*)page).size = n;
+			(*(MChunk*)page).ptr2next = page + sizeof(Mch) + n;
 		}
 	}
 	return NULL;	/* Looks like the page is full of chunks */
 }
 
-static Vo* _delete_mchunk(Vo* page) {
+/**
+ * \brief	Deletes a memory chunk
+ * \fn		static Vo* _delete_mchunk(MChunk* mchunk)
+ * \param	mchunk	Pointer to mchunk
+ * \return	Vo
+ */
+static Vo _delete_mchunk(MChunk* mchunk) {
+	if (mchunk->allocated)
+		mchunk->allocated = FALSE;
+}
+
+static Vo* _delete_page() {
 
 }
 
