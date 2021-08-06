@@ -53,7 +53,7 @@ typedef wl__Ptr wl_MSize, wl_Msz;
 #	define wl_mfr(addr, size)	free(addr)
 #else
 EXTERN Vo*	wl_mal(Msz n);
-EXTERN Vo	wl_mfr(Vo* p, Msz n);
+EXTERN Vo	wl_mfr(Vo* p);
 #endif
 
 

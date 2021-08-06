@@ -104,13 +104,13 @@ start:
 						}
 					}
 					else {
-						heapEnd = ((MChunk*)chunk)->ptr2next;
+						heapEnd = (Vo*)PTR2NEXT_2_PTR(chunk);
 						goto end;
 					};
 				}
 
 				/* If no suitable space was found, allocate more memory */
-				chunk = sbrk(0);
+				chunk = (_Ptr)sbrk(0);
 				heapEnd = sbrk(ROUND2PAGESIZE(size));
 end:			sum = chunk + size;
 				/*
@@ -123,8 +123,8 @@ end:			sum = chunk + size;
 				((MChunk*)chunk)->ptr2next = sum;
 				/* The remaining space is turned into another chunk that is unallocated */
 				((MChunk*)sum)->allocated = FALSE;
-				((MChunk*)sum)->ptr2next = heapEnd;
-				return chunk - sizeof(MChunk);
+				((MChunk*)sum)->ptr2next = (_Ptr)heapEnd;
+				return (Vo*)(chunk - sizeof(MChunk));
 			}
 
 			/* If size is too big, allocate using mmap */
