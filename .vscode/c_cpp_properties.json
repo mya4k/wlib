@@ -36,12 +36,9 @@
             "compilerPath": "/usr/bin/gcc",
             "compilerArgs": [
                 "-Wall",
-                "-Wextra",
-                "-I inc ",
-                "-I inc/wc",
-                "-Wall",
                 "-Wpedantic",
-                "-Wextra"
+                "-Wextra",
+                "-I inc"
             ],
             "browse": {
                 "path": [
