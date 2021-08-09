@@ -24,7 +24,7 @@
  *	3. return i; (Return the length of the string)
  */
 Lens wl_lens(const char* str) {
-	register wl_StrSize i = 0;	/**< The length of a string */
+	register wl_Lens i = 0;	/**< The length of a string */
 	/* Incriment `i` until a null-character is captured */
 	while (str[i++]);
 	return i;

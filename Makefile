@@ -2,7 +2,7 @@
 wlib = /home/wispy/prj/wlib
 inc = $(wlib)/inc
 gcc = gcc
-lsobj = $(shell find $(wlib)/obj/* -name *.o | tr '\n' ' ')
+lsobj = $(shell find $(wlib)/obj/* -name '*.o' | tr '\n' ' ')
 crobj = $(shell $(wlib)/lib.sh $(gcc) $(wlib)/src $(wlib)/obj $(inc))
 libdirx = lib
 libdir = /usr/lib/
@@ -15,4 +15,4 @@ inst:
 #wos:
 #	mkdir -p
 #	$(call crobj,.)
-#	ar -rc $(libdirx)/li
+#	ar -rc $(libdirx)/li 

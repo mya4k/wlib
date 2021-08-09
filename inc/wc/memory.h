@@ -10,9 +10,8 @@
 
 
 
-#include <wc/sys/osys.h>
 #include <wc/core.h>		/* EXTERN */
-#include <wc/types.h>		/* wl_U32 */
+#include <wc/types.h>
 
 
 
@@ -40,17 +39,14 @@
  * \typedef	wl_MSize
  * \typedef wl_Msz 
  */
-#include <stddef.h>
 typedef wl__Ptr wl_MSize, wl_Msz;
-
 
 
 /* Standard library*/
 #ifdef USE_STDLIB
 #	include <stdlib.h>
-#	define wl_mal(addr, size)	malloc(size)
-#	define wl_mal0(addr, size)	calloc(size)
-#	define wl_mfr(addr, size)	free(addr)
+#	define wl_mal(size)	malloc(size)
+#	define wl_mfr(addr)	free(addr)
 #else
 EXTERN Vo*	wl_mal(Msz n);
 EXTERN Vo	wl_mfr(Vo* p);

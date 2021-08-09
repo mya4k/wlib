@@ -1,22 +1,60 @@
+/**
+ * \file	memory.c
+ * \author	Wispy (wspvlv@gmail.com)
+ * \brief	Dynamic memory allocation interface for Unix-like systems
+ * \version 0.1
+ * \date	2021-08-07
+ * 
+ * This is a very minimalistic 
+ */
 #include <sys/mman.h>	/* `mmap`			*/
+#include <sys/param.h>	/* `BSD` if exists	*/
 #include <wc/types.h>	/* types			*/
 #include <wc/void.h>	/* `return_void`	*/
 #include <wc/memory.h>	/*  				*/
 #include <unistd.h>		/* sysconf & sbrk	*/
 #include <wc/bool.h>	/* TRUE & FALSE		*/
+#include <stdio.h>	/* DEBUG			*/
 
+
+
+/* Allow allocating with mmap */
+#if defined(BSD) && BSD <= 199006
+#define USE_MMAP FALSE
+#else
+#define USE_MMAP TRUE
+#endif
+
+/* Allow allocating with sbrk */
+#if _BSD_SOURCE || _SVID_SOURCE || 											\
+	(_XOPEN_SOURCE >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED) &&	\
+    !(_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) || !USE_MMAP ||	\
+	__GNUC__
+#define USE_BRK	TRUE
+#else
+#define USE_BRK FALSE
+#endif
 
 
 #ifndef REGION_MACROS
 #	define MAL_SMALL_REQUEST	0xFF
 #	define MMAP_THRESHOLD		0x100000
-#	define DEV_ZERO				(int)-1
 #	define ROUND2PAGESIZE(n)	((n/pagesize + (_Bool)(n%pagesize)) * pagesize)
 
 #	if PTB == 32
-#		define PTR2NEXT_2_PTR(i)	(((MChunk*)(i))->ptr2next < (_Ptr)(i) ? ((MChunk*)(i))->ptr2next & I32N : ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I32N))
+#		define PTR2NEXT_2_PTR(i)			\
+	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
+	? ((MChunk*)(i))->ptr2next & I32N 		\
+	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I32N))
 #	else
-#		define PTR2NEXT_2_PTR(i)	(((MChunk*)(i))->ptr2next < (_Ptr)(i) ? ((MChunk*)(i))->ptr2next & I64N : ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I64N))
+#		define PTR2NEXT_2_PTR(i)			\
+	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
+	? ((MChunk*)(i))->ptr2next & I64N 		\
+	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I64N))
+#	endif
+
+#	ifndef MAP_ANONYMOUS
+#		define MAP_ANONYMOUS 0
 #	endif
 #endif
 
@@ -24,12 +62,13 @@
 
 #ifndef REGION_TYPES
 /**
- * \brief 
- * 
+ * \brief	Memory chunks for dynamic allocation
+ * \typedef	MChunk
  */
 typedef struct MChunk {
 	_Ptr	allocated:1;		/* Wether the chunk is allocated */
 #ifdef MCHUNK_USE_SIZE
+#	error "Do not defined MCHUNK_USE_SIZE. That structure is obsolete"
 	_Ptr	size:(PTB-1);		/* Size */
 #else
 	_Ptr	ptr2next:(PTB-1);	/* Pointer to the next chunk */
@@ -41,8 +80,9 @@ typedef struct MChunk {
 
 
 #ifndef REGION_VARS
-static Vo* heap = NULL;		/* Start of the heap */
-static long pagesize = 0;	/* Page size */
+static Vo*	heap = NULL;	/* Start of the heap */
+static long	pagesize = 0;	/* Page size */
+static int	dev_zero = -1;	/* File descriptor for /dev/zero */
 #endif
 
 
@@ -53,8 +93,10 @@ static long pagesize = 0;	/* Page size */
  * \return	Vo 
  */
 static Vo _minit() {
+#if USE_BRK
 	/* Get the start of the heap */
 	heap = sbrk(0);
+#endif
 	/* Get the page size */
 	pagesize = sysconf(_SC_PAGESIZE);
 }
@@ -69,23 +111,34 @@ static Vo _minit() {
  * \attention Requires `_minit()`
  * 
  */
-Vo* mal(Msz size) {
+Vo* wl_mal(Msz size) {
 start:
 	/* Check if ready for dynamic allocation */ 
-	if (heap) {
+	if (pagesize) {
 		/* If request has size */
 		if (size) {
-			/* When allocating memory chunks we also need space for MChunk struct */
+			/* When allocating memory chunks we also need space for MChunk 
+			 * struct 
+			 */
 			size += sizeof(MChunk);
+#			if USE_BRK == TRUE
 			/* If normal size */
 			if (size < MMAP_THRESHOLD) {
 				Vo* heapEnd = sbrk(0);	/**< End of the heap */
-				_Ptr sum = 0;	/* Here will be stored summed size of all consequent free chunks */
-				_Ptr chunk = 0;	/* Pointer to the first chunk of a group of free chunks */
+				/* Here will be stored summed size of all consequent free 
+				 * chunks 
+				 */
+				_Ptr sum = 0;	
+				/* Pointer to the first chunk of a group of free chunks */
+				_Ptr chunk = 0;
 				_Ptr _ptr2next;
-				/* Try finding a group of consequent unallocated MChunk big enough for us */
+				/* Try finding a group of consequent unallocated MChunk big 
+				 * enough for us 
+				 */
 				for (	
-					/* Pointer to current MChunk, starts at the beggining of the heap */
+					/* Pointer to current MChunk, starts at the beggining of 
+					 * the heap 
+					 */
 					Vo* i = heap;
 					/* Will check all chunks until the end of the heap */
 					i < heapEnd;
@@ -95,7 +148,9 @@ start:
 					_ptr2next = PTR2NEXT_2_PTR(i);
 					/*  */
 					if (sum < size) {
-						/* If the chunk allocated, reset the sum pointer and keep looking*/
+						/* If the chunk allocated, reset the sum pointer and 
+						 * keep looking 
+						 */
 						if (((MChunk*)i)->allocated) sum = 0;
 						/**/
 						else {
@@ -111,7 +166,9 @@ start:
 
 				/* If no suitable space was found, allocate more memory */
 				chunk = (_Ptr)sbrk(0);
-				heapEnd = sbrk(ROUND2PAGESIZE(size));
+				sbrk(ROUND2PAGESIZE(size));
+				heapEnd = sbrk(0);
+
 end:			sum = chunk + size;
 				/*
 				 * Create a new memory chunk by slicing a bigger one
@@ -119,23 +176,44 @@ end:			sum = chunk + size;
 				/* Store the end of the chunk for later */
 				/* Set out new chunk as allocated */
 				((MChunk*)chunk)->allocated = TRUE;
-				/* The pointer is to the next chunk is the pointer to the remaining area of the bigger chunk */
+				/* The pointer is to the next chunk is the pointer to the 
+				 * remaining area of the bigger chunk 
+				 */
 				((MChunk*)chunk)->ptr2next = sum;
-				/* The remaining space is turned into another chunk that is unallocated */
+				/* The remaining space is turned into another chunk that is 
+				 * unallocated 
+				 */
 				((MChunk*)sum)->allocated = FALSE;
 				((MChunk*)sum)->ptr2next = (_Ptr)heapEnd;
-				return (Vo*)(chunk - sizeof(MChunk));
-			}
 
+				fprintf(stdout, "MEMORY.C");
+				for (Vo* i = heap; i < heapEnd; i = (Vo*)((_Ptr)i+1)) {
+					if ((_Ptr)(i) % 16)
+						fprintf(stdout, "%02hhx ", *(u8*)i);
+					else {
+						fprintf(stdout, "\n%p: %02hhx ", i, *(u8*)i);
+					}
+				}
+
+				return (Vo*)(chunk + sizeof(MChunk));
+			}
 			/* If size is too big, allocate using mmap */
 			else {
 				return mmap(	(void*)0,
 								ROUND2PAGESIZE(size + sizeof(MChunk)), 
 								PROT_READ | PROT_WRITE,
 								MAP_PRIVATE | MAP_ANONYMOUS,
-								DEV_ZERO,
+								dev_zero,
 								0										);
 			}
+#			else
+			return mmap(	(void*)0,
+							ROUND2PAGESIZE(size + sizeof(MChunk)), 
+							PROT_READ | PROT_WRITE,
+							MAP_PRIVATE | MAP_ANONYMOUS,
+							dev_zero,
+							0										);
+#			endif
 		}
 		/* If size = 0 */
 		else return NULL;
@@ -153,12 +231,16 @@ end:			sum = chunk + size;
  * \param	p 
  * \return	Vo
  */
-Vo	mfr(Vo* p) {
+Vo	wl_mfr(Vo* p) {
 	if (p) {
+#		if USE_BRK
 		if (p >= heap && p <= sbrk(0)) {
-			((MChunk*)p)->allocated = FALSE;
+			((MChunk*)((_Ptr)p-sizeof(MChunk)))->allocated = FALSE;
 		}
 		else munmap(p, PTR2NEXT_2_PTR(p)-(_Ptr)p);
+#		else
+		munmap(p, PTR2NEXT_2_PTR(p)-(_Ptr)p);
+#		endif
 	}
 	return_void;
 }

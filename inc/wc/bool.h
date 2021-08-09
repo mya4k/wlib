@@ -41,12 +41,12 @@
  * \brief	False
  * \def		WL_FALSE
  */
-#define WL_FALSE	(wl_Bl)0
+#define WL_FALSE	0
 /**
  * \brief	True
  * \def		WL_TRUE
  */
-#define WL_TRUE		(wl_Bl)1
+#define WL_TRUE		1
 
 
 

@@ -21,12 +21,12 @@
  * \param	entrySize 
  * \return	wl_Ls* 
  */
-Ls* lsn(const Lss length, const Lss entrySize, Vo* value) {
+Ls* wl_lsn(const Lss length, const Lss entrySize, Vo* value) {
 	/* Reserve 50% of length for possible extention */
-	const Lss total = length + length/2 + length&1;
+	const Lss total = length + length/2 + (length&1);
 	const Lss size = total * entrySize + sizeof(Ls);
 	/* Allocate list and the entry data */
-	Ls* r = malloc(size);
+	Ls* r = mal(size);
 	/* Define how many entries are reserved */
 	r->total = total;
 	/* Define how many entry are used */
