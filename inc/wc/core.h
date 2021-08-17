@@ -51,6 +51,7 @@
 #define WL_NULL	((void*)0)
 #endif
 
+#define REGION_DEBUGGING
 #ifndef REGION_DEBUGGING
 #include <stdio.h>
 #define DEBUG printf

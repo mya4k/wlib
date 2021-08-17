@@ -69,10 +69,12 @@
 #	define c2d		wl_c2d
 #	define Lens		wl_Lens
 #	define lens		wl_lens
+#	define sl		wl_sl
+#	define stringLength wl_stringLength
 #endif
 
 #ifndef REGION_ALIASES
-#define wl_ss			wl_lens
+#define wl_sl			wl_lens
 #define wl_stringLength	wl_lens
 #endif
 

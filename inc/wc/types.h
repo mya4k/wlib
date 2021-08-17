@@ -417,8 +417,8 @@ typedef double				wl_f64, wl_F64;
 #define WL_IMX	WL_I32X
 #define WL_U64N	(wl_U64)	0
 #define WL_U64X	(wl_U64)	0xFFFFFFFF
-#define WL_IMN	WL_U32N
-#define WL_IMX	WL_U32X
+#define WL_UMN	WL_U32N
+#define WL_UMX	WL_U32X
 #else		/* Optimal behavior */
 #define WL_I64B	64
 #define WL_IMB	64

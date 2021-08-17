@@ -55,7 +55,7 @@
 	wl_vo* NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a, register const wl_Vo* b)
 
 #undef	ADEF1
-#if	NO_I64
+#ifdef	NO_I64
 /** 
  * 	\def	Definition of unioperand logic array operation (32-bit)
  *  \brief	Definition of unioperand logic array operation for systems where
@@ -155,7 +155,7 @@
 #endif
 
 #undef	ADEF2
-#if	NO_I64
+#ifdef	NO_I64
 /** 
  * 	\def	Definition of bioperand logic array operations (32-bit)
  *  \brief	Definition of bioperand logic array operations for systems where
@@ -282,7 +282,7 @@
 	wl_Bl NAME(const wl_U8 s, register const wl_Vo* a, register const wl_Vo* b)
 
 #undef	ADEF1
-#if	NO_I64
+#ifdef	NO_I64
 /** 
  * 	\def	Definition of unioperand logic array operation (32-bit)
  *  \brief	Definition of unioperand logic array operation for systems where
@@ -382,7 +382,7 @@
 #endif
 
 #undef	ADEF2
-#if	NO_I64
+#ifdef	NO_I64
 /** 
  * 	\def	Definition of bioperand logic array operations (32-bit)
  *  \brief	Definition of bioperand logic array operations for systems where

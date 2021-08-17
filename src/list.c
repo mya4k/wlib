@@ -8,7 +8,7 @@
  * 
  */
 #include <wc/list.h>
-#include <stdlib.h>
+#include <wc/memory.h>
 #include <wc/bool.h>
 #include <wc/array.h>
 

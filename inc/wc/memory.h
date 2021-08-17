@@ -47,9 +47,12 @@ typedef wl__Ptr wl_MSize, wl_Msz;
 #	include <stdlib.h>
 #	define wl_mal(size)	malloc(size)
 #	define wl_mfr(addr)	free(addr)
-#else
+#elif defined(OS_UNIXLIKE)
 EXTERN Vo*	wl_mal(Msz n);
 EXTERN Vo	wl_mfr(Vo* p);
+#else
+#	define wl_mal(size) (void*)0
+#	define wl_mfr(addr)	
 #endif
 
 

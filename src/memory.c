@@ -7,6 +7,11 @@
  * 
  * This is a very minimalistic 
  */
+#include <wc/sys/osys.h>
+#ifdef OS_UNIXLIKE
+
+
+
 #include <sys/mman.h>	/* `mmap`			*/
 #include <sys/param.h>	/* `BSD` if exists	*/
 #include <wc/types.h>	/* types			*/
@@ -244,3 +249,7 @@ Vo	wl_mfr(Vo* p) {
 	}
 	return_void;
 }
+
+
+
+#endif

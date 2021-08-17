@@ -43,4 +43,4 @@
 # Version 3.2
 E=`find $2/* -type d | tr '\n' ' '`
 mkdir -p $3 `echo $E | sed "s:$2:$3:g"`
-find $2/* -name '*.c' | while read F; do $1 -c $F -o $3`echo $F | sed "s:$2::g" | cut -d . -f 1 -`.o ; done
+find $2/* -name '*.c' | while read F; do $1 -c $F -o $3`echo $F | sed "s:$2::g" | cut -d . -f 1 -`.o -I$4 -Wall -Wextra -Werror -Wfatal-errors -Wno-unused-variable; done
