@@ -1,25 +1,60 @@
+/**
+ * \file	memory.h
+ * \author	Wispy (wspvlv@gmail.com)
+ * \brief	Memory allocation and deallocation functions
+ * \version 0.1
+ * \date	2021-07-28
+ */
 #ifndef WC_MEMORY_H
 #define WC_MEMORY_H
 
-#include <wc/sys/osys.h>
+
+
+#include <wc/core.h>		/* EXTERN */
+#include <wc/types.h>
+
+
+
+#ifndef NO_SHORT_NAMES
+#define mal		wl_mal
+#define mfr		wl_mfr
+#define MSize	wl_MSize
+#define Msz		wl_Msz
+#define MSZB	WL_MSZB
+#endif
+
+
+
+#define WL_MSZB	WL_PTB
+#define WL_MSZM	WL_PTM
+#if WL_MSZB == 64
+#define WL_MSZX WL_I64X
+#else
+#define WL_MSZX	WL_I32X
+#endif
+
+
+/**
+ * \brief	Memory size
+ * \typedef	wl_MSize
+ * \typedef wl_Msz 
+ */
+typedef wl__Ptr wl_MSize, wl_Msz;
+
 
 /* Standard library*/
-#ifndef NO_LIBC
-
+#ifdef USE_STDLIB
 #	include <stdlib.h>
-#	define mal(addr, size)	malloc(size)
-#	define mfr(addr, size)	free(addr)
-
+#	define wl_mal(size)	malloc(size)
+#	define wl_mfr(addr)	free(addr)
+#elif defined(OS_UNIXLIKE)
+EXTERN Vo*	wl_mal(Msz n);
+EXTERN Vo	wl_mfr(Vo* p);
 #else
-
-	/* Linux */
-#	if defined(OS_LINUX) && !defined(NO_LINUX)
-#		include <sys/mman.h>
-
-#		define mal(addr, size)	mmap(addr, size, PROT_READ|PROT_WRITE, MAP_ANONYMOUS|MAP_PRIVATE, -1, 0)
-#		define mfr(addr, size)	munmap(addr, size)
-#	endif
-
+#	define wl_mal(size) (void*)0
+#	define wl_mfr(addr)	
 #endif
+
+
 
 #endif
