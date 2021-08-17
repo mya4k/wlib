@@ -55,8 +55,7 @@
 		defined(OS_BSD)		||	\
 		defined(OS_MAC)		||	\
 		defined(OS_ZOS)		||	\
-		defined(OS_CYGWIN)	||	\
-		defined(OS_WOS)
+		defined(OS_CYGWIN)
 #define DATA_MODEL DM_LP64
 
 /* ILP64 */

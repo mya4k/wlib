@@ -1,60 +1,35 @@
-/**
- * \file core.h
- * \author Wispy (wspvlv@gmail.com)
- * \brief C & C++ compatibility across standard versions
- * \version 0.1
- * \date 2021-06-29
- * 
- * 
- */
-
-
+/********************************
+ *  Core development definition *
+ *  Mostly for compatibility    *
+ *  Wispy (c) 2021              *
+ ********************************/
 #ifndef WC_CORE_H
 #define WC_CORE_H
+							/************************/
+#include <wc/sys/conf.h>	/* User configuration	*/
+#include <wc/sys/stnd.h>	/* C or C++				*/
+#include <wc/sys/lang.h>	/* C/C++ version		*/
+#include <wc/types.h>		/* Fixed numeric types	*/
+							/************************/
 
-
-
-#include <wc/sys/lang.h>
-
-#ifndef NO_SHORT_NAMES
-#	undef	NULL
-#	define	NULL	WL_NULL
-#	undef	FALSE
-#	define	FALSE	WL_FALSE
-#	undef	TRUE
-#	define	TRUE	WL_TRUE
+/* C and C++ compatibility*/
+#if defined(ST_ISO_CPP)
+#undef	C_DECL_BEGIN
+#define C_DECL_BEGIN	extern "C" {
+#undef	C_DECL_END
+#define C_DECL_END		}
+#else
+#define C_DECL_BEGIN
+#define C_DECL_END
 #endif
 
-#ifndef REGION_C_CPP_COMPATIBILITY
-#	ifdef LC_CPP
-#		undef	EXTERN
-#		define	EXTERN			extern "C"
-#		undef	C_DECL_BEGIN
-#		define	C_DECL_BEGIN	EXTERN {
-#		undef	C_DECL_END
-#		define	C_DECL_END		}
-#	else
-#		undef	EXTERN
-#		define	EXTERN			extern
-#		undef	C_DECL_BEGIN
-#		define	C_DECL_BEGIN
-#		undef	C_DECL_END
-#		define	C_DECL_END
-#	endif
-#endif
-
-#ifndef REGION_VALUES
-/**
- * \brief Null pointer 
- * \def WL_NULL
- */
-#define WL_NULL	((void*)0)
-#endif
-
-#define REGION_DEBUGGING
-#ifndef REGION_DEBUGGING
-#include <stdio.h>
-#define DEBUG printf
+/* pre-C89 and post-C89 compatibility */
+#if DEF_VOID == 1
+#undef	return_void
+#define return_void
+#else
+#undef	return_void
+#define return_void return '\000';
 #endif
 
 #endif
