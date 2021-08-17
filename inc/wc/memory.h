@@ -21,6 +21,7 @@
 #define MSize	wl_MSize
 #define Msz		wl_Msz
 #define MSZB	WL_MSZB
+#define MChunk	wl_MChunk
 #endif
 
 
@@ -32,6 +33,38 @@
 #else
 #define WL_MSZX	WL_I32X
 #endif
+
+#	if PTB == 32
+#		define PTR2NEXT_2_PTR(i)			\
+	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
+	? ((MChunk*)(i))->ptr2next & I32N 		\
+	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I32N))
+#	else
+#		define PTR2NEXT_2_PTR(i)			\
+	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
+	? ((MChunk*)(i))->ptr2next & I64N 		\
+	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I64N))
+#	endif
+
+
+
+#ifndef REGION_TYPES
+/**
+ * \brief	Memory chunks for dynamic allocation
+ * \typedef	MChunk
+ */
+typedef struct wl_MChunk {
+	_Ptr	allocated:1;		/* Wether the chunk is allocated */
+#ifdef MCHUNK_USE_SIZE
+#	error "Do not defined MCHUNK_USE_SIZE. That structure is obsolete"
+	_Ptr	size:(PTB-1);		/* Size */
+#else
+	_Ptr	ptr2next:(PTB-1);	/* Pointer to the next chunk */
+#endif
+	/* The rest is data */
+} wl_MChunk;
+#endif
+
 
 
 /**

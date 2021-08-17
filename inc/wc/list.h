@@ -50,7 +50,7 @@
 	 * 
 	 * 
 	 */
-	typedef wl_Vo*	wl_Lse;
+	typedef _Ptr	wl_Lse;
 	/**
 	 * \brief	Array list type
 	 * \typedef	wl_Ls

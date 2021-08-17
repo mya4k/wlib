@@ -15,6 +15,7 @@
 		"unistd.h": "c",
 		"param.h": "c",
 		"mman.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"memory.h": "c"
 	}
 }

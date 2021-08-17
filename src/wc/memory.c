@@ -46,40 +46,9 @@
 #	define MMAP_THRESHOLD		0x100000
 #	define ROUND2PAGESIZE(n)	((n/pagesize + (_Bool)(n%pagesize)) * pagesize)
 
-#	if PTB == 32
-#		define PTR2NEXT_2_PTR(i)			\
-	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
-	? ((MChunk*)(i))->ptr2next & I32N 		\
-	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I32N))
-#	else
-#		define PTR2NEXT_2_PTR(i)			\
-	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
-	? ((MChunk*)(i))->ptr2next & I64N 		\
-	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I64N))
-#	endif
-
 #	ifndef MAP_ANONYMOUS
 #		define MAP_ANONYMOUS 0
 #	endif
-#endif
-
-
-
-#ifndef REGION_TYPES
-/**
- * \brief	Memory chunks for dynamic allocation
- * \typedef	MChunk
- */
-typedef struct MChunk {
-	_Ptr	allocated:1;		/* Wether the chunk is allocated */
-#ifdef MCHUNK_USE_SIZE
-#	error "Do not defined MCHUNK_USE_SIZE. That structure is obsolete"
-	_Ptr	size:(PTB-1);		/* Size */
-#else
-	_Ptr	ptr2next:(PTB-1);	/* Pointer to the next chunk */
-#endif
-	/* The rest is data */
-} MChunk;
 #endif
 
 
