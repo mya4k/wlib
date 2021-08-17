@@ -16,6 +16,8 @@
 
 #include <wc/sys/lang.h>
 
+
+
 #ifndef NO_SHORT_NAMES
 #	undef	NULL
 #	define	NULL	WL_NULL
@@ -51,10 +53,17 @@
 #define WL_NULL	((void*)0)
 #endif
 
-#define REGION_DEBUGGING
-#ifndef REGION_DEBUGGING
-#include <stdio.h>
-#define DEBUG printf
+/* C99 keywords */
+#if defined(LG_C) && LG_C < VR_C99 || defined(LG_CPP)
+#	ifndef inline
+#		define inline
+#	endif
+#	ifndef restrict
+#		define restrict
+#	endif
+/*
+ * `_Complex` and `_Imaginary` will be implimented later
+ */
 #endif
 
 #endif

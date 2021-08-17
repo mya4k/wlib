@@ -21,7 +21,8 @@
  * \param	entrySize 
  * \return	wl_Ls* 
  */
-Ls* wl_lsn(const Lss length, const Lss entrySize, Vo* value) {
+Ls* wl_lsn(const Lss length, const Lss entrySize, Vo* restrict value) {
+#ifdef OLD_MODEL
 	/* Reserve 50% of length for possible extention */
 	const Lss total = length + length/2 + (length&1);
 	const Lss size = total * entrySize + sizeof(Ls);
@@ -42,4 +43,10 @@ Ls* wl_lsn(const Lss length, const Lss entrySize, Vo* value) {
 	aas(length*entrySize, r+sizeof(Ls), value);
 	/* Return the address */
 	return r;
+#endif
+	Ls* r = mal(length*entrySize*1.5);
+}
+
+wl_Lse	wl_lsr	(wl_Ls* restrict list, wl_Lss index) {
+	(_Ptr)list+sizeof()
 }

@@ -57,19 +57,22 @@
 	 * \typedef	wl_List
 	 */
 	typedef struct wl_Ls {
+#ifdef OLD_MODEL
 		wl_Lss	total:21;		/**< Total size allocated					*/
 		wl_Lss	used:21;		/**< Amount of entries						*/
 		wl_Lss	entrySize:21;	/**< Size of each entry						*/
 		wl_Lss	pt2addr:1;		/**< If set, will point to address of entry	*/
+#endif
+		wl_U64	length:32;
+		wl_U64	entrySize:32;
 	} wl_Ls, wl_List;
 #endif
 
 
 
-
-EXTERN wl_Ls*	wl_lsn	(const Lss length, const Lss entrySize, Vo* value);	/* Initialize a new wl_Ls	*/
-EXTERN wl_Lse	wl_lsr	(wl_Ls* list, wl_Lss index);						/* Read entry from wl_Ls	*/
-EXTERN wl_Lse	wl_lsw	(wl_Ls* list, wl_Lss index, wl_Lss value);			/* Write entry to wl_Ls		*/
+EXTERN wl_Ls*	wl_lsn	(const Lss length, const Lss entrySize, Vo* restrict value);	/* Initialize a new wl_Ls	*/
+EXTERN wl_Lse	wl_lsr	(wl_Ls* restrict list, wl_Lss index);						/* Read entry from wl_Ls	*/
+EXTERN wl_Lse	wl_lsw	(wl_Ls* restrict list, wl_Lss index, wl_Lss value);			/* Write entry to wl_Ls		*/
 
 
 
