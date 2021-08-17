@@ -1,54 +1,20 @@
 {
     "configurations": [
         {
-            "name": "Win32",
-            "includePath": [
-                "${default}"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "windowsSdkVersion": "10.0.18362.0",
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.25.28610/bin/Hostx64/x64/cl.exe",
-            "intelliSenseMode": "msvc-x64",
-            "compilerArgs": [
-                "-I D:/wlib/inc",
-                "-I D:/wlib/inc/wl/posix",
-                "-stdc=c2x",
-                "-Wall",
-                "-Wpedantic",
-                "-Wextra"
-            ]
-        },
-        {
             "name": "Linux",
             "includePath": [
-                "${default}",
-                "${workspaceFolder}/inc",
-                "${workspaceFolder}/inc/wc"
+                "${workspaceFolder}/**"
             ],
             "defines": [],
-            "cStandard": "c17",
-            "cppStandard": "c++20",
-            "intelliSenseMode": "macos-gcc-x64",
             "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
-                "-Wall",
                 "-Wextra",
-                "-I inc ",
-                "-I inc/wc"
-            ],
-            "browse": {
-                "path": [
-                    "${workspaceFolder}",
-                    "/"
-                ],
-                "limitSymbolsToIncludedHeaders": true
-            },
-            "forcedInclude": [
-                "${workspaceFolder}/inc/wc/sys/conf.h"
+                "-Wall",
+                "-Wpedantic",
+                "-Iinc"
             ]
         }
     ],

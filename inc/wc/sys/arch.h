@@ -275,7 +275,6 @@
 #if !defined(AR_) && defined()
 #define
 #endif
-
 #if !defined(AR_)	&&(	\
 	defined()		||	\
 	defined()			\
