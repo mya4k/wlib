@@ -1,8 +1,8 @@
 #ifndef COMP_H
 #define COMP_H
 
-#if !defined(_NO)
-#define _NO(X) X 
+#if !defined(NO)
+#define NO(X) X 
 #endif
 
 /* ACC */
@@ -107,7 +107,7 @@
 
 /* Cray C */
 #if !defined(CM_CRAY) && defined(_CRAYC)
-#define CM_CRAY _NO(_RELEASE)_NO(_RELEASE_MINOR)
+#define CM_CRAY NO(_RELEASE)NO(_RELEASE_MINOR)
 #endif /* Cray C */
 
 /* Diab C/C++ */
@@ -141,7 +141,7 @@
 /* DJGPP */
 #if !defined(CM_DJGPP) && (defined(__DJGPP__) || defined(__GO32__))
 #if defined(__DJGPP_MINOR__)
-#define CM_DJGPP _NO(__DJGPP__)_NO(__DJGPP_MINOR__)
+#define CM_DJGPP NO(__DJGPP__)NO(__DJGPP_MINOR__)
 #else
 #define CM_DJGPP __DJGPP__
 #endif
@@ -159,7 +159,7 @@
 /* EKOPath */
 #if !defined(CM_PATH) && defined(__PATHCC__)
 #if defined(__PATHCC_MINOR__) && defined(__PATHCC_PATCHLEVEL__)
-#define CM_PATH _NO(__PATHCC__)_NO(__PATHCC_MINOR__)_NO(__PATHCC_PATCHLEVEL__)
+#define CM_PATH NO(__PATHCC__)NO(__PATHCC_MINOR__)NO(__PATHCC_PATCHLEVEL__)
 #else
 #define CM_PATH __PATHCC__
 #endif
@@ -173,9 +173,9 @@
 /* GCC C/C++ */
 #if !defined(CM_GCC) && defined(__GNUC__) && !defined(__clang__)
 #if __GNUC__ >= 3
-#define CM_GCC _NO(__GNUC__)_NO(__GNUC_MINOR__)_NO(__GNUC_PATCHLEVEL__)
+#define CM_GCC NO(__GNUC__)NO(__GNUC_MINOR__)NO(__GNUC_PATCHLEVEL__)
 #else
-#define CM_GCC _NO(__GNUC__)_NO(__GNUC_MINOR__)
+#define CM_GCC NO(__GNUC__)NO(__GNUC_MINOR__)
 #endif
 #endif	/* GCC C/C++ */
 
