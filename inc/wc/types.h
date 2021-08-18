@@ -92,6 +92,10 @@
 #define vo		wl_vo
 #define PTM		WL_PTM
 #define PTX		WL_PTX
+#define F32		wl_F32
+#define F64		wl_F64
+#define f32		wl_f32
+#define f64		wl_f64
 #endif
 
 
