@@ -52,28 +52,6 @@
  * \return	wl_Ls* 
  */
 Ls* wl_lsn(const Lss length, const Lss entrySize, const Vo* restrict value) {
-#ifdef OLD_MODEL
-	/* Reserve 50% of length for possible extention */
-	const Lss total = length + length/2 + (length&1);
-	const Lss size = total * entrySize + sizeof(Ls);
-	/* Allocate list and the entry data */
-	Ls* r = mal(size);
-	/* Define how many entries are reserved */
-	r->total = total;
-	/* Define how many entry are used */
-	r->used = length;
-	/* Size of each entry in bytes */
-	r->entrySize = entrySize;
-	/* Whether it should return values are adresses of entries */
-	if (entrySize >= sizeof(IMax))
-		r->pt2addr = TRUE;
-	else
-		r->pt2addr = FALSE;
-	/* Define value */
-	aas(length*entrySize, r+sizeof(Ls), value);
-	/* Return the address */
-	return r;
-#endif
 	/* Reserve 50% for possible expansion */
 	const Msz size = length*entrySize*1.5;
 	/* Allocate the list */
