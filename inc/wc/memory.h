@@ -46,6 +46,7 @@
 	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I64N))
 #	endif
 
+#define MCHUNKOF(X)		((wl_MChunk*)((wl__Ptr)(X)-sizeof(wl_MChunk)))
 
 
 #ifndef REGION_TYPES
@@ -81,8 +82,10 @@ typedef wl__Ptr wl_MSize, wl_Msz;
 #	define wl_mal(size)	malloc(size)
 #	define wl_mfr(addr)	free(addr)
 #elif defined(OS_UNIXLIKE)
-EXTERN Vo*	wl_mal(Msz n);
-EXTERN Vo	wl_mfr(Vo* p);
+#	define WLMALLOC	1
+	EXTERN wl_Vo*	wl_mal(wl_Msz n);
+	EXTERN wl_Vo	wl_mfr(wl_Vo* p);
+	EXTERN wl_Msz	wl__sizeofmem(wl_Vo* ptr) 
 #else
 #	define wl_mal(size) (void*)0
 #	define wl_mfr(addr)	

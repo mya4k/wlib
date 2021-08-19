@@ -16,6 +16,11 @@
 		"param.h": "c",
 		"mman.h": "c",
 		"stdio.h": "c",
-		"memory.h": "c"
+		"memory.h": "c",
+		"list": "c",
+		"list.h": "c",
+		"chrono": "c",
+		"variant": "c",
+		"tuple": "c"
 	}
 }

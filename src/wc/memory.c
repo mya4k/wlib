@@ -219,6 +219,17 @@ Vo	wl_mfr(Vo* p) {
 	return_void;
 }
 
+/**
+ * \brief	Size of an allocated memory segment
+ * \fn		Msz wl__sizeofmem(Vo* ptr)
+ * \param	ptr 
+ * \return	Msz 
+ */
+Msz wl__sizeofmem(Vo* ptr) {
+	_Ptr m = MCHUNKOF(ptr);
+	return PTR2NEXT_2_PTR(m) - m - sizeof(wl_MChunk);
+}
+
 
 
 #endif

@@ -33,7 +33,7 @@
  *			return type is `Vo*`
  */
 #define ADECL1(NAME)	\
-	wl_vo* NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a)
+	wl_Vo* NAME(const wl_U8 s, wl_Vo* r, wl_Vo* const restrict a)
 
 #undef	ADECL2
 /** 
@@ -52,7 +52,7 @@
  *			return type is `VO*`
  */
 #define ADECL2(NAME)	\
-	wl_vo* NAME(const wl_U8 s, register wl_Vo* r, register const wl_Vo* a, register const wl_Vo* b)
+	wl_Vo* NAME(const wl_U8 s, wl_Vo* r, wl_Vo* const restrict a, wl_Vo* const restrict b)
 
 #undef	ADEF1
 #ifdef	NO_I64
@@ -128,9 +128,9 @@
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
 		if (!r) r = wl_mal(0);											\
-		register wl_U8 d = s/8;											\
-		register wl_U8 m = s%8;											\
-		register wl_U16 i = 0;											\
+		const wl_U8 d = s/8;											\
+		const wl_U8 m = s%8;											\
+		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
 			((wl_U64*)r)[i] = FUNC(((wl_U64*)a)[i]);					\
@@ -181,9 +181,9 @@
 #define ADEF2(NAME, FUNC) 												\
 	ADECL2(NAME) {														\
 		if (!r) r = wl_mal(s);											\
-		register wl_U8 d = s/4;											\
-		register wl_U8 m = s%4;											\
-		register wl_U16 i = 0;											\
+		const wl_U8 d = s/8;											\
+		const wl_U8 m = s%8;											\
+		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
 			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i], ((wl_U32*)b)[i]);	\
@@ -228,9 +228,9 @@
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
 		if (!r) r = wl_mal(s);									\
-		register U8 d = s/8;									\
-		register U8 m = s%8;									\
-		register U16 i = 0;										\
+		const wl_U8 d = s/8;									\
+		const wl_U8 m = s%8;									\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			((U64*)r)[i] = FUNC(((U64*)a)[i], ((U64*)b)[i]);	\
@@ -265,7 +265,7 @@
  *			return type is `BL`
  */
 #define ADECL1B(NAME)	\
-	wl_Bl NAME(const wl_U8 s, register const wl_Vo* a)
+	wl_Bl NAME(const wl_U8 s, wl_Vo* const restrict a)
 
 #undef	ADECL2B
 /** 
@@ -279,7 +279,7 @@
  *			return type is `BL`
  */
 #define ADECL2B(NAME)	\
-	wl_Bl NAME(const wl_U8 s, register const wl_Vo* a, register const wl_Vo* b)
+	wl_Bl NAME(const wl_U8 s, wl_Vo* const restrict a, wl_Vo* const restrict b)
 
 #undef	ADEF1
 #ifdef	NO_I64
@@ -308,9 +308,9 @@
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
 		if (!r) r = wl_mal(s);									\
-		register U8 d = s/4;									\
-		register U8 m = s%4;									\
-		register U16 i = 0;										\
+		const U8 d = s/4;										\
+		const U8 m = s%4;										\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			((U32*)r)[i] = FUNC(((U32*)a)[i]);					\
@@ -355,9 +355,9 @@
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
 		if (!r) r = wl_mal(s);									\
-		register const U8 d = s/8;								\
-		register const U8 m = s%8;								\
-		register U16 i = 0;										\
+		const U8 d = s/8;										\
+		const U8 m = s%8;										\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			((U64*)r)[i] = FUNC(((U64*)a)[i]);					\
@@ -408,9 +408,9 @@
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
 		if (!r) r = wl_mal(s);									\
-		register U8 d = s/4;									\
-		register U8 m = s%4;									\
-		register U16 i = 0;										\
+		const U8 d = s/4;										\
+		const U8 m = s%4;										\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
@@ -454,10 +454,10 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(s);								\
-		register U8 d = s/8;									\
-		register U8 m = s%8;									\
-		register U16 i = 0;										\
+		if (!r) r = wl_mal(s);									\
+		const U8 d = s/8;										\
+		const U8 m = s%8;										\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			((U64*)r)[i] = FUNC(((U64*)a)[i], ((U64*)b)[i]);	\
@@ -486,9 +486,9 @@
 #undef	ADEFB1
 #define	ADEFB1(NAME,FUNC)										\
 	ADECL1B(NAME) {												\
-		register U8 d = s/8;									\
-		register U8 m = s%8;									\
-		register U16 i = 0;										\
+		const U8 d = s/8;										\
+		const U8 m = s%8;										\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			if ( FUNC((U64*)a)[i] ) return 0;					\
@@ -516,9 +516,9 @@
 #undef	ADEFB2
 #define	ADEFB2(NAME,FUNC)										\
 	ADECL2B(NAME) {												\
-		register U8 d = s/8;									\
-		register U8 m = s%8;									\
-		register U16 i = 0;										\
+		const U8 d = s/8;										\
+		const U8 m = s%8;										\
+		U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
 			if ( FUNC((U64*)a)[i], ((U64*)b)[i]) ) return 0;	\
