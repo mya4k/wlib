@@ -21,6 +21,8 @@
 		"list.h": "c",
 		"chrono": "c",
 		"variant": "c",
-		"tuple": "c"
+		"tuple": "c",
+		"char.h": "c",
+		"random": "c"
 	}
 }

@@ -1,33 +1,79 @@
-wlib/wc
-├── core.h
-│   ├── C_DECL_BEGIN
-│   ├── C_DECL_END
-│   └── return_void
-├── types.h
-|	├── _Ptr
-|	├── CH
-|	├── CHB
-|	├── Ch
-|	├── ch
-|   ├── I8
-|   ├── I16
-|   ├── I32
-|   ├── I64
-|   ├── i8
-|   ├── i16
-|   ├── i32
-|   ├── i64
-|	├── DEF__BOOL
-|	├── DEF_BOOL
-|	├── DEF_LONG_LONG
-|	├── DEF_VOID
-|	├── INB
-|	├── lB
-|	├── SHB
-
-inc
-├── math
-│   ├── mathi.h
-│   └── mathf.h
-├── math.h
-└── types.h
+wlib/inc/wc
+├─→ <core.h> ←── <wc/sys/lang.h>
+│   ├─→ C_DECL_BEGIN
+│   ├─→ C_DECL_END
+│   ├─→ EXTERN
+│   ├─→ WC_CORE_H
+│   ├─→ NULL
+│   ├─→ inline (<C99)
+│   └─→ restrict (<C99)
+├─→ <types.h> ←┬─ <wc/sys/damo.h>
+│   │          ├─ <wc/sys/lang.h>
+│   │          └─ <stdint.h> (>C99 & defined(USE_STDLIB))
+│   ├─→ WC_TYPES_H
+│   ├─→ DEF__BOOL
+│   ├─→ DEF_BOOL
+│   ├─→ DEF_LONG_LONG
+│   ├─→ DEF_VOID
+│   ├─→ NO_I64
+│   ├─→ wl_Ch   ←── char
+│   ├─→ wl_I8   ←┬─ int8_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            └─ signed char (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_I16  ←┬─ int16_t ←── <stdint.h> (>C99 & USE_STDLIB)
+│   │            └─ short (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_I32  ←┬─ int32_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ int ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL != DM_LP32)
+│   │            └─ long ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL == DM_LP32)
+│   ├─→ wl_I64  ←┬─ int64_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ long ((<C99 | !defined(USE_STDLIB)) & (DATA_MODEL >= DM_LP64) | ((DEF_LONG_LONG == 0) & (DATA_MODEL < DM_LP64)) )
+│   │            └─ long long ((<C99 | !defined(USE_STDLIB)) & ((DEF_LONG_LONG == 1) & (DATA_MODEL < DM_LP64)) )
+│   ├─→ wl_IMax ←┬─ intmax_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ wl_I32 (NO_I64 == 1)
+│   │            └─ wl_I64 (NO_I64 == 0)
+│   ├─→ wl_U8   ←┬─ uint8_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            └─ unsigned char (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_U16  ←┬─ uint16_t ←── <stdint.h> (>C99 & USE_STDLIB)
+│   │            └─ unsigned short (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_U32  ←┬─ uint32_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ unsigned int ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL != DM_LP32)
+│   │            └─ unsigned long ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL == DM_LP32)
+│   ├─→ wl_U64  ←┬─ uint64_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ unsigned long ((<C99 | !defined(USE_STDLIB)) & (DATA_MODEL >= DM_LP64) | ((DEF_LONG_LONG == 0) & (DATA_MODEL < DM_LP64)) )
+│   │            └─ unsigned long long ((<C99 | !defined(USE_STDLIB)) & ((DEF_LONG_LONG == 1) & (DATA_MODEL < DM_LP64)) )
+│   ├─→ wl_UMax ←┬─ uintmax_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ wl_U32 ((<C99 | !defined(USE_STDLIB)) & NO_I64 == 1)
+│   │            └─ wl_U64 (NO_I64 == 0)
+│   ├─→ wl_ch   ←── char
+│   ├─→ wl_i8   ←┬─ int8_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            └─ signed char (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_i16  ←┬─ int16_t ←── <stdint.h> (>C99 & USE_STDLIB)
+│   │            └─ short (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_i32  ←┬─ int32_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ int ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL != DM_LP32)
+│   │            └─ long ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL == DM_LP32)
+│   ├─→ wl_i64  ←┬─ int64_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ long ((<C99 | !defined(USE_STDLIB)) & (DATA_MODEL >= DM_LP64) | ((DEF_LONG_LONG == 0) & (DATA_MODEL < DM_LP64)) )
+│   │            └─ long long ((<C99 | !defined(USE_STDLIB)) & ((DEF_LONG_LONG == 1) & (DATA_MODEL < DM_LP64)) )
+│   ├─→ wl_imax ←┬─ intmax_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ wl_I32 (NO_I64 == 1)
+│   │            └─ wl_I64 (NO_I64 == 0)
+│   ├─→ wl_u8   ←┬─ uint8_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            └─ unsigned char (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_u16  ←┬─ uint16_t ←── <stdint.h> (>C99 & USE_STDLIB)
+│   │            └─ unsigned short (<C99 | !defined(USE_STDLIB))
+│   ├─→ wl_u32  ←┬─ uint32_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ unsigned int ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL != DM_LP32)
+│   │            └─ unsigned long ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL == DM_LP32)
+│   ├─→ wl_u64  ←┬─ uint64_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ unsigned long ((<C99 | !defined(USE_STDLIB)) & (DATA_MODEL >= DM_LP64) | ((DEF_LONG_LONG == 0) & (DATA_MODEL < DM_LP64)) )
+│   │            └─ unsigned long long ((<C99 | !defined(USE_STDLIB)) & ((DEF_LONG_LONG == 1) & (DATA_MODEL < DM_LP64)) )
+│   ├─→ wl_umax ←┬─ uintmax_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ wl_U32 ((<C99 | !defined(USE_STDLIB)) & NO_I64 == 1)
+│   │            └─ wl_U64 (NO_I64 == 0)
+│   ├─→ wl__Ptr ←┬─ uintptr_t ←── <stdint.h> (>C99 & defined(USE_STDLIB))
+│   │            ├─ wl_U32 ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL < DM_LLP64)
+│   │            └─ wl_U64 ((<C99 | !defined(USE_STDLIB)) & DATA_MODEL >= DM_LLP64)
+│   ├─→ wl_
+...
+├─→ <string.h>
+	├─→

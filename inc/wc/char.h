@@ -11,9 +11,7 @@
  * 				WL_DLE, WL_DC1, WL_DC2, WL_DC3, WL_DC4, 
  * 				WL_NAK, WL_SYN, WL_ETB, WL_CAN, WL_EM, 
  * 				WL_SUB, WL_ESC, WL_FS, WL_GS, WL_RS, WL_US,
- * 				WL_DEL, wl_lens
- *	Typedefs:	wl_Lens
- * 	Functions:	wl_lens
+ * 				WL_DEL
  * 
  */
 #ifndef WC_CHAR_H
@@ -68,6 +66,7 @@
 #	define c2u		wl_c2u
 #	define c2d		wl_c2d
 #	define Lens		wl_Lens
+#	define Sl		wl_Sl
 #	define lens		wl_lens
 #	define sl		wl_sl
 #	define stringLength wl_stringLength
@@ -249,165 +248,146 @@
 #endif
 
 #ifndef REGION_CHAR
-/**
- * \brief	Is Lowercase Character
- * \def		wl_cilc(a)
- * \param	a	character
- * \return	True, if character is a lowercase letter, false, otherwise
- */
+	/**
+	 * \brief	Is Lowercase Character
+	 * \def		wl_cilc(a)
+	 * \param	a	character
+	 * \return	True, if character is a lowercase letter, false, otherwise
+	 */
 #	define wl_cilc(a) ((a) >= 'a' && (a) <= 'z')					/* Is Lowercase Character	*/
-/**
- * \brief	Is Uppercase Character
- * \def		wl_ciuc(a)
- * \param	a	character
- * \return	True, if character is an uppercase letter, false otherwise
- */
+	/**
+	 * \brief	Is Uppercase Character
+	 * \def		wl_ciuc(a)
+	 * \param	a	character
+	 * \return	True, if character is an uppercase letter, false otherwise
+	 */
 #	define wl_ciuc(a) ((a) >= 'A' && (a) <= 'Z')					/* Is Uppercase Character	*/
-/**
- * \brief	Is Contol Character
- * \def		wl_cic(a)
- * \param	a	character
- * \return	True, if character is a control character, false otherwise
- */
+	/**
+	 * \brief	Is Contol Character
+	 * \def		wl_cic(a)
+	 * \param	a	character
+	 * \return	True, if character is a control character, false otherwise
+	 */
 #	define wl_cic(a) ((a) < ' ' || (a) == WL_DEL)					/* Is Contol Character		*/
-/**
- * \brief	Is Digit Character
- * \def		wl_cid(a)
- * \param	a	character
- * \return	True, if character is a decimal digit character, false otherwise
- */
+	/**
+	 * \brief	Is Digit Character
+	 * \def		wl_cid(a)
+	 * \param	a	character
+	 * \return	True, if character is a decimal digit character, false otherwise
+	 */
 #	define wl_cid(a) ((a) >= '0' && (a) <= '9')						/* Is Digit Character		*/
-/**
- * \brief	Is Symbol Character
- * \def		wl_cis(a)
- * \param	a	character
- * \return	True, if character is a symbol character, false otherwise
- */
+	/**
+	 * \brief	Is Symbol Character
+	 * \def		wl_cis(a)
+	 * \param	a	character
+	 * \return	True, if character is a symbol character, false otherwise
+	 */
 #	define wl_cis(a)												/* Is Symbol Character		*/\
 	((a) >= '!' && (a) <= '/' || (a) >= ':' && (a) <= '@' || (a) >= '[' && (a) <= '`' || (a) >= '{' && (a) <= '~')
-/**
- * \brief	Is Whitespace Character
- * \def		wl_ciw(a)
- * \param	a	character
- * \return	True, if character is a whitespace character, false otherwise
- */
+	/**
+	 * \brief	Is Whitespace Character
+	 * \def		wl_ciw(a)
+	 * \param	a	character
+	 * \return	True, if character is a whitespace character, false otherwise
+	 */
 #	define wl_ciw(a) ((a) >= WL_HT && (a) <= WL_CR || (a) == ' ')	/* Is Whitespace Character	*/
-/**
- * \brief	Is Ext. ASCII Character
- * \def		wl_cie(a)
- * \param	a	character
- * \return	True, if character from extended character set, false otherwise
- */
+	/**
+	 * \brief	Is Ext. ASCII Character
+	 * \def		wl_cie(a)
+	 * \param	a	character
+	 * \return	True, if character from extended character set, false otherwise
+	 */
 #	define wl_cie(a) ((a) > WL_DEL)									/* Is Ext. ASCII Character	*/
-/**
- * \brief	Is Alphanumeric Character
- * \def		wl_cia(a)
- * \param	a	character
- * \return	True, if character is an alphanumeric character, false otherwise
- */
+	/**
+	 * \brief	Is Alphanumeric Character
+	 * \def		wl_cia(a)
+	 * \param	a	character
+	 * \return	True, if character is an alphanumeric character, false otherwise
+	 */
 #	define wl_cia(a) (wl_cil(a) || wl_cid(a))						/* Is Alphanumeric Character*/
-/**
- * \brief	Is Letter Character
- * \def		wl_cil(a)
- * \param	a	character
- * \return	True, if character is a letter, false otherwise
- */
+	/**
+	 * \brief	Is Letter Character
+	 * \def		wl_cil(a)
+	 * \param	a	character
+	 * \return	True, if character is a letter, false otherwise
+	 */
 #	define wl_cil(a) (wl_cilc(a) || wl_ciuc(a))						/* Is Letter Character		*/
-/**
- * \brief	Character To Lowercase
- * \def		wl_c2l(a)
- * \param	a	character
- * \return	\a a or its modified value
- * If the character is uppercase, changes its case and returns it, otherwise returns \a
- */
+	/**
+	 * \brief	Character To Lowercase
+	 * \def		wl_c2l(a)
+	 * \param	a	character
+	 * \return	\a a or its modified value
+	 * If the character is uppercase, changes its case and returns it, otherwise returns \a
+	 */
 #	define wl_c2l(a) ((a) - wl_ciuc(a)*32)
-/**
- * \brief	Character To Uppercase
- * \def		wl_c2u(a)
- * \param	a	character
- * \return	\a a or its modified value
- * If the character is lowercase, changes its case and returns it, otherwise returns \a
- */
+	/**
+	 * \brief	Character To Uppercase
+	 * \def		wl_c2u(a)
+	 * \param	a	character
+	 * \return	\a a or its modified value
+	 * If the character is lowercase, changes its case and returns it, otherwise returns \a
+	 */
 #	define wl_c2u(a) ((a) + wl_cilc(a)*32)
-/**
- * \def		wl_c2d(chr, base)
- * \brief	char to wl_Digit
- * \param	x		Digit
- * \param	base	base
- * \return	wl_Digit
- * \attention Despite being heavily optimized, it still takes about 30 instructions
- * Converts a charcter representing a digit to a digit
- * If result exceeds the base, character 255 is returned
- * Table (0—95):
- * 0 1 2 3 4 5 6 7 8 9 A B C D E F
- * G H I J K L M N O P Q R S T U V
- * W X Y Z a b c d e f g h i j k l
- * m n o p q r s t u v w x y z ! "
- * # $ % & ' ( ) * + , - . / : ; <
- * = > ? @ [ \ ] ^ _ ` { | } ~   
- *                             ↑ ↑
- *                         SPACE DEL
- */
-#define wl_c2d(x) (							\
-	(x)	- (94-(x))	*((x)==' ')				\
-		- (95-(x))	*((x)==127)				\
-		- 32		*((x)<0)				\
-		+ 96		*((x)<' '&&(x)>0)		\
-		+ 29		*((x)<'0'&&(x)>=' ')	\
-		- 48		*((x)<':'&&(x)>='0')	\
-		+ 19		*((x)<'A'&&(x)>=':')	\
-		- 55		*((x)<'['&&(x)>='A')	\
-		- 7			*((x)<'a'&&(x)>='[')	\
-		- 61		*((x)<'{'&&(x)>='a')	\
-		- 33		*((x)<127&&(x)>='{')	\
-)
+	/**
+	 * \def		wl_c2d(chr, base)
+	 * \brief	char to wl_Digit
+	 * \param	x		Digit
+	 * \return	wl_Digit
+	 * Converts a charcter representing a digit to a digit
+	 * If result exceeds the base, character 255 is returned
+	 * Table (0—95):
+	 * 0 1 2 3 4 5 6 7 8 9 A B C D E F
+	 * G H I J K L M N O P Q R S T U V
+	 * W X Y Z a b c d e f g h i j k l
+	 * m n o p q r s t u v w x y z ! "
+	 * # $ % & ' ( ) * + , - . / : ; <
+	 * = > ? @ [ \ ] ^ _ ` { | } ~   
+	 *                             ↑ ↑
+	 *                         SPACE DEL
+	 */
+#	define wl_c2d(x) 	(							\
+		(x)	+ 62*((wl_U8)(x)==' ')					\
+			- 32*((wl_U8)(x)==127)					\
+			+ 96*((wl_U8)(x)<' ')					\
+			+ 29*((wl_U8)(x)<'0'&&(wl_U8)(x)>=' ')	\
+			- 48*((wl_U8)(x)<':'&&(wl_U8)(x)>='0')	\
+			+ 19*((wl_U8)(x)<'A'&&(wl_U8)(x)>=':')	\
+			- 55*((wl_U8)(x)<'['&&(wl_U8)(x)>='A')	\
+			- 7	*((wl_U8)(x)<'a'&&(wl_U8)(x)>='[')	\
+			- 61*((wl_U8)(x)<'{'&&(wl_U8)(x)>='a')	\
+			- 33*((wl_U8)(x)<127&&(wl_U8)(x)>='{')	\
+	)
+	/**
+	 * \def		wl_d2c(chr, base)
+	 * \brief	wl_Digit to char
+	 * \param	x		Digit
+	 * \return	char
+	 * Converts a digit to charcter representing a digit
+	 * If result exceeds the base, character 255 is returned
+	 * Table (0—95):
+	 * 0 1 2 3 4 5 6 7 8 9 A B C D E F
+	 * G H I J K L M N O P Q R S T U V
+	 * W X Y Z a b c d e f g h i j k l
+	 * m n o p q r s t u v w x y z ! "
+	 * # $ % & ' ( ) * + , - . / : ; <
+	 * = > ? @ [ \ ] ^ _ ` { | } ~   
+	 *                             ↑ ↑
+	 *                         SPACE DEL
+	 */
+#	define wl_d2c(x) (								\
+		(x)	- 62*((wl_U8)(x)==94)					\
+			+ 32*((wl_U8)(x)==95)					\
+			- 96*((wl_U8)(x)>96&&(wl_U8)(x)<=127)	\
+			- 29*((wl_U8)(x)<=76&&(wl_U8)(x)>=62)	\
+			+ 48*((wl_U8)(x)<=9&&(wl_U8)(x)>=0)		\
+			- 19*((wl_U8)(x)<83&&(wl_U8)(x)>=77)	\
+			+ 55*((wl_U8)(x)<=35&&(wl_U8)(x)>=10)	\
+			+ 7	*((wl_U8)(x)<89&&(wl_U8)(x)>=84)	\
+			+ 61*((wl_U8)(x)<61&&(wl_U8)(x)>=36)	\
+			+ 33*((wl_U8)(x)<93&&(wl_U8)(x)>=90)	\
+	)
 
 #endif
 
-#ifndef REGION_STRING
-#ifdef USE_STDLIB
-#	include <string.h>
-#	include <limits.h>
-
-	/**
-	 * \brief	Maximal value of wl_Lens
-	 * \def		WL_LENS_MAX
-	 */
-#	define WL_LENS_MAX	SIZE_MAX
-
-	/**
-	 * \brief	String length type
-	 * \typedef	wl_Lens
-	 * Size:	2 bytes (16 bits)
-	 */
-	typedef size_t	wl_StrSize;
-
-	/**
-	 *	\def		wl_lens(STR)
-	 *	\brief		String length
-	 *	\arg		STR String
-	 *	\return 	size_t
-	 *	Method:
-	 *	strlen(STR)
-	 */
-#	define wl_lens(STR)	strlen(STR)
-#else
-#	include <wc/core.h>
-	/**
-	 * \brief	Maximal value of wl_Lens
-	 * \def		WL_LENS_MAX
-	 */
-#	define WL_LENS_MAX	(wl_StrSize)WL_U16X
-
-	/**
-	 * \brief	String length type
-	 * \typedef	wl_Lens
-	 * Size:	2 bytes (16 bits)
-	 */
-	typedef wl_U16	wl_Lens;
-
-	EXTERN wl_Lens wl_lens(const char* str);	/* String length */
-#endif
-#endif
 
 #endif
