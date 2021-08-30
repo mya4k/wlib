@@ -8,36 +8,13 @@
  * 
  */
 #include <wc/types.h>
-#include <wc/logic.h>
+#include <wc/char.h>
 #include <wc/string.h>
+#include <wc/error.h>
 
 
 #if defined(USE_STDLIB) && !defined(WL_IMP_SL)
 #else
-	/**
-	 * \brief	Offset of the byte filled with zeros if exists
-	 * \def		ZEROBYTELOC(X)
-	 * \param	X
-	 */
-#	if NO_I64 == TRUE
-#		define ZEROBYTELOC(X) (		\
-			NOL((X)&0xFF000000)	+	\
-			2*NOL((X)&0xFF0000)	+	\
-			3*NOL((X)&0xFF00)	+	\
-			4*NOL((X)&0xFF)			\
-		)
-#	else
-#		define ZEROBYTELOC(X)	(			\
-			NOL((X)&0xFF00000000000000)	+	\
-			2*NOL((X)&0xFF000000000000)	+	\
-			3*NOL((X)&0xFF0000000000)	+	\
-			4*NOL((X)&0xFF00000000)		+	\
-			5*NOL((X)&0xFF000000)		+	\
-			6*NOL((X)&0xFF0000)			+	\
-			7*NOL((X)&0xFF00)			+	\
-			8*NOL((X)&0xFF)					\
-		)
-#	endif
 	/**
 	 *	\fn			wl_Sl wl_sl(const char* str)
 	*	\brief		String length
@@ -49,15 +26,192 @@
 	*	2. while (str[i] != CH_NUL) i = i+1; (Check every character and incriment the `i` until the character is null)
 	*	3. return i; (Return the length of the string)
 	*/
-	wl_Sl wl_sl(char* str) {
-		U8 i = 0;
-	#if	NO_I64 == TRUE
-		for (; (i = ZEROBYTELOC(*(U32*)str)); str+=4);
-	#else
-		for (; (i = ZEROBYTELOC(*(U64*)str)); str+=8);
-	#endif
-		return str+i;
+	wl_Sl wl_sl(const char* restrict const str) {
+		const char* a = str;
+		for (; *a; a++);
+		return a-str;
+	}
+#endif
+
+/**
+ * \brief	String to U32
+ * \fn		wl_U32	wl_s2u(wl_Str str, u8 flags)
+ * \param	str		String
+ * \param	flags	Flags
+ * \return	wl_U32 
+ */
+wl_U32	wl_s2u(const char* restrict const str, const u8 flags) {
+#ifdef USE_STDLIB
+#	include <stdlib.h>
+	if (!flags&0x3) return (U32)strtoul(str);
+#endif
+	
+	U32 r = 0;
+
+	/* Store the length of the string */
+	const Sl s = sl(str);
+	Sl i = 0;
+
+	/* Figure out the base */
+	switch (flags&0x3) {
+		/* Binary */
+		case WL_S2_BIN: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 32) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && (str[i]&0xFE) == '0'; i++) {
+				r *= 2;
+				r += c2d(str[i]);
+			}
+			break;
+		}
+		/* Octal */
+		case WL_S2_OCT: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 11) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && str[i]>='0' && str[i]<='7'; i++) {
+				r *= 8;
+				r += c2d(str[i]);
+			}
+			break;
+		}
+		/* Decimal */
+		case WL_S2_DEC:
+		default: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 10) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && cid(str[i]); i++) {
+				r *= 10;
+				r += c2d(str[i]);
+			}
+			break;
+		}
+		/* Hexadecimal */
+		case WL_S2_HEX: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 8) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && str[i]>='0' && str[i]<='F'; i++) {
+				r *= 16;
+				r += c2d(c2u(str[i]));
+			}
+			break;
+		}
 	}
 
+	return r;
+}
 
+/**
+ * \brief	String to U32
+ * \fn		wl_U32	wl_s2u(wl_Str str, u8 flags)
+ * \param	str		String
+ * \param	flags	Flags
+ * \return	wl_U32 
+ * 
+ * Converts a string to U32 integer. Will terminate if a non-digit character is found
+ * 
+ * 	0.	If configured to use STDLIB, return `atoi(str)` immidietly if decimal flag is set
+ * 	1.	If the first character is a sign, it is ignored
+ * 	2.	Proccess base flags
+ * 	3.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
+ * 	4.	Convert the string accordingly to the base flag
+ * 	5.	Return and negate the result
+ */
+wl_I32	wl_s2i(const char* restrict const str, const u8 flags) {
+#ifdef USE_STDLIB
+#	include <stdlib.h>
+	if (!flags&0x3) return (U32)atoi(str);
 #endif
+
+	I32 r = 0;
+
+	/* Store the length of the string */
+	const Sl s = sl(str);
+	Sl i = 0;
+
+	/* If the first character is a sign, then skip it */
+	if (str[0] == '-' || str[0] == '+') i++;
+
+	/* Figure out the base */
+	switch (flags&0x3) {
+		/* Binary */
+		case WL_S2_BIN: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 32 + (str[0]=='-')) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && (str[i]&0xFE) == '0'; i++) {
+				r *= 2;
+				r += c2d(str[i]);
+			}
+			break;
+		}
+		/* Octal */
+		case WL_S2_OCT: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 11 + (str[0]=='-')) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && str[i]>='0' && str[i]<='7'; i++) {
+				r *= 8;
+				r += c2d(str[i]);
+			}
+			break;
+		}
+		/* Decimal */
+		case WL_S2_DEC:
+		default: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 10 + (str[0]=='-')) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && cid(str[i]); i++) {
+				r *= 10;
+				r += c2d(str[i]);
+			}
+			break;
+		}
+		/* Hexadecimal */
+		case WL_S2_HEX: {
+			/* Check if the string is too big to fit the number into I32 */
+			if (s > 8 + (str[0]=='-')) {
+				wl_err(EXCSTR);
+				return U32X;
+			}
+			/* Convert every character to a digit, and return on first found non-digit */
+			for (; i<=s && str[i]>='0' && str[i]<='F'; i++) {
+				r *= 16;
+				r += c2d(c2u(str[i]));
+			}
+			break;
+		}
+	}
+
+	/* If the first character is '-', negate the return value */
+	if (str[0] == '-') r = -r;
+
+	return r;
+}

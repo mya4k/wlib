@@ -65,16 +65,7 @@
 #	define c2l		wl_c2l
 #	define c2u		wl_c2u
 #	define c2d		wl_c2d
-#	define Lens		wl_Lens
-#	define Sl		wl_Sl
-#	define lens		wl_lens
-#	define sl		wl_sl
-#	define stringLength wl_stringLength
-#endif
-
-#ifndef REGION_ALIASES
-#define wl_sl			wl_lens
-#define wl_stringLength	wl_lens
+#	define d2c		wl_d2c
 #endif
 
 
