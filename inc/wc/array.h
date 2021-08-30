@@ -576,17 +576,8 @@
 
 
 
-/* enum SEARCH_FLAG */
-/**
- * \brief	Flag for memory search functions to search for the last occurance 
- * \def		SEARCH_REVERSE
- */
-#define SEARCH_REVERSE	(wl_U8)0x01
-/**
- * \brief	Flag for memory search functions to count amount of occurances
- * \def		SEARCH_COUNT
- */
-#define SEARCH_COUNT	(wl_U8)0x02
+/*--- Enums ---------------------------------------------*/
+extern enum WL_SEARCH_FLAGS;
 
 
 

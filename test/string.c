@@ -29,26 +29,41 @@ typedef char* wl_Str;
 
 
 typedef wl_u16 wl_Sl, wl_Lens;
- extern wl_Sl wl_sl(const char* str);
+ extern wl_Sl wl_sl(const char* restrict const str);
 
 
-extern wl_U32 wl_s2u (const char* str, wl_u8 flags);
+extern wl_U32 wl_s2u(const char* restrict const str, const wl_u8 flags);
+extern wl_U64 wl_s2q(const char* restrict const str, const wl_u8 flags);
+extern wl_u8 wl__err;
  wl_Sl wl_sl(const char* restrict const str) {
   const char* a = str;
   for (; *a; a++);
   return a-str;
  }
-wl_U32 wl_s2u(const char* restrict const str, const wl_u8 flags) {
+wl_U32 wl_s2u(const char* restrict const str, const wl_U8 flags) {
+
+
+
+
+
  wl_U32 r = 0;
+
+
+ const wl_Sl s = wl_sl(str);
+ wl_Sl i = 0;
+
 
  switch (flags&0x3) {
 
   case 2: {
 
-   const wl_Sl s = wl_sl(str);
-   wl_Sl i;
+   if (s > 32) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
 
-   for (i = 0; i<=s && (str[i]&0xFE) == '0'; i++) {
+
+   for (; i<=s && (str[i]&0xFE) == '0'; i++) {
     r *= 2;
     r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
    }
@@ -57,10 +72,12 @@ wl_U32 wl_s2u(const char* restrict const str, const wl_u8 flags) {
 
   case 3: {
 
-   const wl_Sl s = wl_sl(str);
-   wl_Sl i;
+   if (s > 11) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
 
-   for (i = 0; i<=s && str[i]>='0' && str[i]<='7'; i++) {
+   for (; i<=s && str[i]>='0' && str[i]<='7'; i++) {
     r *= 8;
     r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
    }
@@ -70,10 +87,12 @@ wl_U32 wl_s2u(const char* restrict const str, const wl_u8 flags) {
   case 0:
   default: {
 
-   const wl_Sl s = wl_sl(str);
-   wl_Sl i;
+   if (s > 10) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
 
-   for (i = 0; i<=s && ((str[i]) >= '0' && (str[i]) <= '9'); i++) {
+   for (; i<=s && ((str[i]) >= '0' && (str[i]) <= '9'); i++) {
     r *= 10;
     r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
    }
@@ -82,15 +101,94 @@ wl_U32 wl_s2u(const char* restrict const str, const wl_u8 flags) {
 
   case 1: {
 
-   const wl_Sl s = wl_sl(str);
-   wl_Sl i;
+   if (s > 8) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
 
-   for (i = 0; i<=s && str[i]>='0' && str[i]<='F'; i++) {
+   for (; i<=s && str[i]>='0' && str[i]<='F'; i++) {
     r *= 16;
-    r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
+    r += ( (((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32)) + 62*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))==' ') - 32*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))==127) + 96*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<' ') + 29*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'0'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>=' ') - 48*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<':'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='0') + 19*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'A'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>=':') - 55*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'['&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='A') - 7 *((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'a'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='[') - 61*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'{'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='a') - 33*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<127&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='{') );
    }
    break;
   }
  }
+
+ return r;
+}
+wl_U64 wl_s2q(const char* restrict const str, const wl_U8 flags) {
+
+
+
+
+
+ wl_U32 r = 0;
+
+
+ const wl_Sl s = wl_sl(str);
+ wl_Sl i = 0;
+
+
+ switch (flags&0x3) {
+
+  case 2: {
+
+   if (s > 64) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
+
+
+   for (; i<=s && (str[i]&0xFE) == '0'; i++) {
+    r *= 2;
+    r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
+   }
+   break;
+  }
+
+  case 3: {
+
+   if (s > 22) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
+
+   for (; i<=s && str[i]>='0' && str[i]<='7'; i++) {
+    r *= 8;
+    r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
+   }
+   break;
+  }
+
+  case 0:
+  default: {
+
+   if (s > 20) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
+
+   for (; i<=s && ((str[i]) >= '0' && (str[i]) <= '9'); i++) {
+    r *= 10;
+    r += ( (str[i]) + 62*((wl_U8)(str[i])==' ') - 32*((wl_U8)(str[i])==127) + 96*((wl_U8)(str[i])<' ') + 29*((wl_U8)(str[i])<'0'&&(wl_U8)(str[i])>=' ') - 48*((wl_U8)(str[i])<':'&&(wl_U8)(str[i])>='0') + 19*((wl_U8)(str[i])<'A'&&(wl_U8)(str[i])>=':') - 55*((wl_U8)(str[i])<'['&&(wl_U8)(str[i])>='A') - 7 *((wl_U8)(str[i])<'a'&&(wl_U8)(str[i])>='[') - 61*((wl_U8)(str[i])<'{'&&(wl_U8)(str[i])>='a') - 33*((wl_U8)(str[i])<127&&(wl_U8)(str[i])>='{') );
+   }
+   break;
+  }
+
+  case 1: {
+
+   if (s > 16) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
+
+   for (; i<=s && str[i]>='0' && str[i]<='F'; i++) {
+    r *= 16;
+    r += ( (((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32)) + 62*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))==' ') - 32*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))==127) + 96*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<' ') + 29*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'0'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>=' ') - 48*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<':'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='0') + 19*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'A'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>=':') - 55*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'['&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='A') - 7 *((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'a'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='[') - 61*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<'{'&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='a') - 33*((wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))<127&&(wl_U8)(((str[i]) + ((str[i]) >= 'a' && (str[i]) <= 'z')*32))>='{') );
+   }
+   break;
+  }
+ }
+
  return r;
 }

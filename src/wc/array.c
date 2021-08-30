@@ -12,6 +12,18 @@
 
 
 
+/**
+ * \brief WL_SEARCH_FLAGS
+ * 
+ */
+enum WL_SEARCH_FLAGS {
+	WL_SEARCH_NORMAL = (wl_U8)0x0,
+	WL_SEARCH_REVERSE = (wl_U8)0x1,
+	WL_SEARCH_COUNT = (wl_U8)0x2
+};
+
+
+
 /**	\fn		ADEF1(aas, NO)
  *	\param	s	size of the operands in bytes
  *	\param	r	the array where the result is stored

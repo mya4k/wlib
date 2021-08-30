@@ -5,6 +5,7 @@
 
 #include <wc/core.h>
 #include <wc/types.h>
+#include <wc/array.h>
 
 
 
@@ -19,6 +20,8 @@
 #	define s2i		wl_s2i
 #	define s2l		wl_s2l
 #	define s2q		wl_s2q
+#	define s2imax	wl_s2imax
+#	define s2umax	wl_s2umax
 #endif
 
 #ifdef LONG_ALIAS
@@ -77,7 +80,7 @@
  */
 #	ifdef USE_STDLIB
 
-#		if sizeof(int)>=4
+#		if WL_INB >= 32
 #			define WL_STDLIB_S2I(str) atoi(str)
 #			define WL_STDLIB_S2U(str) (wl_U32)atoi(str)
 #		else
@@ -112,7 +115,7 @@
  */
 #	ifdef USE_STDLIB
 
-#		if sizeof(long)>=8 || LG_C < VR_C99
+#		if WL_LOB >= 64 || LG_C < VR_C99
 #			define WL_STDLIB_S2L(str) atol(str)
 #			define WL_STDLIB_S2Q(str) strtol(str)
 #		else
@@ -138,6 +141,31 @@
 				: wl_s2q(str, flags)	)	\
 		)
 #	endif
+
+#	if WL_IMB < 64
+#		define wl_s2imax	wl_s2i
+#		define wl_s2umax	wl_s2u
+#	else
+#		define wl_s2imax	wl_s2l
+#		define wl_s2umax	wl_s2q
+#	endif
+
+/**
+ * \brief	String Search Character
+ * \def		wl_ssc(str,chr,flags)
+ */
+#	define wl_ssc(str,chr,flags) \
+		wl_asb(str,wl_sl(str),chr,flags)
+/**
+ * \brief	String Search
+ * \def		wl_ss(str,chr,flags)
+ * \param	str1 Where to search
+ * \param	str2 What to search for
+ * \param	flags SEARCH flags
+ * \see		SEARCH_
+ */
+#	define wl_asa(str1,str2,flags) \
+		wl_asa(str1,wl_sl(str1),str2,wl_sl(str2),flags);
 #endif
 
 
@@ -164,10 +192,11 @@ typedef	WL_SL_TYPE	wl_Sl, wl_Lens;
 	 */
 	#define wl_Sl(str)	strlen(str)
 #else
-	EXTERN wl_Sl	wl_sl(const char* str);			/* String length */
+	EXTERN wl_Sl wl_sl(const char* restrict const str);	/* String length */
 #endif
 
-EXTERN wl_U32	wl_s2u(const char* str, u8 flags);		/* String to U32 */
+EXTERN wl_U32 wl_s2u(const char* restrict const str, const u8 flags);	/* String to U32 */
+EXTERN wl_U64 wl_s2q(const char* restrict const str, const u8 flags);	/* String to U64 */
 
 
 
