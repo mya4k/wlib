@@ -15,6 +15,10 @@
 #	define Lens		wl_Lens
 #	define sl		wl_sl
 #	define lens		wl_lens
+#	define s2u		wl_s2u
+#	define s2i		wl_s2i
+#	define s2l		wl_s2l
+#	define s2q		wl_s2q
 #endif
 
 #ifdef LONG_ALIAS
@@ -24,40 +28,118 @@
 
 
 
-/**
- * \brief	Cofigurates the type of wl_Sl
- * \def		WL_SL_TYPE
- */
-#if defined(USE_STDLIB) && !defined(WL_IMP_SL)
-#	include <stdlib.h>
-#	define WL_SL_TYPE	size_t
-#elif !defined(WL_SL_TYPE)
-#	define WL_SL_TYPE	u16
+#ifndef REGION_MACROS
+	/**
+	 * \brief	Cofigurates the type of wl_Sl
+	 * \def		WL_SL_TYPE
+	 */
+#	if defined(USE_STDLIB) && !defined(WL_IMP_SL)
+#		include <stdlib.h>
+#		define WL_SL_TYPE	size_t
+#	elif !defined(WL_SL_TYPE)
+#		define WL_SL_TYPE	u16
+#	endif
+
+	/**
+	 * \brief	Decimal flag for `wl_s2u`, `wl_s2i`, `wl_s2l`, `wl_s2q`
+	 * \def		WL_S2U_DEC
+	 */
+#	define WL_S2_DEC	0
+
+	/**
+	 * \brief	Hexadecimal flag for `wl_s2u`
+	 * \def		WL_S2U_DEC
+	 */
+#	define WL_S2_HEX	1
+
+	/**
+	 * \brief	Binary flag for `wl_s2u`
+	 * \def		WL_S2U_DEC
+	 */
+#	define WL_S2_BIN	2
+
+	/**
+	 * \brief	Octal flag for `wl_s2u`
+	 * \def		WL_S2U_OCT
+	 */
+#	define WL_S2_OCT	3
 #endif
 
-/**
- * \brief	Decimal flag for `wl_s2u`, `wl_s2i`, `wl_s2l`, `wl_s2q`
- * \def		WL_S2U_DEC
- */
-#define WL_S2_DEC	0
 
-/**
- * \brief	Hexadecimal flag for `wl_s2u`
- * \def		WL_S2U_DEC
- */
-#define WL_S2_HEX	1
 
+#ifndef REGION_MACRO_FUNCS
 /**
- * \brief	Binary flag for `wl_s2u`
- * \def		WL_S2U_DEC
+ * \brief	String to I32
+ * \def		wl_s2i(str, flags) 
+ * \see		wl_s2u
+ * 
+ * Coverts a null-terminated one-byte string to a 32-byte signed integer
  */
-#define WL_S2_BIN	2
+#	ifdef USE_STDLIB
 
+#		if sizeof(int)>=4
+#			define WL_STDLIB_S2I(str) atoi(str)
+#			define WL_STDLIB_S2U(str) (wl_U32)atoi(str)
+#		else
+#			define WL_STDLIB_S2I(str) atol(str)
+#			define WL_STDLIB_S2U(str) strtol(str)
+#		endif
+
+#		define wl_s2i(str, flags) (					\
+			flags&0x3								\
+			? (	str[0]=='+'							\
+				? wl_s2u(str+1, flags)				\
+				: (	str[0]=='-'						\
+					? -wl_s2u(str+1, flags)			\
+					: wl_s2u(str, flags)	)	)	\
+			: WL_STDLIB_S2I(str)					\
+		)
+#	else
+#		define wl_s2i(str, flags) (			\
+			str[0]=='+'						\
+			? wl_s2u(str+1, flags)			\
+			: (	str[0]=='-'					\
+				? -wl_s2u(str+1, flags)		\
+				: wl_s2u(str, flags)	)	\
+		)
+#	endif
 /**
- * \brief	Octal flag for `wl_s2u`
- * \def		WL_S2U_OCT
+ * \brief	String to I64
+ * \def		wl_s2l(str, flags) 
+ * \see		wl_s2q
+ * 
+ * Coverts a null-terminated one-byte string to a 64-byte signed integer
  */
-#define WL_S2_OCT	3
+#	ifdef USE_STDLIB
+
+#		if sizeof(long)>=8 || LG_C < VR_C99
+#			define WL_STDLIB_S2L(str) atol(str)
+#			define WL_STDLIB_S2Q(str) strtol(str)
+#		else
+#			define WL_STDLIB_S2L(str) atoll(str)
+#			define WL_STDLIB_S2Q(str) strtoll(str)
+#		endif
+
+#		define wl_s2l(str, flags) (					\
+			flags&0x3								\
+			? (	str[0]=='+'							\
+				? wl_s2q(str+1, flags)				\
+				: (	str[0]=='-'						\
+					? -wl_s2q(str+1, flags)			\
+					: wl_s2q(str, flags)	)	)	\
+			: atoll(str)							\
+		)
+#	else
+#		define wl_s2l(str, flags) (			\
+			str[0]=='+'						\
+			? wl_s2q(str+1, flags)			\
+			: (	str[0]=='-'					\
+				? -wl_s2q(str+1, flags)		\
+				: wl_s2q(str, flags)	)	\
+		)
+#	endif
+#endif
+
 
 
 /**
@@ -86,7 +168,6 @@ typedef	WL_SL_TYPE	wl_Sl, wl_Lens;
 #endif
 
 EXTERN wl_U32	wl_s2u(const char* str, u8 flags);		/* String to U32 */
-EXTERN wl_U32	wl_u2s(wl_U32* str, u8 flags);			/* String to U32 */
 
 
 

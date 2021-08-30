@@ -35,15 +35,24 @@
 
 /**
  * \brief	String to U32
- * \fn		wl_U32	wl_s2u(wl_Str str, u8 flags)
+ * \fn		wl_U32	wl_s2u(const char* restrict const str, const wl_U8 flags)
  * \param	str		String
  * \param	flags	Flags
  * \return	wl_U32 
+ * 
+ * Converts a string to U32 integer. Will terminate if a non-digit character is found
+ * 
+ * 	0.	If configured to use STDLIB, return `strtoul(str)` immidietly if decimal flag is set
+ * 	1.	If the first character is a sign, it is ignored
+ * 	2.	Proccess base flags
+ * 	3.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
+ * 	4.	Convert the string accordingly to the base flag
+ * 	5.	Return
  */
-wl_U32	wl_s2u(const char* restrict const str, const u8 flags) {
+wl_U32	wl_s2u(const char* restrict const str, const wl_U8 flags) {
 #ifdef USE_STDLIB
 #	include <stdlib.h>
-	if (!flags&0x3) return (U32)strtoul(str);
+	if (!flags&0x3) return WL_STDLIB_S2U(str);
 #endif
 	
 	U32 r = 0;
@@ -118,11 +127,11 @@ wl_U32	wl_s2u(const char* restrict const str, const u8 flags) {
 }
 
 /**
- * \brief	String to U32
- * \fn		wl_U32	wl_s2u(wl_Str str, u8 flags)
+ * \brief	String to U64
+ * \fn		wl_U64	wl_s2u(const char* restrict const str, const wl_U8 flags)
  * \param	str		String
  * \param	flags	Flags
- * \return	wl_U32 
+ * \return	wl_U64 
  * 
  * Converts a string to U32 integer. Will terminate if a non-digit character is found
  * 
@@ -131,29 +140,26 @@ wl_U32	wl_s2u(const char* restrict const str, const u8 flags) {
  * 	2.	Proccess base flags
  * 	3.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
  * 	4.	Convert the string accordingly to the base flag
- * 	5.	Return and negate the result
+ * 	5.	Return
  */
-wl_I32	wl_s2i(const char* restrict const str, const u8 flags) {
+wl_U64	wl_s2u(const char* restrict const str, const wl_U8 flags) {
 #ifdef USE_STDLIB
 #	include <stdlib.h>
-	if (!flags&0x3) return (U32)atoi(str);
+	if (!flags&0x3) return WL_STDLIB_S2Q(str);
 #endif
-
-	I32 r = 0;
+	
+	U32 r = 0;
 
 	/* Store the length of the string */
 	const Sl s = sl(str);
 	Sl i = 0;
-
-	/* If the first character is a sign, then skip it */
-	if (str[0] == '-' || str[0] == '+') i++;
 
 	/* Figure out the base */
 	switch (flags&0x3) {
 		/* Binary */
 		case WL_S2_BIN: {
 			/* Check if the string is too big to fit the number into I32 */
-			if (s > 32 + (str[0]=='-')) {
+			if (s > 64) {
 				wl_err(EXCSTR);
 				return U32X;
 			}
@@ -168,7 +174,7 @@ wl_I32	wl_s2i(const char* restrict const str, const u8 flags) {
 		/* Octal */
 		case WL_S2_OCT: {
 			/* Check if the string is too big to fit the number into I32 */
-			if (s > 11 + (str[0]=='-')) {
+			if (s > 22) {
 				wl_err(EXCSTR);
 				return U32X;
 			}
@@ -183,7 +189,7 @@ wl_I32	wl_s2i(const char* restrict const str, const u8 flags) {
 		case WL_S2_DEC:
 		default: {
 			/* Check if the string is too big to fit the number into I32 */
-			if (s > 10 + (str[0]=='-')) {
+			if (s > 20) {
 				wl_err(EXCSTR);
 				return U32X;
 			}
@@ -197,7 +203,7 @@ wl_I32	wl_s2i(const char* restrict const str, const u8 flags) {
 		/* Hexadecimal */
 		case WL_S2_HEX: {
 			/* Check if the string is too big to fit the number into I32 */
-			if (s > 8 + (str[0]=='-')) {
+			if (s > 16) {
 				wl_err(EXCSTR);
 				return U32X;
 			}
@@ -209,9 +215,6 @@ wl_I32	wl_s2i(const char* restrict const str, const u8 flags) {
 			break;
 		}
 	}
-
-	/* If the first character is '-', negate the return value */
-	if (str[0] == '-') r = -r;
 
 	return r;
 }
