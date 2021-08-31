@@ -274,11 +274,11 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
  * If \f$(target \neq NULL) \land (targetSize \neq 0)\f$ 
  * Otherwise returns true
  */
-wl_Vopu	wl_asa(	register wl_Vo*	src,
-				register wl_U8	srcSize,
-				register wl_Vo*	target,
-				register wl_U8	targetSize,
-				register wl_U8	flags		) {
+wl_Vopu	wl_asa(	register wl_Vo*				src,
+				register wl_U8				srcSize,
+				register wl_Vo*				target,
+				register wl_U8				targetSize,
+				register WL_SEARCH_FLAGS	flags		) {
 	/* If we're actually searching for anything */
 	if (target && targetSize) {
 		/* If src is not null and the array size is greater than 0 */

@@ -19,7 +19,55 @@
 
 /* ALL FUNCTIONS DECLARED THROUGH "ADECL" ARE DEFINED IN "array.c" */
 
-/*--- Macro functions -----------------------------------*/
+
+
+/**
+ *       ###    ##       ####    ###     ######  ########  ######  
+ *      ## ##   ##        ##    ## ##   ##    ## ##       ##    ## 
+ *     ##   ##  ##        ##   ##   ##  ##       ##       ##       
+ *    ##     ## ##        ##  ##     ##  ######  ######    ######  
+ *    ######### ##        ##  #########       ## ##             ## 
+ *    ##     ## ##        ##  ##     ## ##    ## ##       ##    ## 
+ *    ##     ## ######## #### ##     ##  ######  ########  ######  
+ */
+#ifndef NO_SHORT_NAMES
+#define AA0		WL_AA0
+#define aas		wl_aas
+#define anot	wl_anot
+#define aand	wl_aand
+#define aor		wl_aor
+#define axor	wl_axor
+#define anand	wl_anand
+#define anor	wl_anor
+#define anxor	wl_anxor
+#define ano		wl_ano
+#define anotl	wl_anotl
+#define aandl	wl_aandl
+#define aorl	wl_aorl
+#define axorl	wl_axorl
+#define anandl	wl_anandl
+#define anorl	wl_anorl
+#define anxorl	wl_anxorl
+#define afl		wl_afl
+#define asb		wl_asb
+#define asa		wl_asa
+#define SEARCH_FLAGS	WL_SEARCH_FLAGS
+#define SEARCH_NORMAL	WL_SEARCH_NORMAL
+#define SEARCH_REVERSE	WL_SEARCH_REVERSE
+#define SEARCH_COUNT	WL_SEARCH_COUNT
+#endif
+
+
+
+/***
+ *    ##     ##    ###     ######  ########   #######   ######  
+ *    ###   ###   ## ##   ##    ## ##     ## ##     ## ##    ## 
+ *    #### ####  ##   ##  ##       ##     ## ##     ## ##       
+ *    ## ### ## ##     ## ##       ########  ##     ##  ######  
+ *    ##     ## ######### ##       ##   ##   ##     ##       ## 
+ *    ##     ## ##     ## ##    ## ##    ##  ##     ## ##    ## 
+ *    ##     ## ##     ##  ######  ##     ##  #######   ######  
+ */
 #undef	ADECL1
 /** 
  * 	\def	Declaration for unioperand functions
@@ -541,31 +589,6 @@
 		return 1;												\
 	}
 
-
-
-#ifndef NO_SHORT_NAMES
-#define AA0		WL_AA0
-#define aas		wl_aas
-#define anot	wl_anot
-#define aand	wl_aand
-#define aor		wl_aor
-#define axor	wl_axor
-#define anand	wl_anand
-#define anor	wl_anor
-#define anxor	wl_anxor
-#define ano		wl_ano
-#define anotl	wl_anotl
-#define aandl	wl_aandl
-#define aorl	wl_aorl
-#define axorl	wl_axorl
-#define anandl	wl_anandl
-#define anorl	wl_anorl
-#define anxorl	wl_anxorl
-#define afl		wl_afl
-#define asb		wl_asb
-#define asa		wl_asa
-#endif
-
 /**
  * \brief	Array Allocate and set 0
  * \def		WL_AA0
@@ -576,21 +599,15 @@
 
 
 
-/* enum SEARCH_FLAG */
-/**
- * \brief	Flag for memory search functions to search for the last occurance 
- * \def		SEARCH_REVERSE
+/***
+ *    ######## ##    ## ########  ########  ######  
+ *       ##     ##  ##  ##     ## ##       ##    ## 
+ *       ##      ####   ##     ## ##       ##       
+ *       ##       ##    ########  ######    ######  
+ *       ##       ##    ##        ##             ## 
+ *       ##       ##    ##        ##       ##    ## 
+ *       ##       ##    ##        ########  ######  
  */
-#define SEARCH_REVERSE	(wl_U8)0x01
-/**
- * \brief	Flag for memory search functions to count amount of occurances
- * \def		SEARCH_COUNT
- */
-#define SEARCH_COUNT	(wl_U8)0x02
-
-
-
-/*--- Types ---------------------------------------------*/
 /**
  * \brief	wl_Vo* or integer
  * \typedef	wl_Vopu
@@ -601,10 +618,28 @@
  * A type for functions that return wl_Vo* and an integer
  */
 typedef wl_Vo* wl_Vopu, wl_vopu, wl_Vopi, wl_vopi;
+/**
+ * \brief	Flags for searching data in memory (+ strings)
+ * \typedef	WL_SEARCH_FLAGS
+ * \enum	WL_SEARCH_FLAGS
+ */
+typedef enum WL_SEARCH_FLAGS {
+	WL_SEARCH_NORMAL	= (wl_U8)0,	/**< Search from the beginning */
+	WL_SEARCH_REVERSE	= (wl_U8)1,	/**< Search from the end */
+	WL_SEARCH_COUNT		= (wl_U8)2	/**< Count the occurances */
+} WL_SEARCH_FLAGS;
 
 
 
-/*--- Declarations --------------------------------------*/
+/***
+ *    ######## ##     ## ##    ##  ######   ######  
+ *    ##       ##     ## ###   ## ##    ## ##    ## 
+ *    ##       ##     ## ####  ## ##       ##       
+ *    ######   ##     ## ## ## ## ##        ######  
+ *    ##       ##     ## ##  #### ##             ## 
+ *    ##       ##     ## ##   ### ##    ## ##    ## 
+ *    ##        #######  ##    ##  ######   ######  
+ */
 EXTERN ADECL1(wl_aas);		/* Array Assignment */
 EXTERN ADECL1(wl_anot);		/* Array NOT */
 EXTERN ADECL2(wl_aand);		/* Array AND */

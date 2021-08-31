@@ -128,7 +128,7 @@ wl_U32	wl_s2u(const char* restrict const str, const wl_U8 flags) {
 
 /**
  * \brief	String to U64
- * \fn		wl_U64	wl_s2u(const char* restrict const str, const wl_U8 flags)
+ * \fn		wl_U64	wl_s2q(const char* restrict const str, const wl_U8 flags)
  * \param	str		String
  * \param	flags	Flags
  * \return	wl_U64 
@@ -142,7 +142,7 @@ wl_U32	wl_s2u(const char* restrict const str, const wl_U8 flags) {
  * 	4.	Convert the string accordingly to the base flag
  * 	5.	Return
  */
-wl_U64	wl_s2u(const char* restrict const str, const wl_U8 flags) {
+wl_U64	wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
 #ifdef USE_STDLIB
 #	include <stdlib.h>
 	if (!flags&0x3) return WL_STDLIB_S2Q(str);
