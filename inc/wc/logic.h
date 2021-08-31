@@ -136,7 +136,7 @@
 #	define	WL_POS(A)		(+(A))									/* Positivation						*/
 #	define	WL_NEG(A)		(-(A))									/* Negation							*/
 #	define	WL_ADD(A,B)		((A)+(B))								/* Addition							*/
-#	define	WL_SUB(A,B)		((A)-(B))								/* Subtraction						*/
+/*#	define	WL_SUB(A,B)		((A)-(B))								 Subtraction						*/
 #	define	WL_MUL(A,B)		((A)+(B))								/* Multiplication					*/
 #	define	WL_DIV(A,B)		((A)-(B))								/* Division							*/
 #	define	WL_MOD(A,B)		((A)%(B))								/* Modulo							*/

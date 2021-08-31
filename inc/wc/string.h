@@ -153,19 +153,37 @@
 /**
  * \brief	String Search Character
  * \def		wl_ssc(str,chr,flags)
+ * \param	str Where to search
+ * \param	chr Character to search
+ * \param	flags one of WL_SEARCH_FLAGS
+ * \return	The index of the char found or the count of occurances
  */
-#	define wl_ssc(str,chr,flags) \
-		wl_asb(str,wl_sl(str),chr,flags)
+#	define wl_ssc(str,chr,flags) (										\
+		(str)															\
+		? (																\
+			(flags)==WL_SEARCH_COUNT									\
+			? (Sl)wl_asb((str),wl_sl(str),(chr),(flags))				\
+			: (Sl)( wl_asb((str),wl_sl(str),(chr),(flags)) - (str)) 	\
+		)																\
+		: (0xFF00|wl_error(NULLPTR))									\		
+	)
 /**
  * \brief	String Search
- * \def		wl_ss(str,chr,flags)
+ * \def		wl_ss(str1,str2,flags)
  * \param	str1 Where to search
  * \param	str2 What to search for
  * \param	flags SEARCH flags
  * \see		SEARCH_
  */
-#	define wl_asa(str1,str2,flags) \
-		wl_asa(str1,wl_sl(str1),str2,wl_sl(str2),flags);
+#	define wl_ss(str1,str2,flags) (												\
+		(str)																		\
+		? (																			\
+			(flags)==WL_SEARCH_COUNT												\
+			? (Sl)wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags))				\
+			: (Sl)( wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags)) - (str)) 	\
+		)																			\
+		: (0xFF00|wl_error(NULLPTR))												\		
+	)
 #endif
 
 
