@@ -13,6 +13,7 @@
 #include <wc/error.h>
 
 
+
 #if defined(USE_STDLIB) && !defined(WL_IMP_SL)
 #else
 	/**
@@ -43,11 +44,10 @@
  * Converts a string to U32 integer. Will terminate if a non-digit character is found
  * 
  * 	0.	If configured to use STDLIB, return `strtoul(str)` immidietly if decimal flag is set
- * 	1.	If the first character is a sign, it is ignored
- * 	2.	Proccess base flags
- * 	3.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
- * 	4.	Convert the string accordingly to the base flag
- * 	5.	Return
+ * 	1.	Proccess base flags
+ * 	2.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
+ * 	3.	Convert the string accordingly to the base flag
+ * 	4.	Return
  */
 wl_U32	wl_s2u(const char* restrict const str, const wl_U8 flags) {
 #ifdef USE_STDLIB
@@ -133,14 +133,13 @@ wl_U32	wl_s2u(const char* restrict const str, const wl_U8 flags) {
  * \param	flags	Flags
  * \return	wl_U64 
  * 
- * Converts a string to U32 integer. Will terminate if a non-digit character is found
+ * Converts a string to U64 integer. Will terminate if a non-digit character is found
  * 
  * 	0.	If configured to use STDLIB, return `atoi(str)` immidietly if decimal flag is set
- * 	1.	If the first character is a sign, it is ignored
- * 	2.	Proccess base flags
- * 	3.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
- * 	4.	Convert the string accordingly to the base flag
- * 	5.	Return
+ * 	1.	Proccess base flags
+ * 	2.	Make sure the string doesn't store a number too long to convert (sets EXCSTR error in that case)
+ * 	3.	Convert the string accordingly to the base flag
+ * 	4.	Return
  */
 wl_U64	wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
 #ifdef USE_STDLIB

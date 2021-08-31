@@ -8,7 +8,7 @@ libdirx = lib
 libdir = /usr/lib/
 
 compile:
-	gcc -c $(C) -Iinc -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -std=c90
+	gcc -c $(C) -Iinc -Wall -Wextra -Werror -Wfatal-errors -std=c90
 	gcc -c $(C) -Iinc -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -std=iso9899:199409
 	gcc -c $(C) -Iinc -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -std=c99
 	gcc -c $(C) -Iinc -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -std=c11

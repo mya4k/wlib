@@ -240,19 +240,19 @@
 
 #ifndef REGION_CHAR
 	/**
-	 * \brief	Is Lowercase Character
-	 * \def		wl_cilc(a)
+	 * \brief	Is Lowercase Letter
+	 * \def		wl_cill(a)
 	 * \param	a	character
 	 * \return	True, if character is a lowercase letter, false, otherwise
 	 */
-#	define wl_cilc(a) ((a) >= 'a' && (a) <= 'z')					/* Is Lowercase Character	*/
+#	define wl_cill(a) ((a) >= 'a' && (a) <= 'z')					/* Is Lowercase Character	*/
 	/**
-	 * \brief	Is Uppercase Character
-	 * \def		wl_ciuc(a)
+	 * \brief	Is Uppercase Letter
+	 * \def		wl_ciul(a)
 	 * \param	a	character
 	 * \return	True, if character is an uppercase letter, false otherwise
 	 */
-#	define wl_ciuc(a) ((a) >= 'A' && (a) <= 'Z')					/* Is Uppercase Character	*/
+#	define wl_ciul(a) ((a) >= 'A' && (a) <= 'Z')					/* Is Uppercase Character	*/
 	/**
 	 * \brief	Is Contol Character
 	 * \def		wl_cic(a)

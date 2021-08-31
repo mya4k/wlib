@@ -218,7 +218,7 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 	/* If src is not null and the array size is greater than 0 */
 	if (src && srcSize) {
 		/* If SEARCH_COUNT was set */
-		if (flags&SEARCH_COUNT) {
+		if (flags&WL_SEARCH_COUNT) {
 			/* Occurance count accumulator */
 			wl__Ptr r = 0;
 			/* Search! */
@@ -233,7 +233,7 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 		/* Otherwise */
 		else
 			/* If SEARCH_REVERSE was set */
-			if (flags&SEARCH_REVERSE) {
+			if (flags&WL_SEARCH_REVERSE) {
 				register const wl_U8* ilimit = src;
 				/* Search! (but we start from the very end) */
 				for (register wl_U8* i = src+srcSize; i>ilimit; i -= 1) {

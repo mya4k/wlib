@@ -30,6 +30,7 @@ typedef char* wl_Str;
 
 
 typedef wl_u16 wl_Sl, wl_Lens;
+<<<<<<< HEAD
 
 
 
@@ -46,6 +47,13 @@ typedef enum WL_S2_FLAGS {
 
 
 extern wl_U32 wl_s2u(const char* str, wl_u8 flags);
+=======
+ extern wl_Sl wl_sl(const char* restrict const str);
+
+
+extern wl_U32 wl_s2u(const char* restrict const str, const wl_u8 flags);
+extern wl_U64 wl_s2q(const char* restrict const str, const wl_u8 flags);
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 extern wl_u8 wl__err;
  wl_Sl wl_sl(const char* restrict const str) {
   const char* a = str;
@@ -74,6 +82,14 @@ wl_U32 wl_s2u(const char* restrict const str, const wl_U8 flags) {
     return (wl_U32) 0xFFFFFFFF;
    }
 
+<<<<<<< HEAD
+=======
+   if (s > 32) {
+    (wl__err = (1));
+    return (wl_U32) 0xFFFFFFFF;
+   }
+
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 
    for (; i<=s && (str[i]&0xFE) == '0'; i++) {
     r *= 2;
@@ -128,7 +144,11 @@ wl_U32 wl_s2u(const char* restrict const str, const wl_U8 flags) {
 
  return r;
 }
+<<<<<<< HEAD
 wl_U64 wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
+=======
+wl_U64 wl_s2q(const char* restrict const str, const wl_U8 flags) {
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 
 
 
@@ -143,7 +163,11 @@ wl_U64 wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
 
  switch (flags&0x3) {
 
+<<<<<<< HEAD
   case WL_S2_BIN: {
+=======
+  case 2: {
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 
    if (s > 64) {
     (wl__err = (1));
@@ -158,7 +182,11 @@ wl_U64 wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
    break;
   }
 
+<<<<<<< HEAD
   case WL_S2_OCT: {
+=======
+  case 3: {
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 
    if (s > 22) {
     (wl__err = (1));
@@ -172,7 +200,11 @@ wl_U64 wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
    break;
   }
 
+<<<<<<< HEAD
   case WL_S2_DEC:
+=======
+  case 0:
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
   default: {
 
    if (s > 20) {
@@ -187,7 +219,11 @@ wl_U64 wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
    break;
   }
 
+<<<<<<< HEAD
   case WL_S2_HEX: {
+=======
+  case 1: {
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 
    if (s > 16) {
     (wl__err = (1));

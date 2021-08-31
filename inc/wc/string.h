@@ -5,6 +5,7 @@
 
 #include <wc/core.h>
 #include <wc/types.h>
+#include <wc/array.h>
 
 
 /**
@@ -27,6 +28,8 @@
 #	define s2i		wl_s2i
 #	define s2l		wl_s2l
 #	define s2q		wl_s2q
+#	define s2imax	wl_s2imax
+#	define s2umax	wl_s2umax
 #endif
 
 #ifdef LONG_ALIAS
@@ -64,11 +67,33 @@
  * 
  * Coverts a null-terminated one-byte string to a 32-byte signed integer
  */
+<<<<<<< HEAD
 #ifdef USE_STDLIB
 
 #	if sizeof(int)>=4
 #		define WL_STDLIB_S2I(str) atoi(str)
 #		define WL_STDLIB_S2U(str) (wl_U32)atoi(str)
+=======
+#	ifdef USE_STDLIB
+
+#		if WL_INB >= 32
+#			define WL_STDLIB_S2I(str) atoi(str)
+#			define WL_STDLIB_S2U(str) (wl_U32)atoi(str)
+#		else
+#			define WL_STDLIB_S2I(str) atol(str)
+#			define WL_STDLIB_S2U(str) strtol(str)
+#		endif
+
+#		define wl_s2i(str, flags) (					\
+			flags&0x3								\
+			? (	str[0]=='+'							\
+				? wl_s2u(str+1, flags)				\
+				: (	str[0]=='-'						\
+					? -wl_s2u(str+1, flags)			\
+					: wl_s2u(str, flags)	)	)	\
+			: WL_STDLIB_S2I(str)					\
+		)
+>>>>>>> 27c8a5a99a709070b228503b95d8cabcce50ceef
 #	else
 #		define WL_STDLIB_S2I(str) atol(str)
 #		define WL_STDLIB_S2U(str) strtol(str)
@@ -100,32 +125,71 @@
  * 
  * Coverts a null-terminated one-byte string to a 64-byte signed integer
  */
-#ifdef USE_STDLIB
+#	ifdef USE_STDLIB
 
-#	if sizeof(long)>=8 || LG_C < VR_C99
-#		define WL_STDLIB_S2L(str) atol(str)
-#		define WL_STDLIB_S2Q(str) strtol(str)
+#		if WL_LOB >= 64 || LG_C < VR_C99
+#			define WL_STDLIB_S2L(str) atol(str)
+#			define WL_STDLIB_S2Q(str) strtol(str)
+#		else
+#			define WL_STDLIB_S2L(str) atoll(str)
+#			define WL_STDLIB_S2Q(str) strtoll(str)
+#		endif
+
+#		define wl_s2l(str, flags) (					\
+			flags&0x3								\
+			? (	str[0]=='+'							\
+				? wl_s2q(str+1, flags)				\
+				: (	str[0]=='-'						\
+					? -wl_s2q(str+1, flags)			\
+					: wl_s2q(str, flags)	)	)	\
+			: atoll(str)							\
+		)
 #	else
 #		define WL_STDLIB_S2L(str) atoll(str)
 #		define WL_STDLIB_S2Q(str) strtoll(str)
 #	endif
 
-#	define wl_s2l(str, flags) (					\
-		flags&0x3								\
-		? (	str[0]=='+'							\
-			? wl_s2q(str+1, flags)				\
-			: (	str[0]=='-'						\
-				? -wl_s2q(str+1, flags)			\
-				: wl_s2q(str, flags)	)	)	\
-		: atoll(str)							\
+#	if WL_IMB < 64
+#		define wl_s2imax	wl_s2i
+#		define wl_s2umax	wl_s2u
+#	else
+#		define wl_s2imax	wl_s2l
+#		define wl_s2umax	wl_s2q
+#	endif
+
+/**
+ * \brief	String Search Character
+ * \def		wl_ssc(str,chr,flags)
+ * \param	str Where to search
+ * \param	chr Character to search
+ * \param	flags one of WL_SEARCH_FLAGS
+ * \return	The index of the char found or the count of occurances
+ */
+#	define wl_ssc(str,chr,flags) (										\
+		(str)															\
+		? (																\
+			(flags)==WL_SEARCH_COUNT									\
+			? (Sl)wl_asb((str),wl_sl(str),(chr),(flags))				\
+			: (Sl)( wl_asb((str),wl_sl(str),(chr),(flags)) - (str)) 	\
+		)																\
+		: (0xFF00|wl_error(NULLPTR))									\		
 	)
-#else
-#	define wl_s2l(str, flags) (			\
-		str[0]=='+'						\
-		? wl_s2q(str+1, flags)			\
-		: (	str[0]=='-'					\
-			? -wl_s2q(str+1, flags)		\
-			: wl_s2q(str, flags)	)	\
+/**
+ * \brief	String Search
+ * \def		wl_ss(str1,str2,flags)
+ * \param	str1 Where to search
+ * \param	str2 What to search for
+ * \param	flags SEARCH flags
+ * \see		SEARCH_
+ */
+#	define wl_ss(str1,str2,flags) (												\
+		(str)																		\
+		? (																			\
+			(flags)==WL_SEARCH_COUNT												\
+			? (Sl)wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags))				\
+			: (Sl)( wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags)) - (str)) 	\
+		)																			\
+		: (0xFF00|wl_error(NULLPTR))												\		
 	)
 #endif
 
@@ -184,10 +248,11 @@ typedef enum WL_S2_FLAGS {
 	 */
 	#define wl_Sl(str)	strlen(str)
 #else
-	EXTERN wl_Sl	wl_sl(const char* str);			/* String length */
+	EXTERN wl_Sl wl_sl(const char* restrict const str);	/* String length */
 #endif
 
-EXTERN wl_U32	wl_s2u(const char* str, u8 flags);		/* String to U32 */
+EXTERN wl_U32 wl_s2u(const char* restrict const str, const u8 flags);	/* String to U32 */
+EXTERN wl_U64 wl_s2q(const char* restrict const str, const u8 flags);	/* String to U64 */
 
 
 
