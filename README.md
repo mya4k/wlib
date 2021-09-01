@@ -1,5 +1,6 @@
 **WLib** is a configurable standard-independent free fast lightweight open-source and portable powerful general-purpose C programming language library project for software development.
 
+# Our idea
 **Why configurable?**
 We believe our tech-savvy users should be able to easily customize and build our library to fit their needs and desires.
 
