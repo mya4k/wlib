@@ -14,7 +14,8 @@
                 "-Wextra",
                 "-Wall",
                 "-Wpedantic",
-                "-Iinc"
+                "-Iinc",
+                "-std:c89"
             ]
         }
     ],

@@ -302,7 +302,7 @@
 	 * \param	a	character
 	 * \return	True, if character is a letter, false otherwise
 	 */
-#	define wl_cil(a) (wl_cilc(a) || wl_ciuc(a))						/* Is Letter Character		*/
+#	define wl_cil(a) (wl_cilc(a) || wl_ciul(a))						/* Is Letter Character		*/
 	/**
 	 * \brief	Character To Lowercase
 	 * \def		wl_c2l(a)
@@ -310,7 +310,7 @@
 	 * \return	\a a or its modified value
 	 * If the character is uppercase, changes its case and returns it, otherwise returns \a
 	 */
-#	define wl_c2l(a) ((a) - wl_ciuc(a)*32)
+#	define wl_c2l(a) ((a) - wl_ciul(a)*32)
 	/**
 	 * \brief	Character To Uppercase
 	 * \def		wl_c2u(a)
@@ -318,7 +318,7 @@
 	 * \return	\a a or its modified value
 	 * If the character is lowercase, changes its case and returns it, otherwise returns \a
 	 */
-#	define wl_c2u(a) ((a) + wl_cilc(a)*32)
+#	define wl_c2u(a) ((a) + wl_cill(a)*32)
 	/**
 	 * \def		wl_c2d(chr, base)
 	 * \brief	char to wl_Digit

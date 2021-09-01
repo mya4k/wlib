@@ -10,7 +10,8 @@
 
 
 
-#define EXCSTR	1	/* Excessively long string */
+#define NULLPTR	1	/* Null pointer */
+#define EXCSTR	2	/* Excessively long string */
 
 
 

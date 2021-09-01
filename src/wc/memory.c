@@ -226,7 +226,7 @@ Vo	wl_mfr(Vo* p) {
  * \return	Msz 
  */
 Msz wl__sizeofmem(Vo* ptr) {
-	_Ptr m = MCHUNKOF(ptr);
+	_Ptr m = (_Ptr)MCHUNKOF(ptr);
 	return PTR2NEXT_2_PTR(m) - m - sizeof(wl_MChunk);
 }
 

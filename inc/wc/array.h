@@ -129,9 +129,9 @@
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
 		if (!r) r = wl_mal(s);											\
-		register wl_U8 d = s/4;											\
-		register wl_U8 m = s%4;											\
-		register wl_U16 i = 0;											\
+		 wl_U8 d = s/4;											\
+		 wl_U8 m = s%4;											\
+		 wl_U16 i = 0;											\
 																		\
 		for (; i < d; i++)												\
 			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i]);					\
@@ -185,15 +185,15 @@
 																		\
 		i *= 8;															\
 																		\
-		if (m&0b001)	{												\
+		if (m&0x1)	{													\
 			((wl_U8*)r)[i] = FUNC(((wl_U8*)a)[i]);						\
 			i++;														\
 		}																\
-		if (m&0b010)	{												\
+		if (m&0x2)	{													\
 			((wl_U16*)r)[i] = FUNC(((wl_U16*)a)[i]);					\
 			i += 2;														\
 		}																\
-		if (m&0b100)	{												\
+		if (m&0x4)	{													\
 			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i]);					\
 			i += 4;														\
 		}																\
@@ -285,15 +285,15 @@
 																\
 		i *= 8;													\
 																\
-		if (m&0b001)	{										\
+		if (m&0x1)	{											\
 			((U8*)r)[i] = FUNC(((U8*)a)[i], ((U8*)b)[i]);		\
 			i++;												\
 		}														\
-		if (m&0b010)	{										\
+		if (m&0x2)	{											\
 			((U16*)r)[i] = FUNC(((U16*)a)[i], ((U16*)b)[i]);	\
 			i += 2;												\
 		}														\
-		if (m&0b100)	{										\
+		if (m&0x4)	{											\
 			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
 			i += 4;												\
 		}														\
@@ -402,25 +402,26 @@
  */
 #define ADEF1(NAME, FUNC) 										\
 	ADECL1(NAME) {												\
-		if (!r) r = wl_mal(s);									\
 		const U8 d = s/8;										\
 		const U8 m = s%8;										\
 		U16 i = 0;												\
+																\
+		if (!r) r = wl_mal(s);									\
 																\
 		for (; i < d; i++)										\
 			((U64*)r)[i] = FUNC(((U64*)a)[i]);					\
 																\
 		i *= 8;													\
 																\
-		if (m&0b001)	{										\
+		if (m&0x1)	{											\
 			((U8*)r)[i] = FUNC(((U8*)a)[i]);					\
 			i++;												\
 		}														\
-		if (m&0b010)	{										\
+		if (m&0x2)	{											\
 			((U16*)r)[i] = FUNC(((U16*)a)[i]);					\
 			i += 2;												\
 		}														\
-		if (m&0b100)	{										\
+		if (m&0x4)	{											\
 			((U32*)r)[i] = FUNC(((U32*)a)[i]);					\
 			i += 4;												\
 		}														\
@@ -455,10 +456,11 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(s);									\
 		const U8 d = s/4;										\
 		const U8 m = s%4;										\
 		U16 i = 0;												\
+																\
+		if (!r) r = wl_mal(s);									\
 																\
 		for (; i < d; i++)										\
 			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
@@ -502,25 +504,26 @@
  */
 #define ADEF2(NAME, FUNC) 										\
 	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(s);									\
 		const U8 d = s/8;										\
 		const U8 m = s%8;										\
 		U16 i = 0;												\
+																\
+		if (!r) r = wl_mal(s);									\
 																\
 		for (; i < d; i++)										\
 			((U64*)r)[i] = FUNC(((U64*)a)[i], ((U64*)b)[i]);	\
 																\
 		i *= 8;													\
 																\
-		if (m&0b001)	{										\
+		if (m&0x1)	{											\
 			((U8*)r)[i] = FUNC(((U8*)a)[i], ((U8*)b)[i]);		\
 			i++;												\
 		}														\
-		if (m&0b010)	{										\
+		if (m&0x2)	{											\
 			((U16*)r)[i] = FUNC(((U16*)a)[i], ((U16*)b)[i]);	\
 			i += 2;												\
 		}														\
-		if (m&0b100)	{										\
+		if (m&0x4)	{											\
 			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
 			i += 4;												\
 		}														\
@@ -664,22 +667,22 @@ EXTERN ADECL2B(wl_alt);		/* Array Less Than */
 EXTERN ADECL2B(wl_agtq);	/* Array Greater Than Or Equal */
 EXTERN ADECL2B(wl_altq);	/* Array Less Than Or Equal */
 
-EXTERN wl_Vo*	wl_afl(	register wl_U8	sa, 
-						register wl_Vo*	a, 
-						register wl_U8	sb, 
-						register wl_Vo*	b		);
+EXTERN wl_Vo*	wl_afl(	const	wl_U8	sa, 
+								wl_Vo*	a, 
+								wl_U8	sb, 
+								wl_Vo*	b	);
 
-EXTERN wl_Vopu	wl_asb(	register wl_Vo*	src,
-						register wl_U8	srcSize,
-						register wl_U8	_byte,
-						register wl_U8	flags		);
+EXTERN wl_Vopu	wl_asb(	const	wl_Vo* restrict const	src,
+						const	wl_U8					srcSize,
+						const	wl_U8					_byte,
+						const	WL_SEARCH_FLAGS			flags	);
 
 
-EXTERN wl_Vopu	wl_asa(	register wl_Vo*	src,
-						register wl_U8	srcSize,
-						register wl_Vo*	target,
-						register wl_U8	targetSize,
-						register wl_U8	flags		);
+EXTERN wl_Vopu	wl_asa(	const	wl_Vo* restrict const	src,
+						const	wl_U8					srcSize,
+						const	wl_Vo* restrict const	target,
+								wl_U8					targetSize,
+						const	WL_SEARCH_FLAGS			flags	);
 
 
 

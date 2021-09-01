@@ -12,6 +12,7 @@
 
 #include <wc/core.h>		/* EXTERN */
 #include <wc/types.h>
+#include <wc/sys/comp.h>
 
 
 
@@ -34,17 +35,48 @@
 #define WL_MSZX	WL_I32X
 #endif
 
+
+
+#if defined(CM_GCC) || PTB < INB
+#define PEDANTIC_COMPLIENT	0
+#else
+#define PEDANTIC_COMPLIENT	1
+#endif
+
+
+
+#if PEDANTIC_COMPLIENT
+
 #	if PTB == 32
-#		define PTR2NEXT_2_PTR(i)			\
-	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
-	? ((MChunk*)(i))->ptr2next & I32N 		\
-	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I32N))
+#		define GET_PTR2NEXT(i)		((*(wl_MChunk*)(i))&WL_I32X)
+#		define GET_ALLOCATED(i)		((*(wl_MChunk*)(i))&WL_I32N)
+#		define PTR2NEXT_2_PTR(i)		\
+		(GET_PTR2NEXT(i) < (wl__Ptr)(i)	\
+		? GET_PTR2NEXT(i) | WL_I32N		\
+		: GET_PTR2NEXT(i) | ((wl__Ptr)heap&WL_I32N))
 #	else
-#		define PTR2NEXT_2_PTR(i)			\
-	(((MChunk*)(i))->ptr2next < (_Ptr)(i)	\
-	? ((MChunk*)(i))->ptr2next & I64N 		\
-	: ((MChunk*)(i))->ptr2next | ((_Ptr)heap&I64N))
+#		define GET_PTR2NEXT(i)		((*(wl_MChunk*)(i))&WL_I64X)
+#		define GET_ALLOCATED(i)		((*(wl_MChunk*)(i))&WL_I64N)
+#		define PTR2NEXT_2_PTR(i)		\
+		(GET_PTR2NEXT(i) < (wl__Ptr)(i)	\
+		? GET_PTR2NEXT(i) | WL_I64N		\
+		: GET_PTR2NEXT(i) | ((wl__Ptr)heap&WL_I64N))
 #	endif
+#else
+#	if PTB == 32
+#		define PTR2NEXT_2_PTR(i)						\
+	(((wl_MChunk*)(i))->ptr2next < (wl__Ptr)(i)			\
+	? (wl__Ptr)(((wl_MChunk*)(i))->ptr2next) | WL_I32N 	\
+	: (wl__Ptr)(((wl_MChunk*)(i))->ptr2next) | ((wl__Ptr)heap&WL_I32N))
+#	else
+#		define PTR2NEXT_2_PTR(i)						\
+	(((wl_MChunk*)(i))->ptr2next < (wl__Ptr)(i)			\
+	? (wl__Ptr)(((wl_MChunk*)(i))->ptr2next) | WL_I64N 	\
+	: (wl__Ptr)(((wl_MChunk*)(i))->ptr2next) | ((wl__Ptr)heap&WL_I64N))
+#	endif
+#endif
+
+
 
 #define MCHUNKOF(X)		((wl_MChunk*)((wl__Ptr)(X)-sizeof(wl_MChunk)))
 
@@ -55,12 +87,11 @@
  * \typedef	MChunk
  */
 typedef struct wl_MChunk {
+#if defined(CM_GCC) && !defined(__STRICT_ANSI__) || PTB == INB
 	_Ptr	allocated:1;		/* Wether the chunk is allocated */
-#ifdef MCHUNK_USE_SIZE
-#	error "Do not defined MCHUNK_USE_SIZE. That structure is obsolete"
-	_Ptr	size:(PTB-1);		/* Size */
-#else
 	_Ptr	ptr2next:(PTB-1);	/* Pointer to the next chunk */
+#else
+	_Ptr	meta;
 #endif
 	/* The rest is data */
 } wl_MChunk;
@@ -85,7 +116,7 @@ typedef wl__Ptr wl_MSize, wl_Msz;
 #	define WLMALLOC	1
 	EXTERN wl_Vo*	wl_mal(wl_Msz n);
 	EXTERN wl_Vo	wl_mfr(wl_Vo* p);
-	EXTERN wl_Msz	wl__sizeofmem(wl_Vo* ptr) 
+	EXTERN wl_Msz	wl__sizeofmem(wl_Vo* ptr);
 #else
 #	define wl_mal(size) (void*)0
 #	define wl_mfr(addr)	

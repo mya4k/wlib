@@ -19,7 +19,7 @@
  *	\brief	Assigns `s` bytes of objects of array A to array R
  *	\return	The array of object that are assigned
  */
-ADEF1(wl_aas, NO);
+ADEF1(wl_aas, NO)
 
 /**	\fn		ADEF1(ant, NOT)
  *	\param	s	size of the operands in bytes
@@ -29,7 +29,7 @@ ADEF1(wl_aas, NO);
 			the result in array R
  *	\return	The array of object that have been inverted
  */
-ADEF1(wl_ant, NOT);
+ADEF1(wl_ant, NOT)
 
 /**	\fn		ADEF2(aan, AND)
  *	\param	s	size of the operands in bytes
@@ -40,7 +40,7 @@ ADEF1(wl_ant, NOT);
 			the result in array R
  *	\return	The array of object that have been conjuncted
  */
-ADEF2(wl_aan, AND);
+ADEF2(wl_aan, AND)
 
 /**	\fn		ADEF2(aor, OR)
  *	\param	s	size of the operands in bytes
@@ -51,7 +51,7 @@ ADEF2(wl_aan, AND);
  *			the result in array R
  *	\return	The array of object that have been disjuncted
  */
-ADEF2(wl_aor, OR);
+ADEF2(wl_aor, OR)
 
 /**	\fn		ADEF2(axr, XOR)
  *	\param	s	size of the operands in bytes
@@ -62,7 +62,7 @@ ADEF2(wl_aor, OR);
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted
  */
-ADEF2(wl_axr, XOR);
+ADEF2(wl_axr, XOR)
 
 /**	\fn		ADEF2(ann, NAND)
  *	\param	s	size of the operands in bytes
@@ -73,7 +73,7 @@ ADEF2(wl_axr, XOR);
 			the result in array R
  *	\return	The array of object that have been conjuncted and inversed
  */
-ADEF2(wl_ann, NAND);
+ADEF2(wl_ann, NAND)
 
 /**	\fn		ADEF2(anr, NOR)
  *	\param	s	size of the operands in bytes
@@ -84,7 +84,7 @@ ADEF2(wl_ann, NAND);
  *			the result in array R
  *	\return	The array of object that have been disjuncted and inversed
  */
-ADEF2(wl_anr, NOR);
+ADEF2(wl_anr, NOR)
 
 /**	\fn		ADEF2(anx, NXOR)
  *	\param	s	size of the operands in bytes
@@ -95,49 +95,49 @@ ADEF2(wl_anr, NOR);
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted and inversed
  */
-ADEF2(wl_anx, NXOR);
+ADEF2(wl_anx, NXOR)
 
 /**
  * \brief	Array equals
- * \fn		wl_aeq(register wl_U8 s, register wl_VO*	a, register wl_VO* b)
+ * \fn		wl_aeq( wl_U8 s,  wl_VO*	a,  wl_VO* b)
  * \param	s	Size of arrays
  * \param	a	Array A
  * \param	b	Array B
  * \return	wl_Bl 
  */
-wl_Bl	wl_aeq(	register const wl_U8	s,
-				register const wl_Vo*	a,
-				register const wl_Vo*	b	) {
+wl_Bl	wl_aeq(	const wl_U8 s,
+				wl_Vo* restrict a, 
+				wl_Vo* const restrict b	) {
+	const wl_U8 d = s/8;
+	const wl_U8 m = s%8;
+	wl_U8 i = 0;
+	
 	if (!a) a = wl_mal(s);
-
-	register const wl_U8 d = s/8;
-	register const wl_U8 m = s%8;
-	register wl_U8 i = 0;
 
 	for (; i < d; i++)
 		if (((wl_U64*)a)[i] != ((wl_U64*)b)[i]) return 0;
 	
 	i = s;
 
-	if (m&0b100) {
+	if (m&0x1) {
 		i-=4;
-		if (*(wl_U32*)(a+i) != *(wl_U32*)(b+i)) return 0;
+		if (*(wl_U32*)((_Ptr)a+i) != *(wl_U32*)((_Ptr)b+i)) return 0;
 	}
 
-	if (m&0b010) {
+	if (m&0x2) {
 		i-=2;
-		if (*(wl_U16*)(a+i) != *(wl_U16*)(b+i)) return 0;
+		if (*(wl_U16*)((_Ptr)a+i) != *(wl_U16*)((_Ptr)b+i)) return 0;
 	}
 
-	if (m&0b001) {
+	if (m&0x4) {
 		i--;
-		if (*(wl_U8*)(a+i) != *(wl_U8*)(b+i)) return 0;
+		if (*(wl_U8*)((_Ptr)a+i) != *(wl_U8*)((_Ptr)b+i)) return 0;
 	}
 
 	return 1;
 }
 
-/**	\fn		VO* afl(register 8 sa, register VO* a, register U8 sb, register VO* b)
+/**	\fn		VO* afl( 8 sa,  VO* a,  U8 sb,  VO* b)
  *	\param	sa	size of the array A in bytes
  *	\param	a	the array A
  *	\param	sb	size of the array B in bytes
@@ -159,10 +159,13 @@ wl_Bl	wl_aeq(	register const wl_U8	s,
  *	\sa	wl_aas
  *	\sa wl_mal
  */
-wl_Vo*	wl_afl(	register wl_U8	sa, 
-				register wl_Vo*	a, 
-				register wl_U8	sb, 
-				register wl_Vo*	b		) {
+wl_Vo*	wl_afl(	const	wl_U8	sa, 
+						wl_Vo*	a, 
+						wl_U8	sb, 
+						wl_Vo*	b	) {
+	const	wl_U16	d = sa/sb*sb;
+			wl_U16	i = 0;
+
 	if (!a) a = wl_mal(sa);
 
 	if (!sb) {
@@ -174,20 +177,17 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
 		}
 	}
 
-	const	wl_U16	d = sa/sb*sb;
-			wl_U16	i = 0;
-
 	for (; i<d; i+=sb)
-		wl_aas(sb, a+i, b);
+		wl_aas(sb, (Vo*)((_Ptr)a+i), b);
 
-	wl_aas(sa-d, a+i, b);
+	wl_aas(sa-d, (Vo*)((_Ptr)a+i), b);
 
 	return a;
 }
 
 /**
  * \brief	Array search byte
- * \fn		wl_u8*	wl_asb(register wl_U8* src, register wl_U8 srcSize, register wl_U8 _byte);
+ * \fn		wl_u8*	wl_asb( wl_U8* src,  wl_U8 srcSize,  wl_U8 _byte);
  * \param	src		Source array
  * \param	srcSize	Array size
  * \param	_byte	Byte to find
@@ -211,10 +211,10 @@ wl_Vo*	wl_afl(	register wl_U8	sa,
  * true if _byte is 0, otherwise false. (Basically it will try to find _byte 
  * in 0). \p srcSize will never change in this context.
  */
-wl_Vopu	wl_asb(	register wl_Vo*	src,
-				register wl_U8	srcSize,
-				register wl_U8	_byte,
-				register wl_U8	flags	) {
+wl_Vopu	wl_asb(	const	wl_Vo* restrict const	src,
+				const	wl_U8					srcSize,
+				const	wl_U8					_byte,
+				const	WL_SEARCH_FLAGS			flags	) {
 	/* If src is not null and the array size is greater than 0 */
 	if (src && srcSize) {
 		/* If SEARCH_COUNT was set */
@@ -222,9 +222,10 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 			/* Occurance count accumulator */
 			wl__Ptr r = 0;
 			/* Search! */
-			wl_U8* ilimit = src+srcSize;
-			for (wl_U8* i = src; i<ilimit; i++)
-				if (*i == _byte)
+			_Ptr ilimit = (_Ptr)src+srcSize;
+			_Ptr i = (_Ptr)src;
+			for (; i<ilimit; i++)
+				if (*(char*)i == _byte)
 					/* Yay! We found something! Incriment */
 					r++;
 			/* When we have searched everything, return the count */
@@ -234,9 +235,10 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 		else
 			/* If SEARCH_REVERSE was set */
 			if (flags&WL_SEARCH_REVERSE) {
-				register const wl_U8* ilimit = src;
+				const _Ptr ilimit = (_Ptr)src;
+				_Ptr i = (_Ptr)src+srcSize;
 				/* Search! (but we start from the very end) */
-				for (register wl_U8* i = src+srcSize; i>ilimit; i -= 1) {
+				for (; i>ilimit; i -= 1) {
 					if (*(char*)i==_byte) {
 						return (wl_Vopu)i;
 					} 
@@ -246,9 +248,10 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 			/* Otherwise */
 			else {
 				/* Search! */
-				register const wl_U8* ilimit = src+srcSize;
-				for (register wl_U8* i = src; i<ilimit; i += 1) {
-					if (*i==_byte) {
+				const _Ptr ilimit = (_Ptr)src+srcSize;
+				_Ptr i = (_Ptr)src;
+				for (; i<ilimit; i += 1) {
+					if (*(char*)i==_byte) {
 						/* Yay! We found something! Return */
 						return (wl_Vopu)i;
 					}
@@ -262,7 +265,7 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
 
 /**
  * \brief 	Array search array
- * \fn		wl_U8* wl_asa(register wl_Vo* src, register wl_U8 srcSize, register wl_Vo* target, register wl_U8 targetSize, register wl_U8 flags)
+ * \fn		wl_U8* wl_asa( wl_Vo* src,  wl_U8 srcSize,  wl_Vo* target,  wl_U8 targetSize,  wl_U8 flags)
  * 
  * \param	src			Source array
  * \param	srcSize		Source array size
@@ -274,11 +277,11 @@ wl_Vopu	wl_asb(	register wl_Vo*	src,
  * If \f$(target \neq NULL) \land (targetSize \neq 0)\f$ 
  * Otherwise returns true
  */
-wl_Vopu	wl_asa(	register wl_Vo*				src,
-				register wl_U8				srcSize,
-				register wl_Vo*				target,
-				register wl_U8				targetSize,
-				register WL_SEARCH_FLAGS	flags		) {
+wl_Vopu	wl_asa(	const	wl_Vo* restrict const	src,
+				const	wl_U8					srcSize,
+				const	wl_Vo* restrict const	target,
+						wl_U8					targetSize,
+				const	WL_SEARCH_FLAGS			flags	) {
 	/* If we're actually searching for anything */
 	if (target && targetSize) {
 		/* If src is not null and the array size is greater than 0 */
@@ -289,23 +292,27 @@ wl_Vopu	wl_asa(	register wl_Vo*				src,
 				/* Occurance count accumulator */
 				wl__Ptr r = 0;
 				/* Search! */
-				wl_U8* ilimit = src+srcSize;
+				_Ptr ilimit = (_Ptr)src+srcSize;
 
-				if (targetSize)
-					for (wl_U8* i = src; i<ilimit; i++) {
+				if (targetSize) {
+					_Ptr i = (_Ptr)src;
+					for (; i<ilimit; i++) {
 						/* At least one character matches target */
-						if (*i == *(wl_U8*)target) {
-							if (wl_aeq(targetSize, target+1, i++)) {
+						if (*(wl_U8*)i == *(wl_U8*)target) {
+							if (wl_aeq(targetSize, (Vo*)((_Ptr)target+1), (Vo*)(i++))) {
 								r++;
 								i += targetSize;
 							}
 						}
 					}
-				else
-					for (wl_U8* i = src; i<ilimit; i++)
+				}
+				else {
+					_Ptr i = (_Ptr)src;
+					for (; i<ilimit; i++)
 						/* At least one character matches target */
-						if (*i == *(wl_U8*)target) 
+						if (*(wl_U8*)i == *(wl_U8*)target) 
 							r++;
+				}
 
 				/* When we have searched everything, return the count */
 				return (wl_Vopu)r;
@@ -315,11 +322,12 @@ wl_Vopu	wl_asa(	register wl_Vo*				src,
 			/* If SEARCH_REVERSE was set */
 			if (flags&SEARCH_REVERSE) {
 				/* Search! */
-				register const wl_U8* ilimit = src;
-				register const wl_U8 t_1 = targetSize-1;
-				for (register wl_U8* i = src+srcSize; i>ilimit; i--) {
-					if (*i == *(char*)(target+targetSize)) {
-						if (wl_aeq(targetSize, target-t_1, i-=t_1)) {
+				const _Ptr ilimit = (_Ptr)src;
+				const wl_U8 t_1 = targetSize-1;
+				_Ptr i = (_Ptr)src+srcSize;
+				for (; i>ilimit; i--) {
+					if (*(char*)i == *(char*)((_Ptr)target+targetSize)) {
+						if (wl_aeq(targetSize, (Vo*)((_Ptr)target-t_1), (Vo*)(i-=t_1))) {
 							return (wl_Vopu)i;
 						}
 					}
@@ -329,10 +337,11 @@ wl_Vopu	wl_asa(	register wl_Vo*				src,
 			/* Otherwise */
 			else {
 				/* Search! */
-				register const wl_U8* ilimit = src+srcSize;
-				for (register wl_U8* i = src; i<ilimit; i++) {
+				const _Ptr ilimit = (_Ptr)src+srcSize;
+				_Ptr i = (_Ptr)src+srcSize;
+				for (; i<ilimit; i++) {
 					if (*(char*)i == *(char*)target) {
-						if (wl_aeq(targetSize, target+1, i++)) {
+						if (wl_aeq(targetSize, (Vo*)((_Ptr)target+1), (Vo*)(i++))) {
 							return (wl_Vopu)i;
 						}
 					}
@@ -340,7 +349,7 @@ wl_Vopu	wl_asa(	register wl_Vo*				src,
 				return (wl_Vopu)0;
 			}
 		}
-		else return (wl_Vopu)wl_aeq(targetSize, WL_AA0(targetSize), target);
+		else return (wl_Vopu)(_Ptr)wl_aeq(targetSize, WL_AA0(targetSize), (wl_Vo *const)target);
 	}
 	/* There was nothing to find, so return true */
 	return (wl_Vopu)1;
