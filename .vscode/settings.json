@@ -23,6 +23,9 @@
 		"variant": "c",
 		"tuple": "c",
 		"char.h": "c",
-		"random": "c"
+		"random": "c",
+		"string.h": "c",
+		"error.h": "c",
+		"array.h": "c"
 	}
 }

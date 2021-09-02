@@ -19,7 +19,6 @@
 #include <wc/memory.h>	/*  				*/
 #include <unistd.h>		/* sysconf & sbrk	*/
 #include <wc/bool.h>	/* TRUE & FALSE		*/
-#include <stdio.h>	/* DEBUG			*/
 
 
 
@@ -159,15 +158,6 @@ end:			sum = chunk + size;
 				 */
 				((MChunk*)sum)->allocated = FALSE;
 				((MChunk*)sum)->ptr2next = (_Ptr)heapEnd;
-
-				fprintf(stdout, "MEMORY.C");
-				for (Vo* i = heap; i < heapEnd; i = (Vo*)((_Ptr)i+1)) {
-					if ((_Ptr)(i) % 16)
-						fprintf(stdout, "%02hhx ", *(u8*)i);
-					else {
-						fprintf(stdout, "\n%p: %02hhx ", i, *(u8*)i);
-					}
-				}
 
 				return (Vo*)(chunk + sizeof(MChunk));
 			}

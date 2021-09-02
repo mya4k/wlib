@@ -31,12 +31,17 @@ inst:
 
 src = src/wc
 obj = obj
+bin = bin
 gcc = gcc -Wall -Wextra -Wpedantic -Werror -Wfatal-errors -std=gnu2x -Iinc -Ofast
+.PHONY: test
 mkdir:
 	mkdir -p $(obj)
-array: mkdir
-	$(gcc) -c $(src)/array.c -o $(obj)/array.o 
-string: mkdir
-	$(gcc) -c $(src)/string.c -o $(obj)/string.o
-memory: mkdir
+	mkdir -p $(bin)
+wc: mkdir
+	$(gcc) -c $(src)/error.c -o $(obj)/error.o
 	$(gcc) -c $(src)/memory.c -o $(obj)/memory.o
+	$(gcc) -c $(src)/array.c -o $(obj)/array.o
+	$(gcc) -c $(src)/string.c -o $(obj)/string.o
+	ar -rc bin/libwc.a $(obj)/error.o $(obj)/memory.o $(obj)/array.o $(obj)/string.o
+test:
+	$(gcc) -Wno-unused-parameter test/main.c -o test/wc -Lbin -lwc

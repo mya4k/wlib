@@ -30,6 +30,7 @@
 #	define s2q		wl_s2q
 #	define s2imax	wl_s2imax
 #	define s2umax	wl_s2umax
+#	define sas		wl_sas
 #endif
 
 #ifdef LONG_ALIAS
@@ -166,7 +167,9 @@
 	(flags)==WL_SEARCH_COUNT												\
 	? (Sl)wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags))				\
 	: (Sl)( wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags)) - (str)) 	\
-)	
+)
+
+#	define wl_sas(length,str1,str2) (wl_aas((length)+1,(str1),(str2)))
 
 
 

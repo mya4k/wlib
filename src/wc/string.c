@@ -49,16 +49,16 @@
  * 	3.	Convert the string accordingly to the base flag
  * 	4.	Return
  */
-wl_U32	wl_s2u(const char* restrict const str, const WL_S2_FLAGS flags) {
+wl_U32	wl_s2u(const char* restrict const _str, const WL_S2_FLAGS flags) {
 #ifdef USE_STDLIB
 #	include <stdlib.h>
 	if (!flags&0x3) return WL_STDLIB_S2U(str);
 #endif
 	
 	U32 r = 0;
-
 	/* Store the length of the string */
-	const Sl s = sl(str);
+	const Sl s = sl(_str);
+	char* const str = _aas(s+1,NULL,(char*)_str);
 	Sl i = 0;
 
 	/* Figure out the base */
@@ -123,6 +123,8 @@ wl_U32	wl_s2u(const char* restrict const str, const WL_S2_FLAGS flags) {
 		}
 	}
 
+	mfr(str);
+
 	return r;
 }
 
@@ -141,7 +143,7 @@ wl_U32	wl_s2u(const char* restrict const str, const WL_S2_FLAGS flags) {
  * 	3.	Convert the string accordingly to the base flag
  * 	4.	Return
  */
-wl_U64	wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
+wl_U64	wl_s2q(const char* restrict const _str, const WL_S2_FLAGS flags) {
 #ifdef USE_STDLIB
 #	include <stdlib.h>
 	if (!flags&0x3) return WL_STDLIB_S2Q(str);
@@ -150,7 +152,8 @@ wl_U64	wl_s2q(const char* restrict const str, const WL_S2_FLAGS flags) {
 	U32 r = 0;
 
 	/* Store the length of the string */
-	const Sl s = sl(str);
+	const Sl s = sl(_str);
+	char* const str = aas(s,NULL,(char*)_str);
 	Sl i = 0;
 
 	/* Figure out the base */

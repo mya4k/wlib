@@ -15,7 +15,8 @@
                 "-Wall",
                 "-Wpedantic",
                 "-Iinc",
-                "-std:c89"
+                "-Werror"
+                /* "-std:gnu89" */
             ]
         }
     ],

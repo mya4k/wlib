@@ -70,52 +70,44 @@
  */
 #undef	ADECL1
 /** 
- * 	\def	Declaration for unioperand functions
+ * 	\brief	Declaration for unioperand functions
+ *	\def	ADECL1(NAME)
  *	\param	NAME	Function name
- *	\brief	Most unioperand functions only require next 
- *			parameters
- *			- `s`	size of the operands in bytes
- *			- `r`	the array where the result is stored
- *			- `a`	the operand
- *
- *			return type is `Vo*`
+ *	\return	result pointer
+ *	Most unioperand functions only require next 
+ *	parameters
+ *	- `s`	size of the operands in bytes
+ *	- `a`	the operand
  */
 #define ADECL1(NAME)	\
-	wl_Vo* NAME(const wl_U8 s, wl_Vo* r, wl_Vo* const restrict a)
+	wl_Vo* NAME(const wl_U8 s, const wl_Vo* const restrict a)
 
 #undef	ADECL2
 /** 
- * 	\def	Declaration for bioperand functions
+ * 	\brief	Declaration for unioperand functions
+ *	ADECL1(NAME)
  *	\param	NAME	Function name
- *	\brief	Most bioperand functions only require next 
- *			parameters
- *			-	`s`	size of the operands in bytes
- *			-	`r`	the array where the result is stored 
- *			-	`a`	the operand A
- *			-	`b`	the operand B
- *				(a user can provide a pointer to an array
- *				and the result will be stored there, if
- *				null pointer is given, the result array
- *				will be automatically allocated)
- *			return type is `VO*`
+ *	Most bioperand functions only require next 
+ *	parameters
+ *	\return	result pointer
+ *	- `s`	size of the operands in bytes
+ *	- `a`	the operand A
+  *	- `b`	the operand B
  */
 #define ADECL2(NAME)	\
-	wl_Vo* NAME(const wl_U8 s, wl_Vo* r, wl_Vo* const restrict a, wl_Vo* const restrict b)
+	wl_Vo* NAME(const wl_U8 s, const wl_Vo* const restrict a, const wl_Vo* const restrict b)
 
 #undef	ADEF1
 #ifdef	NO_I64
 /** 
- * 	\def	Definition of unioperand logic array operation (32-bit)
- *  \brief	Definition of unioperand logic array operation for systems where
- * 			a 64-bit type is not supported.
+ * 	\def	ADEF1(NAME, FUNC)
+ *  \brief	Definition of unioperand logic array operation (32-bit)
  *	\param	NAME	Function name
  *	\param	FUNC	The operation it need to perform
  *	\return	result pointer
  *	\see	ADECL1
  *	
  *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
  *		-#	Break up the operand A into chunks of 4 bytes.
  *		-#	Perform FUNC to all chunks of operand A and store the result it in 
  *			`r`
@@ -128,22 +120,22 @@
  */
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
-		if (!r) r = wl_mal(s);											\
-		 wl_U8 d = s/4;											\
-		 wl_U8 m = s%4;											\
-		 wl_U16 i = 0;											\
+		wl_Vo* const r = wl_mal(s);										\
+		wl_U8 d = s/4;													\
+		wl_U8 m = s%4;													\
+		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
 			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i]);					\
 																		\
 		i *= 4;															\
 																		\
-		if (m&0b01)	{													\
-			((wl_U8*)r)[i] = FUNC(((wl_U8*)a)[i]);						\
+		if (m&0x1)	{													\
+			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i));						\
 			i++;														\
 		}																\
-		if (m&0b10)	{													\
-			((wl_U16*)r)[i] = FUNC(((wl_U16*)a)[i]);					\
+		if (m&0x2)	{													\
+			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i));					\
 			i += 2;														\
 		}																\
 																		\
@@ -151,17 +143,14 @@
 	}
 #else
 /** 
- * 	\def	Definition of unioperand logic array operations (64-bit)
- *  \brief	Definition of unioperand logic array operations for systems where
- * 			a 64-bit type is supported.
+ * 	\def	ADEF1(NAME, FUNC)
+ *  \brief	Definition of unioperand logic array operations (64-bit)
  *	\param	NAME	Function name
  *	\param	FUNC	The operation it need to perform
  *	\return	result pointer
  *	\see	ADECL1
  *	
  *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
  *		-#	Break up the operand A into chunks of 8 bytes.
  *		-#	Perform FUNC to all chunks of operand A and store the result it in 
  *			`r`
@@ -175,9 +164,9 @@
  */
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
-		if (!r) r = wl_mal(0);											\
-		const wl_U8 d = s/8;											\
-		const wl_U8 m = s%8;											\
+		wl_Vo* const r = wl_mal(s);										\
+		wl_U8 d = s/8;													\
+		wl_U8 m = s%8;													\
 		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
@@ -186,15 +175,15 @@
 		i *= 8;															\
 																		\
 		if (m&0x1)	{													\
-			((wl_U8*)r)[i] = FUNC(((wl_U8*)a)[i]);						\
+			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i));						\
 			i++;														\
 		}																\
 		if (m&0x2)	{													\
-			((wl_U16*)r)[i] = FUNC(((wl_U16*)a)[i]);					\
+			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i));					\
 			i += 2;														\
 		}																\
 		if (m&0x4)	{													\
-			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i]);					\
+			*(wl_U32*)(r+i) = FUNC(*(wl_U32*)(a+i));					\
 			i += 4;														\
 		}																\
 																		\
@@ -214,8 +203,6 @@
  *	\see	ADECL2
  *	
  *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
  *		-#	Break up the operand A into chunks of 4 bytes.
  *		-#	Perform FUNC to all chunks of operand A and store the result it in 
  *			`r`
@@ -228,22 +215,22 @@
  */
 #define ADEF2(NAME, FUNC) 												\
 	ADECL2(NAME) {														\
-		if (!r) r = wl_mal(s);											\
-		const wl_U8 d = s/8;											\
-		const wl_U8 m = s%8;											\
+		wl_Vo* const r = wl_mal(s);										\
+		wl_U8 d = s/4;													\
+		wl_U8 m = s%4;													\
 		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
-			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i], ((wl_U32*)b)[i]);	\
+			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i],((wl_U32*)b)[i]);	\
 																		\
 		i *= 4;															\
 																		\
-		if (m&0b01)	{													\
-			((wl_U8*)r)[i] = FUNC(((wl_U8*)a)[i], ((wl_U8*)b)[i]);		\
+		if (m&0x1)	{													\
+			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i),*(wl_U8*)(b+i));		\
 			i++;														\
 		}																\
-		if (m&0b10)	{													\
-			((wl_U16*)r)[i] = FUNC(((wl_U16*)a)[i], ((wl_U16*)b)[i]);	\
+		if (m&0x2)	{													\
+			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i),*(wl_U16*)(b+i));	\
 			i += 2;														\
 		}																\
 																		\
@@ -273,32 +260,32 @@
  *				+ Third phase:	if Rsize & 1, then apply FUNC to next 1 byte
  *	Sorry, I'm not good at explaining things
  */
-#define ADEF2(NAME, FUNC) 										\
-	ADECL2(NAME) {												\
-		if (!r) r = wl_mal(s);									\
-		const wl_U8 d = s/8;									\
-		const wl_U8 m = s%8;									\
-		U16 i = 0;												\
-																\
-		for (; i < d; i++)										\
-			((U64*)r)[i] = FUNC(((U64*)a)[i], ((U64*)b)[i]);	\
-																\
-		i *= 8;													\
-																\
-		if (m&0x1)	{											\
-			((U8*)r)[i] = FUNC(((U8*)a)[i], ((U8*)b)[i]);		\
-			i++;												\
-		}														\
-		if (m&0x2)	{											\
-			((U16*)r)[i] = FUNC(((U16*)a)[i], ((U16*)b)[i]);	\
-			i += 2;												\
-		}														\
-		if (m&0x4)	{											\
-			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
-			i += 4;												\
-		}														\
-																\
-		return r;												\
+#define ADEF2(NAME, FUNC) 												\
+	ADECL2(NAME) {														\
+		wl_Vo* const r = wl_mal(s);										\
+		wl_U8 d = s/4;													\
+		wl_U8 m = s%4;													\
+		wl_U16 i = 0;													\
+																		\
+		for (; i < d; i++)												\
+			((wl_U64*)r)[i] = FUNC(((wl_U64*)a)[i],((wl_U64*)b)[i]);	\
+																		\
+		i *= 8;															\
+																		\
+		if (m&0x1)	{													\
+			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i),*(wl_U8*)(b+i));		\
+			i++;														\
+		}																\
+		if (m&0x2)	{													\
+			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i),*(wl_U16*)(b+i));	\
+			i += 2;														\
+		}																\
+		if (m&0x4)	{													\
+			*(wl_U32*)(r+i) = FUNC(*(wl_U32*)(a+i),*(wl_U32*)(b+i));	\
+			i += 4;														\
+		}																\
+																		\
+		return r;														\
 	}
 #endif
 
@@ -329,268 +316,111 @@
 #define ADECL2B(NAME)	\
 	wl_Bl NAME(const wl_U8 s, wl_Vo* const restrict a, wl_Vo* const restrict b)
 
-#undef	ADEF1
-#ifdef	NO_I64
-/** 
- * 	\def	Definition of unioperand logic array operation (32-bit)
- *  \brief	Definition of unioperand logic array operation for systems where
- * 			a 64-bit type is not supported.
- *	\param	NAME	Function name
- *	\param	FUNC	The operation it need to perform
- *	\return	result pointer
- *	\see	ADECL1
- *	
- *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
- *		-#	Break up the operand A into chunks of 4 bytes.
- *		-#	Perform FUNC to all chunks of operand A and store the result it in 
- *			`r`
- *		-#	If there's any remaining part of the operand A that happened to be
- *			smaller than 4 bytes, **consider it's size ("Rsize") in binary**. The 
- *			algorithm does the same thing as in the step 3 but in 2 phases
- *				+ First phase:	if Rsize & 2, then apply FUNC to next 2 bytes
- *				+ Second phase:	if Rsize & 1, then apply FUNC to next 1 bytes
- *	Sorry, I'm not good at explaining things
- */
-#define ADEF1(NAME, FUNC) 										\
-	ADECL1(NAME) {												\
-		if (!r) r = wl_mal(s);									\
-		const U8 d = s/4;										\
-		const U8 m = s%4;										\
-		U16 i = 0;												\
-																\
-		for (; i < d; i++)										\
-			((U32*)r)[i] = FUNC(((U32*)a)[i]);					\
-																\
-		i *= 4;													\
-																\
-		if (m&0b01)	{											\
-			((U8*)r)[i] = FUNC(((U8*)a)[i]);					\
-			i++;												\
-		}														\
-		if (m&0b10)	{											\
-			((U16*)r)[i] = FUNC(((U16*)a)[i]);					\
-			i += 2;												\
-		}														\
-																\
-		return r;												\
-	}
-#else
-/** 
- * 	\def	Definition of unioperand logic array operations (64-bit)
- *  \brief	Definition of unioperand logic array operations for systems where
- * 			a 64-bit type is supported.
- *	\param	NAME	Function name
- *	\param	FUNC	The operation it need to perform
- *	\return	result pointer
- *	\see	ADECL1
- *	
- *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
- *		-#	Break up the operand A into chunks of 8 bytes.
- *		-#	Perform FUNC to all chunks of operand A and store the result it in 
- *			`r`
- *		-#	If there's any remaining part of the operand A that happened to be
- *			smaller than 8 bytes, **consider it's size ("Rsize") in binary**. The 
- *			algorithm does the same thing as in the step 3 but in 3 phases
- *				+ First phase:	if Rsize & 4, then apply FUNC to next 4 bytes
- *				+ Second phase:	if Rsize & 2, then apply FUNC to next 2 bytes
- *				+ Third phase:	if Rsize & 1, then apply FUNC to next 1 byte
- *	Sorry, I'm not good at explaining things
- */
-#define ADEF1(NAME, FUNC) 										\
-	ADECL1(NAME) {												\
-		const U8 d = s/8;										\
-		const U8 m = s%8;										\
-		U16 i = 0;												\
-																\
-		if (!r) r = wl_mal(s);									\
-																\
-		for (; i < d; i++)										\
-			((U64*)r)[i] = FUNC(((U64*)a)[i]);					\
-																\
-		i *= 8;													\
-																\
-		if (m&0x1)	{											\
-			((U8*)r)[i] = FUNC(((U8*)a)[i]);					\
-			i++;												\
-		}														\
-		if (m&0x2)	{											\
-			((U16*)r)[i] = FUNC(((U16*)a)[i]);					\
-			i += 2;												\
-		}														\
-		if (m&0x4)	{											\
-			((U32*)r)[i] = FUNC(((U32*)a)[i]);					\
-			i += 4;												\
-		}														\
-																\
-		return r;												\
-	}
-#endif
-
-#undef	ADEF2
-#ifdef	NO_I64
-/** 
- * 	\def	Definition of bioperand logic array operations (32-bit)
- *  \brief	Definition of bioperand logic array operations for systems where
- * 			a 64-bit type is not supported.
- *	\param	NAME	Function name
- *	\param	FUNC	The operation it need to perform
- *	\return	result pointer
- *	\see	ADECL2
- *	
- *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
- *		-#	Break up the operand A into chunks of 4 bytes.
- *		-#	Perform FUNC to all chunks of operand A and store the result it in 
- *			`r`
- *		-#	If there's any remaining part of the operand A that happened to be
- *			smaller than 4 bytes, **consider it's size ("Rsize") in binary**. The 
- *			algorithm does the same thing as in the step 3 but in 2 phases
- *				+ First phase:	if Rsize & 2, then apply FUNC to next 2 bytes
- *				+ Second phase:	if Rsize & 1, then apply FUNC to next 1 bytes
- *	Sorry, I'm not good at explaining things
- */
-#define ADEF2(NAME, FUNC) 										\
-	ADECL2(NAME) {												\
-		const U8 d = s/4;										\
-		const U8 m = s%4;										\
-		U16 i = 0;												\
-																\
-		if (!r) r = wl_mal(s);									\
-																\
-		for (; i < d; i++)										\
-			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
-																\
-		i *= 4;													\
-																\
-		if (m&0b01)	{											\
-			((U8*)r)[i] = FUNC(((U8*)a)[i], ((U8*)b)[i]);		\
-			i++;												\
-		}														\
-		if (m&0b10)	{											\
-			((U16*)r)[i] = FUNC(((U16*)a)[i], ((U16*)b)[i]);	\
-			i += 2;												\
-		}														\
-																\
-		return r;												\
-	}
-#else
-/** 
- * 	\def	Definition of bioperand logic array operation (64-bit)
- *  \brief	Definition of bioperand logic array operation for systems where
- * 			a 64-bit type is supported.
- *	\param	NAME	Function name
- *	\param	FUNC	The operation it need to perform
- *	\return	result pointer
- *	\see	ADECL2
- *	
- *	Method:
- *		-#	If user provided a pointer for `r`, the result will be stored 
- *			there, otherwise it will be allocated.
- *		-#	Break up the operand A into chunks of 8 bytes.
- *		-#	Perform FUNC to all chunks of operand A and store the result it in 
- *			`r`
- *		-#	If there's any remaining part of the operand A that happened to be
- *			smaller than 8 bytes, **consider it's size ("Rsize") in binary**. The 
- *			algorithm does the same thing as in the step 3 but in 3 phases
- *				+ First phase:	if Rsize & 4, then apply FUNC to next 4 bytes
- *				+ Second phase:	if Rsize & 2, then apply FUNC to next 2 bytes
- *				+ Third phase:	if Rsize & 1, then apply FUNC to next 1 byte
- *	Sorry, I'm not good at explaining things
- */
-#define ADEF2(NAME, FUNC) 										\
-	ADECL2(NAME) {												\
-		const U8 d = s/8;										\
-		const U8 m = s%8;										\
-		U16 i = 0;												\
-																\
-		if (!r) r = wl_mal(s);									\
-																\
-		for (; i < d; i++)										\
-			((U64*)r)[i] = FUNC(((U64*)a)[i], ((U64*)b)[i]);	\
-																\
-		i *= 8;													\
-																\
-		if (m&0x1)	{											\
-			((U8*)r)[i] = FUNC(((U8*)a)[i], ((U8*)b)[i]);		\
-			i++;												\
-		}														\
-		if (m&0x2)	{											\
-			((U16*)r)[i] = FUNC(((U16*)a)[i], ((U16*)b)[i]);	\
-			i += 2;												\
-		}														\
-		if (m&0x4)	{											\
-			((U32*)r)[i] = FUNC(((U32*)a)[i], ((U32*)b)[i]);	\
-			i += 4;												\
-		}														\
-																\
-		return r;												\
-	}
-#endif
-
 /**
  */
-#undef	ADEFB1
-#define	ADEFB1(NAME,FUNC)										\
+#undef	ADEF1B
+#if	NO_I64
+#define	ADEF1B(NAME,FUNC)										\
 	ADECL1B(NAME) {												\
-		const U8 d = s/8;										\
-		const U8 m = s%8;										\
-		U16 i = 0;												\
+		const wl_U8 d = s/4;										\
+		const wl_U8 m = s%4;										\
+		wl_U16 i = 0;												\
 																\
 		for (; i < d; i++)										\
-			if ( FUNC((U64*)a)[i] ) return 0;					\
+			if (FUNC(((wl_U32*)a)[i])) return 0;				\
 																\
-		i *= 8;													\
+		i *= 4;													\
 																\
 		if (m&0x1) {											\
-			if ( FUNC((U8*)a)[i] ) return 0;					\
+			if (FUNC(*(wl_U8*)(a+i))) return 0;					\
 			i++;												\
 		}														\
 		if (m&0x2) {											\
-			if ( FUNC((U16*)a)[i] ) return 0;					\
+			if (FUNC(*(wl_U16*)(a+i))) return 0;				\
 			i += 2;												\
-		}														\
-		if (m&0x4)	{											\
-			if ( FUNC((U32*)a)[i] ) return 0;					\
-			i += 4;												\
 		}														\
 																\
 		return 1;												\
 	}
+#else
+#define	ADEF1B(NAME,FUNC)										\
+	ADECL1B(NAME) {												\
+		const wl_U8 d = s/4;										\
+		const wl_U8 m = s%4;										\
+		wl_U16 i = 0;												\
+																\
+		for (; i < d; i++)										\
+			if (FUNC(((wl_U32*)a)[i])) return 0;				\
+																\
+		i *= 4;													\
+																\
+		if (m&0x1) {											\
+			if (FUNC(*(wl_U8*)(a+i))) return 0;					\
+			i++;												\
+		}														\
+		if (m&0x2) {											\
+			if (FUNC(*(wl_U16*)(a+i))) return 0;				\
+			i += 2;												\
+		}														\
+																\
+		return 1;												\
+	}
+#endif
 
 /**
  */
 #undef	ADEFB2
-#define	ADEFB2(NAME,FUNC)										\
-	ADECL2B(NAME) {												\
-		const U8 d = s/8;										\
-		const U8 m = s%8;										\
-		U16 i = 0;												\
-																\
-		for (; i < d; i++)										\
-			if ( FUNC((U64*)a)[i], ((U64*)b)[i]) ) return 0;	\
-																\
-		i *= 8;													\
-																\
-		if (m&0x1) {											\
-			if ( FUNC((U8*)a)[i], ((U8*)b)[i]) ) return 0;		\
-			i++;												\
-		}														\
-		if (m&0x2) {											\
-			if ( FUNC((U16*)a)[i], ((U16*)b)[i]) ) return 0;	\
-			i += 2;												\
-		}														\
-		if (m&0x4)	{											\
-			if ( FUNC((U32*)a)[i], ((U32*)b)[i]),  ) return 0;	\
-			i += 4;												\
-		}														\
-																\
-		return 1;												\
+#if NO_I64
+#define	ADEFB2(NAME,FUNC)											\
+	ADECL2B(NAME) {													\
+		const wl_U8 d = s/4;											\
+		const wl_U8 m = s%4;											\
+		wl_U16 i = 0;													\
+																	\
+		for (; i < d; i++)											\
+			if (FUNC(((wl_U32*)a)[i]),((wl_U32*)b)[i])) return 0;	\
+																	\
+		i *= 4;														\
+																	\
+		if (m&0x1) {												\
+			if (FUNC(*(wl_U8*)(a+i),*(wl_U8*)(a+i))) return 0;		\
+			i++;													\
+		}															\
+		if (m&0x2) {												\
+			if (FUNC(*(wl_U16*)(a+i),*(wl_U16*)(a+i))) return 0;	\
+			i += 2;													\
+		}															\																		\
+																	\
+		return 1;													\
 	}
+#else
+#define	ADEFB2(NAME,FUNC)											\
+	ADECL2B(NAME) {													\
+		const wl_U8 d = s/8;											\
+		const wl_U8 m = s%8;											\
+		wl_U16 i = 0;													\
+																	\
+		for (; i < d; i++)											\
+			if (FUNC(((wl_U64*)a)[i]),((wl_U64*)b)[i])) return 0;	\
+																	\
+		i *= 8;														\
+																	\
+		if (m&0x1) {												\
+			if (FUNC(*(wl_U8*)(a+i),*(wl_U8*)(a+i))) return 0;		\
+			i++;													\
+		}															\
+		if (m&0x2) {												\
+			if (FUNC(*(wl_U16*)(a+i),*(wl_U16*)(a+i))) return 0;	\
+			i += 2;													\
+		}															\
+		if (m&0x4)	{												\
+			if (FUNC(*(wl_U32*)(a+i),*(wl_U32*)(a+i))) return 0;	\
+			i += 4;													\
+		}															\
+																	\
+		return 1;													\
+	}
+#endif
 
 /**
  * \brief	Array Allocate and set 0

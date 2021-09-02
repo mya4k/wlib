@@ -10,8 +10,9 @@
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}",
 			"args": [
-				">",
-				"mal-test-out.txt"
+				"s2i",
+				"56789",
+				"0"
 			],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",

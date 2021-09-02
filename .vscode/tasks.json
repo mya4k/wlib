@@ -6,15 +6,19 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-g",
-                "${file}",
-                "src/memory.c",
+                "test/main.c",
+                "src/wc/error.c",
+                "src/wc/memory.c",
+                "src/wc/array.c",
+                "src/wc/string.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-Wall",
                 "-Wpedantic",
                 "-Wextra",
                 "-Iinc",
-                "-std=gnu18"
+                "-std=gnu18",
+                "-Wno-unused-parameter",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
