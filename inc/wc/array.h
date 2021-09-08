@@ -33,24 +33,30 @@
 #ifndef NO_SHORT_NAMES
 #define AA0		WL_AA0
 #define aas		wl_aas
-#define anot	wl_anot
-#define aand	wl_aand
+#define ant		wl_ant
+#define aan		wl_aan
 #define aor		wl_aor
-#define axor	wl_axor
-#define anand	wl_anand
-#define anor	wl_anor
-#define anxor	wl_anxor
+#define axr		wl_axor
+#define ann		wl_ann
+#define anr		wl_anr
+#define anx		wl_anx
 #define ano		wl_ano
-#define anotl	wl_anotl
-#define aandl	wl_aandl
+#define antl	wl_antl
+#define aanl	wl_aanl
 #define aorl	wl_aorl
-#define axorl	wl_axorl
-#define anandl	wl_anandl
-#define anorl	wl_anorl
-#define anxorl	wl_anxorl
+#define axrl	wl_axrl
+#define annl	wl_annl
+#define anrl	wl_anrl
+#define anxl	wl_anxl
 #define afl		wl_afl
 #define asb		wl_asb
 #define asa		wl_asa
+#define aeq		wl_aeq
+#define anq		wl_anq
+#define agt		wl_agt
+#define alt		wl_alt
+#define agq		wl_agq
+#define alq		wl_alq
 #define SEARCH_FLAGS	WL_SEARCH_FLAGS
 #define SEARCH_NORMAL	WL_SEARCH_NORMAL
 #define SEARCH_REVERSE	WL_SEARCH_REVERSE
@@ -131,11 +137,11 @@
 		i *= 4;															\
 																		\
 		if (m&0x1)	{													\
-			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i));						\
+			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i));						\
 			i++;														\
 		}																\
 		if (m&0x2)	{													\
-			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i));					\
+			*(wl_U16*)((wl__Ptr)r+i) = FUNC(*(wl_U16*)((wl__Ptr)a+i));					\
 			i += 2;														\
 		}																\
 																		\
@@ -175,15 +181,15 @@
 		i *= 8;															\
 																		\
 		if (m&0x1)	{													\
-			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i));						\
+			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i));						\
 			i++;														\
 		}																\
 		if (m&0x2)	{													\
-			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i));					\
+			*(wl_U16*)((wl__Ptr)r+i) = FUNC(*(wl_U16*)((wl__Ptr)a+i));					\
 			i += 2;														\
 		}																\
 		if (m&0x4)	{													\
-			*(wl_U32*)(r+i) = FUNC(*(wl_U32*)(a+i));					\
+			*(wl_U32*)((wl__Ptr)r+i) = FUNC(*(wl_U32*)((wl__Ptr)a+i));					\
 			i += 4;														\
 		}																\
 																		\
@@ -221,16 +227,16 @@
 		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
-			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i],((wl_U32*)b)[i]);	\
+			((wl_U32*)r)[i] = FUNC( ((wl_U32*)a)[i] , ((wl_U32*)b)[i]);	\
 																		\
 		i *= 4;															\
 																		\
 		if (m&0x1)	{													\
-			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i),*(wl_U8*)(b+i));		\
+			*(wl_U8*)((wl__Ptr)r+i) = FUNC( *(wl_U8*)((wl__Ptr)a+i) , *(wl_U8*)((wl__Ptr)b+i) );		\
 			i++;														\
 		}																\
 		if (m&0x2)	{													\
-			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i),*(wl_U16*)(b+i));	\
+			*(wl_U16*)((wl__Ptr)r+i) = FUNC( *(wl_U16*)((wl__Ptr)a+i) , *(wl_U16*)((wl__Ptr)b+i) );	\
 			i += 2;														\
 		}																\
 																		\
@@ -268,20 +274,20 @@
 		wl_U16 i = 0;													\
 																		\
 		for (; i < d; i++)												\
-			((wl_U64*)r)[i] = FUNC(((wl_U64*)a)[i],((wl_U64*)b)[i]);	\
+			((wl_U64*)r)[i] = FUNC( ((wl_U64*)a)[i] , ((wl_U64*)b)[i] );	\
 																		\
 		i *= 8;															\
 																		\
 		if (m&0x1)	{													\
-			*(wl_U8*)(r+i) = FUNC(*(wl_U8*)(a+i),*(wl_U8*)(b+i));		\
+			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i),*(wl_U8*)((wl__Ptr)b+i));		\
 			i++;														\
 		}																\
 		if (m&0x2)	{													\
-			*(wl_U16*)(r+i) = FUNC(*(wl_U16*)(a+i),*(wl_U16*)(b+i));	\
+			*(wl_U16*)((wl__Ptr)r+i) = FUNC(*(wl_U16*)((wl__Ptr)a+i),*(wl_U16*)((wl__Ptr)b+i));	\
 			i += 2;														\
 		}																\
 		if (m&0x4)	{													\
-			*(wl_U32*)(r+i) = FUNC(*(wl_U32*)(a+i),*(wl_U32*)(b+i));	\
+			*(wl_U32*)((wl__Ptr)r+i) = FUNC(*(wl_U32*)((wl__Ptr)a+i),*(wl_U32*)((wl__Ptr)b+i));	\
 			i += 4;														\
 		}																\
 																		\
@@ -332,11 +338,11 @@
 		i *= 4;													\
 																\
 		if (m&0x1) {											\
-			if (FUNC(*(wl_U8*)(a+i))) return 0;					\
+			if (FUNC(*(wl_U8*)((wl__Ptr)a+i))) return 0;					\
 			i++;												\
 		}														\
 		if (m&0x2) {											\
-			if (FUNC(*(wl_U16*)(a+i))) return 0;				\
+			if (FUNC(*(wl_U16*)((wl__Ptr)a+i))) return 0;				\
 			i += 2;												\
 		}														\
 																\
@@ -355,11 +361,11 @@
 		i *= 4;													\
 																\
 		if (m&0x1) {											\
-			if (FUNC(*(wl_U8*)(a+i))) return 0;					\
+			if (FUNC(*(wl_U8*)((wl__Ptr)a+i))) return 0;					\
 			i++;												\
 		}														\
 		if (m&0x2) {											\
-			if (FUNC(*(wl_U16*)(a+i))) return 0;				\
+			if (FUNC(*(wl_U16*)((wl__Ptr)a+i))) return 0;				\
 			i += 2;												\
 		}														\
 																\
@@ -369,52 +375,52 @@
 
 /**
  */
-#undef	ADEFB2
+#undef	ADEF2B
 #if NO_I64
-#define	ADEFB2(NAME,FUNC)											\
+#define	ADEF2B(NAME,FUNC)											\
 	ADECL2B(NAME) {													\
 		const wl_U8 d = s/4;											\
 		const wl_U8 m = s%4;											\
 		wl_U16 i = 0;													\
 																	\
 		for (; i < d; i++)											\
-			if (FUNC(((wl_U32*)a)[i]),((wl_U32*)b)[i])) return 0;	\
+			if (FUNC( (((wl_U32*)a)[i]) , (((wl_U32*)b)[i]) )) return 0;	\
 																	\
 		i *= 4;														\
 																	\
 		if (m&0x1) {												\
-			if (FUNC(*(wl_U8*)(a+i),*(wl_U8*)(a+i))) return 0;		\
+			if (FUNC( *(wl_U8*)((wl__Ptr)a+i) , *(wl_U8*)((wl__Ptr)b+i) )) return 0;		\
 			i++;													\
 		}															\
 		if (m&0x2) {												\
-			if (FUNC(*(wl_U16*)(a+i),*(wl_U16*)(a+i))) return 0;	\
+			if (FUNC( *(wl_U16*)((wl__Ptr)a+i) , *(wl_U16*)((wl__Ptr)b+i) )) return 0;	\
 			i += 2;													\
 		}															\																		\
 																	\
 		return 1;													\
 	}
 #else
-#define	ADEFB2(NAME,FUNC)											\
+#define	ADEF2B(NAME,FUNC)											\
 	ADECL2B(NAME) {													\
 		const wl_U8 d = s/8;											\
 		const wl_U8 m = s%8;											\
 		wl_U16 i = 0;													\
 																	\
 		for (; i < d; i++)											\
-			if (FUNC(((wl_U64*)a)[i]),((wl_U64*)b)[i])) return 0;	\
+			if (FUNC( ((wl_U64*)a)[i] , ((wl_U64*)b)[i] )) return 0;	\
 																	\
 		i *= 8;														\
 																	\
 		if (m&0x1) {												\
-			if (FUNC(*(wl_U8*)(a+i),*(wl_U8*)(a+i))) return 0;		\
+			if (FUNC( *(wl_U8*)((wl__Ptr)a+i),*(wl_U8*)((wl__Ptr)b+i) )) return 0;		\
 			i++;													\
 		}															\
 		if (m&0x2) {												\
-			if (FUNC(*(wl_U16*)(a+i),*(wl_U16*)(a+i))) return 0;	\
+			if (FUNC( *(wl_U16*)((wl__Ptr)a+i) , *(wl_U16*)((wl__Ptr)b+i) )) return 0;	\
 			i += 2;													\
 		}															\
 		if (m&0x4)	{												\
-			if (FUNC(*(wl_U32*)(a+i),*(wl_U32*)(a+i))) return 0;	\
+			if (FUNC( *(wl_U32*)((wl__Ptr)a+i) , *(wl_U32*)((wl__Ptr)b+i) )) return 0;	\
 			i += 4;													\
 		}															\
 																	\
@@ -429,6 +435,70 @@
  * \return	wl_Vo*
  */
 #define WL_AA0(s)	(wl_afl(s, NULL, 1, ""))
+
+#define _AAS(A,B)	NO(B);
+
+/** \brief	Array Not Logical
+ *	\def	wl_antl(s,a,b)
+ *	\param	s Size
+ *	\param	a
+ *	\param	b
+ */
+#define wl_antl(s,a,b)	(!(wl_anol((s),(a),(b))))
+
+/**	\def	wl_ann(s,a,b)
+ *	\param	s	size of the operands in bytes
+ *	\param	a	the operand A
+ *	\param	b	the operand B
+ *	\brief	Performes logical NAND to the operand A and B to `s` bytes and assignes
+			the result in array R
+ *	\return	True or false
+ */
+#define wl_annl(s,a,b)	(!(wl_aanl((s),(a),(b))))
+
+/**	\def	wl_anorl(s,a,b)
+ *	\param	s	size of the operands in bytes
+ *	\param	a	the operand A
+ *	\param	b	the operand B
+ *	\brief	Performes logical NOR to the operand A and B to `s` bytes
+ *	\return True or false
+ */
+#define wl_anrl(s,a,b)	(!(wl_aorl((s),(a),(b))))
+
+/**	\fn		wl_anxl(s,a,b)
+ *	\param	s	size of the operands in bytes
+ *	\param	a	the operand A
+ *	\param	b	the operand B
+ *	\brief	Performes logical NXOR to the operand A and B to `s` bytes
+ *	\return	The array of object that have been exclusively disjuncted and inversed
+ */
+#define wl_anxl(s,a,b)	(!(wl_axrl((s),(a),(b))))
+
+/** \brief	Array Not Equal
+ *	\def	wl_anq(s,a,b)
+ *	\param	s Size
+ *	\param	a
+ *	\param	b
+ */
+#define wl_anq(s,a,b)	(!(wl_aeq((s),(a),(b))))
+
+/** \brief	Array Less than or eQual to
+ *	\def	wl_alq(s,a,b)
+ *	\param	s Size
+ *	\param	a
+ *	\param	b
+ */
+#define wl_alq(s,a,b)	(!(wl_agt((s),(a),(b))))
+
+
+/** \brief	Array Greater than or eQual to
+ *	\def	wl_agq(s,a,b)
+ *	\param	s Size
+ *	\param	a
+ *	\param	b
+ */
+#define wl_agq(s,a,b)	(!(wl_alt((s),(a),(b))))
+
 
 
 
@@ -473,29 +543,22 @@ typedef enum WL_SEARCH_FLAGS {
  *    ##       ##     ## ##   ### ##    ## ##    ## 
  *    ##        #######  ##    ##  ######   ######  
  */
-EXTERN ADECL1(wl_aas);		/* Array Assignment */
-EXTERN ADECL1(wl_anot);		/* Array NOT */
-EXTERN ADECL2(wl_aand);		/* Array AND */
+EXTERN ADECL2(wl_aas);		/* Array Assignment */
+EXTERN ADECL1(wl_ant);		/* Array NOT */
+EXTERN ADECL2(wl_aan);		/* Array AND */
 EXTERN ADECL2(wl_aor);		/* Array OR */
-EXTERN ADECL2(wl_axor);		/* Array XOR */
-EXTERN ADECL2(wl_anand);	/* Array NAND */
-EXTERN ADECL2(wl_anor);		/* Array NOR */
-EXTERN ADECL2(wl_anxor);	/* Array NXOR */
+EXTERN ADECL2(wl_axr);		/* Array XOR */
+EXTERN ADECL2(wl_ann);		/* Array AND */
+EXTERN ADECL2(wl_anr);		/* Array OR */
+EXTERN ADECL2(wl_anx);		/* Array XOR */
 
 EXTERN ADECL1B(wl_anol);	/* Array Logical No Operation */
-EXTERN ADECL1B(wl_anotl);	/* Array Logical NOT */
-EXTERN ADECL2B(wl_aandl);	/* Array Logical AND */
+EXTERN ADECL2B(wl_aanl);	/* Array Logical AND */
 EXTERN ADECL2B(wl_aorl);	/* Array Logical OR */
-EXTERN ADECL2B(wl_axorl);	/* Array Logical XOR */
-EXTERN ADECL2B(wl_anandl);	/* Array Logical NAND */
-EXTERN ADECL2B(wl_anorl);	/* Array Logical NOR */
-EXTERN ADECL2B(wl_anxorl);	/* Array Logical NXOR */
+EXTERN ADECL2B(wl_axrl);	/* Array Logical XOR */
 EXTERN ADECL2B(wl_aeq);		/* Array Equals */
-EXTERN ADECL2B(wl_aneq);	/* Array Not Equals */
 EXTERN ADECL2B(wl_agt);		/* Array Greater Than */
 EXTERN ADECL2B(wl_alt);		/* Array Less Than */
-EXTERN ADECL2B(wl_agtq);	/* Array Greater Than Or Equal */
-EXTERN ADECL2B(wl_altq);	/* Array Less Than Or Equal */
 
 EXTERN wl_Vo*	wl_afl(	const	wl_U8	sa, 
 								wl_Vo*	a, 

@@ -19,7 +19,7 @@
  *	\brief	Assigns `s` bytes of objects of array A to array R
  *	\return	The array of object that are assigned
  */
-ADEF1(wl_aas, NO)
+ADEF2(wl_aas, _AAS)
 
 /**	\fn		ADEF1(ant, NOT)
  *	\param	s	size of the operands in bytes
@@ -29,7 +29,7 @@ ADEF1(wl_aas, NO)
 			the result in array R
  *	\return	The array of object that have been inverted
  */
-ADEF1(wl_ant, NOT)
+ADEF1(wl_ant, NT)
 
 /**	\fn		ADEF2(aan, AND)
  *	\param	s	size of the operands in bytes
@@ -40,7 +40,7 @@ ADEF1(wl_ant, NOT)
 			the result in array R
  *	\return	The array of object that have been conjuncted
  */
-ADEF2(wl_aan, AND)
+ADEF2(wl_aan, AN)
 
 /**	\fn		ADEF2(aor, OR)
  *	\param	s	size of the operands in bytes
@@ -62,7 +62,7 @@ ADEF2(wl_aor, OR)
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted
  */
-ADEF2(wl_axr, XOR)
+ADEF2(wl_axr, XR)
 
 /**	\fn		ADEF2(ann, NAND)
  *	\param	s	size of the operands in bytes
@@ -73,7 +73,7 @@ ADEF2(wl_axr, XOR)
 			the result in array R
  *	\return	The array of object that have been conjuncted and inversed
  */
-ADEF2(wl_ann, NAND)
+ADEF2(wl_ann, NN)
 
 /**	\fn		ADEF2(anr, NOR)
  *	\param	s	size of the operands in bytes
@@ -84,7 +84,7 @@ ADEF2(wl_ann, NAND)
  *			the result in array R
  *	\return	The array of object that have been disjuncted and inversed
  */
-ADEF2(wl_anr, NOR)
+ADEF2(wl_anr, NR)
 
 /**	\fn		ADEF2(anx, NXOR)
  *	\param	s	size of the operands in bytes
@@ -95,47 +95,25 @@ ADEF2(wl_anr, NOR)
  *			the result in array R
  *	\return	The array of object that have been exclusively disjuncted and inversed
  */
-ADEF2(wl_anx, NXOR)
+ADEF2(wl_anx, NX)
+
+ADEF1B(wl_anol, NOL)	/* Array Logical No Operation */
+ADEF2B(wl_aanl, ANL)	/* Array Logical AND */
+ADEF2B(wl_aorl, ORL)	/* Array Logical OR */
+ADEF2B(wl_axrl, XRL)	/* Array Logical XOR */
+ADEF2B(wl_agt, GT)		/* Array Greater Than */
+ADEF2B(wl_alt, LT)		/* Array Less Than */
 
 /**
  * \brief	Array equals
- * \fn		wl_aeq( wl_U8 s,  wl_VO*	a,  wl_VO* b)
+ * \fn		ADEF2B(aeq, EQ)
  * \param	s	Size of arrays
  * \param	a	Array A
  * \param	b	Array B
  * \return	wl_Bl 
  */
-wl_Bl	wl_aeq(	const wl_U8 s,
-				wl_Vo* restrict a, 
-				wl_Vo* const restrict b	) {
-	const wl_U8 d = s/8;
-	const wl_U8 m = s%8;
-	wl_U8 i = 0;
-	
-	if (!a) a = wl_mal(s);
+ADEF2B(wl_aeq, EQ)
 
-	for (; i < d; i++)
-		if (((wl_U64*)a)[i] != ((wl_U64*)b)[i]) return 0;
-	
-	i = s;
-
-	if (m&0x1) {
-		i-=4;
-		if (*(wl_U32*)((_Ptr)a+i) != *(wl_U32*)((_Ptr)b+i)) return 0;
-	}
-
-	if (m&0x2) {
-		i-=2;
-		if (*(wl_U16*)((_Ptr)a+i) != *(wl_U16*)((_Ptr)b+i)) return 0;
-	}
-
-	if (m&0x4) {
-		i--;
-		if (*(wl_U8*)((_Ptr)a+i) != *(wl_U8*)((_Ptr)b+i)) return 0;
-	}
-
-	return 1;
-}
 
 /**	\fn		VO* afl( 8 sa,  VO* a,  U8 sb,  VO* b)
  *	\param	sa	size of the array A in bytes
@@ -354,22 +332,3 @@ wl_Vopu	wl_asa(	const	wl_Vo* restrict const	src,
 	/* There was nothing to find, so return true */
 	return (wl_Vopu)1;
 }
-
-
-
-#ifdef NOT_IMPLIMENTED_YET
-ADEF1B(wl_anol, NOL);	/* Array Logical No Operation */
-ADEF1B(wl_antl, NTL);	/* Array Logical NOT */
-ADEF2B(wl_aanl, ANL);	/* Array Logical AND */
-ADEF2B(wl_aorl, ORL);	/* Array Logical OR */
-ADEF2B(wl_axrl, XRL);	/* Array Logical XOR */
-ADEF2B(wl_annl, NNL);	/* Array Logical NAND */
-ADEF2B(wl_anrl, NRL);	/* Array Logical NOR */
-ADEF2B(wl_anxl, NXL);	/* Array Logical NXOR */
-ADEF2B(wl_aeq, EQ);		/* Array Equals */
-ADEF2B(wl_anq, NQ);		/* Array Not Equals */
-ADEF2B(wl_agt, GT);		/* Array Greater Than */
-ADEF2B(wl_alt, LT);		/* Array Less Than */
-ADEF2B(wl_agq, GQ);		/* Array Greater Than Or Equal */
-ADEF2B(wl_alq, LQ);		/* Array Less Than Or Equal */ 
-#endif
