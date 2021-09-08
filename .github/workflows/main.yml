@@ -41,6 +41,6 @@ jobs:
         uses: Marloxo/compile-mermaid-markdown-action@0.2.3
         with:
           # the path to the files to compile
-          files: mmd/main.mermaid
+          files: 'mmd/main.mermaid'
           # Where to output the file - std otherwise
-          output: mmd
+          output: 'mmd'
