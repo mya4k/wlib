@@ -43,4 +43,4 @@ jobs:
           # the path to the files to compile
           files: mmd/main.mermaid
           # Where to output the file - std otherwise
-          output: mmd/main.png
+          output: mmd
