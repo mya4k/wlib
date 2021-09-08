@@ -34,13 +34,3 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-
-      - name: Compile Mermaid Markdown (beta)
-      # You may pin to the exact commit or the version.
-      # uses: Marloxo/compile-mermaid-markdown-action@36ad7bcb54d18ffd9b014cf592499ee8b06cf1cc
-        uses: Marloxo/compile-mermaid-markdown-action@0.2.3
-        with:
-          # the path to the files to compile
-          files: 'mmd/main.mermaid'
-          # Where to output the file - std otherwise
-          output: 'mmd'
