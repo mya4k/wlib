@@ -46,8 +46,6 @@ jobs:
         id: getfile
         run: |
           echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep -e '.*\.md$' -e '.*\.mmd$' -e '.*\.mermaid$' | xargs)"
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 1
 
       - name: mermaid files changed
         run: |
@@ -81,6 +79,8 @@ jobs:
           labels: report, automated pr
           assignees: ${{ github.actor }}
           reviewers: ${{ github.actor }}
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 1
       - name: Check outputs
         run: |
           echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
