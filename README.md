@@ -2,7 +2,37 @@
 **WLib** is a configurable standard-independent free fast lightweight open-source and portable powerful general-purpose C programming language library project for software development.
 
 # Documentation
-[WLib Documentation](https://www.github.com/wspvlv/wlib)
+## 0. Introduction
+## 1. System information
+### 1.1. Architecture
+### 1.2. Operating system
+### 1.3. Data models
+### 1.4. Endianness
+### 1.5. Compiler
+### 1.6. Language Standard
+### 1.7. Standard Version
+## 2. Types
+### 2.1. Fixed-size integer types
+A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
+| Size              | Unsigned     | Signed       | LP32, ILP32 | LP64, LLP64 | ILP64 | SILP64 |
+|:------------------|:------------:|:------------:|:-----------:|:-----------:|:-----:|:------:|
+| optimally 8 bit   | `U8`, `u8`   | `I8`, `i8`   | 8           | 8           | 8     | 8      |
+| optimally 16 bit  | `U16`, `u16` | `I16`, `i16` | 16          | 16          | 16    | 64     |
+| optimally 32 bit  | `U32`, `u32` | `I32`, `i32` | 32          | 32          | 64    | 64     |
+| optimally 64 bit  | `U64`, `u64` | `I64`, `i64` | 64?         | 64          | 64    | 64     |
+? -- While the `long long int` type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models' `long long int` type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as `long long int` anyway, when compiler with ISO C99 standard or newer.
+
+### 2.2. Fixed-size floating-point types
+### 2.3. Other types
+### 2.4. Sizes
+### 2.5. Limits
+### 2.6. Support check
+## 3. Error handling
+## 4. Character manipulation
+## 5. Mathematics
+## 6. Memory management
+## 7. Array manipulation
+## 8. String manipulation
 
 # Our idea
 **Why configurable?**

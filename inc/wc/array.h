@@ -86,7 +86,7 @@
  *	- `a`	the operand
  */
 #define ADECL1(NAME)	\
-	wl_Vo* NAME(const wl_U8 s, const wl_Vo* const restrict a)
+	wl_Vo* NAME(const wl_U32 s, const wl_Vo* const restrict a)
 
 #undef	ADECL2
 /** 
@@ -101,7 +101,7 @@
   *	- `b`	the operand B
  */
 #define ADECL2(NAME)	\
-	wl_Vo* NAME(const wl_U8 s, const wl_Vo* const restrict a, const wl_Vo* const restrict b)
+	wl_Vo* NAME(const wl_U32 s, wl_Vo* const restrict a, const wl_Vo* const restrict b)
 
 #undef	ADEF1
 #ifdef	NO_I64
@@ -127,9 +127,9 @@
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
 		wl_Vo* const r = wl_mal(s);										\
-		wl_U8 d = s/4;													\
-		wl_U8 m = s%4;													\
-		wl_U16 i = 0;													\
+		wl_U32 d = s/4;													\
+		wl_U32 m = s%4;													\
+		wl_U32 i = 0;													\
 																		\
 		for (; i < d; i++)												\
 			((wl_U32*)r)[i] = FUNC(((wl_U32*)a)[i]);					\
@@ -137,11 +137,11 @@
 		i *= 4;															\
 																		\
 		if (m&0x1)	{													\
-			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i));						\
+			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i));	\
 			i++;														\
 		}																\
 		if (m&0x2)	{													\
-			*(wl_U16*)((wl__Ptr)r+i) = FUNC(*(wl_U16*)((wl__Ptr)a+i));					\
+			*(wl_U16*)((wl__Ptr)r+i) = FUNC(*(wl_U16*)((wl__Ptr)a+i));	\
 			i += 2;														\
 		}																\
 																		\
@@ -171,9 +171,9 @@
 #define ADEF1(NAME, FUNC) 												\
 	ADECL1(NAME) {														\
 		wl_Vo* const r = wl_mal(s);										\
-		wl_U8 d = s/8;													\
-		wl_U8 m = s%8;													\
-		wl_U16 i = 0;													\
+		wl_U32 d = s/8;													\
+		wl_U32 m = s%8;													\
+		wl_U32 i = 0;													\
 																		\
 		for (; i < d; i++)												\
 			((wl_U64*)r)[i] = FUNC(((wl_U64*)a)[i]);					\
@@ -219,28 +219,28 @@
  *				+ Second phase:	if Rsize & 1, then apply FUNC to next 1 bytes
  *	Sorry, I'm not good at explaining things
  */
-#define ADEF2(NAME, FUNC) 												\
-	ADECL2(NAME) {														\
-		wl_Vo* const r = wl_mal(s);										\
-		wl_U8 d = s/4;													\
-		wl_U8 m = s%4;													\
-		wl_U16 i = 0;													\
-																		\
-		for (; i < d; i++)												\
-			((wl_U32*)r)[i] = FUNC( ((wl_U32*)a)[i] , ((wl_U32*)b)[i]);	\
-																		\
-		i *= 4;															\
-																		\
-		if (m&0x1)	{													\
+#define ADEF2(NAME, FUNC) 																				\
+	ADECL2(NAME) {																						\
+		wl_Vo* const r = wl_mal(s);																		\
+		wl_U32 d = s/4;																					\
+		wl_U32 m = s%4;																					\
+		wl_U32 i = 0;																					\
+																										\
+		for (; i < d; i++)																				\
+			((wl_U32*)r)[i] = FUNC( ((wl_U32*)a)[i] , ((wl_U32*)b)[i]);									\
+																										\
+		i *= 4;																							\
+																										\
+		if (m&0x1)	{																					\
 			*(wl_U8*)((wl__Ptr)r+i) = FUNC( *(wl_U8*)((wl__Ptr)a+i) , *(wl_U8*)((wl__Ptr)b+i) );		\
-			i++;														\
-		}																\
-		if (m&0x2)	{													\
-			*(wl_U16*)((wl__Ptr)r+i) = FUNC( *(wl_U16*)((wl__Ptr)a+i) , *(wl_U16*)((wl__Ptr)b+i) );	\
-			i += 2;														\
-		}																\
-																		\
-		return r;														\
+			i++;																						\
+		}																								\
+		if (m&0x2)	{																					\
+			*(wl_U16*)((wl__Ptr)r+i) = FUNC( *(wl_U16*)((wl__Ptr)a+i) , *(wl_U16*)((wl__Ptr)b+i) );		\
+			i += 2;																						\
+		}																								\
+																										\
+		return r;																						\
 	}
 #else
 /** 
@@ -266,32 +266,32 @@
  *				+ Third phase:	if Rsize & 1, then apply FUNC to next 1 byte
  *	Sorry, I'm not good at explaining things
  */
-#define ADEF2(NAME, FUNC) 												\
-	ADECL2(NAME) {														\
-		wl_Vo* const r = wl_mal(s);										\
-		wl_U8 d = s/4;													\
-		wl_U8 m = s%4;													\
-		wl_U16 i = 0;													\
-																		\
-		for (; i < d; i++)												\
-			((wl_U64*)r)[i] = FUNC( ((wl_U64*)a)[i] , ((wl_U64*)b)[i] );	\
-																		\
-		i *= 8;															\
-																		\
-		if (m&0x1)	{													\
-			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i),*(wl_U8*)((wl__Ptr)b+i));		\
-			i++;														\
-		}																\
-		if (m&0x2)	{													\
+#define ADEF2(NAME, FUNC) 																		\
+	ADECL2(NAME) {																				\
+		wl_Vo* const r = wl_mal(s);																\
+		wl_U32 d = s/8;																			\
+		wl_U32 m = s%8;																			\
+		wl_U32 i = 0;																			\
+																								\
+		for (; i < d; i++)																		\
+			((wl_U64*)r)[i] = FUNC( ((wl_U64*)a)[i] , ((wl_U64*)b)[i] );						\
+																								\
+		i *= 8;																					\
+																								\
+		if (m&0x1)	{																			\
+			*(wl_U8*)((wl__Ptr)r+i) = FUNC(*(wl_U8*)((wl__Ptr)a+i),*(wl_U8*)((wl__Ptr)b+i));	\
+			i++;																				\
+		}																						\
+		if (m&0x2)	{																			\
 			*(wl_U16*)((wl__Ptr)r+i) = FUNC(*(wl_U16*)((wl__Ptr)a+i),*(wl_U16*)((wl__Ptr)b+i));	\
-			i += 2;														\
-		}																\
-		if (m&0x4)	{													\
+			i += 2;																				\
+		}																						\
+		if (m&0x4)	{																			\
 			*(wl_U32*)((wl__Ptr)r+i) = FUNC(*(wl_U32*)((wl__Ptr)a+i),*(wl_U32*)((wl__Ptr)b+i));	\
-			i += 4;														\
-		}																\
-																		\
-		return r;														\
+			i += 4;																				\
+		}																						\
+																								\
+		return r;																				\
 	}
 #endif
 
@@ -306,7 +306,7 @@
  *			return type is `BL`
  */
 #define ADECL1B(NAME)	\
-	wl_Bl NAME(const wl_U8 s, wl_Vo* const restrict a)
+	wl_Bl NAME(const wl_U32 s, wl_Vo* const restrict a)
 
 #undef	ADECL2B
 /** 
@@ -320,7 +320,7 @@
  *			return type is `BL`
  */
 #define ADECL2B(NAME)	\
-	wl_Bl NAME(const wl_U8 s, wl_Vo* const restrict a, wl_Vo* const restrict b)
+	wl_Bl NAME(const wl_U32 s, wl_Vo* const restrict a, wl_Vo* const restrict b)
 
 /**
  */
@@ -328,9 +328,9 @@
 #if	NO_I64
 #define	ADEF1B(NAME,FUNC)										\
 	ADECL1B(NAME) {												\
-		const wl_U8 d = s/4;										\
-		const wl_U8 m = s%4;										\
-		wl_U16 i = 0;												\
+		const wl_U32 d = s/4;									\
+		const wl_U32 m = s%4;									\
+		wl_U32 i = 0;											\
 																\
 		for (; i < d; i++)										\
 			if (FUNC(((wl_U32*)a)[i])) return 0;				\
@@ -338,11 +338,11 @@
 		i *= 4;													\
 																\
 		if (m&0x1) {											\
-			if (FUNC(*(wl_U8*)((wl__Ptr)a+i))) return 0;					\
+			if (FUNC(*(wl_U8*)((wl__Ptr)a+i))) return 0;		\
 			i++;												\
 		}														\
 		if (m&0x2) {											\
-			if (FUNC(*(wl_U16*)((wl__Ptr)a+i))) return 0;				\
+			if (FUNC(*(wl_U16*)((wl__Ptr)a+i))) return 0;		\
 			i += 2;												\
 		}														\
 																\
@@ -351,22 +351,26 @@
 #else
 #define	ADEF1B(NAME,FUNC)										\
 	ADECL1B(NAME) {												\
-		const wl_U8 d = s/4;										\
-		const wl_U8 m = s%4;										\
-		wl_U16 i = 0;												\
+		const wl_U32 d = s/8;									\
+		const wl_U32 m = s%8;									\
+		wl_U32 i = 0;											\
 																\
 		for (; i < d; i++)										\
 			if (FUNC(((wl_U32*)a)[i])) return 0;				\
 																\
-		i *= 4;													\
+		i *= 8;													\
 																\
 		if (m&0x1) {											\
-			if (FUNC(*(wl_U8*)((wl__Ptr)a+i))) return 0;					\
+			if (FUNC(*(wl_U8*)((wl__Ptr)a+i))) return 0;		\
 			i++;												\
 		}														\
 		if (m&0x2) {											\
-			if (FUNC(*(wl_U16*)((wl__Ptr)a+i))) return 0;				\
+			if (FUNC(*(wl_U16*)((wl__Ptr)a+i))) return 0;		\
 			i += 2;												\
+		}														\
+		if (m&0x4) {											\
+			if (FUNC(*(wl_U32*)((wl__Ptr)a+i))) return 0;		\
+			i += 4;												\
 		}														\
 																\
 		return 1;												\
@@ -379,9 +383,9 @@
 #if NO_I64
 #define	ADEF2B(NAME,FUNC)											\
 	ADECL2B(NAME) {													\
-		const wl_U8 d = s/4;											\
-		const wl_U8 m = s%4;											\
-		wl_U16 i = 0;													\
+		const wl_U32 d = s/4;											\
+		const wl_U32 m = s%4;											\
+		wl_U32 i = 0;													\
 																	\
 		for (; i < d; i++)											\
 			if (FUNC( (((wl_U32*)a)[i]) , (((wl_U32*)b)[i]) )) return 0;	\
@@ -402,9 +406,9 @@
 #else
 #define	ADEF2B(NAME,FUNC)											\
 	ADECL2B(NAME) {													\
-		const wl_U8 d = s/8;											\
-		const wl_U8 m = s%8;											\
-		wl_U16 i = 0;													\
+		const wl_U32 d = s/8;											\
+		const wl_U32 m = s%8;											\
+		wl_U32 i = 0;													\
 																	\
 		for (; i < d; i++)											\
 			if (FUNC( ((wl_U64*)a)[i] , ((wl_U64*)b)[i] )) return 0;	\
@@ -435,8 +439,6 @@
  * \return	wl_Vo*
  */
 #define WL_AA0(s)	(wl_afl(s, NULL, 1, ""))
-
-#define _AAS(A,B)	NO(B);
 
 /** \brief	Array Not Logical
  *	\def	wl_antl(s,a,b)
@@ -543,7 +545,8 @@ typedef enum WL_SEARCH_FLAGS {
  *    ##       ##     ## ##   ### ##    ## ##    ## 
  *    ##        #######  ##    ##  ######   ######  
  */
-EXTERN ADECL2(wl_aas);		/* Array Assignment */
+/* Array Assignment */
+EXTERN wl_Vo* wl_aas(const wl_U32 s, wl_Vo* a, const wl_Vo* const restrict b);
 EXTERN ADECL1(wl_ant);		/* Array NOT */
 EXTERN ADECL2(wl_aan);		/* Array AND */
 EXTERN ADECL2(wl_aor);		/* Array OR */
@@ -560,21 +563,21 @@ EXTERN ADECL2B(wl_aeq);		/* Array Equals */
 EXTERN ADECL2B(wl_agt);		/* Array Greater Than */
 EXTERN ADECL2B(wl_alt);		/* Array Less Than */
 
-EXTERN wl_Vo*	wl_afl(	const	wl_U8	sa, 
+EXTERN wl_Vo*	wl_afl(	const	wl_U32	sa, 
 								wl_Vo*	a, 
-								wl_U8	sb, 
+								wl_U32	sb, 
 								wl_Vo*	b	);
 
 EXTERN wl_Vopu	wl_asb(	const	wl_Vo* restrict const	src,
-						const	wl_U8					srcSize,
+						const	wl_U32					srcSize,
 						const	wl_U8					_byte,
 						const	WL_SEARCH_FLAGS			flags	);
 
 
 EXTERN wl_Vopu	wl_asa(	const	wl_Vo* restrict const	src,
-						const	wl_U8					srcSize,
+						const	wl_U32					srcSize,
 						const	wl_Vo* restrict const	target,
-								wl_U8					targetSize,
+								wl_U32					targetSize,
 						const	WL_SEARCH_FLAGS			flags	);
 
 

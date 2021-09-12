@@ -58,7 +58,7 @@ wl_U32	wl_s2u(const char* restrict const _str, const WL_S2_FLAGS flags) {
 	U32 r = 0;
 	/* Store the length of the string */
 	const Sl s = sl(_str);
-	char* const str = _aas(s+1,NULL,(char*)_str);
+	char* const str = aas(s+1,NULL,(char*)_str);
 	Sl i = 0;
 
 	/* Figure out the base */

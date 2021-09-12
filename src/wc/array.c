@@ -19,7 +19,32 @@
  *	\brief	Assigns `s` bytes of objects of array A to array R
  *	\return	The array of object that are assigned
  */
-ADEF2(wl_aas, _AAS)
+wl_Vo* wl_aas(const wl_U32 s, wl_Vo* a, const wl_Vo* const restrict b) {
+	if (!a) a = mal(s);
+	wl_U32 d = s/8;
+	wl_U32 m = s%8;
+	wl_U32 i = 0;
+
+	for (; i < d; i++)
+		*(wl_U64*)((wl__Ptr)a+i) = *(wl_U64*)((wl__Ptr)b+i);
+
+	i *= 8;
+
+	if (m&0x1)	{
+		*(wl_U8*)((wl__Ptr)a+i) = *(wl_U8*)((wl__Ptr)b+i);
+		i++;
+	}
+	if (m&0x2)	{
+		*(wl_U16*)((wl__Ptr)a+i) = *(wl_U16*)((wl__Ptr)b+i);
+		i += 2;
+	}
+	if (m&0x4)	{
+		*(wl_U32*)((wl__Ptr)a+i) = *(wl_U32*)((wl__Ptr)b+i);
+		i += 4;	
+	}
+
+	return a;
+}
 
 /**	\fn		ADEF1(ant, NOT)
  *	\param	s	size of the operands in bytes
@@ -98,11 +123,11 @@ ADEF2(wl_anr, NR)
 ADEF2(wl_anx, NX)
 
 ADEF1B(wl_anol, NOL)	/* Array Logical No Operation */
-ADEF2B(wl_aanl, ANL)	/* Array Logical AND */
-ADEF2B(wl_aorl, ORL)	/* Array Logical OR */
-ADEF2B(wl_axrl, XRL)	/* Array Logical XOR */
-ADEF2B(wl_agt, GT)		/* Array Greater Than */
-ADEF2B(wl_alt, LT)		/* Array Less Than */
+ADEF2B(wl_aanl, NNL)	/* Array Logical AND */
+ADEF2B(wl_aorl, NRL)	/* Array Logical OR */
+ADEF2B(wl_axrl, NXL)	/* Array Logical XOR */
+ADEF2B(wl_agt, LQ)		/* Array Greater Than */
+ADEF2B(wl_alt, GQ)		/* Array Less Than */
 
 /**
  * \brief	Array equals
@@ -112,7 +137,7 @@ ADEF2B(wl_alt, LT)		/* Array Less Than */
  * \param	b	Array B
  * \return	wl_Bl 
  */
-ADEF2B(wl_aeq, EQ)
+ADEF2B(wl_aeq, NQ)
 
 
 /**	\fn		VO* afl( 8 sa,  VO* a,  U8 sb,  VO* b)
@@ -137,12 +162,12 @@ ADEF2B(wl_aeq, EQ)
  *	\sa	wl_aas
  *	\sa wl_mal
  */
-wl_Vo*	wl_afl(	const	wl_U8	sa, 
+wl_Vo*	wl_afl(	const	wl_U32	sa, 
 						wl_Vo*	a, 
-						wl_U8	sb, 
+						wl_U32	sb, 
 						wl_Vo*	b	) {
-	const	wl_U16	d = sa/sb*sb;
-			wl_U16	i = 0;
+	const	wl_U32	d = sa/sb*sb;
+			wl_U32	i = 0;
 
 	if (!a) a = wl_mal(sa);
 
@@ -190,7 +215,7 @@ wl_Vo*	wl_afl(	const	wl_U8	sa,
  * in 0). \p srcSize will never change in this context.
  */
 wl_Vopu	wl_asb(	const	wl_Vo* restrict const	src,
-				const	wl_U8					srcSize,
+				const	wl_U32					srcSize,
 				const	wl_U8					_byte,
 				const	WL_SEARCH_FLAGS			flags	) {
 	/* If src is not null and the array size is greater than 0 */
@@ -256,9 +281,9 @@ wl_Vopu	wl_asb(	const	wl_Vo* restrict const	src,
  * Otherwise returns true
  */
 wl_Vopu	wl_asa(	const	wl_Vo* restrict const	src,
-				const	wl_U8					srcSize,
+				const	wl_U32					srcSize,
 				const	wl_Vo* restrict const	target,
-						wl_U8					targetSize,
+						wl_U32					targetSize,
 				const	WL_SEARCH_FLAGS			flags	) {
 	/* If we're actually searching for anything */
 	if (target && targetSize) {

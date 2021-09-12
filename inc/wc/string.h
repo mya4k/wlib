@@ -31,6 +31,8 @@
 #	define s2imax	wl_s2imax
 #	define s2umax	wl_s2umax
 #	define sas		wl_sas
+#	define ss		wl_ss
+#	define ssc		wl_ssc
 #endif
 
 #ifdef LONG_ALIAS
@@ -149,10 +151,10 @@
  * \param	flags one of WL_SEARCH_FLAGS
  * \return	The index of the char found or the count of occurances
  */
-#	define wl_ssc(str,chr,flags) (								\
-	(flags)==WL_SEARCH_COUNT									\
-	? (Sl)wl_asb((str),wl_sl(str),(chr),(flags))				\
-	: (Sl)( wl_asb((str),wl_sl(str),(chr),(flags)) - (str)) 	\
+#	define wl_ssc(str,chr,flags) (										\
+	((flags)==WL_SEARCH_COUNT)											\
+	? ((Sl)(_Ptr)wl_asb((str),wl_sl(str),(chr),(flags)))				\
+	: (Sl)((_Ptr)wl_asb((str),wl_sl(str),(chr),(flags)) - (_Ptr)(str))	\
 )
 /**
  * 
@@ -163,10 +165,10 @@
  * \param	flags SEARCH flags
  * \see		SEARCH_
  */
-#	define wl_ss(str1,str2,flags) (											\
-	(flags)==WL_SEARCH_COUNT												\
-	? (Sl)wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags))				\
-	: (Sl)( wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags)) - (str)) 	\
+#	define wl_ss(str1,str2,flags) (														\
+	(flags)==WL_SEARCH_COUNT															\
+	? (Sl)wl_asa((str1),wl_sl(str1),(str2),wl_sl(str2),(flags))							\
+	: (Sl)((_Ptr)wl_asb((str1),wl_sl(str1),(str2),wl_sl(str2),(flags)) - (_Ptr)(str))	\
 )
 
 #	define wl_sas(length,str1,str2) (wl_aas((length)+1,(str1),(str2)))
