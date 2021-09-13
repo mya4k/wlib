@@ -14,14 +14,77 @@
 ## 2. Types
 ### 2.1. Fixed-size integer types
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
-| Size              | Unsigned     | Signed       | LP32, ILP32 | LP64, LLP64 | ILP64 | SILP64 |
-|:------------------|:------------:|:------------:|:-----------:|:-----------:|:-----:|:------:|
-| optimally 8 bit   | `U8`, `u8`   | `I8`, `i8`   | 8           | 8           | 8     | 8      |
-| optimally 16 bit  | `U16`, `u16` | `I16`, `i16` | 16          | 16          | 16    | 64     |
-| optimally 32 bit  | `U32`, `u32` | `I32`, `i32` | 32          | 32          | 64    | 64     |
-| optimally 64 bit  | `U64`, `u64` | `I64`, `i64` | 64?         | 64          | 64    | 64     |
 
-? -- While the `long long int` type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models' `long long int` type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as `long long int` anyway, when compiler with ISO C99 standard or newer.
+<style type="text/css">
+.table  {}
+.table td{}
+.table th{}
+.table .cell{text-align:center;vertical-align:middle}
+</style>
+<table class="table">
+<thead>
+  <tr>
+    <th class="cell" rowspan="3">Size</th>
+    <th class="cell" rowspan="3">Unsigned</th>
+    <th class="cell" rowspan="3">Signed</th>
+    <th class="cell" colspan="5">Data model</th>
+  </tr>
+  <tr>
+    <th class="cell" colspan="2">LP32, ILP32</th>
+    <th class="cell" rowspan="2">LP64, LLP64</th>
+    <th class="cell" rowspan="2">ILP64</th>
+    <th class="cell" rowspan="2">SILP64</th>
+  </tr>
+  <tr>
+    <th class="cell">C99-</th>
+    <th class="cell">C99+</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="cell">8</td>
+    <td class="cell"><code>U8<code>, <code>u8<code></td>
+    <td class="cell"><code>I8<code>, <code>i8<code></td>
+    <td class="cell">8</td>
+    <td class="cell">8</td>
+    <td class="cell">8</td>
+    <td class="cell">8</td>
+    <td class="cell">8</td>
+  </tr>
+    <tr>
+    <td class="cell">16</td>
+    <td class="cell"><code>U16<code>, <code>u16<code></td>
+    <td class="cell"><code>I16<code>, <code>i16<code></td>
+    <td class="cell">16</td>
+    <td class="cell">16</td>
+    <td class="cell">16</td>
+    <td class="cell">16</td>
+    <td class="cell">64</td>
+  </tr>
+  <tr>
+    <td class="cell">32</td>
+    <td class="cell"><code>U32<code>, <code>u32<code></td>
+    <td class="cell"><code>I32<code>, <code>i32<code></td>
+    <td class="cell">32</td>
+    <td class="cell">32</td>
+    <td class="cell">32</td>
+    <td class="cell">64</td>
+    <td class="cell">64</td>
+  </tr>
+    <tr>
+    <td class="cell">64</td>
+    <td class="cell"><code>U64<code>, <code>u64<code></td>
+    <td class="cell"><code>I64<code>, <code>i64<code></td>
+    <td class="cell">32</td>
+    <td class="cell">32/64*</td>
+    <td class="cell">64</td>
+    <td class="cell">64</td>
+    <td class="cell">64</td>
+  </tr>
+</tbody>
+</table>
+
+&ast; &mdash; While the `long long int` type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models' `long long int` type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as `long long int` anyway, when compiler with ISO C99 standard or newer.
 
 ### 2.2. Fixed-size floating-point types
 ### 2.3. Other types
