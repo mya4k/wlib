@@ -20,6 +20,7 @@ A table for integer type reference. Size describes how many bits the library tri
 | optimally 16 bit  | `U16`, `u16` | `I16`, `i16` | 16          | 16          | 16    | 64     |
 | optimally 32 bit  | `U32`, `u32` | `I32`, `i32` | 32          | 32          | 64    | 64     |
 | optimally 64 bit  | `U64`, `u64` | `I64`, `i64` | 64?         | 64          | 64    | 64     |
+
 ? -- While the `long long int` type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models' `long long int` type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as `long long int` anyway, when compiler with ISO C99 standard or newer.
 
 ### 2.2. Fixed-size floating-point types
