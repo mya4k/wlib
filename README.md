@@ -15,12 +15,12 @@
 ### 2.1. Fixed-size integer types
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
 
-<style type="text/css">
+<!-- <style type="text/css">
 .table  {}
 .table td{}
 .table th{}
 .table .cell{text-align:center;vertical-align:middle}
-</style>
+</style> -->
 <table class="table">
 <thead>
   <tr>
