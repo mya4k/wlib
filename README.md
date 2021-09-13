@@ -43,8 +43,8 @@ A table for integer type reference. Size describes how many bits the library tri
 <tbody>
   <tr>
     <td class="cell">8</td>
-    <td class="cell"><code>U8<code>, <code>u8<code></td>
-    <td class="cell"><code>I8<code>, <code>i8<code></td>
+    <td class="cell"><code>U8</code>, <code>u8</code></td>
+    <td class="cell"><code>I8</code>, <code>i8</code></td>
     <td class="cell">8</td>
     <td class="cell">8</td>
     <td class="cell">8</td>
@@ -53,8 +53,8 @@ A table for integer type reference. Size describes how many bits the library tri
   </tr>
     <tr>
     <td class="cell">16</td>
-    <td class="cell"><code>U16<code>, <code>u16<code></td>
-    <td class="cell"><code>I16<code>, <code>i16<code></td>
+    <td class="cell"><code>U16</code>, <code>u16</code></td>
+    <td class="cell"><code>I16</code>, <code>i16</code></td>
     <td class="cell">16</td>
     <td class="cell">16</td>
     <td class="cell">16</td>
@@ -63,8 +63,8 @@ A table for integer type reference. Size describes how many bits the library tri
   </tr>
   <tr>
     <td class="cell">32</td>
-    <td class="cell"><code>U32<code>, <code>u32<code></td>
-    <td class="cell"><code>I32<code>, <code>i32<code></td>
+    <td class="cell"><code>U32</code>, <code>u32</code></td>
+    <td class="cell"><code>I32</code>, <code>i32</code></td>
     <td class="cell">32</td>
     <td class="cell">32</td>
     <td class="cell">32</td>
@@ -73,8 +73,8 @@ A table for integer type reference. Size describes how many bits the library tri
   </tr>
     <tr>
     <td class="cell">64</td>
-    <td class="cell"><code>U64<code>, <code>u64<code></td>
-    <td class="cell"><code>I64<code>, <code>i64<code></td>
+    <td class="cell"><code>U64</code>, <code>u64</code></td>
+    <td class="cell"><code>I64</code>, <code>i64</code></td>
     <td class="cell">32</td>
     <td class="cell">32/64*</td>
     <td class="cell">64</td>
