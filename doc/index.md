@@ -1,15 +1,16 @@
 # WLib Documentation
-## 0. Introduction
-## 1. System information
-### 1.1. Architecture
-### 1.2. Operating system
-### 1.3. Data models
-### 1.4. Endianness
-### 1.5. Compiler
-### 1.6. Language Standard
-### 1.7. Standard Version
-## 2. Types
-### 2.1. Fixed-size integer types
+# 0. Introduction
+# 1. System information
+## 1.1. Architecture
+## 1.2. Operating system
+## 1.3. Data models
+## 1.4. Endianness
+## 1.5. Compiler
+## 1.6. Language Standard
+## 1.7. Standard Version
+To be written
+# 2. Types
+## 2.1. Fixed-size integer types
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
 
 `UMax` or `umax` is the widest unsigned type support by the system.
@@ -31,8 +32,8 @@ A table for integer type reference. Size describes how many bits the library tri
     <th class="cell" rowspan="2">SILP64</th>
   </tr>
   <tr>
-    <th class="cell">C99-</th>
-    <th class="cell">C99+</th>
+    <th class="cell">&lt;C99 / &lt;C++11</th>
+    <th class="cell">&ge;C99 / &ge;C++11</th>
   </tr>
 </thead>
 <tbody>
@@ -91,12 +92,12 @@ A table for integer type reference. Size describes how many bits the library tri
 
 &ast; &mdash; While the `long long int` type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models' `long long int` type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as `long long int` anyway, when compiler with ISO C99 standard or newer.
 
-### 2.2. Fixed-size floating-point types
+## 2.2. Fixed-size floating-point types
 `F32` or `f32` &mdash; a real floating-point type that is at least 32-bits wide.
 
 `F64` or `f64` &mdash; a real floating-point type that is at least 64-bits wide.
 
-### 2.3. Other types
+## 2.3. Other types
 `Vo` or `vo` type is a void type. If `void` type is not provided (K&R C), then it will be defined as the smallest avalibe type (e.g. `char`).
 
 `Bl` or `bl` type is a boolean type. If such is not suported (pre ISO C 1999), then it will be defined as the smallest avalibe type (e.g. `char`).
@@ -110,10 +111,12 @@ void* foo(void* p) {
 }
 ```
 
-#### Depricated
+### Depricated
 
 `_Ptr` is still preserved for backwards-compatibility. Use `Pt` instead`
-### 2.4. Sizes and Limits
+## 2.4. Sizes and Limits
+Below lies a reference table for type size in bits macros and type limit values macros.
+
 | Type               | Size | Minimal value | Maximal value |
 |:------------------:|:----:|:-------------:|:-------------:|
 |`char`              |`CHB` |`CHN`          |`CHX`          |
@@ -139,9 +142,22 @@ void* foo(void* p) {
 |`U64` and `u64`     |`U64B`|`U64N`         |`U64X`         |
 |`UMax` and `umax`   |`UMB` |`UMN`          |`UMX`          |
 |`Pt` and `pt`       |`PTB` |`PTN`          |`PTX`          |
-### 2.5. Support check
-## 3. Error handling
-## 4. Character manipulation
+## 2.5. Support check
+# 3. Error handling
+# 4. Character manipulation &lt;char.h&gt;
+## 4.1. Boolean functions
+### 4.1.1. `cia` &mdash; Character Is Alphanumeric character
+### 4.1.2. `cic` &mdash; Character Is Control character
+### 4.1.3. `cid` &mdash; Character Is Digit character
+### 4.1.4. `cie` &mdash; Character Is Extended ASCII character
+### 4.1.5. `cil` &mdash; Character Is Letter character
+### 4.1.6. `cill` &mdash; Character Is Lowercase Letter character
+### 4.1.7. `ciul` &mdash; Character Is Uppercase Letter character
+### 4.1.8. `cis` &mdash; Character Is Symbol character
+### 4.1.9. `ciw` &mdash; Character Is Whitespace character
+## 4.2. Conversation functions
+### 4.2.1. `c2d` &mdash; Charater To Digit
+### 4.2.2. `d2c` &mdash; Digit To Charater
 ## 5. Mathematics
 ## 6. Memory management
 ## 7. Array manipulation
