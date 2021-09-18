@@ -9,7 +9,7 @@
 ## 1.6. Language Standard
 ## 1.7. Standard Version
 To be written
-# 2. Types
+# 2. Types &lt;types.h&gt;
 ## 2.1. Fixed-size integer types
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
 
@@ -17,75 +17,75 @@ A table for integer type reference. Size describes how many bits the library tri
 
 `IMax` or `imax` is the widest signed type support by the system.
 
-<table class="table">
+<table>
 <thead>
   <tr>
-    <th class="cell" rowspan="3">Size</th>
-    <th class="cell" rowspan="3">Unsigned</th>
-    <th class="cell" rowspan="3">Signed</th>
-    <th class="cell" colspan="5">Data model</th>
+    <th rowspan="3">Size</th>
+    <th rowspan="3">Unsigned</th>
+    <th rowspan="3">Signed</th>
+    <th colspan="5">Data model</th>
   </tr>
   <tr>
-    <th class="cell" colspan="2">LP32, ILP32</th>
-    <th class="cell" rowspan="2">LP64, LLP64</th>
-    <th class="cell" rowspan="2">ILP64</th>
-    <th class="cell" rowspan="2">SILP64</th>
+    <th colspan="2">LP32, ILP32</th>
+    <th rowspan="2">LP64, LLP64</th>
+    <th rowspan="2">ILP64</th>
+    <th rowspan="2">SILP64</th>
   </tr>
   <tr>
-    <th class="cell">&lt;C99 / &lt;C++11</th>
-    <th class="cell">&ge;C99 / &ge;C++11</th>
+    <th>&lt;C99 / &lt;C++11</th>
+    <th>&ge;C99 / &ge;C++11</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td class="cell">8</td>
-    <td class="cell"><code>U8</code>, <code>u8</code></td>
-    <td class="cell"><code>I8</code>, <code>i8</code></td>
-    <td class="cell">8</td>
-    <td class="cell">8</td>
-    <td class="cell">8</td>
-    <td class="cell">8</td>
-    <td class="cell">8</td>
+    <td>8</td>
+    <td><code>U8</code>, <code>u8</code></td>
+    <td><code>I8</code>, <code>i8</code></td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
   </tr>
     <tr>
-    <td class="cell">16</td>
-    <td class="cell"><code>U16</code>, <code>u16</code></td>
-    <td class="cell"><code>I16</code>, <code>i16</code></td>
-    <td class="cell">16</td>
-    <td class="cell">16</td>
-    <td class="cell">16</td>
-    <td class="cell">16</td>
-    <td class="cell">64</td>
+    <td>16</td>
+    <td><code>U16</code>, <code>u16</code></td>
+    <td><code>I16</code>, <code>i16</code></td>
+    <td>16</td>
+    <td>16</td>
+    <td>16</td>
+    <td>16</td>
+    <td>64</td>
   </tr>
   <tr>
-    <td class="cell">32</td>
-    <td class="cell"><code>U32</code>, <code>u32</code></td>
-    <td class="cell"><code>I32</code>, <code>i32</code></td>
-    <td class="cell">32</td>
-    <td class="cell">32</td>
-    <td class="cell">32</td>
-    <td class="cell">64</td>
-    <td class="cell">64</td>
+    <td>32</td>
+    <td><code>U32</code>, <code>u32</code></td>
+    <td><code>I32</code>, <code>i32</code></td>
+    <td>32</td>
+    <td>32</td>
+    <td>32</td>
+    <td>64</td>
+    <td>64</td>
   </tr>
   <tr>
-    <td class="cell">64</td>
-    <td class="cell"><code>U64</code>, <code>u64</code></td>
-    <td class="cell"><code>I64</code>, <code>i64</code></td>
-    <td class="cell">32</td>
-    <td class="cell">32/64*</td>
-    <td class="cell">64</td>
-    <td class="cell">64</td>
-    <td class="cell">64</td>
+    <td>64</td>
+    <td><code>U64</code>, <code>u64</code></td>
+    <td><code>I64</code>, <code>i64</code></td>
+    <td>32</td>
+    <td>32/64*</td>
+    <td>64</td>
+    <td>64</td>
+    <td>64</td>
   </tr>
   <tr>
-    <td class="cell">64</td>
-    <td class="cell"><code>UMax</code>, <code>umax</code></td>
-    <td class="cell"><code>IMax</code>, <code>iMax</code></td>
-    <td class="cell">32</td>
-    <td class="cell">32/64*</td>
-    <td class="cell">64</td>
-    <td class="cell">64</td>
-    <td class="cell">64</td>
+    <td>64</td>
+    <td><code>UMax</code>, <code>umax</code></td>
+    <td><code>IMax</code>, <code>iMax</code></td>
+    <td>32</td>
+    <td>32/64*</td>
+    <td>64</td>
+    <td>64</td>
+    <td>64</td>
   </tr>
 </tbody>
 </table>
@@ -147,7 +147,48 @@ Below lies a reference table for type size in bits macros and type limit values 
 # 4. Character manipulation &lt;char.h&gt;
 ## 4.1. Boolean functions
 ### 4.1.1. `cia` &mdash; Character Is Alphanumeric character
+```c
+#define wl_cia /* function body */
+```
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name:</b></td>
+      <td style="text-align:left" colspan="2"><code>cia</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type:</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics:</b></td>
+      <td style="text-align:left" colspan="2">Character Is Alphanumeric</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters:</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns:</b></td>
+      <td style="text-align:left" colspan="2"><code>TRUE</code> or <code>FALSE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on:</b></td>
+      <td style="text-align:left" colspan="2"><a href="#2.-Types"><code>cil</code></a> , <a><code>cid</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description:</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><code>TRUE</code></a> if <code>x</code> belongs in the range of <a>Alphanumeric characters</a>, <a><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ### 4.1.2. `cic` &mdash; Character Is Control character
+Returns true if character is any character in ranges []
 ### 4.1.3. `cid` &mdash; Character Is Digit character
 ### 4.1.4. `cie` &mdash; Character Is Extended ASCII character
 ### 4.1.5. `cil` &mdash; Character Is Letter character

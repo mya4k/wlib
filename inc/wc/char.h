@@ -2,7 +2,7 @@
  * \file char.h
  * \author Wispy (wspvlv@gmail.com)
  * \brief Macro for special characters and functions for character manipulation
- * \version 0.1
+ * \version 1.0
  * \date 2021-07-27
  * Content:
  * 	Macros:		WL_NUL, WL_SOH, WL_STX, WL_ETX, WL_EOT, 
