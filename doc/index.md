@@ -175,7 +175,7 @@ Below lies a reference table for type size in bits macros and type limit values 
     </tr>
     <tr>
       <td style="text-align:right"><b>Depends on:</b></td>
-      <td style="text-align:left" colspan="2"><a href="#2.-Types"><code>cil</code></a> , <a><code>cid</code></a></td>
+      <td style="text-align:left" colspan="2"><a href="#415-cil--character-is-letter-character"><code>cil</code></a> , <a><code>cid</code></a></td>
     </tr>
     <tr>
       <td style="text-align:center" colspan="3"><b>Description:</b></td>
