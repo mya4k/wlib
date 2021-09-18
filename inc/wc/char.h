@@ -302,7 +302,7 @@
 	 * \param	a	character
 	 * \return	True, if character is a letter, false otherwise
 	 */
-#	define wl_cil(a) (wl_cilc(a) || wl_ciul(a))						/* Is Letter Character		*/
+#	define wl_cil(a) (wl_cill(a) || wl_ciul(a))						/* Is Letter Character		*/
 	/**
 	 * \brief	Character To Lowercase
 	 * \def		wl_c2l(a)
