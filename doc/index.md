@@ -518,9 +518,10 @@ Below lies a reference table for type size in bits macros and type limit values 
   </tbody>
 </table>
 
-## 4.2. Conversation functions
+## 4.2. Convertion functions
 
-|        | **00**| **01**| **02**| **03**| **04** | **05** | **06**| **07**| **08**| **09**                 | **0A**| **0B**                | **0C**| **0D** | **0E**| **0F**|
+### Digit to Character convertion table
+| Digit  | **00**| **01**| **02**| **03**| **04** | **05** | **06**| **07**| **08**| **09**                 | **0A**| **0B**                | **0C**| **0D** | **0E**| **0F**|
 |:------:|:-----:|:-----:|:-----:|:-----:|:------:|:------:|:-----:|:-----:|:-----:|:----------------------:|:-----:|:---------------------:|:-----:|:------:|:-----:|:-----:|
 | **00** | `'0'` | `'1'` | `'2'` | `'3'` | `'4'`  | `'5'`  | `'6'` | `'7'` | `'8'` | `'9'`                  | `'A'` | `'B'`                 | `'C'` | `'D'`  | `'E'` | `'F'` |
 | **10** | `'G'` | `'H'` | `'I'` | `'J'` | `'K'`  | `'L'`  | `'M'` | `'N'` | `'O'` | `'P'`                  | `'Q'` | `'R'`                 | `'S'` | `'T'`  | `'U'` | `'V'` |
@@ -538,7 +539,7 @@ Below lies a reference table for type size in bits macros and type limit values 
   <tbody>
     <tr>
       <td style="text-align:right"><b>Name</b></td>
-      <td style="text-align:left" colspan="2"><code>ciw</code></td>
+      <td style="text-align:left" colspan="2"><code>c2d</code></td>
     </tr>
     <tr>
       <td style="text-align:right"><b>Type</b></td>
@@ -546,16 +547,16 @@ Below lies a reference table for type size in bits macros and type limit values 
     </tr>
     <tr>
       <td style="text-align:right"><b>Mnemonics</b></td>
-      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>W</b>hitespace</td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>to</b> <b>D</b>igit</td>
     </tr>
       <tr>
       <td style="text-align:right"><b>Parameters</b></td>
-      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left"><i>x</i></td>
       <td style="text-align:left">Character</td>
     </tr>
     <tr>
       <td style="text-align:right"><b>Returns</b></td>
-      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+      <td style="text-align:left" colspan="2">Digit</td>
     </tr>
     <tr>
       <td style="text-align:center" colspan="3">(No dependencies)</td>    
@@ -564,13 +565,59 @@ Below lies a reference table for type size in bits macros and type limit values 
       <td style="text-align:center" colspan="3"><b>Description</b></td>
     </tr>
     <tr>
-      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Whitespace characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a digit corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
       </td>
     </tr>
   </tbody>
 </table>
+
 ### 4.2.2. `d2c` &mdash; Digit To Charater
+```c
+#define d2c wl_d2c
+#define wl_d2c(a) /* function body */
+```
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>d2c</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>D</b>igit <b>to</b> <b>C</b>haracter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a><code>U8</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a character corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ## 5. Mathematics
 ## 6. Memory management
+### 6.1. `MChunk` &mdash; Memory Chunk
+
 ## 7. Array manipulation
 ## 8. String manipulation
