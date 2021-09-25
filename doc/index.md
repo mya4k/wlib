@@ -1,3 +1,8 @@
+<!-- 
+  To do:
+  Add character range explanations
+ -->
+
 # WLib Documentation
 # 0. Introduction
 # 1. System information
@@ -11,6 +16,41 @@
 To be written
 # 2. Types &lt;types.h&gt;
 ## 2.1. Fixed-size integer types
+
+```c
+#define I8		wl_I8
+#define I16		wl_I16
+#define I32		wl_I32
+#define I64		wl_I64
+#define IMax	wl_IMax
+#define i8		wl_i8
+#define i16		wl_i16
+#define i32		wl_i32
+#define i64		wl_i64
+#define iMax	wl_iMax
+#define U8		wl_U8
+#define U16		wl_U16
+#define U32		wl_U32
+#define U64		wl_U64
+#define UMax	wl_UMax
+#define u8		wl_u8
+#define u16		wl_u16
+#define u32		wl_u32
+#define u64		wl_u64
+#define uMax	wl_uMax
+
+typedef /* type */	wl_i8,		wl_I8;
+typedef /* type */	wl_i16,		wl_I16;
+typedef /* type */	wl_i32,		wl_I32;
+typedef /* type */	wl_i64,		wl_I64;
+typedef /* type */	wl_u8,		wl_U8;
+typedef /* type */	wl_u16,		wl_U16;
+typedef /* type */	wl_u32,		wl_U32;
+typedef /* type */	wl_u64,		wl_U64;
+typedef /* type */	wl_imax,	wl_IMax;
+typedef /* type */	wl_umax,	wl_UMax;
+```
+
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
 
 `UMax` or `umax` is the widest unsigned type support by the system.
@@ -93,11 +133,42 @@ A table for integer type reference. Size describes how many bits the library tri
 &ast; &mdash; While the `long long int` type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models' `long long int` type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as `long long int` anyway, when compiler with ISO C99 standard or newer.
 
 ## 2.2. Fixed-size floating-point types
+
+```c
+#define F32		wl_F32
+#define F64		wl_F64
+#define f32		wl_f32
+#define f64		wl_f64
+
+typedef float   wl_f32, wl_F32;
+typedef double  wl_f64, wl_F64;
+
+```
+
 `F32` or `f32` &mdash; a real floating-point type that is at least 32-bits wide.
 
 `F64` or `f64` &mdash; a real floating-point type that is at least 64-bits wide.
 
 ## 2.3. Other types
+
+```c
+#define Vo  	wl_Vo
+#define Bl  	wl_Bl
+#define Ch  	wl_Ch
+#define Pt  	wl_Pt
+#define vo  	wl_vo
+#define bl  	wl_bl
+#define ch  	wl_ch
+#define pt  	wl_pt
+#define wl_Ptr  wl_Pt
+#define _Ptr    wl__Ptr
+
+typedef /* type */  wl_vo, wl_Vo;
+typedef /* type */  wl_bl, wl_Bl;
+typedef /* type */  wl_ch, wl_Ch;
+typedef /* type */	wl_pt, wl_Pt;
+```
+
 `Vo` or `vo` type is a void type. If `void` type is not provided (K&R C), then it will be defined as the smallest avalibe type (e.g. `char`).
 
 `Bl` or `bl` type is a boolean type. If such is not suported (pre ISO C 1999), then it will be defined as the smallest avalibe type (e.g. `char`).
@@ -618,6 +689,53 @@ Below lies a reference table for type size in bits macros and type limit values 
 ## 5. Mathematics
 ## 6. Memory management
 ### 6.1. `MChunk` &mdash; Memory Chunk
+`MChunk` is a structure defined in `<memory.h>` that functions as a header of a segment allocated by `wl_mal()`.
+
+32-bit
+<table>
+  <body>
+    <tr>
+      <td style="text-align:center">offset&rightarrow;<br>&downarrow;data model</td>
+      <td style="text-align:center">0</td>
+      <td style="text-align:center">1</td>
+      <td style="text-align:center">16</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">LP32</td>
+      <td style="text-align:center"><code>allocated</code></td>
+      <td style="text-align:center"colspan="2"><code>pt2next</code></td>
+    </tr>
+      <tr>
+      <td style="text-align:center">ILP32</td>
+      <td style="text-align:center"><code>allocated</code></td>
+      <td style="text-align:center"><code>pt2nextHigh</code></td>
+      <td style="text-align:center"><code>pt2nextLow</code></td>
+    </tr>
+  </body>
+</table>
+
+64-bit
+<table>
+  <body>
+    <tr>
+      <td style="text-align:center">offset&rightarrow;<br>&downarrow;data model</td>
+      <td style="text-align:center">0</td>
+      <td style="text-align:center">1</td>
+      <td style="text-align:center">32</td>
+    </tr>
+      <tr>
+      <td style="text-align:center">LLP64 | LP64</td>
+      <td style="text-align:center"><code>allocated</code></td>
+      <td style="text-align:center"><code>pt2nextHigh</code></td>
+      <td style="text-align:center"><code>pt2nextLow</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">ILP64 | SILP64</td>
+      <td style="text-align:center"><code>allocated</code></td>
+      <td style="text-align:center"colspan="2"><code>pt2next</code></td>
+    </tr>
+  </body>
+</table>
 
 ## 7. Array manipulation
 ## 8. String manipulation
