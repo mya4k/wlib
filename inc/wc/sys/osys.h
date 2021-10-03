@@ -182,9 +182,9 @@
 			defined(_SYSTYPE_BSD)
 #		define WL_OS WL_OS_BSD
 #		define WL_OS_UNIXLIKE 1
-#	elif	define(__convex__)
+#	elif	defined(__convex__)
 #		define WL_OS WL_OS_CONVEX	
-#	elif	define(__CYGWIN__)
+#	elif	defined(__CYGWIN__)
 #		define WL_OS WL_OS_CYGWIN	
 #		define WL_OS_UNIXLIKE 1
 #	elif	defined(DGUX)			|| \
@@ -196,9 +196,9 @@
 			defined(sequent)
 #		define WL_OS WL_OS_DYNIX_PTX
 #		define WL_OS_UNIXLIKE 1
-#	elif	define(__ECOS)
+#	elif	defined(__ECOS)
 #		define WL_OS WL_OS_ECOS
-#	elif	define(__EMX__)
+#	elif	defined(__EMX__)
 #		define WL_OS WL_OS_EMX
 #	elif	defined(__GNU__)		||\
 			defined(__gnu_hurd__)
@@ -212,9 +212,9 @@
 			defined(__hpux)
 #		define WL_OS WL_OS_HPUX
 #		define WL_OS_UNIXLIKE 1
-#	elif	define(__OS400__)
+#	elif	defined(__OS400__)
 #		define WL_OS WL_OS_OS400
-#	elif	define(__INTEGRITY)
+#	elif	defined(__INTEGRITY)
 #		define WL_OS WL_OS_INTEGRITY
 #	elif	defined(__INTERIX)
 #		define WL_OS WL_OS_INTERIX
