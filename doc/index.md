@@ -5,12 +5,12 @@ Welcome to WLib Documentation main page! Here you can learn how to use our libra
 # 1. Types
 
 Header `<types.h>` defines:
-- fixed-size integer types (`U8`, `u16`, `I32`, `i64`),
-- alias types (`Ch`, `fl`),
-- C/C++ backwards compatibility types (`Vo`, `bl`),
-- special types (`Pt`),
-- type width macros (`CHB`, `U8B`),
-- type limits macros (`I16N`, `LLX`).
+- fixed-size integer types (`U8`, `U16`, `U32`, `U64`, `I8`, `I16`, `I32`, `I64`),
+- alias types (`Ch`, `Fl`, `Db`, `Ld`),
+- C/C++ backwards compatibility types (`Vo`, `Bl`),
+- special types (`Pt`, `IMax`, `UMax`),
+- type width macros (`CHB`, `SHB`, `INB`, `LOB`, `LLB`, `I8B`, `I16B`, `I32B`, `I64B`, `PTB`, `IMB`),
+- type limits macros (`CHN`, `SHN`, `INN`, `LON`, `LLN`, `I8N`, `I16N`, `I32N`, `I64N`, `CHX`, `SHX`, `INX`, `LOX`, `LLX`, `I8X`, `I16X`, `I32X`, `I64X`).
 
 ## 1.1 Fixed-size integer types
 
@@ -27,9 +27,11 @@ typedef /* type */	wl_imax,	wl_IMax;
 typedef /* type */	wl_umax,	wl_UMax;
 ```
 
-A fixed-size integer type means an integer type, which width does not depends on a system. There are 10 distinct fixed-size integer types. 
+A fixed-size integer type means an integer type, which width stays constant across different system. There are 8 distinct fixed-size integer types. 
 
-Since basic C types (`char`, `short`, `int`, `long`, etc.) widths are not specified in the ISO C standard, it was left for compilers to decide their sizes on their own. The sizes of basic C types are diffirent depending on your Operating System, CPU Architecture, Compiler options, etc. However, rather handily, there a several common data models that majority of systems design their C types according to; the `<sys/damo.h>` is responsible for correctly using system information to define a data model (the `DATA_MODEL` macro). The implimentation of fixed-size integer types shall be done through those data models (unless there is a better replacement for this model, in which case let us know). Alternatively, `USE_STDINT` macro can be defined with any non-zero value at build time, to signal WLib to impliment its fixed-size integer types through `<stdint.h>`'s definitions of fixed-size integer types. The implimentation of `<types.h>` shall account for this.
+Since basic C types (`char`, `short`, `int`, `long`, etc.) widths are not specified in the ISO C standard, it was left for compilers to decide their sizes on their own. The sizes of basic C types are diffirent depending on your Operating System, CPU Architecture, Compiler options, etc. However, rather handily, there a several common data models that majority of systems design their C types according to; the `<sys/damo.h>` is responsible for correctly using system information to define a data model (the `DATA_MODEL` macro). The implimentation of fixed-size integer types shall be done through those data models (unless there is a better replacement for this model, in which case let us know). 
+
+`USE_STDINT` macro can be defined with any non-zero value at build time, to signal WLib to impliment its fixed-size integer types through `<stdint.h>`'s definitions of fixed-size integer types rather than the method described above.
 
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third columb does the same as the previous but for singed integer. Other columbs show the actual size for the data model.
 
@@ -97,7 +99,7 @@ A table for integer type reference. Size describes how many bits the library tri
     <td>64</td>
     <td>64</td>
   </tr>
-  <tr>
+<!--   <tr>
     <td>64</td>
     <td><code>UMax</code>, <code>umax</code></td>
     <td><code>IMax</code>, <code>iMax</code></td>
@@ -106,7 +108,7 @@ A table for integer type reference. Size describes how many bits the library tri
     <td>64</td>
     <td>64</td>
     <td>64</td>
-  </tr>
+  </tr> -->
 </tbody>
 </table>
 
