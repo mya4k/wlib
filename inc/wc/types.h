@@ -127,10 +127,149 @@ typedef 		wl_UMax				wl_Pt, wl_pt;
 		typedef	char				Vo,			vo;
 #	endif
 #else						/* If C++ */
-	typedef			void				Vo,			vo;
-	typedef			bool				Vo,			vo;
+		typedef	void				Vo,			vo;
+		typedef	bool				Vo,			vo;
 #endif
 
+#ifndef I8B
+#	define I8B	8
+#endif
+#ifndef U8B
+#	define U8B	8
+#endif
 
+#ifndef I16B
+#	define I16B	16
+#endif
+#ifndef U16B
+#	define U16B	16
+#endif
+
+#ifndef I32B
+#	define I32B	32
+#endif
+#ifndef U32B
+#	define U32B	32
+#endif
+
+#ifndef I64B
+#	define I64B	64
+#endif
+#ifndef U64B
+#	define U64B	64
+#endif
+
+/*  If were allowed to use <limits.h>, define CHB through CHAR_BIT */
+#if defined(WL_USE_LIMITS)
+
+/* Char bits */
+#	ifndef CHB 
+#		define CHB CHAR_BIT
+#	endif
+#	ifndef SCB 
+#		define CHB CHAR_BIT
+#	endif
+#	ifndef UCB 
+#		define CHB CHAR_BIT
+#	endif
+
+#	if WL_LG_C >= WL_VR_C23
+	/* To be done */
+#	endif
+
+#endif
+
+/* If we are not, or, we're working with a pre-C23 standard, define through
+ * data models
+ */
+#if !(defined(WL_USE_LIMITS) && WL_LG_C>=WL_VR_C23)
+
+#	if WL_DM==WL_DM_SILP64
+#		ifndef WL_SHB
+#			define WL_SHB	64
+#		endif
+#		ifndef WL_USB
+#			define WL_USB	64
+#		endif
+#	endif
+
+#	if WL_DM>=WL_DM_ILP64
+#		ifndef WL_INB
+#			define WL_INB	64
+#		endif
+#		ifndef WL_UIB
+#			define WL_UIB	64
+#		endif
+#	endif
+
+#	if WL_DM>=WL_DM_LP64
+#		ifndef WL_LOB
+#			define WL_LOB	64
+#		endif
+#		ifndef WL_ULB
+#			define WL_ULB	64
+#		endif
+#	endif
+
+#	if WL_DM>=WL_DM_LLP64
+#		ifndef WL_LLB
+#			define WL_LLB	64
+#		endif
+#		ifndef WL_ULLB
+#			define WL_ULLB	64
+#		endif
+#		ifndef WL_PTB
+#			define WL_PTB	64
+#		endif
+#	endif
+
+#	if WL_DM>=WL_DM_ILP32
+#		ifndef WL_INB
+#			define WL_INB	32
+#		endif
+#		ifndef WL_UIB
+#			define WL_UIB	32
+#		endif
+#	endif
+
+#	if WL_DM>=WL_DM_LP32
+#		ifndef WL_CHB
+#			define WL_CHB	8
+#		endif
+#		ifndef WL_SCB
+#			define WL_SCB	8
+#		endif
+#		ifndef WL_UCB
+#			define WL_UCB	8
+#		endif
+#		ifndef WL_SHB
+#			define WL_SHB	16
+#		endif
+#		ifndef WL_USB
+#			define WL_USB	16
+#		endif
+#		ifndef WL_INB
+#			define WL_INB	16
+#		endif
+#		ifndef WL_UIB
+#			define WL_UIB	16
+#		endif
+#		ifndef WL_LOB
+#			define WL_LOB	32
+#		endif
+#		ifndef WL_ULB
+#			define WL_ULB	32
+#		endif
+#		ifndef WL_LLB
+#			define WL_LLB	32
+#		endif
+#		ifndef WL_ULLB
+#			define WL_ULLB	32
+#		endif
+#		ifndef WL_PTB
+#			define WL_PTB	32
+#		endif
+#	endif
+#endif
 
 #endif

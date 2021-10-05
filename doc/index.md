@@ -176,3 +176,93 @@ typedef long double	Ld, ld;
 `Db` and `db` are aliases for `double` type.
 
 `Ld` and `ld` are aliases for `long double` type.
+
+### 1.5. Type width macros
+
+```c
+#define CHB		/* const int */
+#define SCB		/* const int */
+#define SHB		/* const int */
+#define INB		/* const int */
+#define LOB		/* const int */
+#define LLB		/* const int */
+#define UCB		/* const int */
+#define USB		/* const int */
+#define UIB		/* const int */
+#define ULB		/* const int */
+#define ULLB	/* const int */
+#define BLB		/* const int */
+#define I8B		/* const int */
+#define I16B	/* const int */
+#define I32B	/* const int */
+#define I64B	/* const int */
+#define U8B		/* const int */
+#define U16B	/* const int */
+#define U32B	/* const int */
+#define U64B	/* const int */
+#define U64B	/* const int */
+```
+
+Sometimes it is useful to have macros that represent the width of a data type. In the code below a function is defined that takes an agrument of type [`Bl`](#13-compatibility-types), basically a single bit, and shifts this bit to the leftmost binary digit of type U64B. To make this shift you need to know the width of the type.
+
+```c
+long foo(Bl a) {
+	return a<<(ILB-1);
+}
+```
+
+| Type               | Width (bits) |
+|-------------------:|:------------:|
+|`char`              |`CHB`         | 
+|`signed char`       |`SCB`         |
+|`unsigned char`     |`UCB`         |
+|`short`             |`SHB`         |
+|`unsigned short`    |`USB`         |
+|`int`               |`INB`         |
+|`unsigned int`      |`UIB`         |
+|`long`              |`LOB`         |
+|`unsigned long`     |`ULB`         |
+|`long long`         |`LLB`         |
+|`unsigned long long`|`ULLB`        |
+|`Bl`                |`BLB`         |
+|`I8` and `i8`       |`I8B`         |
+|`I16` and `i16`     |`I16B`        |
+|`I32` and `i32`     |`I32B`        |
+|`I64` and `i64`     |`I64B`        |
+|`IMax` and `imax`   |`IMB`         |
+|`U8` and `u8`       |`U8B`         |
+|`U16` and `u16`     |`U16B`        |
+|`U32` and `u32`     |`U32B`        |
+|`U64` and `u64`     |`U64B`        |
+|`UMax` and `umax`   |`UMB`         |
+|`Pt` and `pt`       |`PTB`         |
+
+### 1.5. Type width macros
+
+In the table below 
+
+| Type               | Minimal value | Maximal value |
+|:------------------:|:-------------:|:-------------:|
+|`char`              |`CHN`          |`CHX`          |
+|`signed char`       |`SCN`          |`SCX`          |
+|`unsigned char`     |`UCN`          |`UCX`          |
+|`short`             |`SHN`          |`SHX`          |
+|`unsigned short`    |`USN`          |`USX`          |
+|`int`               |`INN`          |`INX`          |
+|`unsigned int`      |`UIN`          |`UIX`          |
+|`long`              |`LON`          |`LOX`          |
+|`unsigned long`     |`LON`          |`LOX`          |
+|`long long`         |`LLN`          |`LLX`          |
+|`unsigned long long`|`ULLN`         |`ULLX`         |
+|`Bl`                |`FALSE`        |`TRUE`         |
+|`I8` and `i8`       |`I8N`          |`I8X`          |
+|`I16` and `i16`     |`I16N`         |`I16X`         |
+|`I32` and `i32`     |`I32N`         |`I32X`         |
+|`I64` and `i64`     |`I64N`         |`I64X`         |
+|`IMax` and `imax`   |`IMN`          |`IMX`          |
+|`U8` and `u8`       |`U8N`          |`U8X`          |
+|`U16` and `u16`     |`U16N`         |`U16X`         |
+|`U32` and `u32`     |`U32N`         |`U32X`         |
+|`U64` and `u64`     |`U64N`         |`U64X`         |
+|`UMax` and `umax`   |`UMN`          |`UMX`          |
+|`Pt` and `pt`       |`PTN`          |`PTX`          |
