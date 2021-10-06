@@ -479,6 +479,15 @@
 #	define WL_UMX	WL_U64X
 #endif
 
+/* [TRUE] */
+#ifndef TRUE
+#	define TRUE
+#endif
+/* [FALSE] */
+#ifndef FALSE
+#	define FALSE
+#endif
+
 
 
 /***

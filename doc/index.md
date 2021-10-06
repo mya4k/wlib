@@ -1,4 +1,4 @@
-# WLib Documentation
+﻿# WLib Documentation
 
 Welcome to WLib Documentation main page! Here you can learn how to use our libraries and read in detail how every global identifier works.
 
@@ -28,8 +28,6 @@ typedef /* type */ wl_u8,	wl_U8;
 typedef /* type */ wl_u16,	wl_U16;
 typedef /* type */ wl_u32,	wl_U32;
 typedef /* type */ wl_u64,	wl_U64;
-typedef /* type */ wl_imax,	wl_IMax;
-typedef /* type */ wl_umax,	wl_UMax;
 ```
 
 A fixed-size integer type means an integer type, which width stays constant across different system. There are 8 distinct fixed-size integer types. 
@@ -39,10 +37,6 @@ Since basic C types (`char`, `short`, `int`, `long`, etc.) widths are not specif
 `USE_STDINT` macro can be defined with any non-zero value at build time, to signal WLib to implement its fixed-size integer types through `<stdint.h>`'s definitions of fixed-size integer types rather than the method described above.
 
 A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third column does the same as the previous but for singed integer. Other columns show the actual size for the data model.
-
-`UMax` or `umax` is the widest unsigned type support by the system (in many systems it's 64-bit).
-
-`IMax` or `imax` is the widest signed type support by the system (in many systems it's 64-bit).
 
 <table>
 <thead>
@@ -160,12 +154,12 @@ typedef /* type */	Bl, bl;
 
 While `_Bool` type has only been introduced ten years later with an ISO C 1999 revision. `Bl` or `bl` type ensures to use of the type will not generate any error or warnings and will act as a boolean type for the most part for compilers set to comply with a standard revision prior to `_Bool`'s debut. More specifically `Bl` is defined as the smallest available data type (any 8-bit type), where any non-zero value is considered true and false otherwise. In C++ the default boolean type is `bool`, not `_Bool`, therefore, `Bl` and `bl` are also defined accordingly to the language used.
 
-### 1.4. Alias types
+## 1.4. Alias types
 
 ```c
 typedef char		Ch, ch;
-typedef float		Fl, fl;
 typedef double		Db, db;
+typedef float		Fl, fl;
 typedef long double	Ld, ld;
 ```
 
@@ -180,27 +174,26 @@ typedef long double	Ld, ld;
 ### 1.5. Type width macros
 
 ```c
-#define CHB		/* const int */
-#define SCB		/* const int */
-#define SHB		/* const int */
-#define INB		/* const int */
-#define LOB		/* const int */
-#define LLB		/* const int */
-#define UCB		/* const int */
-#define USB		/* const int */
-#define UIB		/* const int */
-#define ULB		/* const int */
-#define ULLB	/* const int */
 #define BLB		/* const int */
-#define I8B		/* const int */
+#define CHB		/* const int */
 #define I16B	/* const int */
 #define I32B	/* const int */
 #define I64B	/* const int */
-#define U8B		/* const int */
+#define I8B		/* const int */
+#define INB		/* const int */
+#define LLB		/* const int */
+#define LOB		/* const int */
+#define SCB		/* const int */
+#define SHB		/* const int */
 #define U16B	/* const int */
 #define U32B	/* const int */
 #define U64B	/* const int */
-#define U64B	/* const int */
+#define U8B		/* const int */
+#define UCB		/* const int */
+#define UIB		/* const int */
+#define ULB		/* const int */
+#define ULLB	/* const int */
+#define USB		/* const int */
 ```
 
 Sometimes it is useful to have macros that represent the width of a data type. In the code below a function is defined that takes an agrument of type [`Bl`](#13-compatibility-types), basically a single bit, and shifts this bit to the leftmost binary digit of type U64B. To make this shift you need to know the width of the type.
@@ -213,56 +206,103 @@ long foo(Bl a) {
 
 | Type               | Width (bits) |
 |-------------------:|:------------:|
-|`char`              |`CHB`         | 
-|`signed char`       |`SCB`         |
-|`unsigned char`     |`UCB`         |
-|`short`             |`SHB`         |
-|`unsigned short`    |`USB`         |
-|`int`               |`INB`         |
-|`unsigned int`      |`UIB`         |
-|`long`              |`LOB`         |
-|`unsigned long`     |`ULB`         |
-|`long long`         |`LLB`         |
-|`unsigned long long`|`ULLB`        |
 |`Bl`                |`BLB`         |
+|`char`              |`CHB`         | 
 |`I8` and `i8`       |`I8B`         |
 |`I16` and `i16`     |`I16B`        |
 |`I32` and `i32`     |`I32B`        |
 |`I64` and `i64`     |`I64B`        |
 |`IMax` and `imax`   |`IMB`         |
+|`int`               |`INB`         |
+|`long long`         |`LLB`         |
+|`long`              |`LOB`         |
+|`Pt` and `pt`       |`PTB`         |
+|`short`             |`SHB`         |
+|`signed char`       |`SCB`         |
 |`U8` and `u8`       |`U8B`         |
 |`U16` and `u16`     |`U16B`        |
 |`U32` and `u32`     |`U32B`        |
 |`U64` and `u64`     |`U64B`        |
 |`UMax` and `umax`   |`UMB`         |
-|`Pt` and `pt`       |`PTB`         |
+|`unsigned char`     |`UCB`         |
+|`unsigned int`      |`UIB`         |
+|`unsigned long long`|`ULLB`        |
+|`unsigned long`     |`ULB`         |
+|`unsigned short`    |`USB`         |
 
-### 1.5. Type width macros
+## 1.6. Type width macros
+
+```c
+#define CHN		/* const int */
+#define CHX		/* const int */
+#define FALSE	/* const int */
+#define I16N	/* const int */
+#define I16X	/* const int */
+#define I32N	/* const int */
+#define I32X	/* const int */
+#define I64N	/* const int */
+#define I64X	/* const int */
+#define I8N		/* const int */
+#define I8X		/* const int */
+#define IMN		/* const int */
+#define IMX		/* const int */
+#define IMX		/* const int */
+#define INN		/* const int */
+#define INX		/* const int */
+#define LLN		/* const int */
+#define LLX		/* const int */
+#define LON		/* const int */
+#define LOX		/* const int */
+#define SCN		/* const int */
+#define SCX		/* const int */
+#define SHN		/* const int */
+#define SHX		/* const int */
+#define TRUE	/* const int */
+#define U16N	/* const int */
+#define U16X	/* const int */
+#define U32N	/* const int */
+#define U32X	/* const int */
+#define U64N	/* const int */
+#define U64X	/* const int */
+#define U8N		/* const int */
+#define U8X		/* const int */
+#define UCN		/* const int */
+#define UCX		/* const int */
+#define UIN		/* const int */
+#define UIX		/* const int */
+#define ULLN	/* const int */
+#define ULLX	/* const int */
+#define ULN		/* const int */
+#define ULX		/* const int */
+#define UMX		/* const int */
+#define USN		/* const int */
+#define USX		/* const int */
+```
 
 In the table below 
 
 | Type               | Minimal value | Maximal value |
 |:------------------:|:-------------:|:-------------:|
-|`char`              |`CHN`          |`CHX`          |
-|`signed char`       |`SCN`          |`SCX`          |
-|`unsigned char`     |`UCN`          |`UCX`          |
-|`short`             |`SHN`          |`SHX`          |
-|`unsigned short`    |`USN`          |`USX`          |
-|`int`               |`INN`          |`INX`          |
-|`unsigned int`      |`UIN`          |`UIX`          |
-|`long`              |`LON`          |`LOX`          |
-|`unsigned long`     |`LON`          |`LOX`          |
-|`long long`         |`LLN`          |`LLX`          |
-|`unsigned long long`|`ULLN`         |`ULLX`         |
 |`Bl`                |`FALSE`        |`TRUE`         |
+|`char`              |`CHN`          |`CHX`          |
 |`I8` and `i8`       |`I8N`          |`I8X`          |
 |`I16` and `i16`     |`I16N`         |`I16X`         |
 |`I32` and `i32`     |`I32N`         |`I32X`         |
 |`I64` and `i64`     |`I64N`         |`I64X`         |
 |`IMax` and `imax`   |`IMN`          |`IMX`          |
+|`int`               |`INN`          |`INX`          |
+|`long long`         |`LLN`          |`LLX`          |
+|`long`              |`LON`          |`LOX`          |
+|`Pt` and `pt`       |`PTN`          |`PTX`          |
+|`short`             |`SHN`          |`SHX`          |
+|`signed char`       |`SCN`          |`SCX`          |
 |`U8` and `u8`       |`U8N`          |`U8X`          |
 |`U16` and `u16`     |`U16N`         |`U16X`         |
 |`U32` and `u32`     |`U32N`         |`U32X`         |
 |`U64` and `u64`     |`U64N`         |`U64X`         |
 |`UMax` and `umax`   |`UMN`          |`UMX`          |
-|`Pt` and `pt`       |`PTN`          |`PTX`          |
+|`unsigned char`     |`UCN`          |`UCX`          |
+|`unsigned int`      |`UIN`          |`UIX`          |
+|`unsigned long long`|`ULLN`         |`ULLX`         |
+|`unsigned long`     |`LON`          |`LOX`          |
+|`unsigned short`    |`USN`          |`USX`          |
