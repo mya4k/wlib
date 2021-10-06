@@ -13,7 +13,7 @@
  */
 #include <wc/sys/damo.h>
 #include <wc/sys/lang.h>
-#if (WL_LG_C>=WL_VR_C99 || defined(WL_LG_CPP)) && USE_STDINT
+#if (WL_LG_C>=WL_VR_C99 || defined(WL_LG_CPP)) && WL_USE_STDINT
 #	include <stdint.h>
 #endif
 
@@ -73,6 +73,8 @@
  ****************************/
 /*  If were allowed to use <limits.h>, define CHB through CHAR_BIT */
 #if defined(WL_USE_LIMITS)
+
+#	include <limits.h>
 
 /* Char bits */
 #	ifndef CHB 
@@ -502,10 +504,10 @@
 /************************************
  *	1.1. Fixed-size integer types	*
  ************************************/
-/* "Alternatively, `USE_STDINT` macro can be defined with any non-zero 
+/* "Alternatively, `WL_USE_STDINT` macro can be defined with any non-zero 
  * value ..."
  */
-#if (WL_LG_C>=WL_VR_C99 || defined(WL_LG_CPP)) && USE_STDINT
+#if (WL_LG_C>=WL_VR_C99 || defined(WL_LG_CPP)) && WL_USE_STDINT
 	typedef 	int8_t				wl_I8,		wl_i8;
 	typedef 	int16_t				wl_I16,		wl_i16;
 	typedef 	int32_t				wl_I32,		wl_i32;
