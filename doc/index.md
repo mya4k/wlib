@@ -1,4 +1,12 @@
-﻿# WLib Documentation
+﻿<head>
+<style>
+  #ASCII th, td {
+    text-align: center;
+  }
+</style>
+</head>
+
+# WLib Documentation
 
 Welcome to WLib Documentation main page! Here you can learn how to use our libraries and read in detail how every global identifier works.
 
@@ -306,3 +314,709 @@ In the table below
 |`unsigned long long`|`ULLN`         |`ULLX`         |
 |`unsigned long`     |`LON`          |`LOX`          |
 |`unsigned short`    |`USN`          |`USX`          |
+
+# 2. Character manipulation &lt;char.h&gt;
+
+Character manipulation library is contained in a single header, <char.h>, and provides macros for using control characters by their short names (`EOF`), for checking the set of a chacater (letter, digit, symbol, etc), converting characters from one set to another (from lowercase to uppercase).
+
+<table id="ASCII">
+  <thead>
+    <tr>
+      <th ></th>
+      <th >00</th>
+      <th >01</th>
+      <th >02</th>
+      <th >03</th>
+      <th >04</th>
+      <th >05</th>
+      <th >06</th>
+      <th >07</th>
+      <th >08</th>
+      <th >09</th>
+      <th >0A</th>
+      <th >0B</th>
+      <th >0C</th>
+      <th >0D</th>
+      <th >0E</th>
+      <th >0F</th>
+      <th ></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th ><b>00</b></th>
+      <td >&#9216;</td>
+      <td >&#9217;</td>
+      <td >&#9218;</td>
+      <td >&#9219;</td>
+      <td >&#9220;</td>
+      <td >&#9221;</td>
+      <td >&#9223;</td>
+      <td >&#9224;</td>
+      <td >&#9225;</td>
+      <td >&#9226;</td>
+      <td >&#9227;</td>
+      <td >&#9228;</td>
+      <td >&#9229;</td>
+      <td >&#9230;</td>
+      <td >&#9231;</td>
+      <td >&#9232;</td>
+      <th ><b>0F</b></th>
+    </tr>
+    <tr>
+      <th ><b>10</b></th>
+      <td >&#9233;</td>
+      <td >&#9234;</td>
+      <td >&#9235;</td>
+      <td >&#9236;</td>
+      <td >&#9237;</td>
+      <td >&#9238;</td>
+      <td >&#9239;</td>
+      <td >&#9240;</td>
+      <td >&#9241;</td>
+      <td >&#9242;</td>
+      <td >&#9243;</td>
+      <td >&#9244;</td>
+      <td >&#9245;</td>
+      <td >&#9246;</td>
+      <td >&#9247;</td>
+      <td >&#9248;</td>
+      <th ><b>1F</b></th>
+    </tr>
+    <tr>
+      <th ><b>20</b></th>
+      <td >&#9251;</td>
+      <td >!</td>
+      <td >&quot;</td>
+      <td >&num;</td>
+      <td >$</td>
+      <td >%</td>
+      <td >&amp;</td>
+      <td >&#39;</td>
+      <td >(</td>
+      <td >)</td>
+      <td >&ast;</td>
+      <td >+</td>
+      <td >,</td>
+      <td >-</td>
+      <td >.</td>
+      <td >/</td>
+      <th ><b>2F</b></th>
+    </tr>
+    <tr>
+      <th ><b>30</b></th>
+      <td >0</td>
+      <td >1</td>
+      <td >2</td>
+      <td >3</td>
+      <td >4</td>
+      <td >5</td>
+      <td >6</td>
+      <td >7</td>
+      <td >8</td>
+      <td >9</td>
+      <td >:</td>
+      <td >;</td>
+      <td >&lt;</td>
+      <td >=</td>
+      <td >&gt;</td>
+      <td >?</td>
+      <th ><b>3F</b></th>
+    </tr>
+    <tr>
+      <th ><b>40</b></th>
+      <td >@</td>
+      <td >A</td>
+      <td >B</td>
+      <td >C</td>
+      <td >D</td>
+      <td >E</td>
+      <td >F</td>
+      <td >G</td>
+      <td >H</td>
+      <td >I</td>
+      <td >J</td>
+      <td >K</td>
+      <td >L</td>
+      <td >M</td>
+      <td >N</td>
+      <td >O</td>
+      <th ><b>4F</b></th>
+    </tr>
+    <tr>
+      <th ><b>50</b></th>
+      <td >P</td>
+      <td >Q</td>
+      <td >R</td>
+      <td >S</td>
+      <td >T</td>
+      <td >U</td>
+      <td >V</td>
+      <td >W</td>
+      <td >X</td>
+      <td >Y</td>
+      <td >Z</td>
+      <td >[</td>
+      <td >\</td>
+      <td >]</td>
+      <td >^</td>
+      <td >_</td>
+      <th ><b>5F</b></th>
+    </tr>
+    <tr>
+      <th ><b>60</b></th>
+      <td >&grave;</td>
+      <td >a</td>
+      <td >b</td>
+      <td >c</td>
+      <td >d</td>
+      <td >e</td>
+      <td >f</td>
+      <td >g</td>
+      <td >h</td>
+      <td >i</td>
+      <td >j</td>
+      <td >k</td>
+      <td >l</td>
+      <td >m</td>
+      <td >n</td>
+      <td >o</td>
+      <th ><b>6F</b></th>
+    </tr>
+    <tr>
+      <th ><b>70</b></th>
+      <td >p</td>
+      <td >q</td>
+      <td >r</td>
+      <td >s</td>
+      <td >t</td>
+      <td >u</td>
+      <td >v</td>
+      <td >w</td>
+      <td >x</td>
+      <td >y</td>
+      <td >z</td>
+      <td >{</td>
+      <td >&vert;</td>
+      <td >}</td>
+      <td >~</td>
+      <td >␡</td>
+      <th ><b>7F</b></th>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th ></th>
+      <th >F0</th>
+      <th >F1</th>
+      <th >F2</th>
+      <th >F3</th>
+      <th >F4</th>
+      <th >F5</th>
+      <th >F6</th>
+      <th >F7</th>
+      <th >F8</th>
+      <th >F9</th>
+      <th >FA</th>
+      <th >FB</th>
+      <th >FC</th>
+      <th >FD</th>
+      <th >FE</th>
+      <th >FF</th>
+      <th ></th>
+    </tr>
+  </thead>
+</table>
+
+
+## 2.1. Character checking
+### 2.1.1. `cia` &mdash; Character Is Alphanumeric character
+
+```c
+#define cia wl_cia
+#define wl_cia(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cia</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>A</b>lphanumeric</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href="#215-cil--character-is-letter-character"><code>cil</code></a> , <a href="#213-cid--character-is-digit-character"><code>cid</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Alphanumeric characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.2. `cic` &mdash; Character Is Control character
+
+```c
+#define cic wl_cic
+#define wl_cic(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cic</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>C</b>ontrol</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a><code>DEL</code></a> </td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Control characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.3. `cid` &mdash; Character Is Digit character
+
+```c
+#define cid wl_cid
+#define wl_cid(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cid</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>D</b>igit</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Numeric characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.4. `cie` &mdash; Character Is Extended ASCII character
+
+```c
+#define cie wl_cie
+#define wl_cie(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cie</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>E</b>xtended ASCII</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Extended ASCII characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.5. `cil` &mdash; Character Is Letter character
+
+```c
+#define cil wl_cil
+#define wl_cil(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cil</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>L</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href="#216-cill--character-is-lowercase-letter-character"><code>cill</code></a> , <a href="#217-ciul--character-is-uppercase-letter-character"><code>ciul</code></a></td>   
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Alphabetic characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.6. `cill` &mdash; Character Is Lowercase Letter character
+
+```c
+#define ciul wl_cill
+#define wl_cill(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cill</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>L</b>owercase <b>l</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Lowercase characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.7. `ciul` &mdash; Character Is Uppercase Letter character
+
+```c
+#define ciul wl_ciul
+#define wl_ciul(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>ciul</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>U</b>ppercase <b>l</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Lowercase characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.8. `cis` &mdash; Character Is Symbol character
+
+```c
+#define cis wl_cis
+#define wl_cis(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cis</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>S</b>ymbol</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Symbol characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.1.9. `ciw` &mdash; Character Is Whitespace character
+
+```c
+#define ciw wl_ciw
+#define wl_ciw(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>ciw</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>W</b>hitespace</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a>Whitespace characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## 2.2. Convertion functions
+### Digit to Character convertion table
+
+| Digit  | **00**| **01**| **02**| **03**| **04** | **05** | **06**| **07**| **08**| **09**                 | **0A**| **0B**                | **0C**| **0D** | **0E**| **0F**|
+|:------:|:-----:|:-----:|:-----:|:-----:|:------:|:------:|:-----:|:-----:|:-----:|:----------------------:|:-----:|:---------------------:|:-----:|:------:|:-----:|:-----:|
+| **00** | `'0'` | `'1'` | `'2'` | `'3'` | `'4'`  | `'5'`  | `'6'` | `'7'` | `'8'` | `'9'`                  | `'A'` | `'B'`                 | `'C'` | `'D'`  | `'E'` | `'F'` |
+| **10** | `'G'` | `'H'` | `'I'` | `'J'` | `'K'`  | `'L'`  | `'M'` | `'N'` | `'O'` | `'P'`                  | `'Q'` | `'R'`                 | `'S'` | `'T'`  | `'U'` | `'V'` |
+| **20** | `'W'` | `'X'` | `'Y'` | `'Z'` | `'a'`  | `'b'`  | `'c'` | `'d'` | `'e'` | `'f'`                  | `'g'` | `'h'`                 | `'i'` | `'j'`  | `'k'` | `'l'` |
+| **30** | `'m'` | `'n'` | `'o'` | `'p'` | `'q'`  | `'r'`  | `'s'` | `'t'` | `'u'` | `'v'`                  | `'w'` | `'x'`                 | `'y'` | `'z'`  | `'!'` | `'"'` |
+| **40** | `'#'` | `'$'` | `'%'` | `'&'` | `'\''` | `'('`  | `')'` | `'*'` | `'+'` | `','`                  | `'-'` | `'.'`                 | `'/'` | `':'`  | `';'` | `'<'` |
+| **50** | `'='` | `'>'` | `'?'` | `'@'` | `'['`  | `'\\'` | `']'` | `'^'` | `'_'` | <code>'&grave;'</code> | `'{'` | <code>'&vert;'</code> | `'}'` | `'~'`  | `' '` | `DEL` |
+
+### 2.2.1. `c2d` &mdash; Charater To Digit
+
+```c
+#define c2d wl_c2d
+#define wl_c2d(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>c2d</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>to</b> <b>D</b>igit</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a digit corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 2.2.2. `d2c` &mdash; Digit To Charater
+
+```c
+#define d2c wl_d2c
+#define wl_d2c(a) /* function body */
+```
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>d2c</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>D</b>igit <b>to</b> <b>C</b>haracter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a><code>U8</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a character corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
