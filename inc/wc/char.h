@@ -61,7 +61,7 @@
 #define WL_BS	'\010'
 /**
  * \def		WL_HT
- * \brief	Horizontattention textal Tabulation (x09)
+ * \brief	Horizontal Tabulation (x09)
  */
 #define WL_HT	'\011'
 /**
