@@ -11,6 +11,55 @@
  *     |_|  |_|  \__,_|  \___| |_|     \___/  |___/
  *                                                 
  */
+#ifndef WL_NO_SHORT_NAMES
+#	define NUL		WL_NUL
+#	define SOH		WL_SOH
+#	define STX		WL_STX
+#	define ETX		WL_ETX
+#	define EOT		WL_EOT
+#	define ENQ		WL_ENQ
+#	define ACK		WL_ACK
+#	define BEL		WL_BEL
+#	define BS		WL_BS
+#	define HT		WL_HT
+#	define LF		WL_LF
+#	define VT		WL_VT
+#	define FF		WL_FF
+#	define CR		WL_CR
+#	define SO		WL_SO
+#	define SI		WL_SI
+#	define DLE		WL_DLE
+#	define DC1		WL_DC1
+#	define DC2		WL_DC2
+#	define DC3		WL_DC3
+#	define DC4		WL_DC4
+#	define NAK		WL_NAK
+#	define SYN		WL_SYN
+#	define ETB		WL_ETB
+#	define CAN		WL_CAN
+#	define EM		WL_EM
+#	define SUB		WL_SUB
+#	define ESC		WL_ESC
+#	define FS		WL_FS
+#	define GS		WL_GS
+#	define RS		WL_RS
+#	define US		WL_US
+#	define DEL		WL_DEL
+#	define cilc		wl_cilc
+#	define cius		wl_cius
+#	define cic		wl_cic
+#	define cid		wl_cid
+#	define cis		wl_cis
+#	define ciw		wl_ciw
+#	define cie		wl_cie
+#	define cia		wl_cia
+#	define cil		wl_cil
+#	define c2l		wl_c2l
+#	define c2u		wl_c2u
+#	define c2d		wl_c2d
+#	define d2c		wl_d2c
+#endif
+
 /*********************
  * Control Character *
  *********************/
