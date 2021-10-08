@@ -1,10 +1,15 @@
 ﻿<head>
 <style>
-  #ASCII th, td {
+  #ASCII th, #ASCII td {
     text-align: center;
+  }
+  .ASCII-control td {
+    font-size: 1.5em;
   }
 </style>
 </head>
+
+[toc]
 
 # WLib Documentation
 
@@ -322,208 +327,208 @@ Character manipulation library is contained in a single header, <char.h>, and pr
 <table id="ASCII">
   <thead>
     <tr>
-      <th ></th>
-      <th >00</th>
-      <th >01</th>
-      <th >02</th>
-      <th >03</th>
-      <th >04</th>
-      <th >05</th>
-      <th >06</th>
-      <th >07</th>
-      <th >08</th>
-      <th >09</th>
-      <th >0A</th>
-      <th >0B</th>
-      <th >0C</th>
-      <th >0D</th>
-      <th >0E</th>
-      <th >0F</th>
-      <th ></th>
+      <th></th>
+      <th>00</th>
+      <th>01</th>
+      <th>02</th>
+      <th>03</th>
+      <th>04</th>
+      <th>05</th>
+      <th>06</th>
+      <th>07</th>
+      <th>08</th>
+      <th>09</th>
+      <th>0A</th>
+      <th>0B</th>
+      <th>0C</th>
+      <th>0D</th>
+      <th>0E</th>
+      <th>0F</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th ><b>00</b></th>
-      <td >&#9216;</td>
-      <td >&#9217;</td>
-      <td >&#9218;</td>
-      <td >&#9219;</td>
-      <td >&#9220;</td>
-      <td >&#9221;</td>
-      <td >&#9223;</td>
-      <td >&#9224;</td>
-      <td >&#9225;</td>
-      <td >&#9226;</td>
-      <td >&#9227;</td>
-      <td >&#9228;</td>
-      <td >&#9229;</td>
-      <td >&#9230;</td>
-      <td >&#9231;</td>
-      <td >&#9232;</td>
-      <th ><b>0F</b></th>
+    <tr class="ASCII-control">
+      <th><b>00</b></th>
+      <td>&#9216;</td>
+      <td>&#9217;</td>
+      <td>&#9218;</td>
+      <td>&#9219;</td>
+      <td>&#9220;</td>
+      <td>&#9221;</td>
+      <td>&#9223;</td>
+      <td>&#9224;</td>
+      <td>&#9225;</td>
+      <td>&#9226;</td>
+      <td>&#9227;</td>
+      <td>&#9228;</td>
+      <td>&#9229;</td>
+      <td>&#9230;</td>
+      <td>&#9231;</td>
+      <td>&#9232;</td>
+      <th><b>0F</b></th>
+    </tr>
+    <tr class="ASCII-control">
+      <th><b>10</b></th>
+      <td>&#9233;</td>
+      <td>&#9234;</td>
+      <td>&#9235;</td>
+      <td>&#9236;</td>
+      <td>&#9237;</td>
+      <td>&#9238;</td>
+      <td>&#9239;</td>
+      <td>&#9240;</td>
+      <td>&#9241;</td>
+      <td>&#9242;</td>
+      <td>&#9243;</td>
+      <td>&#9244;</td>
+      <td>&#9245;</td>
+      <td>&#9246;</td>
+      <td>&#9247;</td>
+      <td>&#9248;</td>
+      <th><b>1F</b></th>
     </tr>
     <tr>
-      <th ><b>10</b></th>
-      <td >&#9233;</td>
-      <td >&#9234;</td>
-      <td >&#9235;</td>
-      <td >&#9236;</td>
-      <td >&#9237;</td>
-      <td >&#9238;</td>
-      <td >&#9239;</td>
-      <td >&#9240;</td>
-      <td >&#9241;</td>
-      <td >&#9242;</td>
-      <td >&#9243;</td>
-      <td >&#9244;</td>
-      <td >&#9245;</td>
-      <td >&#9246;</td>
-      <td >&#9247;</td>
-      <td >&#9248;</td>
-      <th ><b>1F</b></th>
+      <th><b>20</b></th>
+      <td>&#9251;</td>
+      <td>!</td>
+      <td>&quot;</td>
+      <td>&num;</td>
+      <td>$</td>
+      <td>%</td>
+      <td>&amp;</td>
+      <td>&#39;</td>
+      <td>(</td>
+      <td>)</td>
+      <td>&ast;</td>
+      <td>+</td>
+      <td>,</td>
+      <td>-</td>
+      <td>.</td>
+      <td>/</td>
+      <th><b>2F</b></th>
     </tr>
     <tr>
-      <th ><b>20</b></th>
-      <td >&#9251;</td>
-      <td >!</td>
-      <td >&quot;</td>
-      <td >&num;</td>
-      <td >$</td>
-      <td >%</td>
-      <td >&amp;</td>
-      <td >&#39;</td>
-      <td >(</td>
-      <td >)</td>
-      <td >&ast;</td>
-      <td >+</td>
-      <td >,</td>
-      <td >-</td>
-      <td >.</td>
-      <td >/</td>
-      <th ><b>2F</b></th>
+      <th><b>30</b></th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+      <td>9</td>
+      <td>:</td>
+      <td>;</td>
+      <td>&lt;</td>
+      <td>=</td>
+      <td>&gt;</td>
+      <td>?</td>
+      <th><b>3F</b></th>
     </tr>
     <tr>
-      <th ><b>30</b></th>
-      <td >0</td>
-      <td >1</td>
-      <td >2</td>
-      <td >3</td>
-      <td >4</td>
-      <td >5</td>
-      <td >6</td>
-      <td >7</td>
-      <td >8</td>
-      <td >9</td>
-      <td >:</td>
-      <td >;</td>
-      <td >&lt;</td>
-      <td >=</td>
-      <td >&gt;</td>
-      <td >?</td>
-      <th ><b>3F</b></th>
+      <th><b>40</b></th>
+      <td>@</td>
+      <td>A</td>
+      <td>B</td>
+      <td>C</td>
+      <td>D</td>
+      <td>E</td>
+      <td>F</td>
+      <td>G</td>
+      <td>H</td>
+      <td>I</td>
+      <td>J</td>
+      <td>K</td>
+      <td>L</td>
+      <td>M</td>
+      <td>N</td>
+      <td>O</td>
+      <th><b>4F</b></th>
     </tr>
     <tr>
-      <th ><b>40</b></th>
-      <td >@</td>
-      <td >A</td>
-      <td >B</td>
-      <td >C</td>
-      <td >D</td>
-      <td >E</td>
-      <td >F</td>
-      <td >G</td>
-      <td >H</td>
-      <td >I</td>
-      <td >J</td>
-      <td >K</td>
-      <td >L</td>
-      <td >M</td>
-      <td >N</td>
-      <td >O</td>
-      <th ><b>4F</b></th>
+      <th><b>50</b></th>
+      <td>P</td>
+      <td>Q</td>
+      <td>R</td>
+      <td>S</td>
+      <td>T</td>
+      <td>U</td>
+      <td>V</td>
+      <td>W</td>
+      <td>X</td>
+      <td>Y</td>
+      <td>Z</td>
+      <td>[</td>
+      <td>\</td>
+      <td>]</td>
+      <td>^</td>
+      <td>_</td>
+      <th><b>5F</b></th>
     </tr>
     <tr>
-      <th ><b>50</b></th>
-      <td >P</td>
-      <td >Q</td>
-      <td >R</td>
-      <td >S</td>
-      <td >T</td>
-      <td >U</td>
-      <td >V</td>
-      <td >W</td>
-      <td >X</td>
-      <td >Y</td>
-      <td >Z</td>
-      <td >[</td>
-      <td >\</td>
-      <td >]</td>
-      <td >^</td>
-      <td >_</td>
-      <th ><b>5F</b></th>
+      <th><b>60</b></th>
+      <td>&grave;</td>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>d</td>
+      <td>e</td>
+      <td>f</td>
+      <td>g</td>
+      <td>h</td>
+      <td>i</td>
+      <td>j</td>
+      <td>k</td>
+      <td>l</td>
+      <td>m</td>
+      <td>n</td>
+      <td>o</td>
+      <th><b>6F</b></th>
     </tr>
     <tr>
-      <th ><b>60</b></th>
-      <td >&grave;</td>
-      <td >a</td>
-      <td >b</td>
-      <td >c</td>
-      <td >d</td>
-      <td >e</td>
-      <td >f</td>
-      <td >g</td>
-      <td >h</td>
-      <td >i</td>
-      <td >j</td>
-      <td >k</td>
-      <td >l</td>
-      <td >m</td>
-      <td >n</td>
-      <td >o</td>
-      <th ><b>6F</b></th>
-    </tr>
-    <tr>
-      <th ><b>70</b></th>
-      <td >p</td>
-      <td >q</td>
-      <td >r</td>
-      <td >s</td>
-      <td >t</td>
-      <td >u</td>
-      <td >v</td>
-      <td >w</td>
-      <td >x</td>
-      <td >y</td>
-      <td >z</td>
-      <td >{</td>
-      <td >&vert;</td>
-      <td >}</td>
-      <td >~</td>
-      <td >␡</td>
-      <th ><b>7F</b></th>
+      <th><b>70</b></th>
+      <td>p</td>
+      <td>q</td>
+      <td>r</td>
+      <td>s</td>
+      <td>t</td>
+      <td>u</td>
+      <td>v</td>
+      <td>w</td>
+      <td>x</td>
+      <td>y</td>
+      <td>z</td>
+      <td>{</td>
+      <td>&vert;</td>
+      <td>}</td>
+      <td>~</td>
+      <td style="font-size: 1.5em">␡</td>
+      <th><b>7F</b></th>
     </tr>
   </tbody>
   <thead>
     <tr>
-      <th ></th>
-      <th >F0</th>
-      <th >F1</th>
-      <th >F2</th>
-      <th >F3</th>
-      <th >F4</th>
-      <th >F5</th>
-      <th >F6</th>
-      <th >F7</th>
-      <th >F8</th>
-      <th >F9</th>
-      <th >FA</th>
-      <th >FB</th>
-      <th >FC</th>
-      <th >FD</th>
-      <th >FE</th>
-      <th >FF</th>
-      <th ></th>
+      <th></th>
+      <th>F0</th>
+      <th>F1</th>
+      <th>F2</th>
+      <th>F3</th>
+      <th>F4</th>
+      <th>F5</th>
+      <th>F6</th>
+      <th>F7</th>
+      <th>F8</th>
+      <th>F9</th>
+      <th>FA</th>
+      <th>FB</th>
+      <th>FC</th>
+      <th>FD</th>
+      <th>FE</th>
+      <th>FF</th>
+      <th></th>
     </tr>
   </thead>
 </table>
@@ -1020,3 +1025,11 @@ Character manipulation library is contained in a single header, <char.h>, and pr
     </tr>
   </tbody>
 </table>
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+```
