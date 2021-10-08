@@ -1,4 +1,4 @@
-﻿<head>
+<head>
 <style>
   #ASCII th, #ASCII td {
     text-align: center;
@@ -336,7 +336,7 @@ In the table below
 |`unsigned long`     |`LON`          |`LOX`          |
 |`unsigned short`    |`USN`          |`USX`          |
 
-# 2. Character manipulation \<char.h\>;
+# 2. Character manipulation \<char.h\>
 
 Character manipulation library is contained in a single header, <char.h>, and provides macros for using control characters by their short names (`ACK`), for checking the set of a chacater (letter, digit, symbol, etc), converting characters from one set to another (from lowercase to uppercase).
 
@@ -595,9 +595,46 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
+## 2.1. Control Character Macros
 
-## 2.1. Character checking
-### 2.1.1. `cia` &mdash; Character Is Alphanumeric character
+| Name  | Mnemonics                 | Value |
+|------:|:-------------------------:|:------|
+| `NUL` | Null                      | 0x00  |
+| `SOH` | Start of Heading          | 0x01  |
+| `STX` | Start of Text             | 0x02  |
+| `ETX` | End of Text               | 0x03  |
+| `EOT` | End of Transmission       | 0x04  |
+| `ENQ` | Enquiry                   | 0x05  |
+| `ACK` | Acknowledge               | 0x06  |
+| `BEL` | Bell                      | 0x07  |
+| `BS`  | Backspace                 | 0x08  |
+| `HT`  | Horizontal Tabulation     | 0x09  |
+| `LF`  | New Line                  | 0x0A  |
+| `VT`  | Vertical Tabulation       | 0x0B  |
+| `FF`  | Form Feed                 | 0x0C  |
+| `CR`  | Carriage Return           | 0x0D  |
+| `SO`  | Shift Out                 | 0x0E  |
+| `SI`  | Shift In                  | 0x0F  |
+| `DLE` | Data Link Escape          | 0x10  |
+| `DC1` | Device Control 1          | 0x11  |
+| `DC2` | Device Control 2          | 0x12  |
+| `DC3` | Device Control 3          | 0x13  |
+| `DC4` | Device Control 4          | 0x14  |
+| `NAK` | Negative Acknowledge      | 0x15  |
+| `SYN` | Synchronous Idle          | 0x16  |
+| `ETB` | End of Transmission Block | 0x17  | 
+| `CAN` | Cancel                    | 0x18  |
+| `EM`  | End Of Medium             | 0x19  |
+| `SUB` | Substitute                | 0x1A  |
+| `ESC` | Escape                    | 0x1B  |
+| `FS`  | File Separator            | 0x1C  |
+| `GS`  | Group Separator           | 0x1D  |
+| `RS`  | Record Separator          | 0x1E  |
+| `US`  | Unit Separator            | 0x1F  |
+| `DEL` | Delete                    | 0x7F  |
+
+## 2.2. Character checking
+### 2.2.1. `cia` &mdash; Character Is Alphanumeric character
 
 ```c
 #define cia wl_cia
@@ -629,7 +666,7 @@ Below is the table of ASCII character set.
     </tr>
     <tr>
       <td style="text-align:right"><b>Depends on</b></td>
-      <td style="text-align:left" colspan="2"><a href="#215-cil--character-is-letter-character"><code>cil</code></a> , <a href="#213-cid--character-is-digit-character"><code>cid</code></a></td>
+      <td style="text-align:left" colspan="2"><a href="#225-cil--character-is-letter-character"><code>cil</code></a> , <a href="#223-cid--character-is-digit-character"><code>cid</code></a></td>
     </tr>
     <tr>
       <td style="text-align:center" colspan="3"><b>Description</b></td>
@@ -641,7 +678,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.2. `cic` &mdash; Character Is Control character
+### 2.2.2. `cic` &mdash; Character Is Control character
 
 ```c
 #define cic wl_cic
@@ -685,7 +722,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.3. `cid` &mdash; Character Is Digit character
+### 2.2.3. `cid` &mdash; Character Is Digit character
 
 ```c
 #define cid wl_cid
@@ -728,7 +765,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.4. `cie` &mdash; Character Is Extended ASCII character
+### 2.2.4. `cie` &mdash; Character Is Extended ASCII character
 
 ```c
 #define cie wl_cie
@@ -771,7 +808,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.5. `cil` &mdash; Character Is Letter character
+### 2.2.5. `cil` &mdash; Character Is Letter character
 
 ```c
 #define cil wl_cil
@@ -803,7 +840,7 @@ Below is the table of ASCII character set.
     </tr>
     <tr>
       <td style="text-align:right"><b>Depends on</b></td>
-      <td style="text-align:left" colspan="2"><a href="#216-cill--character-is-lowercase-letter-character"><code>cill</code></a> , <a href="#217-ciul--character-is-uppercase-letter-character"><code>ciul</code></a></td>   
+      <td style="text-align:left" colspan="2"><a href="#226-cill--character-is-lowercase-letter-character"><code>cill</code></a> , <a href="#227-ciul--character-is-uppercase-letter-character"><code>ciul</code></a></td>   
     </tr>
     <tr>
       <td style="text-align:center" colspan="3"><b>Description</b></td>
@@ -815,7 +852,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.6. `cill` &mdash; Character Is Lowercase Letter character
+### 2.2.6. `cill` &mdash; Character Is Lowercase Letter character
 
 ```c
 #define ciul wl_cill
@@ -858,7 +895,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.7. `ciul` &mdash; Character Is Uppercase Letter character
+### 2.2.7. `ciul` &mdash; Character Is Uppercase Letter character
 
 ```c
 #define ciul wl_ciul
@@ -901,7 +938,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.8. `cis` &mdash; Character Is Symbol character
+### 2.2.8. `cis` &mdash; Character Is Symbol character
 
 ```c
 #define cis wl_cis
@@ -944,7 +981,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.1.9. `ciw` &mdash; Character Is Whitespace character
+### 2.2.9. `ciw` &mdash; Character Is Whitespace character
 
 ```c
 #define ciw wl_ciw
@@ -987,7 +1024,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-## 2.2. Convertion functions
+## 2.3. Convertion functions
 ### Digit to Character convertion table
 
 | Digit  | **00**| **01**| **02**| **03**| **04** | **05** | **06**| **07**| **08**| **09**                 | **0A**| **0B**                | **0C**| **0D** | **0E**| **0F**|
@@ -999,7 +1036,7 @@ Below is the table of ASCII character set.
 | **40** | `'#'` | `'$'` | `'%'` | `'&'` | `'\''` | `'('`  | `')'` | `'*'` | `'+'` | `','`                  | `'-'` | `'.'`                 | `'/'` | `':'`  | `';'` | `'<'` |
 | **50** | `'='` | `'>'` | `'?'` | `'@'` | `'['`  | `'\\'` | `']'` | `'^'` | `'_'` | <code>'&grave;'</code> | `'{'` | <code>'&vert;'</code> | `'}'` | `'~'`  | `' '` | `DEL` |
 
-### 2.2.1. `c2d` &mdash; Charater To Digit
+### 2.3.1. `c2d` &mdash; Charater To Digit
 
 ```c
 #define c2d wl_c2d
@@ -1043,7 +1080,7 @@ Below is the table of ASCII character set.
   </tbody>
 </table>
 
-### 2.2.2. `d2c` &mdash; Digit To Charater
+### 2.3.2. `d2c` &mdash; Digit To Charater
 
 ```c
 #define d2c wl_d2c
