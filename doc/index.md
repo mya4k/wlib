@@ -1,4 +1,4 @@
-﻿# WLib Documentation
+# WLib Documentation
 
 Welcome to WLib Documentation main page! Here you can learn how to use our libraries and read in detail how every global identifier works.
 
