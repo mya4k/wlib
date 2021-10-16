@@ -422,9 +422,9 @@
 /* [I64N] */
 #ifndef WL_I64N
 #	if	WL_I64B==32
-#		define WL_U64X	((wl_I64)-0x80000000)
+#		define WL_I64N	((wl_I64)-0x80000000)
 #	else
-#		define WL_U64X	((wl_I64)-0x8000000000000000)
+#		define WL_I64N	((wl_I64)-0x8000000000000000)
 #	endif
 #endif
 /* [I8X] */
@@ -442,9 +442,9 @@
 /* [I64X] */
 #ifndef WL_I64N
 #	if	WL_I64B==32
-#		define WL_U64X	((wl_U64)0x7FFFFFFF)
+#		define WL_I64N	((wl_I64)0x7FFFFFFF)
 #	else
-#		define WL_U64X	((wl_U64)0x7FFFFFFFFFFFFFFF)
+#		define WL_I64N	((wl_I64)0x7FFFFFFFFFFFFFFF)
 #	endif
 #endif
 
