@@ -4,6 +4,8 @@
 @import "{{ site.theme }}";
 
 .sidebar {
+	top: 0;
+	left: 0;
 	position: fixed;
 	list-style-type: none;
 	height: 100%;
