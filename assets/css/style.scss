@@ -9,7 +9,7 @@
 	top: 0px;
 	list-style-type: none;
 	height: 100%;
-	width: 160px;
+	width: 25%;
 	position: fixed;
 	z-index: 1;
 	top: 0;
@@ -18,3 +18,7 @@
 	overflow-x: hidden;
 	padding-top: 20px;
 };
+
+.content {
+	margin-left: 25%;
+}
