@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>2.1. Control Character Macros | wlib</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="2.1. Control Character Macros" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/doc/char/control.html" />
+<meta property="og:url" content="http://localhost:4000/doc/char/control.html" />
+<meta property="og:site_name" content="wlib" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="2.1. Control Character Macros" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"2.1. Control Character Macros","url":"http://localhost:4000/doc/char/control.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=91631de443c5e3905efdeda9dd46951a5340295b">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <!-- <a id="skip-to-content" href="#content">Skip to the content.</a> -->
+
+    <!-- Header, duh -->
+    <header class="page-header" role="banner">
+      <h1 class="project-name">2.1. Control Character Macros</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="https://github.com/wspvlv/wlib" class="btn">View on GitHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <ul>
+          <li>
+            <a href="doc/index.md">Documentation</a>
+            <ul>
+              <li>
+                <a href="doc/index.md#requirements">Requirements</a>
+              </li>
+            </ul>
+            <ol>
+              <li>
+                <a href="doc/types/index.html">Types</a>
+                <ol>
+                  <li>
+                    <a href="doc/types/fixed.html">Fixed-size integer types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/special.html">Special types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/compat.html">Compatibility types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/alias.html">Alias types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/width.html">Type width macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/limits.html">Type limits macros</a>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a href="doc/char/index.html">Character manipulation</a>
+                <ol>
+                  <li>
+                    <a href="doc/char/control.html">Control Character Macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/char/check/index.html">Character checking</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/check/cia.html">`cia` &mdash; Character Is Alphanumeric character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cic.html">`cic` &mdash; Character Is Control character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cid.html">`cid` &mdash; Character Is Digit character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cie.html">`cie` &mdash; Character Is Extended ASCII character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cil.html">`cie` &mdash; Character Is Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cill.html">`cill` &mdash; Character Is Lowercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cis.html">`cis` &mdash; Character Is Symbol character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciul.html">`ciul` &mdash; Character Is Uppercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciw.html">`ciw` &mdash; Character Is Whitespace character</a>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <a href="doc/char/conv/index.html">Convertion functions</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/conv/c2d.html">`c2d` &mdash; Charater To Digit</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/conv/d2c.html">`d2c` &mdash; Digit To Charater</a>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <h1 id="21-control-character-macros">2.1. Control Character Macros</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Name</th>
+      <th style="text-align: center">Mnemonics</th>
+      <th style="text-align: left">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">NUL</code></td>
+      <td style="text-align: center">Null</td>
+      <td style="text-align: left">0x00</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SOH</code></td>
+      <td style="text-align: center">Start of Heading</td>
+      <td style="text-align: left">0x01</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">STX</code></td>
+      <td style="text-align: center">Start of Text</td>
+      <td style="text-align: left">0x02</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ETX</code></td>
+      <td style="text-align: center">End of Text</td>
+      <td style="text-align: left">0x03</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">EOT</code></td>
+      <td style="text-align: center">End of Transmission</td>
+      <td style="text-align: left">0x04</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ENQ</code></td>
+      <td style="text-align: center">Enquiry</td>
+      <td style="text-align: left">0x05</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ACK</code></td>
+      <td style="text-align: center">Acknowledge</td>
+      <td style="text-align: left">0x06</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">BEL</code></td>
+      <td style="text-align: center">Bell</td>
+      <td style="text-align: left">0x07</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">BS</code></td>
+      <td style="text-align: center">Backspace</td>
+      <td style="text-align: left">0x08</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">HT</code></td>
+      <td style="text-align: center">Horizontal Tabulation</td>
+      <td style="text-align: left">0x09</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">LF</code></td>
+      <td style="text-align: center">New Line</td>
+      <td style="text-align: left">0x0A</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">VT</code></td>
+      <td style="text-align: center">Vertical Tabulation</td>
+      <td style="text-align: left">0x0B</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">FF</code></td>
+      <td style="text-align: center">Form Feed</td>
+      <td style="text-align: left">0x0C</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">CR</code></td>
+      <td style="text-align: center">Carriage Return</td>
+      <td style="text-align: left">0x0D</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SO</code></td>
+      <td style="text-align: center">Shift Out</td>
+      <td style="text-align: left">0x0E</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SI</code></td>
+      <td style="text-align: center">Shift In</td>
+      <td style="text-align: left">0x0F</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DLE</code></td>
+      <td style="text-align: center">Data Link Escape</td>
+      <td style="text-align: left">0x10</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC1</code></td>
+      <td style="text-align: center">Device Control 1</td>
+      <td style="text-align: left">0x11</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC2</code></td>
+      <td style="text-align: center">Device Control 2</td>
+      <td style="text-align: left">0x12</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC3</code></td>
+      <td style="text-align: center">Device Control 3</td>
+      <td style="text-align: left">0x13</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC4</code></td>
+      <td style="text-align: center">Device Control 4</td>
+      <td style="text-align: left">0x14</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">NAK</code></td>
+      <td style="text-align: center">Negative Acknowledge</td>
+      <td style="text-align: left">0x15</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SYN</code></td>
+      <td style="text-align: center">Synchronous Idle</td>
+      <td style="text-align: left">0x16</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ETB</code></td>
+      <td style="text-align: center">End of Transmission Block</td>
+      <td style="text-align: left">0x17</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">CAN</code></td>
+      <td style="text-align: center">Cancel</td>
+      <td style="text-align: left">0x18</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">EM</code></td>
+      <td style="text-align: center">End Of Medium</td>
+      <td style="text-align: left">0x19</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SUB</code></td>
+      <td style="text-align: center">Substitute</td>
+      <td style="text-align: left">0x1A</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ESC</code></td>
+      <td style="text-align: center">Escape</td>
+      <td style="text-align: left">0x1B</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">FS</code></td>
+      <td style="text-align: center">File Separator</td>
+      <td style="text-align: left">0x1C</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">GS</code></td>
+      <td style="text-align: center">Group Separator</td>
+      <td style="text-align: left">0x1D</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">RS</code></td>
+      <td style="text-align: center">Record Separator</td>
+      <td style="text-align: left">0x1E</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">US</code></td>
+      <td style="text-align: center">Unit Separator</td>
+      <td style="text-align: left">0x1F</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DEL</code></td>
+      <td style="text-align: center">Delete</td>
+      <td style="text-align: left">0x7F</td>
+    </tr>
+  </tbody>
+</table>
+
+
+        <footer class="site-footer">
+          
+            <span class="site-footer-owner"><a href="https://github.com/wspvlv/wlib">wlib</a> is maintained by <a href="https://github.com/wspvlv">wspvlv</a>.</span>
+          
+          <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

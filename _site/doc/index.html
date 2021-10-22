@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>WLib Documentation | wlib</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="WLib Documentation" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/doc/" />
+<meta property="og:url" content="http://localhost:4000/doc/" />
+<meta property="og:site_name" content="wlib" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="WLib Documentation" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"WLib Documentation","url":"http://localhost:4000/doc/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=91631de443c5e3905efdeda9dd46951a5340295b">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <!-- <a id="skip-to-content" href="#content">Skip to the content.</a> -->
+
+    <!-- Header, duh -->
+    <header class="page-header" role="banner">
+      <h1 class="project-name">WLib Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="https://github.com/wspvlv/wlib" class="btn">View on GitHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <ul>
+          <li>
+            <a href="doc/index.md">Documentation</a>
+            <ul>
+              <li>
+                <a href="doc/index.md#requirements">Requirements</a>
+              </li>
+            </ul>
+            <ol>
+              <li>
+                <a href="doc/types/index.html">Types</a>
+                <ol>
+                  <li>
+                    <a href="doc/types/fixed.html">Fixed-size integer types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/special.html">Special types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/compat.html">Compatibility types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/alias.html">Alias types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/width.html">Type width macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/limits.html">Type limits macros</a>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a href="doc/char/index.html">Character manipulation</a>
+                <ol>
+                  <li>
+                    <a href="doc/char/control.html">Control Character Macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/char/check/index.html">Character checking</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/check/cia.html">`cia` &mdash; Character Is Alphanumeric character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cic.html">`cic` &mdash; Character Is Control character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cid.html">`cid` &mdash; Character Is Digit character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cie.html">`cie` &mdash; Character Is Extended ASCII character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cil.html">`cie` &mdash; Character Is Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cill.html">`cill` &mdash; Character Is Lowercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cis.html">`cis` &mdash; Character Is Symbol character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciul.html">`ciul` &mdash; Character Is Uppercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciw.html">`ciw` &mdash; Character Is Whitespace character</a>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <a href="doc/char/conv/index.html">Convertion functions</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/conv/c2d.html">`c2d` &mdash; Charater To Digit</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/conv/d2c.html">`d2c` &mdash; Digit To Charater</a>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <h1 id="wlib-documentation">WLib Documentation</h1>
+
+<p>Welcome to WLib Documentation main page! Here you can learn how to use our libraries and read in detail how every global identifier works.</p>
+
+<h1 id="requirements">Requirements</h1>
+
+<p>If you want to use our library to write your own code, your compiler should comply with next basic requirements:</p>
+<ul>
+  <li>ANSI C / ISO C / ISO C++ (all of any revision) standard support (while there are efforts to support K&amp;R C compilers, like <code class="language-plaintext highlighter-rouge">pcc</code>, however, you are on your own);</li>
+</ul>
+
+<h1 id="1-types">1. Types</h1>
+
+<p>Header <code class="language-plaintext highlighter-rouge">&lt;types.h&gt;</code> defines:</p>
+<ul>
+  <li>fixed-size integer types (<code class="language-plaintext highlighter-rouge">U8</code>, <code class="language-plaintext highlighter-rouge">U16</code>, <code class="language-plaintext highlighter-rouge">U32</code>, <code class="language-plaintext highlighter-rouge">U64</code>, <code class="language-plaintext highlighter-rouge">I8</code>, <code class="language-plaintext highlighter-rouge">I16</code>, <code class="language-plaintext highlighter-rouge">I32</code>, <code class="language-plaintext highlighter-rouge">I64</code>),</li>
+  <li>alias types (<code class="language-plaintext highlighter-rouge">Ch</code>, <code class="language-plaintext highlighter-rouge">Fl</code>, <code class="language-plaintext highlighter-rouge">Db</code>, <code class="language-plaintext highlighter-rouge">Ld</code>),</li>
+  <li>C/C++ backwards compatibility types (<code class="language-plaintext highlighter-rouge">Vo</code>, <code class="language-plaintext highlighter-rouge">Bl</code>),</li>
+  <li>special types (<code class="language-plaintext highlighter-rouge">Pt</code>, <code class="language-plaintext highlighter-rouge">IMax</code>, <code class="language-plaintext highlighter-rouge">UMax</code>),</li>
+  <li>type width macros (<code class="language-plaintext highlighter-rouge">CHB</code>, <code class="language-plaintext highlighter-rouge">SHB</code>, <code class="language-plaintext highlighter-rouge">INB</code>, <code class="language-plaintext highlighter-rouge">LOB</code>, <code class="language-plaintext highlighter-rouge">LLB</code>, <code class="language-plaintext highlighter-rouge">I8B</code>, <code class="language-plaintext highlighter-rouge">I16B</code>, <code class="language-plaintext highlighter-rouge">I32B</code>, <code class="language-plaintext highlighter-rouge">I64B</code>, <code class="language-plaintext highlighter-rouge">PTB</code>, <code class="language-plaintext highlighter-rouge">IMB</code>),</li>
+  <li>type limits macros (<code class="language-plaintext highlighter-rouge">CHN</code>, <code class="language-plaintext highlighter-rouge">SHN</code>, <code class="language-plaintext highlighter-rouge">INN</code>, <code class="language-plaintext highlighter-rouge">LON</code>, <code class="language-plaintext highlighter-rouge">LLN</code>, <code class="language-plaintext highlighter-rouge">I8N</code>, <code class="language-plaintext highlighter-rouge">I16N</code>, <code class="language-plaintext highlighter-rouge">I32N</code>, <code class="language-plaintext highlighter-rouge">I64N</code>, <code class="language-plaintext highlighter-rouge">CHX</code>, <code class="language-plaintext highlighter-rouge">SHX</code>, <code class="language-plaintext highlighter-rouge">INX</code>, <code class="language-plaintext highlighter-rouge">LOX</code>, <code class="language-plaintext highlighter-rouge">LLX</code>, <code class="language-plaintext highlighter-rouge">I8X</code>, <code class="language-plaintext highlighter-rouge">I16X</code>, <code class="language-plaintext highlighter-rouge">I32X</code>, <code class="language-plaintext highlighter-rouge">I64X</code>).</li>
+</ul>
+
+<h2 id="11-fixed-size-integer-types">1.1. Fixed-size integer types</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_i8</span><span class="p">,</span>	<span class="n">wl_I8</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_i16</span><span class="p">,</span>	<span class="n">wl_I16</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_i32</span><span class="p">,</span>	<span class="n">wl_I32</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_i64</span><span class="p">,</span>	<span class="n">wl_I64</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_u8</span><span class="p">,</span>	<span class="n">wl_U8</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_u16</span><span class="p">,</span>	<span class="n">wl_U16</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_u32</span><span class="p">,</span>	<span class="n">wl_U32</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_u64</span><span class="p">,</span>	<span class="n">wl_U64</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>A fixed-size integer type means an integer type, which width stays constant across different system. There are 8 distinct fixed-size integer types.</p>
+
+<p>Since basic C types (<code class="language-plaintext highlighter-rouge">char</code>, <code class="language-plaintext highlighter-rouge">short</code>, <code class="language-plaintext highlighter-rouge">int</code>, <code class="language-plaintext highlighter-rouge">long</code>, etc.) widths are not specified in the ISO C standard, it was left for compilers to decide their sizes on their own. The sizes of basic C types are different depending on your Operating System, CPU Architecture, Compiler options, etc. However, rather handily, there a several common data models that majority of systems design their C types according to; the <code class="language-plaintext highlighter-rouge">&lt;sys/damo.h&gt;</code> is responsible for correctly using system information to define a data model (the <code class="language-plaintext highlighter-rouge">DATA_MODEL</code> macro). The implementation of fixed-size integer types shall be done through those data models (unless there is a better replacement for this model, in which case let us know).</p>
+
+<p><code class="language-plaintext highlighter-rouge">WL_USE_STDINT</code> macro can be defined with any non-zero value at build time, to signal WLib to implement its fixed-size integer types through <code class="language-plaintext highlighter-rouge">&lt;stdint.h&gt;</code>’s definitions of fixed-size integer types rather than the method described above.</p>
+
+<p>A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third column does the same as the previous but for singed integer. Other columns show the actual size for the data model.</p>
+
+<table>
+<thead>
+  <tr>
+    <th rowspan="3">Size</th>
+    <th rowspan="3">Unsigned</th>
+    <th rowspan="3">Signed</th>
+    <th colspan="5">Data model</th>
+  </tr>
+  <tr>
+    <th colspan="2">LP32, ILP32</th>
+    <th rowspan="2">LP64, LLP64</th>
+    <th rowspan="2">ILP64</th>
+    <th rowspan="2">SILP64</th>
+  </tr>
+  <tr>
+    <th>&lt;C99 / &lt;C++11</th>
+    <th>&ge;C99 / &ge;C++11</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>8</td>
+    <td><code>U8</code>, <code>u8</code></td>
+    <td><code>I8</code>, <code>i8</code></td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+  </tr>
+    <tr>
+    <td>16</td>
+    <td><code>U16</code>, <code>u16</code></td>
+    <td><code>I16</code>, <code>i16</code></td>
+    <td>16</td>
+    <td>16</td>
+    <td>16</td>
+    <td>16</td>
+    <td>64</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td><code>U32</code>, <code>u32</code></td>
+    <td><code>I32</code>, <code>i32</code></td>
+    <td>32</td>
+    <td>32</td>
+    <td>32</td>
+    <td>64</td>
+    <td>64</td>
+  </tr>
+  <tr>
+    <td>64</td>
+    <td><code>U64</code>, <code>u64</code></td>
+    <td><code>I64</code>, <code>i64</code></td>
+    <td>32</td>
+    <td>32/64&ast;</td>
+    <td>64</td>
+    <td>64</td>
+    <td>64</td>
+  </tr>
+<!--   <tr>
+    <td>64</td>
+    <td><code>UMax</code>, <code>umax</code></td>
+    <td><code>IMax</code>, <code>iMax</code></td>
+    <td>32</td>
+    <td>32/64&ast;</td>
+    <td>64</td>
+    <td>64</td>
+    <td>64</td>
+  </tr> -->
+</tbody>
+</table>
+
+<p>&amp;ast; — While the <code class="language-plaintext highlighter-rouge">long long int</code> type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models’ <code class="language-plaintext highlighter-rouge">long long int</code> type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as <code class="language-plaintext highlighter-rouge">long long int</code> anyway, when compiler with ISO C99 standard or newer.</p>
+
+<h2 id="12-special-types">1.2. Special types</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_IMax</span><span class="p">,</span>	<span class="n">wl_imax</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_UMax</span><span class="p">,</span>	<span class="n">wl_umax</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span> <span class="n">wl_Pt</span><span class="p">,</span>   <span class="n">wl_pt</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>There are 3 additional useful types defined in <code class="language-plaintext highlighter-rouge">&lt;types.h&gt;</code>: <code class="language-plaintext highlighter-rouge">Pt</code>, <code class="language-plaintext highlighter-rouge">IMax</code> and <code class="language-plaintext highlighter-rouge">UMax</code></p>
+
+<h3 id="pointer-type">Pointer type</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Pt</code> or <code class="language-plaintext highlighter-rouge">pt</code> — the pointer type. An integer type large enough to hold the reference to an object. This is intended to be used for casting the pointer value into an arithmetic type for pointer arithmetic.</p>
+
+<p>For example, take the next piece of code. In order to use arithmetic operations using pointers, we would need to convert then into an arithmetical type. After calculations, we would probably want the result value to be converted back into a pointer value.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span><span class="o">*</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)((</span><span class="n">Pt</span><span class="p">)</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">WL_USE_STDINT</code> macro can be defined with any non-zero value at build time, to signal WLib to implement its fixed-size integer types through <code class="language-plaintext highlighter-rouge">&lt;stdint.h&gt;</code>’s definitions rather than using data models.</p>
+
+<h3 id="maximal-width-types">Maximal-width types</h3>
+
+<p><code class="language-plaintext highlighter-rouge">IMax</code> or <code class="language-plaintext highlighter-rouge">imax</code> is a type for the largest available signed basic integer C type (usually 64-bits)</p>
+
+<p><code class="language-plaintext highlighter-rouge">UMax</code> or <code class="language-plaintext highlighter-rouge">umax</code> is a type for the largest avalible unsigned basic integer C type (usually 64-bits)</p>
+
+<h2 id="13-compatibility-types">1.3. Compatibility types</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="cm">/* type */</span>	<span class="n">Vo</span><span class="p">,</span> <span class="n">vo</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span>	<span class="n">Bl</span><span class="p">,</span> <span class="n">bl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">void</code> type has been added by the ANSI C standard (which means it may not have been supported by pre-standard compilers), WLib defines <code class="language-plaintext highlighter-rouge">Vo</code> and <code class="language-plaintext highlighter-rouge">vo</code> types. However, in the implementation of any WLib identifier or a function (except the definition of <code class="language-plaintext highlighter-rouge">Vo</code> and <code class="language-plaintext highlighter-rouge">vo</code> types themselves) use of <code class="language-plaintext highlighter-rouge">void</code> type as-is is allowed, even interchangeably; therefore, <code class="language-plaintext highlighter-rouge">Vo</code> and <code class="language-plaintext highlighter-rouge">vo</code> types are mostly viewed as aliases.</p>
+
+<p>While <code class="language-plaintext highlighter-rouge">_Bool</code> type has only been introduced ten years later with an ISO C 1999 revision. <code class="language-plaintext highlighter-rouge">Bl</code> or <code class="language-plaintext highlighter-rouge">bl</code> type ensures to use of the type will not generate any error or warnings and will act as a boolean type for the most part for compilers set to comply with a standard revision prior to <code class="language-plaintext highlighter-rouge">_Bool</code>’s debut. More specifically <code class="language-plaintext highlighter-rouge">Bl</code> is defined as the smallest available data type (any 8-bit type), where any non-zero value is considered true and false otherwise. In C++ the default boolean type is <code class="language-plaintext highlighter-rouge">bool</code>, not <code class="language-plaintext highlighter-rouge">_Bool</code>, therefore, <code class="language-plaintext highlighter-rouge">Bl</code> and <code class="language-plaintext highlighter-rouge">bl</code> are also defined accordingly to the language used.</p>
+
+<h2 id="14-alias-types">1.4. Alias types</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="kt">char</span>		<span class="n">Ch</span><span class="p">,</span> <span class="n">ch</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">double</span>		<span class="n">Db</span><span class="p">,</span> <span class="n">db</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">float</span>		<span class="n">Fl</span><span class="p">,</span> <span class="n">fl</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">double</span>	<span class="n">Ld</span><span class="p">,</span> <span class="n">ld</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Ch</code> and <code class="language-plaintext highlighter-rouge">ch</code> are aliases for <code class="language-plaintext highlighter-rouge">char</code> type.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Fl</code> and <code class="language-plaintext highlighter-rouge">fl</code> are aliases for <code class="language-plaintext highlighter-rouge">float</code> type.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Db</code> and <code class="language-plaintext highlighter-rouge">db</code> are aliases for <code class="language-plaintext highlighter-rouge">double</code> type.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Ld</code> and <code class="language-plaintext highlighter-rouge">ld</code> are aliases for <code class="language-plaintext highlighter-rouge">long double</code> type.</p>
+
+<h3 id="15-type-width-macros">1.5. Type width macros</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define BLB		</span><span class="cm">/* const int */</span><span class="cp">
+#define CHB		</span><span class="cm">/* const int */</span><span class="cp">
+#define I16B	</span><span class="cm">/* const int */</span><span class="cp">
+#define I32B	</span><span class="cm">/* const int */</span><span class="cp">
+#define I64B	</span><span class="cm">/* const int */</span><span class="cp">
+#define I8B		</span><span class="cm">/* const int */</span><span class="cp">
+#define INB		</span><span class="cm">/* const int */</span><span class="cp">
+#define LLB		</span><span class="cm">/* const int */</span><span class="cp">
+#define LOB		</span><span class="cm">/* const int */</span><span class="cp">
+#define SCB		</span><span class="cm">/* const int */</span><span class="cp">
+#define SHB		</span><span class="cm">/* const int */</span><span class="cp">
+#define U16B	</span><span class="cm">/* const int */</span><span class="cp">
+#define U32B	</span><span class="cm">/* const int */</span><span class="cp">
+#define U64B	</span><span class="cm">/* const int */</span><span class="cp">
+#define U8B		</span><span class="cm">/* const int */</span><span class="cp">
+#define UCB		</span><span class="cm">/* const int */</span><span class="cp">
+#define UIB		</span><span class="cm">/* const int */</span><span class="cp">
+#define ULB		</span><span class="cm">/* const int */</span><span class="cp">
+#define ULLB	</span><span class="cm">/* const int */</span><span class="cp">
+#define USB		</span><span class="cm">/* const int */</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>Sometimes it is useful to have macros that represent the width of a data type. In the code below a function is defined that takes an agrument of type <a href="#13-compatibility-types"><code class="language-plaintext highlighter-rouge">Bl</code></a>, basically a single bit, and shifts this bit to the leftmost binary digit of type U64B. To make this shift you need to know the width of the type.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Bl</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">a</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ILB</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Type</th>
+      <th style="text-align: center">Width (bits)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">Bl</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">BLB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">CHB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I8</code> and <code class="language-plaintext highlighter-rouge">i8</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I8B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I16</code> and <code class="language-plaintext highlighter-rouge">i16</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I16B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I32</code> and <code class="language-plaintext highlighter-rouge">i32</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I32B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I64</code> and <code class="language-plaintext highlighter-rouge">i64</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I64B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">IMax</code> and <code class="language-plaintext highlighter-rouge">imax</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IMB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">int</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">INB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">long long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LLB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LOB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">Pt</code> and <code class="language-plaintext highlighter-rouge">pt</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">PTB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">short</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SHB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">signed char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SCB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U8</code> and <code class="language-plaintext highlighter-rouge">u8</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U8B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U16</code> and <code class="language-plaintext highlighter-rouge">u16</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U16B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U32</code> and <code class="language-plaintext highlighter-rouge">u32</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U32B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U64</code> and <code class="language-plaintext highlighter-rouge">u64</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U64B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">UMax</code> and <code class="language-plaintext highlighter-rouge">umax</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UMB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UCB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned int</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UIB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned long long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ULLB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ULB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned short</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">USB</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="16-type-width-macros">1.6. Type width macros</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define CHN		</span><span class="cm">/* const int */</span><span class="cp">
+#define CHX		</span><span class="cm">/* const int */</span><span class="cp">
+#define FALSE	</span><span class="cm">/* const int */</span><span class="cp">
+#define I16N	</span><span class="cm">/* const int */</span><span class="cp">
+#define I16X	</span><span class="cm">/* const int */</span><span class="cp">
+#define I32N	</span><span class="cm">/* const int */</span><span class="cp">
+#define I32X	</span><span class="cm">/* const int */</span><span class="cp">
+#define I64N	</span><span class="cm">/* const int */</span><span class="cp">
+#define I64X	</span><span class="cm">/* const int */</span><span class="cp">
+#define I8N		</span><span class="cm">/* const int */</span><span class="cp">
+#define I8X		</span><span class="cm">/* const int */</span><span class="cp">
+#define IMN		</span><span class="cm">/* const int */</span><span class="cp">
+#define IMX		</span><span class="cm">/* const int */</span><span class="cp">
+#define IMX		</span><span class="cm">/* const int */</span><span class="cp">
+#define INN		</span><span class="cm">/* const int */</span><span class="cp">
+#define INX		</span><span class="cm">/* const int */</span><span class="cp">
+#define LLN		</span><span class="cm">/* const int */</span><span class="cp">
+#define LLX		</span><span class="cm">/* const int */</span><span class="cp">
+#define LON		</span><span class="cm">/* const int */</span><span class="cp">
+#define LOX		</span><span class="cm">/* const int */</span><span class="cp">
+#define SCN		</span><span class="cm">/* const int */</span><span class="cp">
+#define SCX		</span><span class="cm">/* const int */</span><span class="cp">
+#define SHN		</span><span class="cm">/* const int */</span><span class="cp">
+#define SHX		</span><span class="cm">/* const int */</span><span class="cp">
+#define TRUE	</span><span class="cm">/* const int */</span><span class="cp">
+#define U16N	</span><span class="cm">/* const int */</span><span class="cp">
+#define U16X	</span><span class="cm">/* const int */</span><span class="cp">
+#define U32N	</span><span class="cm">/* const int */</span><span class="cp">
+#define U32X	</span><span class="cm">/* const int */</span><span class="cp">
+#define U64N	</span><span class="cm">/* const int */</span><span class="cp">
+#define U64X	</span><span class="cm">/* const int */</span><span class="cp">
+#define U8N		</span><span class="cm">/* const int */</span><span class="cp">
+#define U8X		</span><span class="cm">/* const int */</span><span class="cp">
+#define UCN		</span><span class="cm">/* const int */</span><span class="cp">
+#define UCX		</span><span class="cm">/* const int */</span><span class="cp">
+#define UIN		</span><span class="cm">/* const int */</span><span class="cp">
+#define UIX		</span><span class="cm">/* const int */</span><span class="cp">
+#define ULLN	</span><span class="cm">/* const int */</span><span class="cp">
+#define ULLX	</span><span class="cm">/* const int */</span><span class="cp">
+#define ULN		</span><span class="cm">/* const int */</span><span class="cp">
+#define ULX		</span><span class="cm">/* const int */</span><span class="cp">
+#define UMX		</span><span class="cm">/* const int */</span><span class="cp">
+#define USN		</span><span class="cm">/* const int */</span><span class="cp">
+#define USX		</span><span class="cm">/* const int */</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>In the table below</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Type</th>
+      <th style="text-align: center">Minimal value</th>
+      <th style="text-align: center">Maximal value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Bl</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">FALSE</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">TRUE</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">CHN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">CHX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I8</code> and <code class="language-plaintext highlighter-rouge">i8</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I8N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I8X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I16</code> and <code class="language-plaintext highlighter-rouge">i16</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I16N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I16X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I32</code> and <code class="language-plaintext highlighter-rouge">i32</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I32N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I32X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I64</code> and <code class="language-plaintext highlighter-rouge">i64</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I64N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I64X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IMax</code> and <code class="language-plaintext highlighter-rouge">imax</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IMN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IMX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">int</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">INN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">INX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">long long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LLN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LLX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LON</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LOX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">Pt</code> and <code class="language-plaintext highlighter-rouge">pt</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">PTN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">PTX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">short</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SHN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SHX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">signed char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SCN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SCX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U8</code> and <code class="language-plaintext highlighter-rouge">u8</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U8N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U8X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U16</code> and <code class="language-plaintext highlighter-rouge">u16</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U16N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U16X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U32</code> and <code class="language-plaintext highlighter-rouge">u32</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U32N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U32X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U64</code> and <code class="language-plaintext highlighter-rouge">u64</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U64N</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U64X</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UMax</code> and <code class="language-plaintext highlighter-rouge">umax</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UMN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UMX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unsigned char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UCN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UCX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unsigned int</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UIN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UIX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unsigned long long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ULLN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ULLX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unsigned long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LON</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LOX</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">unsigned short</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">USN</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">USX</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="2-character-manipulation-charh">2. Character manipulation &lt;char.h&gt;</h1>
+
+<p>Character manipulation library is contained in a single header, <char.h>, and provides macros for using control characters by their short names (`ACK`), for checking the set of a chacater (letter, digit, symbol, etc), converting characters from one set to another (from lowercase to uppercase).</char.h></p>
+
+<p>Below is the table of ASCII character set.</p>
+
+<ul>
+  <li>Characters belonging to the Control Character Set are inside blue cells (x00—x1F and x7F);</li>
+  <li>Characters belonging to the Symbol Character Set are inside yellow cells (x20—x2F and x3A—x40 and x5B—x60 and x7B—x7E);</li>
+  <li>Characters belonging to the Digit Character Set are inside pink/magenta cells (x30—x39);</li>
+  <li>Characters belonging to the Uppercase Character Set are inside red cells (x41—x5A);</li>
+  <li>Characters belonging to the Lowercase Character Set are inside green cells (x61—x7A);</li>
+  <li>Characters belonging to the Whitespace Character Set are in red color (x09—x0D);</li>
+  <li>The Letter Character Set is a combined set of the Uppercase Character Set and the Lowercase Character Set;</li>
+  <li>The Alphaneumeric Character Set is a combined set of the Letter Character Set and the Digit Character Set;</li>
+  <li>The Extended ASCII Character Set is any character beyond the order number 127 (x7F) or ␡ character.</li>
+</ul>
+
+<table id="ASCII">
+  <thead>
+    <tr>
+      <th></th>
+      <th>00</th>
+      <th>01</th>
+      <th>02</th>
+      <th>03</th>
+      <th>04</th>
+      <th>05</th>
+      <th>06</th>
+      <th>07</th>
+      <th>08</th>
+      <th>09</th>
+      <th>0A</th>
+      <th>0B</th>
+      <th>0C</th>
+      <th>0D</th>
+      <th>0E</th>
+      <th>0F</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><b>00</b></th>
+      <td class="ASCII-control">&#9216;</td>
+      <td class="ASCII-control">&#9217;</td>
+      <td class="ASCII-control">&#9218;</td>
+      <td class="ASCII-control">&#9219;</td>
+      <td class="ASCII-control">&#9220;</td>
+      <td class="ASCII-control">&#9221;</td>
+      <td class="ASCII-control">&#9222;</td>
+      <td class="ASCII-control">&#9223;</td>
+      <td class="ASCII-control">&#9224;</td>
+      <td class="ASCII-control ASCII-whitespace">&#9225;</td>
+      <td class="ASCII-control ASCII-whitespace">&#9226;</td>
+      <td class="ASCII-control ASCII-whitespace">&#9227;</td>
+      <td class="ASCII-control ASCII-whitespace">&#9228;</td>
+      <td class="ASCII-control ASCII-whitespace">&#9229;</td>
+      <td class="ASCII-control">&#9230;</td>
+      <td class="ASCII-control">&#9231;</td>
+      <th><b>0F</b></th>
+    </tr>
+    <tr>
+      <th><b>10</b></th>
+      <td class="ASCII-control">&#9232;</td>
+      <td class="ASCII-control">&#9233;</td>
+      <td class="ASCII-control">&#9234;</td>
+      <td class="ASCII-control">&#9235;</td>
+      <td class="ASCII-control">&#9236;</td>
+      <td class="ASCII-control">&#9237;</td>
+      <td class="ASCII-control">&#9238;</td>
+      <td class="ASCII-control">&#9239;</td>
+      <td class="ASCII-control">&#9240;</td>
+      <td class="ASCII-control">&#9241;</td>
+      <td class="ASCII-control">&#9242;</td>
+      <td class="ASCII-control">&#9243;</td>
+      <td class="ASCII-control">&#9244;</td>
+      <td class="ASCII-control">&#9245;</td>
+      <td class="ASCII-control">&#9246;</td>
+      <td class="ASCII-control">&#9247;</td>
+      <th><b>1F</b></th>
+    </tr>
+    <tr>
+      <th><b>20</b></th>
+      <td class="ASCII-symbol">&#9251;</td>
+      <td class="ASCII-symbol">!</td>
+      <td class="ASCII-symbol">&quot;</td>
+      <td class="ASCII-symbol">&num;</td>
+      <td class="ASCII-symbol">$</td>
+      <td class="ASCII-symbol">%</td>
+      <td class="ASCII-symbol">&amp;</td>
+      <td class="ASCII-symbol">&#39;</td>
+      <td class="ASCII-symbol">(</td>
+      <td class="ASCII-symbol">)</td>
+      <td class="ASCII-symbol">&ast;</td>
+      <td class="ASCII-symbol">+</td>
+      <td class="ASCII-symbol">,</td>
+      <td class="ASCII-symbol">-</td>
+      <td class="ASCII-symbol">.</td>
+      <td class="ASCII-symbol">/</td>
+      <th><b>2F</b></th>
+    </tr>
+    <tr>
+      <th><b>30</b></th>
+      <td class="ASCII-digit">0</td>
+      <td class="ASCII-digit">1</td>
+      <td class="ASCII-digit">2</td>
+      <td class="ASCII-digit">3</td>
+      <td class="ASCII-digit">4</td>
+      <td class="ASCII-digit">5</td>
+      <td class="ASCII-digit">6</td>
+      <td class="ASCII-digit">7</td>
+      <td class="ASCII-digit">8</td>
+      <td class="ASCII-digit">9</td>
+      <td class="ASCII-symbol">:</td>
+      <td class="ASCII-symbol">;</td>
+      <td class="ASCII-symbol">&lt;</td>
+      <td class="ASCII-symbol">=</td>
+      <td class="ASCII-symbol">&gt;</td>
+      <td class="ASCII-symbol">?</td>
+      <th><b>3F</b></th>
+    </tr>
+    <tr>
+      <th><b>40</b></th>
+      <td class="ASCII-symbol">@</td>
+      <td class="ASCII-uppercase">A</td>
+      <td class="ASCII-uppercase">B</td>
+      <td class="ASCII-uppercase">C</td>
+      <td class="ASCII-uppercase">D</td>
+      <td class="ASCII-uppercase">E</td>
+      <td class="ASCII-uppercase">F</td>
+      <td class="ASCII-uppercase">G</td>
+      <td class="ASCII-uppercase">H</td>
+      <td class="ASCII-uppercase">I</td>
+      <td class="ASCII-uppercase">J</td>
+      <td class="ASCII-uppercase">K</td>
+      <td class="ASCII-uppercase">L</td>
+      <td class="ASCII-uppercase">M</td>
+      <td class="ASCII-uppercase">N</td>
+      <td class="ASCII-uppercase">O</td>
+      <th><b>4F</b></th>
+    </tr>
+    <tr>
+      <th><b>50</b></th>
+      <td class="ASCII-uppercase">P</td>
+      <td class="ASCII-uppercase">Q</td>
+      <td class="ASCII-uppercase">R</td>
+      <td class="ASCII-uppercase">S</td>
+      <td class="ASCII-uppercase">T</td>
+      <td class="ASCII-uppercase">U</td>
+      <td class="ASCII-uppercase">V</td>
+      <td class="ASCII-uppercase">W</td>
+      <td class="ASCII-uppercase">X</td>
+      <td class="ASCII-uppercase">Y</td>
+      <td class="ASCII-uppercase">Z</td>
+      <td class="ASCII-symbol">[</td>
+      <td class="ASCII-symbol">\</td>
+      <td class="ASCII-symbol">]</td>
+      <td class="ASCII-symbol">^</td>
+      <td class="ASCII-symbol">_</td>
+      <th><b>5F</b></th>
+    </tr>
+    <tr>
+      <th><b>60</b></th>
+      <td class="ASCII-symbol">&grave;</td>
+      <td class="ASCII-lowercase">a</td>
+      <td class="ASCII-lowercase">b</td>
+      <td class="ASCII-lowercase">c</td>
+      <td class="ASCII-lowercase">d</td>
+      <td class="ASCII-lowercase">e</td>
+      <td class="ASCII-lowercase">f</td>
+      <td class="ASCII-lowercase">g</td>
+      <td class="ASCII-lowercase">h</td>
+      <td class="ASCII-lowercase">i</td>
+      <td class="ASCII-lowercase">j</td>
+      <td class="ASCII-lowercase">k</td>
+      <td class="ASCII-lowercase">l</td>
+      <td class="ASCII-lowercase">m</td>
+      <td class="ASCII-lowercase">n</td>
+      <td class="ASCII-lowercase">o</td>
+      <th><b>6F</b></th>
+    </tr>
+    <tr>
+      <th><b>70</b></th>
+      <td class="ASCII-lowercase">p</td>
+      <td class="ASCII-lowercase">q</td>
+      <td class="ASCII-lowercase">r</td>
+      <td class="ASCII-lowercase">s</td>
+      <td class="ASCII-lowercase">t</td>
+      <td class="ASCII-lowercase">u</td>
+      <td class="ASCII-lowercase">v</td>
+      <td class="ASCII-lowercase">w</td>
+      <td class="ASCII-lowercase">x</td>
+      <td class="ASCII-lowercase">y</td>
+      <td class="ASCII-lowercase">z</td>
+      <td class="ASCII-symbol">{</td>
+      <td class="ASCII-symbol">&vert;</td>
+      <td class="ASCII-symbol">}</td>
+      <td class="ASCII-symbol">~</td>
+      <td class="ASCII-control">␡</td>
+      <th><b>7F</b></th>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th></th>
+      <th>F0</th>
+      <th>F1</th>
+      <th>F2</th>
+      <th>F3</th>
+      <th>F4</th>
+      <th>F5</th>
+      <th>F6</th>
+      <th>F7</th>
+      <th>F8</th>
+      <th>F9</th>
+      <th>FA</th>
+      <th>FB</th>
+      <th>FC</th>
+      <th>FD</th>
+      <th>FE</th>
+      <th>FF</th>
+      <th></th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Legend</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="background-color:#EEF"></td>
+      <td>Control characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#FFE"></td>
+      <td>Symbol characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#FEF"></td>
+      <td>Digit characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#FEE"></td>
+      <td>Uppercase letter characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#EFE"></td>
+      <td>Lowercase letter characters</td>
+    </tr>
+    <tr>
+      <td style="color:#800">A</td>
+      <td>Whitespaces</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="21-control-character-macros">2.1. Control Character Macros</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Name</th>
+      <th style="text-align: center">Mnemonics</th>
+      <th style="text-align: left">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">NUL</code></td>
+      <td style="text-align: center">Null</td>
+      <td style="text-align: left">0x00</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SOH</code></td>
+      <td style="text-align: center">Start of Heading</td>
+      <td style="text-align: left">0x01</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">STX</code></td>
+      <td style="text-align: center">Start of Text</td>
+      <td style="text-align: left">0x02</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ETX</code></td>
+      <td style="text-align: center">End of Text</td>
+      <td style="text-align: left">0x03</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">EOT</code></td>
+      <td style="text-align: center">End of Transmission</td>
+      <td style="text-align: left">0x04</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ENQ</code></td>
+      <td style="text-align: center">Enquiry</td>
+      <td style="text-align: left">0x05</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ACK</code></td>
+      <td style="text-align: center">Acknowledge</td>
+      <td style="text-align: left">0x06</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">BEL</code></td>
+      <td style="text-align: center">Bell</td>
+      <td style="text-align: left">0x07</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">BS</code></td>
+      <td style="text-align: center">Backspace</td>
+      <td style="text-align: left">0x08</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">HT</code></td>
+      <td style="text-align: center">Horizontal Tabulation</td>
+      <td style="text-align: left">0x09</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">LF</code></td>
+      <td style="text-align: center">New Line</td>
+      <td style="text-align: left">0x0A</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">VT</code></td>
+      <td style="text-align: center">Vertical Tabulation</td>
+      <td style="text-align: left">0x0B</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">FF</code></td>
+      <td style="text-align: center">Form Feed</td>
+      <td style="text-align: left">0x0C</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">CR</code></td>
+      <td style="text-align: center">Carriage Return</td>
+      <td style="text-align: left">0x0D</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SO</code></td>
+      <td style="text-align: center">Shift Out</td>
+      <td style="text-align: left">0x0E</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SI</code></td>
+      <td style="text-align: center">Shift In</td>
+      <td style="text-align: left">0x0F</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DLE</code></td>
+      <td style="text-align: center">Data Link Escape</td>
+      <td style="text-align: left">0x10</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC1</code></td>
+      <td style="text-align: center">Device Control 1</td>
+      <td style="text-align: left">0x11</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC2</code></td>
+      <td style="text-align: center">Device Control 2</td>
+      <td style="text-align: left">0x12</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC3</code></td>
+      <td style="text-align: center">Device Control 3</td>
+      <td style="text-align: left">0x13</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DC4</code></td>
+      <td style="text-align: center">Device Control 4</td>
+      <td style="text-align: left">0x14</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">NAK</code></td>
+      <td style="text-align: center">Negative Acknowledge</td>
+      <td style="text-align: left">0x15</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SYN</code></td>
+      <td style="text-align: center">Synchronous Idle</td>
+      <td style="text-align: left">0x16</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ETB</code></td>
+      <td style="text-align: center">End of Transmission Block</td>
+      <td style="text-align: left">0x17</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">CAN</code></td>
+      <td style="text-align: center">Cancel</td>
+      <td style="text-align: left">0x18</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">EM</code></td>
+      <td style="text-align: center">End Of Medium</td>
+      <td style="text-align: left">0x19</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">SUB</code></td>
+      <td style="text-align: center">Substitute</td>
+      <td style="text-align: left">0x1A</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">ESC</code></td>
+      <td style="text-align: center">Escape</td>
+      <td style="text-align: left">0x1B</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">FS</code></td>
+      <td style="text-align: center">File Separator</td>
+      <td style="text-align: left">0x1C</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">GS</code></td>
+      <td style="text-align: center">Group Separator</td>
+      <td style="text-align: left">0x1D</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">RS</code></td>
+      <td style="text-align: center">Record Separator</td>
+      <td style="text-align: left">0x1E</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">US</code></td>
+      <td style="text-align: center">Unit Separator</td>
+      <td style="text-align: left">0x1F</td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">DEL</code></td>
+      <td style="text-align: center">Delete</td>
+      <td style="text-align: left">0x7F</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="22-character-checking">2.2. Character checking</h2>
+<h3 id="221-cia--character-is-alphanumeric-character">2.2.1. <code class="language-plaintext highlighter-rouge">cia</code> — Character Is Alphanumeric character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define cia wl_cia
+#define wl_cia(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cia</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>A</b>lphanumeric</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href="#225-cil--character-is-letter-character"><code>cil</code></a> , <a href="#223-cid--character-is-digit-character"><code>cid</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Alphanumeric characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="222-cic--character-is-control-character">2.2.2. <code class="language-plaintext highlighter-rouge">cic</code> — Character Is Control character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define cic wl_cic
+#define wl_cic(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cic</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>C</b>ontrol</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a><code>DEL</code></a> </td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Control characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="223-cid--character-is-digit-character">2.2.3. <code class="language-plaintext highlighter-rouge">cid</code> — Character Is Digit character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define cid wl_cid
+#define wl_cid(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cid</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>D</b>igit</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Numeric characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="224-cie--character-is-extended-ascii-character">2.2.4. <code class="language-plaintext highlighter-rouge">cie</code> — Character Is Extended ASCII character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define cie wl_cie
+#define wl_cie(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cie</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>E</b>xtended ASCII</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Extended ASCII characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="225-cil--character-is-letter-character">2.2.5. <code class="language-plaintext highlighter-rouge">cil</code> — Character Is Letter character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define cil wl_cil
+#define wl_cil(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cil</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>L</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href="#226-cill--character-is-lowercase-letter-character"><code>cill</code></a> , <a href="#227-ciul--character-is-uppercase-letter-character"><code>ciul</code></a></td>   
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Alphabetic characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="226-cill--character-is-lowercase-letter-character">2.2.6. <code class="language-plaintext highlighter-rouge">cill</code> — Character Is Lowercase Letter character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define ciul wl_cill
+#define wl_cill(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cill</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>L</b>owercase <b>l</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Lowercase characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="227-ciul--character-is-uppercase-letter-character">2.2.7. <code class="language-plaintext highlighter-rouge">ciul</code> — Character Is Uppercase Letter character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define ciul wl_ciul
+#define wl_ciul(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>ciul</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>U</b>ppercase <b>l</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Uppercase characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="228-cis--character-is-symbol-character">2.2.8. <code class="language-plaintext highlighter-rouge">cis</code> — Character Is Symbol character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define cis wl_cis
+#define wl_cis(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cis</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>S</b>ymbol</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Symbol characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="229-ciw--character-is-whitespace-character">2.2.9. <code class="language-plaintext highlighter-rouge">ciw</code> — Character Is Whitespace character</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define ciw wl_ciw
+#define wl_ciw(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>ciw</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>W</b>hitespace</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a><code>TRUE</code></a> or <a><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a><a><code>TRUE</code></a></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Whitespace characters</a>, <a><a><code>FALSE</code></a></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="23-convertion-functions">2.3. Convertion functions</h2>
+<h3 id="digit-to-character-convertion-table">Digit to Character convertion table</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Digit</th>
+      <th style="text-align: center"><strong>00</strong></th>
+      <th style="text-align: center"><strong>01</strong></th>
+      <th style="text-align: center"><strong>02</strong></th>
+      <th style="text-align: center"><strong>03</strong></th>
+      <th style="text-align: center"><strong>04</strong></th>
+      <th style="text-align: center"><strong>05</strong></th>
+      <th style="text-align: center"><strong>06</strong></th>
+      <th style="text-align: center"><strong>07</strong></th>
+      <th style="text-align: center"><strong>08</strong></th>
+      <th style="text-align: center"><strong>09</strong></th>
+      <th style="text-align: center"><strong>0A</strong></th>
+      <th style="text-align: center"><strong>0B</strong></th>
+      <th style="text-align: center"><strong>0C</strong></th>
+      <th style="text-align: center"><strong>0D</strong></th>
+      <th style="text-align: center"><strong>0E</strong></th>
+      <th style="text-align: center"><strong>0F</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><strong>00</strong></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'0'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'1'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'2'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'3'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'4'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'5'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'6'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'7'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'8'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'9'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'A'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'B'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'C'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'D'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'E'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'F'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>10</strong></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'G'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'H'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'I'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'J'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'K'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'L'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'M'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'N'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'O'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'P'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'Q'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'R'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'S'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'T'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'U'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'V'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>20</strong></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'W'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'X'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'Y'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'Z'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'a'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'b'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'c'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'d'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'e'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'f'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'g'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'h'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'i'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'j'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'k'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'l'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>30</strong></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'m'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'n'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'o'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'p'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'q'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'r'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'s'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'t'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'u'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'v'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'w'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'x'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'y'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'z'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'!'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'"'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>40</strong></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'#'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'$'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'%'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'&amp;'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'\''</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'('</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">')'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'*'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'+'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">','</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'-'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'.'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'/'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">':'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">';'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'&lt;'</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><strong>50</strong></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'='</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'&gt;'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'?'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'@'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'['</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'\\'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">']'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'^'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'_'</code></td>
+      <td style="text-align: center"><code>'&grave;'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'{'</code></td>
+      <td style="text-align: center"><code>'&vert;'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'}'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">'~'</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">' '</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">DEL</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="231-c2d--charater-to-digit">2.3.1. <code class="language-plaintext highlighter-rouge">c2d</code> — Charater To Digit</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define c2d wl_c2d
+#define wl_c2d(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>c2d</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>to</b> <b>D</b>igit</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a digit corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="232-d2c--digit-to-charater">2.3.2. <code class="language-plaintext highlighter-rouge">d2c</code> — Digit To Charater</h3>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define d2c wl_d2c
+#define wl_d2c(a) </span><span class="cm">/* function body */</span><span class="cp">
+</span></code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>d2c</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>D</b>igit <b>to</b> <b>C</b>haracter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a><code>U8</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a character corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code class="language-mermaid">graph TD;
+  A--&gt;B;
+  A--&gt;C;
+  B--&gt;D;
+  C--&gt;D;
+</code></pre>
+
+
+        <footer class="site-footer">
+          
+            <span class="site-footer-owner"><a href="https://github.com/wspvlv/wlib">wlib</a> is maintained by <a href="https://github.com/wspvlv">wspvlv</a>.</span>
+          
+          <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

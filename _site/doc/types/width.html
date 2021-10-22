@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>1.5. Type width macros | wlib</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="1.5. Type width macros" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/doc/types/width.html" />
+<meta property="og:url" content="http://localhost:4000/doc/types/width.html" />
+<meta property="og:site_name" content="wlib" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="1.5. Type width macros" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"1.5. Type width macros","url":"http://localhost:4000/doc/types/width.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=91631de443c5e3905efdeda9dd46951a5340295b">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <!-- <a id="skip-to-content" href="#content">Skip to the content.</a> -->
+
+    <!-- Header, duh -->
+    <header class="page-header" role="banner">
+      <h1 class="project-name">1.5. Type width macros</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="https://github.com/wspvlv/wlib" class="btn">View on GitHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <ul>
+          <li>
+            <a href="doc/index.md">Documentation</a>
+            <ul>
+              <li>
+                <a href="doc/index.md#requirements">Requirements</a>
+              </li>
+            </ul>
+            <ol>
+              <li>
+                <a href="doc/types/index.html">Types</a>
+                <ol>
+                  <li>
+                    <a href="doc/types/fixed.html">Fixed-size integer types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/special.html">Special types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/compat.html">Compatibility types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/alias.html">Alias types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/width.html">Type width macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/limits.html">Type limits macros</a>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a href="doc/char/index.html">Character manipulation</a>
+                <ol>
+                  <li>
+                    <a href="doc/char/control.html">Control Character Macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/char/check/index.html">Character checking</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/check/cia.html">`cia` &mdash; Character Is Alphanumeric character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cic.html">`cic` &mdash; Character Is Control character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cid.html">`cid` &mdash; Character Is Digit character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cie.html">`cie` &mdash; Character Is Extended ASCII character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cil.html">`cie` &mdash; Character Is Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cill.html">`cill` &mdash; Character Is Lowercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cis.html">`cis` &mdash; Character Is Symbol character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciul.html">`ciul` &mdash; Character Is Uppercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciw.html">`ciw` &mdash; Character Is Whitespace character</a>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <a href="doc/char/conv/index.html">Convertion functions</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/conv/c2d.html">`c2d` &mdash; Charater To Digit</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/conv/d2c.html">`d2c` &mdash; Digit To Charater</a>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <h2 id="15-type-width-macros">1.5. Type width macros</h2>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define BLB		</span><span class="cm">/* const int */</span><span class="cp">
+#define CHB		</span><span class="cm">/* const int */</span><span class="cp">
+#define I16B	</span><span class="cm">/* const int */</span><span class="cp">
+#define I32B	</span><span class="cm">/* const int */</span><span class="cp">
+#define I64B	</span><span class="cm">/* const int */</span><span class="cp">
+#define I8B		</span><span class="cm">/* const int */</span><span class="cp">
+#define INB		</span><span class="cm">/* const int */</span><span class="cp">
+#define LLB		</span><span class="cm">/* const int */</span><span class="cp">
+#define LOB		</span><span class="cm">/* const int */</span><span class="cp">
+#define SCB		</span><span class="cm">/* const int */</span><span class="cp">
+#define SHB		</span><span class="cm">/* const int */</span><span class="cp">
+#define U16B	</span><span class="cm">/* const int */</span><span class="cp">
+#define U32B	</span><span class="cm">/* const int */</span><span class="cp">
+#define U64B	</span><span class="cm">/* const int */</span><span class="cp">
+#define U8B		</span><span class="cm">/* const int */</span><span class="cp">
+#define UCB		</span><span class="cm">/* const int */</span><span class="cp">
+#define UIB		</span><span class="cm">/* const int */</span><span class="cp">
+#define ULB		</span><span class="cm">/* const int */</span><span class="cp">
+#define ULLB	</span><span class="cm">/* const int */</span><span class="cp">
+#define USB		</span><span class="cm">/* const int */</span><span class="cp">
+</span></code></pre></div></div>
+
+<p>Sometimes it is useful to have macros that represent the width of a data type. In the code below a function is defined that takes an agrument of type <a href="#13-compatibility-types"><code class="language-plaintext highlighter-rouge">Bl</code></a>, basically a single bit, and shifts this bit to the leftmost binary digit of type U64B. To make this shift you need to know the width of the type.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="nf">foo</span><span class="p">(</span><span class="n">Bl</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">a</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ILB</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Type</th>
+      <th style="text-align: center">Width (bits)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">Bl</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">BLB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">CHB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I8</code> and <code class="language-plaintext highlighter-rouge">i8</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I8B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I16</code> and <code class="language-plaintext highlighter-rouge">i16</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I16B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I32</code> and <code class="language-plaintext highlighter-rouge">i32</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I32B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">I64</code> and <code class="language-plaintext highlighter-rouge">i64</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">I64B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">IMax</code> and <code class="language-plaintext highlighter-rouge">imax</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">IMB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">int</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">INB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">long long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LLB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">LOB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">Pt</code> and <code class="language-plaintext highlighter-rouge">pt</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">PTB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">short</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SHB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">signed char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">SCB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U8</code> and <code class="language-plaintext highlighter-rouge">u8</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U8B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U16</code> and <code class="language-plaintext highlighter-rouge">u16</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U16B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U32</code> and <code class="language-plaintext highlighter-rouge">u32</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U32B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">U64</code> and <code class="language-plaintext highlighter-rouge">u64</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">U64B</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">UMax</code> and <code class="language-plaintext highlighter-rouge">umax</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UMB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned char</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UCB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned int</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">UIB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned long long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ULLB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned long</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">ULB</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><code class="language-plaintext highlighter-rouge">unsigned short</code></td>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">USB</code></td>
+    </tr>
+  </tbody>
+</table>
+
+
+        <footer class="site-footer">
+          
+            <span class="site-footer-owner"><a href="https://github.com/wspvlv/wlib">wlib</a> is maintained by <a href="https://github.com/wspvlv">wspvlv</a>.</span>
+          
+          <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

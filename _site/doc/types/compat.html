@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>1.3. Compatibility types | wlib</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="1.3. Compatibility types" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/doc/types/compat.html" />
+<meta property="og:url" content="http://localhost:4000/doc/types/compat.html" />
+<meta property="og:site_name" content="wlib" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="1.3. Compatibility types" />
+<script type="application/ld+json">
+{"@type":"WebPage","headline":"1.3. Compatibility types","url":"http://localhost:4000/doc/types/compat.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=91631de443c5e3905efdeda9dd46951a5340295b">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <!-- <a id="skip-to-content" href="#content">Skip to the content.</a> -->
+
+    <!-- Header, duh -->
+    <header class="page-header" role="banner">
+      <h1 class="project-name">1.3. Compatibility types</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="https://github.com/wspvlv/wlib" class="btn">View on GitHub</a>
+      
+      
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <ul>
+          <li>
+            <a href="doc/index.md">Documentation</a>
+            <ul>
+              <li>
+                <a href="doc/index.md#requirements">Requirements</a>
+              </li>
+            </ul>
+            <ol>
+              <li>
+                <a href="doc/types/index.html">Types</a>
+                <ol>
+                  <li>
+                    <a href="doc/types/fixed.html">Fixed-size integer types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/special.html">Special types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/compat.html">Compatibility types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/alias.html">Alias types</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/width.html">Type width macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/types/limits.html">Type limits macros</a>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <a href="doc/char/index.html">Character manipulation</a>
+                <ol>
+                  <li>
+                    <a href="doc/char/control.html">Control Character Macros</a>
+                  </li>
+                  <li>
+                    <a href="doc/char/check/index.html">Character checking</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/check/cia.html">`cia` &mdash; Character Is Alphanumeric character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cic.html">`cic` &mdash; Character Is Control character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cid.html">`cid` &mdash; Character Is Digit character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cie.html">`cie` &mdash; Character Is Extended ASCII character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cil.html">`cie` &mdash; Character Is Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cill.html">`cill` &mdash; Character Is Lowercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/cis.html">`cis` &mdash; Character Is Symbol character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciul.html">`ciul` &mdash; Character Is Uppercase Letter character</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/check/ciw.html">`ciw` &mdash; Character Is Whitespace character</a>
+                      </li>
+                    </ol>
+                  </li>
+                  <li>
+                    <a href="doc/char/conv/index.html">Convertion functions</a>
+                    <ol>
+                      <li>
+                        <a href="doc/char/conv/c2d.html">`c2d` &mdash; Charater To Digit</a>
+                      </li>
+                      <li>
+                        <a href="doc/char/conv/d2c.html">`d2c` &mdash; Digit To Charater</a>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <h1 id="13-compatibility-types">1.3. Compatibility types</h1>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="cm">/* type */</span>	<span class="n">Vo</span><span class="p">,</span> <span class="n">vo</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="cm">/* type */</span>	<span class="n">Bl</span><span class="p">,</span> <span class="n">bl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">void</code> type has been added by the ANSI C standard (which means it may not have been supported by pre-standard compilers), WLib defines <code class="language-plaintext highlighter-rouge">Vo</code> and <code class="language-plaintext highlighter-rouge">vo</code> types. However, in the implementation of any WLib identifier or a function (except the definition of <code class="language-plaintext highlighter-rouge">Vo</code> and <code class="language-plaintext highlighter-rouge">vo</code> types themselves) use of <code class="language-plaintext highlighter-rouge">void</code> type as-is is allowed, even interchangeably; therefore, <code class="language-plaintext highlighter-rouge">Vo</code> and <code class="language-plaintext highlighter-rouge">vo</code> types are mostly viewed as aliases.</p>
+
+<p>While <code class="language-plaintext highlighter-rouge">_Bool</code> type has only been introduced ten years later with an ISO C 1999 revision. <code class="language-plaintext highlighter-rouge">Bl</code> or <code class="language-plaintext highlighter-rouge">bl</code> type ensures to use of the type will not generate any error or warnings and will act as a boolean type for the most part for compilers set to comply with a standard revision prior to <code class="language-plaintext highlighter-rouge">_Bool</code>’s debut. More specifically <code class="language-plaintext highlighter-rouge">Bl</code> is defined as the smallest available data type (any 8-bit type), where any non-zero value is considered true and false otherwise. In C++ the default boolean type is <code class="language-plaintext highlighter-rouge">bool</code>, not <code class="language-plaintext highlighter-rouge">_Bool</code>, therefore, <code class="language-plaintext highlighter-rouge">Bl</code> and <code class="language-plaintext highlighter-rouge">bl</code> are also defined accordingly to the language used.</p>
+
+
+        <footer class="site-footer">
+          
+            <span class="site-footer-owner"><a href="https://github.com/wspvlv/wlib">wlib</a> is maintained by <a href="https://github.com/wspvlv">wspvlv</a>.</span>
+          
+          <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>
