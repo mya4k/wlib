@@ -1,0 +1,1802 @@
+<!DOCTYPE html><html><head>
+      <title>index</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////home/wispy/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.6.0/node_modules/@shd101wyy/mume/dependencies/katex/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      
+<style>
+  #ASCII th, #ASCII td {
+    text-align: center;
+  }
+  .ASCII-control {
+    font-size: 1.5em;
+    background-color: #EEF;
+  }
+  .ASCII-lowercase {
+    background-color: #EFE;
+  }
+  .ASCII-uppercase {
+    background-color: #FEE;
+  }
+  .ASCII-digit {
+    background-color: #FEF;
+  }
+  .ASCII-symbol {
+    background-color: #FFE;
+  }
+  .ASCII-whitespace {
+    color: #800;
+  }
+</style>
+<ul>
+<li><a href="#wlib-documentation">WLib Documentation</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#1-types">1. Types</a>
+<ul>
+<li><a href="#11-fixed-size-integer-types">1.1. Fixed-size integer types</a></li>
+<li><a href="#12-special-types">1.2. Special types</a>
+<ul>
+<li><a href="#pointer-type">Pointer type</a></li>
+<li><a href="#maximal-width-types">Maximal-width types</a></li>
+</ul>
+</li>
+<li><a href="#13-compatibility-types">1.3. Compatibility types</a></li>
+<li><a href="#14-alias-types">1.4. Alias types</a></li>
+<li><a href="#15-type-width-macros">1.5. Type width macros</a></li>
+<li><a href="#16-type-limits-macros">1.6. Type limits macros</a></li>
+</ul>
+</li>
+<li><a href="#2-character-manipulation-charh">2. Character manipulation &lt;char.h&gt;</a>
+<ul>
+<li><a href="#21-control-character-macros">2.1. Control Character Macros</a></li>
+<li><a href="#22-character-checking">2.2. Character checking</a>
+<ul>
+<li><a href="#221-cia-mdash-character-is-alphanumeric-character">2.2.1. <code>cia</code> &#x2014; Character Is Alphanumeric character</a></li>
+<li><a href="#222-cic-mdash-character-is-control-character">2.2.2. <code>cic</code> &#x2014; Character Is Control character</a></li>
+<li><a href="#223-cid-mdash-character-is-digit-character">2.2.3. <code>cid</code> &#x2014; Character Is Digit character</a></li>
+<li><a href="#224-cie-mdash-character-is-extended-ascii-character">2.2.4. <code>cie</code> &#x2014; Character Is Extended ASCII character</a></li>
+<li><a href="#225-cil-mdash-character-is-letter-character">2.2.5. <code>cil</code> &#x2014; Character Is Letter character</a></li>
+<li><a href="#226-cill-mdash-character-is-lowercase-letter-character">2.2.6. <code>cill</code> &#x2014; Character Is Lowercase Letter character</a></li>
+<li><a href="#227-ciul-mdash-character-is-uppercase-letter-character">2.2.7. <code>ciul</code> &#x2014; Character Is Uppercase Letter character</a></li>
+<li><a href="#228-cis-mdash-character-is-symbol-character">2.2.8. <code>cis</code> &#x2014; Character Is Symbol character</a></li>
+<li><a href="#229-ciw-mdash-character-is-whitespace-character">2.2.9. <code>ciw</code> &#x2014; Character Is Whitespace character</a></li>
+</ul>
+</li>
+<li><a href="#23-convertion-functions">2.3. Convertion functions</a>
+<ul>
+<li><a href="#digit-to-character-convertion-table">Digit to Character convertion table</a></li>
+<li><a href="#231-c2d-mdash-charater-to-digit">2.3.1. <code>c2d</code> &#x2014; Charater To Digit</a></li>
+<li><a href="#232-d2c-mdash-digit-to-charater">2.3.2. <code>d2c</code> &#x2014; Digit To Charater</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 class="mume-header" id="wlib-documentation">WLib Documentation</h1>
+
+<p>Welcome to WLib Documentation main page! Here you can learn how to use our libraries and read in detail how every global identifier works.</p>
+<h1 class="mume-header" id="requirements">Requirements</h1>
+
+<p>If you want to use our library to write your own code, your compiler should comply with next basic requirements:</p>
+<ul>
+<li>ANSI C / ISO C / ISO C++ (all of any revision) standard support (while there are efforts to support K&amp;R C compilers, like <code>pcc</code>, however, you are on your own);</li>
+</ul>
+<h1 class="mume-header" id="1-types">1. Types</h1>
+
+<p>Header <code>&lt;types.h&gt;</code> defines:</p>
+<ul>
+<li>fixed-size integer types (<code>U8</code>, <code>U16</code>, <code>U32</code>, <code>U64</code>, <code>I8</code>, <code>I16</code>, <code>I32</code>, <code>I64</code>),</li>
+<li>alias types (<code>Ch</code>, <code>Fl</code>, <code>Db</code>, <code>Ld</code>),</li>
+<li>C/C++ backwards compatibility types (<code>Vo</code>, <code>Bl</code>),</li>
+<li>special types (<code>Pt</code>, <code>IMax</code>, <code>UMax</code>),</li>
+<li>type width macros (<code>CHB</code>, <code>SHB</code>, <code>INB</code>, <code>LOB</code>, <code>LLB</code>, <code>I8B</code>, <code>I16B</code>, <code>I32B</code>, <code>I64B</code>, <code>PTB</code>, <code>IMB</code>),</li>
+<li>type limits macros (<code>CHN</code>, <code>SHN</code>, <code>INN</code>, <code>LON</code>, <code>LLN</code>, <code>I8N</code>, <code>I16N</code>, <code>I32N</code>, <code>I64N</code>, <code>CHX</code>, <code>SHX</code>, <code>INX</code>, <code>LOX</code>, <code>LLX</code>, <code>I8X</code>, <code>I16X</code>, <code>I32X</code>, <code>I64X</code>).</li>
+</ul>
+<h2 class="mume-header" id="11-fixed-size-integer-types">1.1. Fixed-size integer types</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_i8<span class="token punctuation">,</span>	wl_I8<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_i16<span class="token punctuation">,</span>	wl_I16<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_i32<span class="token punctuation">,</span>	wl_I32<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_i64<span class="token punctuation">,</span>	wl_I64<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_u8<span class="token punctuation">,</span>	wl_U8<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_u16<span class="token punctuation">,</span>	wl_U16<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_u32<span class="token punctuation">,</span>	wl_U32<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_u64<span class="token punctuation">,</span>	wl_U64<span class="token punctuation">;</span>
+</pre><p>A fixed-size integer type means an integer type, which width stays constant across different system. There are 8 distinct fixed-size integer types.</p>
+<p>Since basic C types (<code>char</code>, <code>short</code>, <code>int</code>, <code>long</code>, etc.) widths are not specified in the ISO C standard, it was left for compilers to decide their sizes on their own. The sizes of basic C types are different depending on your Operating System, CPU Architecture, Compiler options, etc. However, rather handily, there a several common data models that majority of systems design their C types according to; the <code>&lt;sys/damo.h&gt;</code> is responsible for correctly using system information to define a data model (the <code>DATA_MODEL</code> macro). The implementation of fixed-size integer types shall be done through those data models (unless there is a better replacement for this model, in which case let us know).</p>
+<p><code>WL_USE_STDINT</code> macro can be defined with any non-zero value at build time, to signal WLib to implement its fixed-size integer types through <code>&lt;stdint.h&gt;</code>&apos;s definitions of fixed-size integer types rather than the method described above.</p>
+<p>A table for integer type reference. Size describes how many bits the library tries to define for the type. The next columns lists unsigned types, separated by a comma, that correspond to the optimal size. The third column does the same as the previous but for singed integer. Other columns show the actual size for the data model.</p>
+<table>
+<thead>
+  <tr>
+    <th rowspan="3">Size</th>
+    <th rowspan="3">Unsigned</th>
+    <th rowspan="3">Signed</th>
+    <th colspan="5">Data model</th>
+  </tr>
+  <tr>
+    <th colspan="2">LP32, ILP32</th>
+    <th rowspan="2">LP64, LLP64</th>
+    <th rowspan="2">ILP64</th>
+    <th rowspan="2">SILP64</th>
+  </tr>
+  <tr>
+    <th>&lt;C99 / &lt;C++11</th>
+    <th>&#x2265;C99 / &#x2265;C++11</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>8</td>
+    <td><code>U8</code>, <code>u8</code></td>
+    <td><code>I8</code>, <code>i8</code></td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+    <td>8</td>
+  </tr>
+    <tr>
+    <td>16</td>
+    <td><code>U16</code>, <code>u16</code></td>
+    <td><code>I16</code>, <code>i16</code></td>
+    <td>16</td>
+    <td>16</td>
+    <td>16</td>
+    <td>16</td>
+    <td>64</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td><code>U32</code>, <code>u32</code></td>
+    <td><code>I32</code>, <code>i32</code></td>
+    <td>32</td>
+    <td>32</td>
+    <td>32</td>
+    <td>64</td>
+    <td>64</td>
+  </tr>
+  <tr>
+    <td>64</td>
+    <td><code>U64</code>, <code>u64</code></td>
+    <td><code>I64</code>, <code>i64</code></td>
+    <td>32</td>
+    <td>32/64*</td>
+    <td>64</td>
+    <td>64</td>
+    <td>64</td>
+  </tr>
+<!--   <tr>
+    <td>64</td>
+    <td><code>UMax</code>, <code>umax</code></td>
+    <td><code>IMax</code>, <code>iMax</code></td>
+    <td>32</td>
+    <td>32/64&ast;</td>
+    <td>64</td>
+    <td>64</td>
+    <td>64</td>
+  </tr> -->
+</tbody>
+</table>
+<p>* &#x2014; While the <code>long long int</code> type has been introduced in ISO C 1999, which is at least 64-bits long, it is unknown whether LP32 and ILP32 data models&apos; <code>long long int</code> type is at least 64 or 32 bits and may vary from system to system. Regardless, WLib tries to defined it as <code>long long int</code> anyway, when compiler with ISO C99 standard or newer.</p>
+<h2 class="mume-header" id="12-special-types">1.2. Special types</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_IMax<span class="token punctuation">,</span>	wl_imax<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_UMax<span class="token punctuation">,</span>	wl_umax<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span> wl_Pt<span class="token punctuation">,</span>   wl_pt<span class="token punctuation">;</span>
+</pre><p>There are 3 additional useful types defined in <code>&lt;types.h&gt;</code>: <code>Pt</code>, <code>IMax</code> and <code>UMax</code></p>
+<h3 class="mume-header" id="pointer-type">Pointer type</h3>
+
+<p><code>Pt</code> or <code>pt</code> &#x2014; the pointer type. An integer type large enough to hold the reference to an object. This is intended to be used for casting the pointer value into an arithmetic type for pointer arithmetic.</p>
+<p>For example, take the next piece of code. In order to use arithmetic operations using pointers, we would need to convert then into an arithmetical type. After calculations, we would probably want the result value to be converted back into a pointer value.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword">void</span><span class="token operator">*</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Pt<span class="token punctuation">)</span>p<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p><code>WL_USE_STDINT</code> macro can be defined with any non-zero value at build time, to signal WLib to implement its fixed-size integer types through <code>&lt;stdint.h&gt;</code>&apos;s definitions rather than using data models.</p>
+<h3 class="mume-header" id="maximal-width-types">Maximal-width types</h3>
+
+<p><code>IMax</code> or <code>imax</code> is a type for the largest available signed basic integer C type (usually 64-bits)</p>
+<p><code>UMax</code> or <code>umax</code> is a type for the largest avalible unsigned basic integer C type (usually 64-bits)</p>
+<h2 class="mume-header" id="13-compatibility-types">1.3. Compatibility types</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword">typedef</span> <span class="token comment">/* type */</span>	Vo<span class="token punctuation">,</span> vo<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token comment">/* type */</span>	Bl<span class="token punctuation">,</span> bl<span class="token punctuation">;</span>
+</pre><p><code>void</code> type has been added by the ANSI C standard (which means it may not have been supported by pre-standard compilers), WLib defines <code>Vo</code> and <code>vo</code> types. However, in the implementation of any WLib identifier or a function (except the definition of <code>Vo</code> and <code>vo</code> types themselves) use of <code>void</code> type as-is is allowed, even interchangeably; therefore, <code>Vo</code> and <code>vo</code> types are mostly viewed as aliases.</p>
+<p>While <code>_Bool</code> type has only been introduced ten years later with an ISO C 1999 revision. <code>Bl</code> or <code>bl</code> type ensures to use of the type will not generate any error or warnings and will act as a boolean type for the most part for compilers set to comply with a standard revision prior to <code>_Bool</code>&apos;s debut. More specifically <code>Bl</code> is defined as the smallest available data type (any 8-bit type), where any non-zero value is considered true and false otherwise. In C++ the default boolean type is <code>bool</code>, not <code>_Bool</code>, therefore, <code>Bl</code> and <code>bl</code> are also defined accordingly to the language used.</p>
+<h2 class="mume-header" id="14-alias-types">1.4. Alias types</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword">typedef</span> <span class="token keyword">char</span>		Ch<span class="token punctuation">,</span> ch<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token keyword">double</span>		Db<span class="token punctuation">,</span> db<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token keyword">float</span>		Fl<span class="token punctuation">,</span> fl<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token keyword">long</span> <span class="token keyword">double</span>	Ld<span class="token punctuation">,</span> ld<span class="token punctuation">;</span>
+</pre><p><code>Ch</code> and <code>ch</code> are aliases for <code>char</code> type.</p>
+<p><code>Fl</code> and <code>fl</code> are aliases for <code>float</code> type.</p>
+<p><code>Db</code> and <code>db</code> are aliases for <code>double</code> type.</p>
+<p><code>Ld</code> and <code>ld</code> are aliases for <code>long double</code> type.</p>
+<h2 class="mume-header" id="15-type-width-macros">1.5. Type width macros</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">BLB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">CHB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I16B</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I32B</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I64B</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I8B</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LLB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LOB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SHB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U16B</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U32B</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U64B</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U8B</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UCB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UIB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ULB</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ULLB</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">USB</span>		<span class="token comment">/* const int */</span></span>
+</pre><p>Sometimes it is useful to have macros that represent the width of a data type. In the code below a function is defined that takes an agrument of type <a href="#13-compatibility-types"><code>Bl</code></a>, basically a single bit, and shifts this bit to the leftmost binary digit of type U64B. To make this shift you need to know the width of the type.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword">long</span> <span class="token function">foo</span><span class="token punctuation">(</span>Bl a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">return</span> a<span class="token operator">&lt;&lt;</span><span class="token punctuation">(</span>ILB<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><table>
+<thead>
+<tr>
+<th style="text-align:right">Type</th>
+<th style="text-align:center">Width (bits)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"><code>Bl</code></td>
+<td style="text-align:center"><code>BLB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>char</code></td>
+<td style="text-align:center"><code>CHB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>I8</code> and <code>i8</code></td>
+<td style="text-align:center"><code>I8B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>I16</code> and <code>i16</code></td>
+<td style="text-align:center"><code>I16B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>I32</code> and <code>i32</code></td>
+<td style="text-align:center"><code>I32B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>I64</code> and <code>i64</code></td>
+<td style="text-align:center"><code>I64B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>IMax</code> and <code>imax</code></td>
+<td style="text-align:center"><code>IMB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>int</code></td>
+<td style="text-align:center"><code>INB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>long long</code></td>
+<td style="text-align:center"><code>LLB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>long</code></td>
+<td style="text-align:center"><code>LOB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>Pt</code> and <code>pt</code></td>
+<td style="text-align:center"><code>PTB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>short</code></td>
+<td style="text-align:center"><code>SHB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>signed char</code></td>
+<td style="text-align:center"><code>SCB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>U8</code> and <code>u8</code></td>
+<td style="text-align:center"><code>U8B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>U16</code> and <code>u16</code></td>
+<td style="text-align:center"><code>U16B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>U32</code> and <code>u32</code></td>
+<td style="text-align:center"><code>U32B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>U64</code> and <code>u64</code></td>
+<td style="text-align:center"><code>U64B</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>UMax</code> and <code>umax</code></td>
+<td style="text-align:center"><code>UMB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>unsigned char</code></td>
+<td style="text-align:center"><code>UCB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>unsigned int</code></td>
+<td style="text-align:center"><code>UIB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>unsigned long long</code></td>
+<td style="text-align:center"><code>ULLB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>unsigned long</code></td>
+<td style="text-align:center"><code>ULB</code></td>
+</tr>
+<tr>
+<td style="text-align:right"><code>unsigned short</code></td>
+<td style="text-align:center"><code>USB</code></td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="16-type-limits-macros">1.6. Type limits macros</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">CHN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">CHX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">FALSE</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I16N</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I16X</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I32N</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I32X</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I64N</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I64X</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I8N</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">I8X</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">IMN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">IMX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">IMX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">INX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LLN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LLX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LON</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">LOX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SCX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SHN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">SHX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">TRUE</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U16N</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U16X</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U32N</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U32X</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U64N</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U64X</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U8N</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">U8X</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UCN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UCX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UIN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UIX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ULLN</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ULLX</span>	<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ULN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ULX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">UMX</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">USN</span>		<span class="token comment">/* const int */</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">USX</span>		<span class="token comment">/* const int */</span></span>
+</pre><p>In the table below</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Minimal value</th>
+<th style="text-align:center">Maximal value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>Bl</code></td>
+<td style="text-align:center"><code>FALSE</code></td>
+<td style="text-align:center"><code>TRUE</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>char</code></td>
+<td style="text-align:center"><code>CHN</code></td>
+<td style="text-align:center"><code>CHX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>I8</code> and <code>i8</code></td>
+<td style="text-align:center"><code>I8N</code></td>
+<td style="text-align:center"><code>I8X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>I16</code> and <code>i16</code></td>
+<td style="text-align:center"><code>I16N</code></td>
+<td style="text-align:center"><code>I16X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>I32</code> and <code>i32</code></td>
+<td style="text-align:center"><code>I32N</code></td>
+<td style="text-align:center"><code>I32X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>I64</code> and <code>i64</code></td>
+<td style="text-align:center"><code>I64N</code></td>
+<td style="text-align:center"><code>I64X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>IMax</code> and <code>imax</code></td>
+<td style="text-align:center"><code>IMN</code></td>
+<td style="text-align:center"><code>IMX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>int</code></td>
+<td style="text-align:center"><code>INN</code></td>
+<td style="text-align:center"><code>INX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>long long</code></td>
+<td style="text-align:center"><code>LLN</code></td>
+<td style="text-align:center"><code>LLX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>long</code></td>
+<td style="text-align:center"><code>LON</code></td>
+<td style="text-align:center"><code>LOX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>Pt</code> and <code>pt</code></td>
+<td style="text-align:center"><code>PTN</code></td>
+<td style="text-align:center"><code>PTX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>short</code></td>
+<td style="text-align:center"><code>SHN</code></td>
+<td style="text-align:center"><code>SHX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>signed char</code></td>
+<td style="text-align:center"><code>SCN</code></td>
+<td style="text-align:center"><code>SCX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>U8</code> and <code>u8</code></td>
+<td style="text-align:center"><code>U8N</code></td>
+<td style="text-align:center"><code>U8X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>U16</code> and <code>u16</code></td>
+<td style="text-align:center"><code>U16N</code></td>
+<td style="text-align:center"><code>U16X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>U32</code> and <code>u32</code></td>
+<td style="text-align:center"><code>U32N</code></td>
+<td style="text-align:center"><code>U32X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>U64</code> and <code>u64</code></td>
+<td style="text-align:center"><code>U64N</code></td>
+<td style="text-align:center"><code>U64X</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>UMax</code> and <code>umax</code></td>
+<td style="text-align:center"><code>UMN</code></td>
+<td style="text-align:center"><code>UMX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>unsigned char</code></td>
+<td style="text-align:center"><code>UCN</code></td>
+<td style="text-align:center"><code>UCX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>unsigned int</code></td>
+<td style="text-align:center"><code>UIN</code></td>
+<td style="text-align:center"><code>UIX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>unsigned long long</code></td>
+<td style="text-align:center"><code>ULLN</code></td>
+<td style="text-align:center"><code>ULLX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>unsigned long</code></td>
+<td style="text-align:center"><code>LON</code></td>
+<td style="text-align:center"><code>LOX</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>unsigned short</code></td>
+<td style="text-align:center"><code>USN</code></td>
+<td style="text-align:center"><code>USX</code></td>
+</tr>
+</tbody>
+</table>
+<h1 class="mume-header" id="2-character-manipulation-charh">2. Character manipulation &lt;char.h&gt;</h1>
+
+<p>Character manipulation library is contained in a single header, &lt;char.h&gt;, and provides macros for using control characters by their short names (<code>ACK</code>), for checking the set of a chacater (letter, digit, symbol, etc), converting characters from one set to another (from lowercase to uppercase).</p>
+<p>Below is the table of ASCII character set.</p>
+<ul>
+<li>Characters belonging to the Control Character Set are inside blue cells (x00&#x2014;x1F and x7F);</li>
+<li>Characters belonging to the Symbol Character Set are inside yellow cells (x20&#x2014;x2F and x3A&#x2014;x40 and x5B&#x2014;x60 and x7B&#x2014;x7E);</li>
+<li>Characters belonging to the Digit Character Set are inside pink/magenta cells (x30&#x2014;x39);</li>
+<li>Characters belonging to the Uppercase Character Set are inside red cells (x41&#x2014;x5A);</li>
+<li>Characters belonging to the Lowercase Character Set are inside green cells (x61&#x2014;x7A);</li>
+<li>Characters belonging to the Whitespace Character Set are in red color (x09&#x2014;x0D);</li>
+<li>The Letter Character Set is a combined set of the Uppercase Character Set and the Lowercase Character Set;</li>
+<li>The Alphaneumeric Character Set is a combined set of the Letter Character Set and the Digit Character Set;</li>
+<li>The Extended ASCII Character Set is any character beyond the order number 127 (x7F) or &#x2421; character.</li>
+</ul>
+<table id="ASCII">
+  <thead>
+    <tr>
+      <th></th>
+      <th>00</th>
+      <th>01</th>
+      <th>02</th>
+      <th>03</th>
+      <th>04</th>
+      <th>05</th>
+      <th>06</th>
+      <th>07</th>
+      <th>08</th>
+      <th>09</th>
+      <th>0A</th>
+      <th>0B</th>
+      <th>0C</th>
+      <th>0D</th>
+      <th>0E</th>
+      <th>0F</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th><b>00</b></th>
+      <td class="ASCII-control">&#x2400;</td>
+      <td class="ASCII-control">&#x2401;</td>
+      <td class="ASCII-control">&#x2402;</td>
+      <td class="ASCII-control">&#x2403;</td>
+      <td class="ASCII-control">&#x2404;</td>
+      <td class="ASCII-control">&#x2405;</td>
+      <td class="ASCII-control">&#x2406;</td>
+      <td class="ASCII-control">&#x2407;</td>
+      <td class="ASCII-control">&#x2408;</td>
+      <td class="ASCII-control ASCII-whitespace">&#x2409;</td>
+      <td class="ASCII-control ASCII-whitespace">&#x240A;</td>
+      <td class="ASCII-control ASCII-whitespace">&#x240B;</td>
+      <td class="ASCII-control ASCII-whitespace">&#x240C;</td>
+      <td class="ASCII-control ASCII-whitespace">&#x240D;</td>
+      <td class="ASCII-control">&#x240E;</td>
+      <td class="ASCII-control">&#x240F;</td>
+      <th><b>0F</b></th>
+    </tr>
+    <tr>
+      <th><b>10</b></th>
+      <td class="ASCII-control">&#x2410;</td>
+      <td class="ASCII-control">&#x2411;</td>
+      <td class="ASCII-control">&#x2412;</td>
+      <td class="ASCII-control">&#x2413;</td>
+      <td class="ASCII-control">&#x2414;</td>
+      <td class="ASCII-control">&#x2415;</td>
+      <td class="ASCII-control">&#x2416;</td>
+      <td class="ASCII-control">&#x2417;</td>
+      <td class="ASCII-control">&#x2418;</td>
+      <td class="ASCII-control">&#x2419;</td>
+      <td class="ASCII-control">&#x241A;</td>
+      <td class="ASCII-control">&#x241B;</td>
+      <td class="ASCII-control">&#x241C;</td>
+      <td class="ASCII-control">&#x241D;</td>
+      <td class="ASCII-control">&#x241E;</td>
+      <td class="ASCII-control">&#x241F;</td>
+      <th><b>1F</b></th>
+    </tr>
+    <tr>
+      <th><b>20</b></th>
+      <td class="ASCII-symbol">&#x2423;</td>
+      <td class="ASCII-symbol">!</td>
+      <td class="ASCII-symbol">&quot;</td>
+      <td class="ASCII-symbol">#</td>
+      <td class="ASCII-symbol">$</td>
+      <td class="ASCII-symbol">%</td>
+      <td class="ASCII-symbol">&amp;</td>
+      <td class="ASCII-symbol">&apos;</td>
+      <td class="ASCII-symbol">(</td>
+      <td class="ASCII-symbol">)</td>
+      <td class="ASCII-symbol">*</td>
+      <td class="ASCII-symbol">+</td>
+      <td class="ASCII-symbol">,</td>
+      <td class="ASCII-symbol">-</td>
+      <td class="ASCII-symbol">.</td>
+      <td class="ASCII-symbol">/</td>
+      <th><b>2F</b></th>
+    </tr>
+    <tr>
+      <th><b>30</b></th>
+      <td class="ASCII-digit">0</td>
+      <td class="ASCII-digit">1</td>
+      <td class="ASCII-digit">2</td>
+      <td class="ASCII-digit">3</td>
+      <td class="ASCII-digit">4</td>
+      <td class="ASCII-digit">5</td>
+      <td class="ASCII-digit">6</td>
+      <td class="ASCII-digit">7</td>
+      <td class="ASCII-digit">8</td>
+      <td class="ASCII-digit">9</td>
+      <td class="ASCII-symbol">:</td>
+      <td class="ASCII-symbol">;</td>
+      <td class="ASCII-symbol">&lt;</td>
+      <td class="ASCII-symbol">=</td>
+      <td class="ASCII-symbol">&gt;</td>
+      <td class="ASCII-symbol">?</td>
+      <th><b>3F</b></th>
+    </tr>
+    <tr>
+      <th><b>40</b></th>
+      <td class="ASCII-symbol">@</td>
+      <td class="ASCII-uppercase">A</td>
+      <td class="ASCII-uppercase">B</td>
+      <td class="ASCII-uppercase">C</td>
+      <td class="ASCII-uppercase">D</td>
+      <td class="ASCII-uppercase">E</td>
+      <td class="ASCII-uppercase">F</td>
+      <td class="ASCII-uppercase">G</td>
+      <td class="ASCII-uppercase">H</td>
+      <td class="ASCII-uppercase">I</td>
+      <td class="ASCII-uppercase">J</td>
+      <td class="ASCII-uppercase">K</td>
+      <td class="ASCII-uppercase">L</td>
+      <td class="ASCII-uppercase">M</td>
+      <td class="ASCII-uppercase">N</td>
+      <td class="ASCII-uppercase">O</td>
+      <th><b>4F</b></th>
+    </tr>
+    <tr>
+      <th><b>50</b></th>
+      <td class="ASCII-uppercase">P</td>
+      <td class="ASCII-uppercase">Q</td>
+      <td class="ASCII-uppercase">R</td>
+      <td class="ASCII-uppercase">S</td>
+      <td class="ASCII-uppercase">T</td>
+      <td class="ASCII-uppercase">U</td>
+      <td class="ASCII-uppercase">V</td>
+      <td class="ASCII-uppercase">W</td>
+      <td class="ASCII-uppercase">X</td>
+      <td class="ASCII-uppercase">Y</td>
+      <td class="ASCII-uppercase">Z</td>
+      <td class="ASCII-symbol">[</td>
+      <td class="ASCII-symbol">\</td>
+      <td class="ASCII-symbol">]</td>
+      <td class="ASCII-symbol">^</td>
+      <td class="ASCII-symbol">_</td>
+      <th><b>5F</b></th>
+    </tr>
+    <tr>
+      <th><b>60</b></th>
+      <td class="ASCII-symbol">`</td>
+      <td class="ASCII-lowercase">a</td>
+      <td class="ASCII-lowercase">b</td>
+      <td class="ASCII-lowercase">c</td>
+      <td class="ASCII-lowercase">d</td>
+      <td class="ASCII-lowercase">e</td>
+      <td class="ASCII-lowercase">f</td>
+      <td class="ASCII-lowercase">g</td>
+      <td class="ASCII-lowercase">h</td>
+      <td class="ASCII-lowercase">i</td>
+      <td class="ASCII-lowercase">j</td>
+      <td class="ASCII-lowercase">k</td>
+      <td class="ASCII-lowercase">l</td>
+      <td class="ASCII-lowercase">m</td>
+      <td class="ASCII-lowercase">n</td>
+      <td class="ASCII-lowercase">o</td>
+      <th><b>6F</b></th>
+    </tr>
+    <tr>
+      <th><b>70</b></th>
+      <td class="ASCII-lowercase">p</td>
+      <td class="ASCII-lowercase">q</td>
+      <td class="ASCII-lowercase">r</td>
+      <td class="ASCII-lowercase">s</td>
+      <td class="ASCII-lowercase">t</td>
+      <td class="ASCII-lowercase">u</td>
+      <td class="ASCII-lowercase">v</td>
+      <td class="ASCII-lowercase">w</td>
+      <td class="ASCII-lowercase">x</td>
+      <td class="ASCII-lowercase">y</td>
+      <td class="ASCII-lowercase">z</td>
+      <td class="ASCII-symbol">{</td>
+      <td class="ASCII-symbol">|</td>
+      <td class="ASCII-symbol">}</td>
+      <td class="ASCII-symbol">~</td>
+      <td class="ASCII-control">&#x2421;</td>
+      <th><b>7F</b></th>
+    </tr>
+  </tbody>
+  <thead>
+    <tr>
+      <th></th>
+      <th>F0</th>
+      <th>F1</th>
+      <th>F2</th>
+      <th>F3</th>
+      <th>F4</th>
+      <th>F5</th>
+      <th>F6</th>
+      <th>F7</th>
+      <th>F8</th>
+      <th>F9</th>
+      <th>FA</th>
+      <th>FB</th>
+      <th>FC</th>
+      <th>FD</th>
+      <th>FE</th>
+      <th>FF</th>
+      <th></th>
+    </tr>
+  </thead>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Legend</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="background-color:#EEF"></td>
+      <td>Control characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#FFE"></td>
+      <td>Symbol characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#FEF"></td>
+      <td>Digit characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#FEE"></td>
+      <td>Uppercase letter characters</td>
+    </tr>
+    <tr>
+      <td style="background-color:#EFE"></td>
+      <td>Lowercase letter characters</td>
+    </tr>
+    <tr>
+      <td style="color:#800">A</td>
+      <td>Whitespaces</td>
+    </tr>
+  </tbody>
+</table>
+<h2 class="mume-header" id="21-control-character-macros">2.1. Control Character Macros</h2>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Name</th>
+<th style="text-align:center">Mnemonics</th>
+<th style="text-align:left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right"><code>NUL</code></td>
+<td style="text-align:center">Null</td>
+<td style="text-align:left">0x00</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>SOH</code></td>
+<td style="text-align:center">Start of Heading</td>
+<td style="text-align:left">0x01</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>STX</code></td>
+<td style="text-align:center">Start of Text</td>
+<td style="text-align:left">0x02</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>ETX</code></td>
+<td style="text-align:center">End of Text</td>
+<td style="text-align:left">0x03</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>EOT</code></td>
+<td style="text-align:center">End of Transmission</td>
+<td style="text-align:left">0x04</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>ENQ</code></td>
+<td style="text-align:center">Enquiry</td>
+<td style="text-align:left">0x05</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>ACK</code></td>
+<td style="text-align:center">Acknowledge</td>
+<td style="text-align:left">0x06</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>BEL</code></td>
+<td style="text-align:center">Bell</td>
+<td style="text-align:left">0x07</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>BS</code></td>
+<td style="text-align:center">Backspace</td>
+<td style="text-align:left">0x08</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>HT</code></td>
+<td style="text-align:center">Horizontal Tabulation</td>
+<td style="text-align:left">0x09</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>LF</code></td>
+<td style="text-align:center">New Line</td>
+<td style="text-align:left">0x0A</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>VT</code></td>
+<td style="text-align:center">Vertical Tabulation</td>
+<td style="text-align:left">0x0B</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>FF</code></td>
+<td style="text-align:center">Form Feed</td>
+<td style="text-align:left">0x0C</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>CR</code></td>
+<td style="text-align:center">Carriage Return</td>
+<td style="text-align:left">0x0D</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>SO</code></td>
+<td style="text-align:center">Shift Out</td>
+<td style="text-align:left">0x0E</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>SI</code></td>
+<td style="text-align:center">Shift In</td>
+<td style="text-align:left">0x0F</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>DLE</code></td>
+<td style="text-align:center">Data Link Escape</td>
+<td style="text-align:left">0x10</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>DC1</code></td>
+<td style="text-align:center">Device Control 1</td>
+<td style="text-align:left">0x11</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>DC2</code></td>
+<td style="text-align:center">Device Control 2</td>
+<td style="text-align:left">0x12</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>DC3</code></td>
+<td style="text-align:center">Device Control 3</td>
+<td style="text-align:left">0x13</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>DC4</code></td>
+<td style="text-align:center">Device Control 4</td>
+<td style="text-align:left">0x14</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>NAK</code></td>
+<td style="text-align:center">Negative Acknowledge</td>
+<td style="text-align:left">0x15</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>SYN</code></td>
+<td style="text-align:center">Synchronous Idle</td>
+<td style="text-align:left">0x16</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>ETB</code></td>
+<td style="text-align:center">End of Transmission Block</td>
+<td style="text-align:left">0x17</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>CAN</code></td>
+<td style="text-align:center">Cancel</td>
+<td style="text-align:left">0x18</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>EM</code></td>
+<td style="text-align:center">End Of Medium</td>
+<td style="text-align:left">0x19</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>SUB</code></td>
+<td style="text-align:center">Substitute</td>
+<td style="text-align:left">0x1A</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>ESC</code></td>
+<td style="text-align:center">Escape</td>
+<td style="text-align:left">0x1B</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>FS</code></td>
+<td style="text-align:center">File Separator</td>
+<td style="text-align:left">0x1C</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>GS</code></td>
+<td style="text-align:center">Group Separator</td>
+<td style="text-align:left">0x1D</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>RS</code></td>
+<td style="text-align:center">Record Separator</td>
+<td style="text-align:left">0x1E</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>US</code></td>
+<td style="text-align:center">Unit Separator</td>
+<td style="text-align:left">0x1F</td>
+</tr>
+<tr>
+<td style="text-align:right"><code>DEL</code></td>
+<td style="text-align:center">Delete</td>
+<td style="text-align:left">0x7F</td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="22-character-checking">2.2. Character checking</h2>
+
+<h3 class="mume-header" id="221-cia-mdash-character-is-alphanumeric-character">2.2.1. <code>cia</code> &#x2014; Character Is Alphanumeric character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">cia</span> <span class="token expression">wl_cia</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cia</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cia</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>A</b>lphanumeric</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href="#225-cil--character-is-letter-character"><code>cil</code></a> , <a href="#223-cid--character-is-digit-character"><code>cid</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Alphanumeric characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="222-cic-mdash-character-is-control-character">2.2.2. <code>cic</code> &#x2014; Character Is Control character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">cic</span> <span class="token expression">wl_cic</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cic</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cic</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>C</b>ontrol</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>DEL</code></a> </td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Control characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="223-cid-mdash-character-is-digit-character">2.2.3. <code>cid</code> &#x2014; Character Is Digit character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">cid</span> <span class="token expression">wl_cid</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cid</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cid</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>D</b>igit</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Numeric characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="224-cie-mdash-character-is-extended-ascii-character">2.2.4. <code>cie</code> &#x2014; Character Is Extended ASCII character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">cie</span> <span class="token expression">wl_cie</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cie</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cie</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>E</b>xtended ASCII</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Extended ASCII characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="225-cil-mdash-character-is-letter-character">2.2.5. <code>cil</code> &#x2014; Character Is Letter character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">cil</span> <span class="token expression">wl_cil</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cil</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cil</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>L</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href="#226-cill--character-is-lowercase-letter-character"><code>cill</code></a> , <a href="#227-ciul--character-is-uppercase-letter-character"><code>ciul</code></a></td>   
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Alphabetic characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="226-cill-mdash-character-is-lowercase-letter-character">2.2.6. <code>cill</code> &#x2014; Character Is Lowercase Letter character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ciul</span> <span class="token expression">wl_cill</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cill</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cill</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>L</b>owercase <b>l</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Lowercase characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="227-ciul-mdash-character-is-uppercase-letter-character">2.2.7. <code>ciul</code> &#x2014; Character Is Uppercase Letter character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ciul</span> <span class="token expression">wl_ciul</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_ciul</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>ciul</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>U</b>ppercase <b>l</b>etter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Uppercase characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="228-cis-mdash-character-is-symbol-character">2.2.8. <code>cis</code> &#x2014; Character Is Symbol character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">cis</span> <span class="token expression">wl_cis</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_cis</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>cis</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>S</b>ymbol</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Symbol characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="229-ciw-mdash-character-is-whitespace-character">2.2.9. <code>ciw</code> &#x2014; Character Is Whitespace character</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">ciw</span> <span class="token expression">wl_ciw</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_ciw</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>ciw</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>i</b>s <b>W</b>hitespace</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>a</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>TRUE</code></a> or <a href><code>FALSE</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">Returns <a href></a><a href><code>TRUE</code></a> if <code>x</code> belongs in the range of <a href="#2-character-manipulation-charh">Whitespace characters</a>, <a href></a><a href><code>FALSE</code></a> otherwise.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h2 class="mume-header" id="23-convertion-functions">2.3. Convertion functions</h2>
+
+<h3 class="mume-header" id="digit-to-character-convertion-table">Digit to Character convertion table</h3>
+
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Digit</th>
+<th style="text-align:center"><strong>00</strong></th>
+<th style="text-align:center"><strong>01</strong></th>
+<th style="text-align:center"><strong>02</strong></th>
+<th style="text-align:center"><strong>03</strong></th>
+<th style="text-align:center"><strong>04</strong></th>
+<th style="text-align:center"><strong>05</strong></th>
+<th style="text-align:center"><strong>06</strong></th>
+<th style="text-align:center"><strong>07</strong></th>
+<th style="text-align:center"><strong>08</strong></th>
+<th style="text-align:center"><strong>09</strong></th>
+<th style="text-align:center"><strong>0A</strong></th>
+<th style="text-align:center"><strong>0B</strong></th>
+<th style="text-align:center"><strong>0C</strong></th>
+<th style="text-align:center"><strong>0D</strong></th>
+<th style="text-align:center"><strong>0E</strong></th>
+<th style="text-align:center"><strong>0F</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>00</strong></td>
+<td style="text-align:center"><code>&apos;0&apos;</code></td>
+<td style="text-align:center"><code>&apos;1&apos;</code></td>
+<td style="text-align:center"><code>&apos;2&apos;</code></td>
+<td style="text-align:center"><code>&apos;3&apos;</code></td>
+<td style="text-align:center"><code>&apos;4&apos;</code></td>
+<td style="text-align:center"><code>&apos;5&apos;</code></td>
+<td style="text-align:center"><code>&apos;6&apos;</code></td>
+<td style="text-align:center"><code>&apos;7&apos;</code></td>
+<td style="text-align:center"><code>&apos;8&apos;</code></td>
+<td style="text-align:center"><code>&apos;9&apos;</code></td>
+<td style="text-align:center"><code>&apos;A&apos;</code></td>
+<td style="text-align:center"><code>&apos;B&apos;</code></td>
+<td style="text-align:center"><code>&apos;C&apos;</code></td>
+<td style="text-align:center"><code>&apos;D&apos;</code></td>
+<td style="text-align:center"><code>&apos;E&apos;</code></td>
+<td style="text-align:center"><code>&apos;F&apos;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>10</strong></td>
+<td style="text-align:center"><code>&apos;G&apos;</code></td>
+<td style="text-align:center"><code>&apos;H&apos;</code></td>
+<td style="text-align:center"><code>&apos;I&apos;</code></td>
+<td style="text-align:center"><code>&apos;J&apos;</code></td>
+<td style="text-align:center"><code>&apos;K&apos;</code></td>
+<td style="text-align:center"><code>&apos;L&apos;</code></td>
+<td style="text-align:center"><code>&apos;M&apos;</code></td>
+<td style="text-align:center"><code>&apos;N&apos;</code></td>
+<td style="text-align:center"><code>&apos;O&apos;</code></td>
+<td style="text-align:center"><code>&apos;P&apos;</code></td>
+<td style="text-align:center"><code>&apos;Q&apos;</code></td>
+<td style="text-align:center"><code>&apos;R&apos;</code></td>
+<td style="text-align:center"><code>&apos;S&apos;</code></td>
+<td style="text-align:center"><code>&apos;T&apos;</code></td>
+<td style="text-align:center"><code>&apos;U&apos;</code></td>
+<td style="text-align:center"><code>&apos;V&apos;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>20</strong></td>
+<td style="text-align:center"><code>&apos;W&apos;</code></td>
+<td style="text-align:center"><code>&apos;X&apos;</code></td>
+<td style="text-align:center"><code>&apos;Y&apos;</code></td>
+<td style="text-align:center"><code>&apos;Z&apos;</code></td>
+<td style="text-align:center"><code>&apos;a&apos;</code></td>
+<td style="text-align:center"><code>&apos;b&apos;</code></td>
+<td style="text-align:center"><code>&apos;c&apos;</code></td>
+<td style="text-align:center"><code>&apos;d&apos;</code></td>
+<td style="text-align:center"><code>&apos;e&apos;</code></td>
+<td style="text-align:center"><code>&apos;f&apos;</code></td>
+<td style="text-align:center"><code>&apos;g&apos;</code></td>
+<td style="text-align:center"><code>&apos;h&apos;</code></td>
+<td style="text-align:center"><code>&apos;i&apos;</code></td>
+<td style="text-align:center"><code>&apos;j&apos;</code></td>
+<td style="text-align:center"><code>&apos;k&apos;</code></td>
+<td style="text-align:center"><code>&apos;l&apos;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>30</strong></td>
+<td style="text-align:center"><code>&apos;m&apos;</code></td>
+<td style="text-align:center"><code>&apos;n&apos;</code></td>
+<td style="text-align:center"><code>&apos;o&apos;</code></td>
+<td style="text-align:center"><code>&apos;p&apos;</code></td>
+<td style="text-align:center"><code>&apos;q&apos;</code></td>
+<td style="text-align:center"><code>&apos;r&apos;</code></td>
+<td style="text-align:center"><code>&apos;s&apos;</code></td>
+<td style="text-align:center"><code>&apos;t&apos;</code></td>
+<td style="text-align:center"><code>&apos;u&apos;</code></td>
+<td style="text-align:center"><code>&apos;v&apos;</code></td>
+<td style="text-align:center"><code>&apos;w&apos;</code></td>
+<td style="text-align:center"><code>&apos;x&apos;</code></td>
+<td style="text-align:center"><code>&apos;y&apos;</code></td>
+<td style="text-align:center"><code>&apos;z&apos;</code></td>
+<td style="text-align:center"><code>&apos;!&apos;</code></td>
+<td style="text-align:center"><code>&apos;&quot;&apos;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>40</strong></td>
+<td style="text-align:center"><code>&apos;#&apos;</code></td>
+<td style="text-align:center"><code>&apos;$&apos;</code></td>
+<td style="text-align:center"><code>&apos;%&apos;</code></td>
+<td style="text-align:center"><code>&apos;&amp;&apos;</code></td>
+<td style="text-align:center"><code>&apos;\&apos;&apos;</code></td>
+<td style="text-align:center"><code>&apos;(&apos;</code></td>
+<td style="text-align:center"><code>&apos;)&apos;</code></td>
+<td style="text-align:center"><code>&apos;*&apos;</code></td>
+<td style="text-align:center"><code>&apos;+&apos;</code></td>
+<td style="text-align:center"><code>&apos;,&apos;</code></td>
+<td style="text-align:center"><code>&apos;-&apos;</code></td>
+<td style="text-align:center"><code>&apos;.&apos;</code></td>
+<td style="text-align:center"><code>&apos;/&apos;</code></td>
+<td style="text-align:center"><code>&apos;:&apos;</code></td>
+<td style="text-align:center"><code>&apos;;&apos;</code></td>
+<td style="text-align:center"><code>&apos;&lt;&apos;</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>50</strong></td>
+<td style="text-align:center"><code>&apos;=&apos;</code></td>
+<td style="text-align:center"><code>&apos;&gt;&apos;</code></td>
+<td style="text-align:center"><code>&apos;?&apos;</code></td>
+<td style="text-align:center"><code>&apos;@&apos;</code></td>
+<td style="text-align:center"><code>&apos;[&apos;</code></td>
+<td style="text-align:center"><code>&apos;\\&apos;</code></td>
+<td style="text-align:center"><code>&apos;]&apos;</code></td>
+<td style="text-align:center"><code>&apos;^&apos;</code></td>
+<td style="text-align:center"><code>&apos;_&apos;</code></td>
+<td style="text-align:center"><code>&apos;`&apos;</code></td>
+<td style="text-align:center"><code>&apos;{&apos;</code></td>
+<td style="text-align:center"><code>&apos;|&apos;</code></td>
+<td style="text-align:center"><code>&apos;}&apos;</code></td>
+<td style="text-align:center"><code>&apos;~&apos;</code></td>
+<td style="text-align:center"><code>&apos; &apos;</code></td>
+<td style="text-align:center"><code>DEL</code></td>
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="231-c2d-mdash-charater-to-digit">2.3.1. <code>c2d</code> &#x2014; Charater To Digit</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">c2d</span> <span class="token expression">wl_c2d</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_c2d</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>c2d</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>C</b>haracter <b>to</b> <b>D</b>igit</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3">(No dependencies)</td>    
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a digit corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="mume-header" id="232-d2c-mdash-digit-to-charater">2.3.2. <code>d2c</code> &#x2014; Digit To Charater</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">d2c</span> <span class="token expression">wl_d2c</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">wl_d2c</span><span class="token expression"><span class="token punctuation">(</span>a<span class="token punctuation">)</span> </span><span class="token comment">/* function body */</span></span>
+</pre><table>
+  <tbody>
+    <tr>
+      <td style="text-align:right"><b>Name</b></td>
+      <td style="text-align:left" colspan="2"><code>d2c</code></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Type</b></td>
+      <td style="text-align:left" colspan="2">macro function</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Mnemonics</b></td>
+      <td style="text-align:left" colspan="2"><b>D</b>igit <b>to</b> <b>C</b>haracter</td>
+    </tr>
+      <tr>
+      <td style="text-align:right"><b>Parameters</b></td>
+      <td style="text-align:left"><i>x</i></td>
+      <td style="text-align:left">Digit</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Returns</b></td>
+      <td style="text-align:left" colspan="2">Character</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><b>Depends on</b></td>
+      <td style="text-align:left" colspan="2"><a href><code>U8</code></a></td>
+    </tr>
+    <tr>
+      <td style="text-align:center" colspan="3"><b>Description</b></td>
+    </tr>
+    <tr>
+      <td style="text-align:left" colspan="3">
+        Treats <code>x</code> and return a character corresponding to <a href="#digit-to-character-convertion-table">Digit To Character convertion table</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

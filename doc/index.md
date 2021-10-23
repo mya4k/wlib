@@ -1,3 +1,32 @@
+<head>
+<style>
+  #ASCII th, #ASCII td {
+    text-align: center;
+  }
+  .ASCII-control {
+    font-size: 1.5em;
+    background-color: #EEF;
+  }
+  .ASCII-lowercase {
+    background-color: #EFE;
+  }
+  .ASCII-uppercase {
+    background-color: #FEE;
+  }
+  .ASCII-digit {
+    background-color: #FEF;
+  }
+  .ASCII-symbol {
+    background-color: #FFE;
+  }
+  .ASCII-whitespace {
+    color: #800;
+  }
+</style>
+</head>
+
+[toc]
+
 # WLib Documentation
 
 Welcome to WLib Documentation main page! Here you can learn how to use our libraries and read in detail how every global identifier works.
@@ -171,7 +200,7 @@ typedef long double	Ld, ld;
 
 `Ld` and `ld` are aliases for `long double` type.
 
-### 1.5. Type width macros
+## 1.5. Type width macros
 
 ```c
 #define BLB		/* const int */
@@ -230,7 +259,7 @@ long foo(Bl a) {
 |`unsigned long`     |`ULB`         |
 |`unsigned short`    |`USB`         |
 
-## 1.6. Type width macros
+## 1.6. Type limits macros
 
 ```c
 #define CHN		/* const int */
@@ -1095,11 +1124,3 @@ Below is the table of ASCII character set.
     </tr>
   </tbody>
 </table>
-
-```mermaid
-graph TD;
-  A-->B;
-  A-->C;
-  B-->D;
-  C-->D;
-```
