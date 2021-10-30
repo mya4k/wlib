@@ -3,6 +3,8 @@ g++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 clang = /usr/bin/gcc -Iinc -Wall -Wextra -Werror -Wfatal-errors
 clang++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 
+.PHONY: _test test test_header compile clean
+
 _test:
 	$(gcc) -c $(C) -Wpedantic -std=c90 $(F)
 	$(gcc) -c $(C) -Wpedantic -std=iso9899:199409 $(F)
