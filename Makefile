@@ -1,5 +1,7 @@
-gcc = /usr/bin/clang -Iinc -Wall -Wextra -Werror -Wfatal-errors
-g++ = /usr/bin/clang++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
+gcc = /usr/bin/gcc -Iinc -Wall -Wextra -Werror -Wfatal-errors
+g++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
+clang = /usr/bin/gcc -Iinc -Wall -Wextra -Werror -Wfatal-errors
+clang++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 
 _test:
 	$(gcc) -c $(C) -Wpedantic -std=c90 $(F)
@@ -26,26 +28,64 @@ _test:
 	$(g++) -c $(C) -std=gnu++20 $(F)
 	$(g++) -c $(C) -std=gnu++23 $(F)
 test:
-	$(gcc) -c $(C) -Wpedantic -std=c90 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=iso9899:199409 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c99 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c11 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c17 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c2x $(F)
+	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c90 $(F)
+	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
+	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c99 $(F)
+	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c11 $(F)
+	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c17 $(F)
+	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c2x $(F)
+	$(clang) -c $(C) -std=gnu90 $(F)
+	$(clang) -c $(C) -std=gnu99 $(F)
+	$(clang) -c $(C) -std=gnu11 $(F)
+	$(clang) -c $(C) -std=gnu17 $(F)
+	$(clang) -c $(C) -std=gnu2x $(F)
+	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c90 $(F)
+	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
+	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c99 $(F)
+	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c11 $(F)
+	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c17 $(F)
+	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c2x $(F)
+	$(gcc) -c $(C) -std=gnu90 $(F)
+	$(gcc) -c $(C) -std=gnu99 $(F)
+	$(gcc) -c $(C) -std=gnu11 $(F)
+	$(gcc) -c $(C) -std=gnu17 $(F)
+	$(gcc) -c $(C) -std=gnu2x $(F)
+test_header:
+	$(clang) -c $(C) -std=c90 $(F)
+	$(clang) -c $(C) -std=iso9899:199409 $(F)
+	$(clang) -c $(C) -std=c99 $(F)
+	$(clang) -c $(C) -std=c11 $(F)
+	$(clang) -c $(C) -std=c17 $(F)
+	$(clang) -c $(C) -std=c2x $(F)
+	$(clang) -c $(C) -std=gnu90 $(F)
+	$(clang) -c $(C) -std=gnu99 $(F)
+	$(clang) -c $(C) -std=gnu11 $(F)
+	$(clang) -c $(C) -std=gnu17 $(F)
+	$(clang) -c $(C) -std=gnu2x $(F)
+	$(gcc) -c $(C) -std=c90 $(F)
+	$(gcc) -c $(C) -std=iso9899:199409 $(F)
+	$(gcc) -c $(C) -std=c99 $(F)
+	$(gcc) -c $(C) -std=c11 $(F)
+	$(gcc) -c $(C) -std=c17 $(F)
+	$(gcc) -c $(C) -std=c2x $(F)
 	$(gcc) -c $(C) -std=gnu90 $(F)
 	$(gcc) -c $(C) -std=gnu99 $(F)
 	$(gcc) -c $(C) -std=gnu11 $(F)
 	$(gcc) -c $(C) -std=gnu17 $(F)
 	$(gcc) -c $(C) -std=gnu2x $(F)
 compile:
-	make test C="inc/wc/sys/lang.h"
-	make test C="inc/wc/sys/arch.h"
-	make test C="inc/wc/sys/osys.h"
-	make test C="inc/wc/sys/comp.h"
-	make test C="inc/wc/sys/damo.h"
-	make test C="inc/wc/core.h"
-	make test C="inc/wc/types.h"
-	make test C="inc/wc/char.h"
-	make test C="inc/wc/string.h"
+	make test_header C="inc/wc/sys/lang.h"
+	make test_header C="inc/wc/sys/arch.h"
+	make test_header C="inc/wc/sys/osys.h"
+	make test_header C="inc/wc/sys/comp.h"
+	make test_header C="inc/wc/sys/damo.h"
+	make test_header C="inc/wc/core.h"
+	make test_header C="inc/wc/types.h"
+	make test_header C="inc/wc/char.h"
+	make test_header C="inc/wc/string.h"
 
 	make test C="src/string.c"
+clean:
+	rm inc/wc/*.gch
+	rm inc/wc/sys/*.gch
+	rm src/*.gch
