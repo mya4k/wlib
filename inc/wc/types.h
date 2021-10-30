@@ -27,6 +27,116 @@
  *     |_|  |_|  \__,_|  \___| |_|     \___/  |___/
  *                                                 
  */
+#ifndef WL_NO_SHORT_NAMES
+#	define I8	wl_I8
+#	define I16	wl_I16
+#	define I32	wl_I32
+#	define I64	wl_I64
+#	define i8	wl_i8
+#	define i16	wl_i16
+#	define i32	wl_i32
+#	define i64	wl_i64
+#	define U8	wl_U8
+#	define U16	wl_U16
+#	define U32	wl_U32
+#	define U64	wl_U64
+#	define u8	wl_u8
+#	define u16	wl_u16
+#	define u32	wl_u32
+#	define u64	wl_u64
+#	define IMax	wl_IMax
+#	define imax	wl_imax
+#	define UMax	wl_UMax
+#	define umax	wl_umax
+#	define Vo	wl_Vo
+#	define Bl	wl_Bl
+#	define Ch	wl_Ch
+#	define Pt	wl_Pt
+#	define Fl	wl_Fl
+#	define Db	wl_Db
+#	define Ld	wl_Ld
+#	define vo	wl_vo
+#	define bl	wl_bl
+#	define ch	wl_ch
+#	define pt	wl_pt
+#	define fl	wl_fl
+#	define db	wl_db
+#	define ld	wl_ld
+#	define CHB	WL_CHB
+#	define SCB	WL_SCB
+#	define SHB	WL_SHB
+#	define INB	WL_INB
+#	define LOB	WL_LOB
+#	define LLB	WL_LLB
+#	define I8B	WL_I8B
+#	define I16B	WL_I16B
+#	define I32B	WL_I32B
+#	define I64B	WL_I64B
+#	define IMB	WL_IMB
+#	define UCB	WL_UCB
+#	define USB	WL_USB
+#	define UIB	WL_UIB
+#	define ULB	WL_ULB
+#	define ULLB	WL_ULLB
+#	define U8B	WL_U8B
+#	define U16B	WL_U16B
+#	define U32B	WL_U32B
+#	define U64B	WL_U64B
+#	define UMB	WL_UMB
+#	define PTB	WL_PTB
+#	define CHN	WL_CHN
+#	define SCN	WL_SCN
+#	define SHN	WL_SHN
+#	define INN	WL_INN
+#	define LON	WL_LON
+#	define LLN	WL_LLN
+#	define I8N	WL_I8N
+#	define I16N	WL_I16N
+#	define I32N	WL_I32N
+#	define I64N	WL_I64N
+#	define IMN	WL_IMN
+#	define UCN	WL_UCN
+#	define USN	WL_USN
+#	define UIN	WL_UIN
+#	define ULN	WL_ULN
+#	define ULLN	WL_ULLN
+#	define U8N	WL_U8N
+#	define U16N	WL_U16N
+#	define U32N	WL_U32N
+#	define U64N	WL_U64N
+#	define UMN	WL_UMN
+#	define PTN	WL_PTN
+#	define CHX	WL_CHX
+#	define SCX	WL_SCX
+#	define SHX	WL_SHX
+#	define INX	WL_INX
+#	define LOX	WL_LOX
+#	define LLX	WL_LLX
+#	define I8X	WL_I8X
+#	define I16X	WL_I16X
+#	define I32X	WL_I32X
+#	define I64X	WL_I64X
+#	define IMX	WL_IMX
+#	define UCX	WL_UCX
+#	define USX	WL_USX
+#	define UIX	WL_UIX
+#	define ULX	WL_ULX
+#	define ULLX	WL_ULLX
+#	define U8X	WL_U8X
+#	define U16X	WL_U16X
+#	define U32X	WL_U32X
+#	define U64X	WL_U64X
+#	define UMX	WL_UMX
+#	define PTX	WL_PTX
+#	define BLB	WL_BLB
+#	ifndef FALSE
+#		define FALSE WL_FALSE
+#	endif
+#	ifndef TRUE
+#		define TRUE WL_TRUE
+#	endif
+#endif
+
 /*
  * Type support checking
  */
@@ -312,9 +422,9 @@
 /* [I64N] */
 #ifndef WL_I64N
 #	if	WL_I64B==32
-#		define WL_U64X	((wl_I64)-0x80000000)
+#		define WL_I64N	((wl_I64)-0x80000000)
 #	else
-#		define WL_U64X	((wl_I64)-0x8000000000000000)
+#		define WL_I64N	((wl_I64)-0x8000000000000000)
 #	endif
 #endif
 /* [I8X] */
@@ -332,9 +442,9 @@
 /* [I64X] */
 #ifndef WL_I64N
 #	if	WL_I64B==32
-#		define WL_U64X	((wl_U64)0x7FFFFFFF)
+#		define WL_I64N	((wl_I64)0x7FFFFFFF)
 #	else
-#		define WL_U64X	((wl_U64)0x7FFFFFFFFFFFFFFF)
+#		define WL_I64N	((wl_I64)0x7FFFFFFFFFFFFFFF)
 #	endif
 #endif
 
@@ -482,12 +592,12 @@
 #endif
 
 /* [TRUE] */
-#ifndef TRUE
-#	define TRUE
+#ifndef WL_TRUE
+#	define WL_TRUE
 #endif
 /* [FALSE] */
-#ifndef FALSE
-#	define FALSE
+#ifndef WL_FALSE
+#	define WL_FALSE
 #endif
 
 
