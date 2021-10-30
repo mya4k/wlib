@@ -11,6 +11,16 @@
 #ifndef WL_NO_SHORT_NAMES
 #	define Sl		wl_Sl
 #	define sl		wl_sl
+
+#	ifndef WL_NO_ALIASES
+#		define Lens			wl_Lens
+#		define Strlen		wl_Strlen
+#		define StringLength	wl_StringLength
+#		define lens			wl_lens
+#		define strlen		wl_strlen
+#		define stringLength	wl_stringLength
+#	endif
+
 #endif
 
 #ifndef WL_NO_ALIASES
@@ -25,15 +35,18 @@
 
 
 /**
- * \brief 
- * 
+ * \brief	String length type
+ * \typedef	wl_Sl
+ * This type is used as type that for a length of a string. It is useful because
+ * any string function will only support strings, which length can be stored
+ * using this type.
  */
 typedef wl_U16 wl_Sl;
 
 
 
 /* String length */
-EXTERN wl_Sl wl_sl(char* restrict const s);
+EXTERN wl_Sl wl_sl(const char* restrict const s);
 
 
 
