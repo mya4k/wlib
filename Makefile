@@ -1,7 +1,7 @@
 gcc = /usr/bin/gcc -Iinc -Wall -Wextra -Werror -Wfatal-errors
 g++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
-clang = /usr/bin/gcc -Iinc -Wall -Wextra -Werror -Wfatal-errors
-clang++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
+clang = /usr/bin/clang -Iinc -Wall -Wextra -Werror -Wfatal-errors
+clang++ = /usr/bin/clang++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 
 .PHONY: _test test test_header compile clean
 
