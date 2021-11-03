@@ -52,6 +52,7 @@ test:
 	$(gcc) -c $(C) -std=gnu11 $(F)
 	$(gcc) -c $(C) -std=gnu17 $(F)
 	$(gcc) -c $(C) -std=gnu2x $(F)
+	/usr/bin/pcc -c $(C) -Iinc
 test_header:
 	$(clang) -c $(C) -std=c90 $(F)
 	$(clang) -c $(C) -std=iso9899:199409 $(F)
@@ -85,8 +86,10 @@ compile:
 	make test_header C="inc/wc/types.h"
 	make test_header C="inc/wc/char.h"
 	make test_header C="inc/wc/string.h"
+	make test_header C="inc/wc/array.h"
 
 	make test C="src/string.c"
+	make test C="src/array.c"
 clean:
 	rm inc/wc/*.gch
 	rm inc/wc/sys/*.gch
