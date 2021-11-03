@@ -36,7 +36,7 @@ Sl sl(const char* restrict const s) {
 		* if it's NUL, return `a`-`s`, otherwise, incriment `a` and repeat this
 		* step until `a` is aligned.
 		*/
-		for (; (Pt)a % sizeof(UMB); a++)
+		for (; (Pt)a % sizeof(UMB); a++) if (!a) return a-s;
 
 		/* 3. Now that `a` is aligned. We check the value of the size of alignment
 		* for the presence of a byte that has a NUL chacaracter. If there isn't
