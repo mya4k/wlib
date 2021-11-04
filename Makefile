@@ -3,8 +3,16 @@ g++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 clang = /usr/bin/clang -Iinc -Wall -Wextra -Werror -Wfatal-errors
 clang++ = /usr/bin/clang++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 
-.PHONY: _test test test_header compile clean
+.PHONY: _test test test_header compile clean asm obj
 
+obj:
+	mkdir -p obj
+	$(gcc) -Wpedantic -O2 -o obj/array.o -c src/array.c
+	$(gcc) -Wpedantic -O2 -o obj/string.o -c src/string.c
+asm:
+	mkdir -p asm
+	$(gcc) -Wpedantic -O2 -S -o asm/array.s -c src/array.c
+	$(gcc) -Wpedantic -O2 -S -o asm/string.s -c src/string.c
 _test:
 	$(gcc) -c $(C) -Wpedantic -std=c90 $(F)
 	$(gcc) -c $(C) -Wpedantic -std=iso9899:199409 $(F)
