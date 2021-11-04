@@ -40,6 +40,8 @@
 #	define anorl	wl_anorl
 #	define anxl		wl_anxl
 #	define anxorl	wl_anxorl
+#	define aeq		wl_aeq
+#	define anq		wl_anq
 #	ifndef WL_NO_ALIASES
 #		define ArraySize		wl_ArraySize
 #		define ArrayFunc		wl_ArrayFunc
@@ -276,6 +278,10 @@
  * \return `r`
  */
 #define wl_anxorl(r,a,b,size)	wl_afab((a),	(b),	WL_AF_XRA,	(size))
+
+
+#define wl_aeq(a,b,size)	wl_anx(	(a),	(b),	(size)	)
+#define wl_anq(a,b,size)	wl_axr(	(a),	(b),	(size)	)
 
 
 
