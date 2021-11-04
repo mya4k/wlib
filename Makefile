@@ -7,12 +7,16 @@ clang++ = /usr/bin/clang++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
 
 obj:
 	mkdir -p obj
-	$(gcc) -Wpedantic -O2 -o obj/array.o -c src/array.c
-	$(gcc) -Wpedantic -O2 -o obj/string.o -c src/string.c
+	$(gcc) -Wpedantic -O2 -o obj/array.o -c src/array.c $(F)
+	$(gcc) -Wpedantic -O2 -o obj/string.o -c src/string.c $(F)
 asm:
 	mkdir -p asm
-	$(gcc) -Wpedantic -O2 -S -o asm/array.s -c src/array.c
-	$(gcc) -Wpedantic -O2 -S -o asm/string.s -c src/string.c
+	$(gcc) -Wpedantic -O2 -S -o asm/array.s -c src/array.c $(F)
+	$(gcc) -Wpedantic -O2 -S -o asm/string.s -c src/string.c $(F)
+objdump:
+	mkdir -p obj
+	objdump -d obj/string.o > obj/string.dmp
+	objdump -d obj/array.o > obj/array.dmp
 _test:
 	$(gcc) -c $(C) -Wpedantic -std=c90 $(F)
 	$(gcc) -c $(C) -Wpedantic -std=iso9899:199409 $(F)
@@ -99,6 +103,9 @@ compile:
 	make test C="src/string.c"
 	make test C="src/array.c"
 clean:
-	rm inc/wc/*.gch
-	rm inc/wc/sys/*.gch
-	rm src/*.gch
+	rm -f inc/wc/*.gch
+	rm -f inc/wc/sys/*.gch
+	rm -f src/*.gch
+	rm -rf obj
+	rm -rf bin
+	rm -rf asm
