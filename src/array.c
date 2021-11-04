@@ -337,7 +337,12 @@ const void* afa(
 			 * `a` and `b`, until there are less than 8 bytes left in the array
 			 * `a` or `b`.
 			 */
-			for (; i < (size&-8); i+=8) _af8(a,b,c,func);
+			for (; i < (size&-8); i+=8) _af8(
+				(const void* const)((Pt)a+i),
+				(const void* const)((Pt)b+i),
+				(const void* const)((Pt)c+i),
+				func
+			);
 
 			/* 3. If there are less than 8 bytes remaining, we can apply FUNC 
 			 * on them in 3 steps.
@@ -348,15 +353,44 @@ const void* afa(
 			 * 	-	after previous step, if there's a byte remaining, apply 
 			 * 		FUNC to the last byte;
 			 */
-			if (size&4) { _af4(a,b,c,func); i+=4; }
-			if (size&2) { _af2(a,b,c,func); i+=2; }
-			if (size&1) { _af1(a,b,c,func); i+=1; }
+			if (size&4) { 
+				_af4(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					(const void* const)((Pt)c+i),
+					func
+				); 
+				i+=4; 
+			}
+			if (size&2) { 
+				_af2(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					(const void* const)((Pt)c+i),
+					func
+				); 
+				i+=2; 
+			}
+			if (size&1) { 
+				_af1(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					(const void* const)((Pt)c+i),
+					func
+				); 
+				i+=1; 
+			}
 #		else
 			/* 2. The widest type is 4 bytes. Apply FUNC to every 4 bytes of 
 			 * `a` and `b`, until there are less than 4 bytes left in the array
 			 * `a` or `b`.
 			 */
-			for (; i < (size&-4); i+=4) _af4(a,b,c,func);
+			for (; i < (size&-4); i+=4) _af4(
+				(const void* const)((Pt)a+i),
+				(const void* const)((Pt)b+i),
+				(const void* const)((Pt)c+i),
+				func
+			);
 
 			/* 3. If there are less than 4 bytes remaining, we can apply FUNC 
 			 * on them in 2 steps.
@@ -365,12 +399,33 @@ const void* afa(
 			 * 	-	after previous step, if there's a byte remaining, apply 
 			 * 		FUNC to the last byte;
 			 */
-			if (size&2) { _af2(a,b,c,func); i+=2; }
-			if (size&1) { _af1(a,b,c,func); i+=1; }
+			if (size&2) { 
+				_af2(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					(const void* const)((Pt)c+i),
+					func
+				); 
+				i+=2; 
+			}
+			if (size&1) { 
+				_af1(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					(const void* const)((Pt)c+i),
+					func
+				); 
+				i+=1; 
+			}
 #		endif
 #	else
 		/* 2. Apply FUNC to every byte of `a` and `b` */
-		for (; i < size; i++) _af1(a,b,c,func);
+		for (; i < size; i++) _af1(
+			(const void* const)((Pt)a+i),
+			(const void* const)((Pt)b+i),
+			(const void* const)((Pt)c+i),
+			func
+		);
 #	endif
 		return a;
 }
@@ -390,7 +445,12 @@ Bl afab(
 			 * `a` and `b`, until there are less than 8 bytes left in the array
 			 * `a` or `b`.
 			 */
-			for (; i < (size&-8); i+=8) if (_af8b(a,b,func)) return FALSE;
+			for (; i < (size&-8); i+=8) 
+				if (_af8b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE;
 
 			/* 3. If there are less than 8 bytes remaining, we can apply FUNC 
 			 * on them in 3 steps.
@@ -401,15 +461,41 @@ Bl afab(
 			 * 	-	after previous step, if there's a byte remaining, apply 
 			 * 		FUNC to the last byte;
 			 */
-			if (size&4) { if (_af4b(a,b,func)) return FALSE; i+=4; }
-			if (size&2) { if (_af2b(a,b,func)) return FALSE; i+=2; }
-			if (size&1) { if (_af1b(a,b,func)) return FALSE; i+=1; }
+			if (size&4) { 
+				if (_af4b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE; 
+				i+=4; 
+			}
+			if (size&2) { 
+				if (_af2b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE; 
+				i+=2; 
+			}
+			if (size&1) { 
+				if (_af1b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE; 
+				i+=1; 
+			}
 #		else
 			/* 2. The widest type is 4 bytes. Apply FUNC to every 4 bytes of 
 			 * `a` and `b`, until there are less than 4 bytes left in the array
 			 * `a` or `b`.
 			 */
-			for (; i < (size&-4); i+=4) if (_af4b(a,b,func)) return FALSE;
+			for (; i < (size&-4); i+=4) 
+				if (_af4b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE;
 
 			/* 3. If there are less than 4 bytes remaining, we can apply FUNC 
 			 * on them in 2 steps.
@@ -418,12 +504,31 @@ Bl afab(
 			 * 	-	after previous step, if there's a byte remaining, apply 
 			 * 		FUNC to the last byte;
 			 */
-			if (size&2) { if (_af2b(a,b,func)) return FALSE; i+=2; }
-			if (size&1) { if (_af1b(a,b,func)) return FALSE; i+=1; }
+			if (size&2) { 
+				if (_af2b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE; 
+				i+=2; 
+			}
+			if (size&1) { 
+				if (_af1b(
+					(const void* const)((Pt)a+i),
+					(const void* const)((Pt)b+i),
+					func
+				)) return FALSE; 
+				i+=1; 
+			}
 #		endif
 #	else
 		/* 2. Apply FUNC to every byte of `a` and `b` */
-		for (; i < size; i++) if (_af1b(a,b,func)) return FALSE;
+		for (; i < size; i++) 
+			if (_af1b(
+				(const void* const)((Pt)a+i),
+				(const void* const)((Pt)b+i),
+				func)
+			) return FALSE;
 #	endif
 		return TRUE;
 }
