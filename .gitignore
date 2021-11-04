@@ -1,6 +1,8 @@
 *.gch
 *.o
 *.a
+*.s
+*.l
 .*
 asm
 obj
