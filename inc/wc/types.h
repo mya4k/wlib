@@ -593,11 +593,11 @@
 
 /* [TRUE] */
 #ifndef WL_TRUE
-#	define WL_TRUE
+#	define WL_TRUE	1
 #endif
 /* [FALSE] */
 #ifndef WL_FALSE
-#	define WL_FALSE
+#	define WL_FALSE	0
 #endif
 
 
