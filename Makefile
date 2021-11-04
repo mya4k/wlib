@@ -52,7 +52,7 @@ test:
 	$(gcc) -c $(C) -std=gnu11 $(F)
 	$(gcc) -c $(C) -std=gnu17 $(F)
 	$(gcc) -c $(C) -std=gnu2x $(F)
-	/usr/bin/pcc -c $(C) -Iinc
+# /usr/bin/pcc -c $(C) -Iinc
 test_header:
 	$(clang) -c $(C) -std=c90 $(F)
 	$(clang) -c $(C) -std=iso9899:199409 $(F)
