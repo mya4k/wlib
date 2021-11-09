@@ -2,8 +2,10 @@
 
 
 
-#include <stdlib.h>
-#define mal malloc
+#if !defined(WL_MAL_IMPLIMENTED) || !defined(mal)
+#	include <stdlib.h>
+#	define mal malloc
+#endif
 
 
 
@@ -430,7 +432,15 @@ const void* afa(
 		return a;
 }
 
-Bl afab(
+/**
+ * \brief Array Function Boolean
+ * \param a 
+ * \param b 
+ * \param func 
+ * \param size 
+ * \return Bl 
+ */
+Bl afb(
 	const void* restrict const a,
 	const void* restrict const b,
 	const Af func,
@@ -531,4 +541,33 @@ Bl afab(
 			) return FALSE;
 #	endif
 		return TRUE;
+}
+
+const void* afl(
+	const void* restrict const a,
+	const As sa,
+	const void* restrict const b,
+	const As sb
+) {
+	/* 1. Check that `a` and `b` are valid pointers, and that `sa` > 0 */
+	if (a && b && sa) {
+		/* 2. Check that `sb` is more than zero */
+		if (sb) {
+			const As d = sa-(sa%sb);
+
+			/* 3. Assign `sb` bytes of `*b` to `*a`, until there's less than
+			 * `sb` bytes remaining unassigned
+			 */
+			As i = 0;
+			for (i = 0; i<d; i+=sb) aas((Vo*)((Pt)a+i), b, sb);
+			
+			/* 4. Assign the remaining bytes */
+			aas((Vo*)((Pt)a+i), b, sa-d);
+		}
+		/* If `sb` is zero, do nothing */
+
+		return a;
+	}
+	/* Otherwise just return NULL */
+	return NULL;
 }

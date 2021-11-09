@@ -12,6 +12,7 @@
 #	define Af		wl_Af
 #	define As		wl_As
 #	define afa		wl_afa
+#	define afb		wl_afb
 #	define aas		wl_aas
 #	define ant		wl_ant
 #	define anot		wl_anot
@@ -321,6 +322,7 @@ typedef U16 wl_As;
 
 
 
+/* Array Function Assign */
 EXTERN const void* wl_afa(
 	const void* restrict a, 
 	const void* restrict const b,
@@ -329,11 +331,20 @@ EXTERN const void* wl_afa(
 	const As size
 );
 
-EXTERN Bl wl_afab(
+/* Array Function Boolean */
+EXTERN Bl wl_afb(
 	const void* restrict const a, 
 	const void* restrict const b,
 	const Af func,
 	const As size
+);
+
+/* Array Fill */
+EXTERN const void* afl(
+	const void* restrict const a,
+	const As sa,
+	const void* restrict const b,
+	const As sb
 );
 
 
