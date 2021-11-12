@@ -23,10 +23,10 @@
  * \param	func wl_Af value
  */
 static void _af1(
-	const void* restrict const a,
-	const void* restrict const b,
-	const void* restrict const c,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const void* restrict const	c,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NT: *((U8*)a) = ~*((U8*)a); break;
@@ -64,10 +64,10 @@ static void _af1(
  * \param	func wl_Af value
  */
 static void _af2(
-	const void* restrict const a,
-	const void* restrict const b,
-	const void* restrict const c,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const void* restrict const	c,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NT: *((U16*)a) = ~*((U16*)a); break;
@@ -105,10 +105,10 @@ static void _af2(
  * \param	func wl_Af value
  */
 static void _af4(
-	const void* restrict const a,
-	const void* restrict const b,
-	const void* restrict const c,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const void* restrict const	c,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NT: *((U32*)a) = ~*((U32*)a); break;
@@ -146,10 +146,10 @@ static void _af4(
  * \param	func wl_Af value
  */
 static void _af8(
-	const void* restrict const a,
-	const void* restrict const b,
-	const void* restrict const c,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const void* restrict const	c,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NT: *((U64*)a) = ~*((U64*)a); break;
@@ -186,9 +186,9 @@ static void _af8(
  * \param	func wl_Af value
  */
 static Bl _af1b(
-	const void* restrict const a,
-	const void* restrict const b,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NOL: return !!*((U8*)a);
@@ -220,9 +220,9 @@ static Bl _af1b(
  * \param	func wl_Af value
  */
 static Bl _af2b(
-	const void* restrict const a,
-	const void* restrict const b,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NOL: return !!*((U16*)a);
@@ -254,9 +254,9 @@ static Bl _af2b(
  * \param	func wl_Af value
  */
 static Bl _af4b(
-	const void* restrict const a,
-	const void* restrict const b,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NOL: return !!*((U32*)a);
@@ -288,9 +288,9 @@ static Bl _af4b(
  * \param	func wl_Af value
  */
 static Bl _af8b(
-	const void* restrict const a,
-	const void* restrict const b,
-	const Af func
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const Af					func
 ) {
 	switch (func) {
 	case WL_AF_NOL: return !!*((U64*)a);
@@ -322,11 +322,11 @@ static Bl _af8b(
  * \return const void* 
  */
 const void* afa(
-	const void* restrict a,
-	const void* restrict const b,
-	const void* restrict const c,
-	const Af func,
-	const As size
+	const void* restrict		a,
+	const void* restrict const	b,
+	const void* restrict const	c,
+	const Af					func,
+	const As					size
 ) {
 	/* 1. Create a variable that will keep the pointer increment value. */
 	As i = 0;
@@ -441,10 +441,10 @@ const void* afa(
  * \return Bl 
  */
 Bl afb(
-	const void* restrict const a,
-	const void* restrict const b,
-	const Af func,
-	const As size
+	const void* restrict const	a,
+	const void* restrict const	b,
+	const Af					func,
+	const As					size
 ) {
 	/* 1. Create a variable that will keep the pointer increment value. */
 	As i = 0;
@@ -543,11 +543,33 @@ Bl afb(
 		return TRUE;
 }
 
+/**
+ * \brief Array Fill 
+ * \fn	const void* afl(
+ *		const void* restrict const a,
+ *		const As sa,
+ *		const void* restrict const b,
+ *		const As sb
+ *	)
+ * \param a		array to be filled
+ * \param sa	size of `*a` in bytes
+ * \param b		array to fill with
+ * \param sb	size of `*b` in bytes
+ * \returns const void*
+ * 
+ * Repeatedly fills `*a` with `*b`
+ * # Rules
+ * `a` != `NULL`
+ * `b` != `NULL`
+ * `sa` > 0
+ * # Special case
+ * If `sb` = 0, returns `a` but does nothing.
+ */
 const void* afl(
-	const void* restrict const a,
-	const As sa,
-	const void* restrict const b,
-	const As sb
+	const void* restrict const	a,
+	const As					sa,
+	const void* restrict const	b,
+	const As					sb
 ) {
 	/* 1. Check that `a` and `b` are valid pointers, and that `sa` > 0 */
 	if (a && b && sa) {

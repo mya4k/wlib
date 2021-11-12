@@ -11,6 +11,7 @@
 #ifndef WL_NO_SHORT_NAME
 #	define Af		wl_Af
 #	define As		wl_As
+#	define Asf		wl_Asf
 #	define afa		wl_afa
 #	define afb		wl_afb
 #	define aas		wl_aas
@@ -47,13 +48,16 @@
 #		define ArraySize		wl_ArraySize
 #		define ArrayFunc		wl_ArrayFunc
 #		define ArrayFunction	wl_ArrayFunction
+#		define ArraySearchFlags	wl_ArraySearchFlags
 #	endif
 #endif
 
 #ifndef WL_NO_ALIASES
-#	define wl_ArraySize		wl_As
-#	define wl_ArrayFunc		wl_Af
-#	define wl_ArrayFunction	wl_Af
+#	define wl_ArraySize			wl_As
+#	define wl_ArrayFunc			wl_Af
+#	define wl_ArrayFunction		wl_Af
+#	define wl_ArraySearchFlags	wl_Asf
+#	define WL_POINTERDIFFERENCE	WL_PTRDIFF
 #endif
 
 
@@ -287,36 +291,61 @@
 
 
 
+/**
+ * \brief	Array Functions
+ * \enum	wl_Af
+ * \typedef	wl_Af
+ * 	
+ */
 typedef enum wl_Af {
-	WL_AF_NO = 0,
-	WL_AF_AN = 1,
-	WL_AF_OR = 2,
-	WL_AF_XR = 3,
-	WL_AF_NT = 4,
-	WL_AF_NN = 5,
-	WL_AF_NR = 6,
-	WL_AF_NX = 7,
-	WL_AF_NOA = 8,
-	WL_AF_ANA = 9,
-	WL_AF_ORA = 10,
-	WL_AF_XRA = 11,
-	WL_AF_NTA = 12,
-	WL_AF_NNA = 13,
-	WL_AF_NRA = 14,
-	WL_AF_NXA = 15,
-	WL_AF_NOL = 16,
-	WL_AF_ANL = 17,
-	WL_AF_ORL = 18,
-	WL_AF_XRL = 19,
-	WL_AF_NTL = 20,
-	WL_AF_NNL = 21,
-	WL_AF_NRL = 22,
-	WL_AF_NXL = 23
+	WL_AF_NO = 0,	/**< Bitwise no operation */
+	WL_AF_AN = 1,	/**< Bitwise AND */
+	WL_AF_OR = 2,	/**< Bitwise OR */
+	WL_AF_XR = 3,	/**< Bitwise XOR */
+	WL_AF_NT = 4,	/**< Bitwise NOT */
+	WL_AF_NN = 5,	/**< Bitwise NAND */
+	WL_AF_NR = 6,	/**< Bitwise NOR */
+	WL_AF_NX = 7,	/**< Bitwise NXOR */
+	WL_AF_NOA = 8,	/**< Bitwise no operation assignment */
+	WL_AF_ANA = 9,	/**< Bitwise AND assignment */
+	WL_AF_ORA = 10,	/**< Bitwise OR assignment */
+	WL_AF_XRA = 11,	/**< Bitwise XOR assignment */
+	WL_AF_NTA = 12,	/**< Bitwise NOT assignment */
+	WL_AF_NNA = 13,	/**< Bitwise NAND assignment */
+	WL_AF_NRA = 14,	/**< Bitwise NOR assignment */
+	WL_AF_NXA = 15,	/**< Bitwise NXOR assignment */
+	WL_AF_NOL = 16, /**< Logic no operation */
+	WL_AF_ANL = 17, /**< Logic AND */
+	WL_AF_ORL = 18, /**< Logic OR */
+	WL_AF_XRL = 19, /**< Logic XOR */
+	WL_AF_NTL = 20, /**< Logic NOT */
+	WL_AF_NNL = 21, /**< Logic NAND */
+	WL_AF_NRL = 22, /**< Logic NOR */
+	WL_AF_NXL = 23 	/**< Logic NXOR */
 } wl_Af;
 
 /**
- * \brief 
+ * \brief	Search Flags
+ * \enum	wl_Asf
+ * \typedef	wl_Asf
  * 
+ * 
+ */
+typedef enum wl_Asf {
+	WL_ASF_OFFSET = 0,		
+	/**< Return the offset from base pointer */
+	WL_ASF_NORMAL = 0,		/**< Searching from beginning to end */
+	WL_ASF_REVERSED = 1,	/**< Searching from end to beggining */
+	WL_ASF_PTRDIFF = 2,		
+	/**< Return pointer difference from the base pointer */
+	WL_ASF_COUNT = 4		/**< Return the count of occurrences */
+} wl_Asf;
+
+/**
+ * \brief	Array Size
+ * \typedef wl_As
+ * 
+ * The maximal size of the array that array functions support.
  */
 typedef U16 wl_As;
 
