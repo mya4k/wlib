@@ -593,3 +593,33 @@ const void* afl(
 	/* Otherwise just return NULL */
 	return NULL;
 }
+
+Pt asb(
+	const void* restrict const	a,
+	const As					sa,
+	const char					b,
+	const Asf					flags
+) {
+
+	/* If WL_ASF_COUNT is set */
+	if (flags&4) {
+
+	}
+	/* Else if WL_ASF_REVERSED is set */
+	else if (flags&1) {
+#		if WL_ASB_SIMPLE
+			const Pt l = (Pt)a+sa;
+			for (; *p!=b || p<l; p--);
+			return p-a;
+#		endif
+	}
+	/* Else */
+	else {
+#		if WL_ASB_SIMPLE
+			const char* p = a;
+			const Pt l = (Pt)a+sa;
+			for (; *p!=b || p<l; p++);
+			return p-a;
+#		endif
+	}
+}
