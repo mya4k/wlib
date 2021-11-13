@@ -45,6 +45,7 @@
 
 /* Optimize implimentation of WLib for maximal execution speed */
 #ifndef WL_OPTIMIZE_SPEED
+#	if defined(__OPTIMIZE_SPEED__) && __OPTIMIZE_SPEED__ == 0
 #		define WL_OPTIMIZE_SPEED	0
 #	else
 #		define WL_OPTIMIZE_SPEED	1
@@ -53,14 +54,14 @@
 /* Optimize implimentation of WLib for minimal size of binary files */
 #ifndef WL_OPTIMIZE_SIZE
 #	if defined(__OPTIMIZE_SIZE__) || defined(PREFER_SIZE_OVER_SPEED)
-#		define WL_OPTIMIZE_SIZE	1
+#		define WL_OPTIMIZE_SIZE		1
 #	else
-#		define WL_OPTIMIZE_SIZE 0
+#		define WL_OPTIMIZE_SIZE		0
 #	endif
 #endif
 /* Optimize implimentation of WLib for the least memory (RAM) usage */
 #ifndef WL_OPTIMIZE_MEMORY
-#	define WL_OPTIMIZE_MEMORY	0
+#	define WL_OPTIMIZE_MEMORY		0
 #endif
 
 
@@ -78,11 +79,13 @@
 #endif
 
 
-/*********************************************************************************
- *                                                                               *
- *  ... OR HERE (but use `#undef` before defining to avoid redefinition errors)  *
- *                                                                               *
- *********************************************************************************/
+
+/*********************************************************************
+ *                                                                   *
+ *  ... OR HERE                                                      *
+ *  (but use `#undef` before defining to avoid redefinition errors)  *
+ *                                                                   *
+ *********************************************************************/
 
 
 

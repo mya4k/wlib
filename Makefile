@@ -99,6 +99,7 @@ compile:
 	make test_header C="inc/wc/char.h"
 	make test_header C="inc/wc/string.h"
 	make test_header C="inc/wc/array.h"
+	make test_header C="inc/wc/config.h"
 
 	make test C="src/string.c"
 	make test C="src/array.c"
