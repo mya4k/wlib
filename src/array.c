@@ -333,7 +333,7 @@ const void* afa(
 
 	if (!a) a = mal(size);
 
-#	ifndef WL_AAS_SIMPLE
+#	ifndef WL_AFA_SIMPLE
 #		if IMB >= 64
 			/* 2. The widest type is 8 bytes. Apply FUNC to every 8 bytes of 
 			 * `a` and `b`, until there are less than 8 bytes left in the array
@@ -449,7 +449,7 @@ Bl afb(
 	/* 1. Create a variable that will keep the pointer increment value. */
 	As i = 0;
 
-#	ifndef WL_AAS_SIMPLE
+#	ifndef WL_AFB_SIMPLE
 #		if IMB >= 64
 			/* 2. The widest type is 8 bytes. Apply FUNC to every 8 bytes of 
 			 * `a` and `b`, until there are less than 8 bytes left in the array
@@ -594,32 +594,145 @@ const void* afl(
 	return NULL;
 }
 
+#if UMB>=64
+/* Value of `UMax`, where all individual bytes are `0x01` */
+#	define _LOW		0x0101010101010101
+/* Value of `UMax`, where all individual bytes are `0x80` */
+#	define _HIGH	0x8080808080808080
+#else
+/* Value of `UMax`, where all individual bytes are `0x01` */
+#	define _LOW		0x01010101
+/* Value of `UMax`, where all individual bytes are `0x08` */
+#	define _HIGH	0x80808080
+#endif
+/* Whether there's a byte that has a value of `0x00` */
+#define _HASZERO(X)  (((X)-_LOW) & ~(X) & _HIGH)
+/**
+ * \brief 
+ * 
+ * \param a 
+ * \param sa 
+ * \param b 
+ * \param flags 
+ * \return Pt 
+ */
 Pt asb(
 	const void* restrict const	a,
-	const As					sa,
+	As							sa,
 	const char					b,
 	const Asf					flags
 ) {
+	/* If `a` is not NULL and `sa` > 0 */
+	if (a && sa) {
+		const char* p;
+		/* If WL_ASF_COUNT is set */
+		if (flags&4) {
+			As c = 0;	/* Counter */
+			// 	/* Cycles the entire array byte by byte */
+			// 	for (i = 0; i < sa; i++)
+			// 		/* If the character is a match, increment */
+			// 		if (((char*)a)[i] == b)
+			// 			c++;
+			// 	/* Returns the count */
+			// 	return c;
+			p = a;
+#			if !WL_ASB_SIMPLE
+				/* Do match finding until `c` is at the next alignment */
+				for (; (Pt)p&(sizeof(UMax)-1) && sa; p++, sa--) {
+					if (*(char*)p == b) c++;
+				}
 
-	/* If WL_ASF_COUNT is set */
-	if (flags&4) {
+				const char m = b*_LOW;
+				for ( ; sa>=sizeof(UMax); ) {
+					if (_HASZERO(*p^m)) {
+						const char* const q = p+8;
+						for (; p<q; p++, sa--) {
+							if (*p==b) c++;
+						}
+					}
+					else {
+						p+=sizeof(UMax);
+						sa-=sizeof(UMax);
+					}
+				}
+#			endif
+			/* Loops until a match is found or we are at the beggining of 
+			 * the array
+			 */
+			for (; sa && *p != b; p++, sa--);
 
+			return c;
+		}
+
+		/* If WL_ASF_REVERSED is set */
+		if (flags&1) {
+			p = a+sa-1;
+#			if !WL_ASB_SIMPLE
+				/* Do match finding until `c` is at the previous alignment */
+				for (; (Pt)p&(sizeof(UMax)-1) && sa && *(char*)p != b; p--, 
+				sa--);
+				/* If there still bytes remaining and the next byte isn't a 
+				 * match 
+				 */
+				if (sa && *p != b) {
+					const char m = b*_LOW;
+					/* Now that `a` is aligned. We check the value of the size
+					 * of alignment for the presence of a byte that has a `b`
+					 * character. If there isn't one, increment `a` to the 
+					 * next alignment, if there is one or more, go to the next
+					 * step.
+					 */
+					for (p-=sizeof(UMax); !_HASZERO(*p^m) && sa>=sizeof(UMax); 
+					p-=sizeof(UMax), sa-=sizeof(UMax));
+				}
+				/* Now we do know that there is a matching byte somewhere in 
+				 * this alignment, check each byte in it, if it's a match, 
+				 * return.
+				 */
+#			endif
+			/* Loops until a match is found or we are at the beggining of 
+			 * the array
+			 */
+			for (; sa && *p != b; p--, sa--);
+		}
+		/* Else WL_ASF_NORMAL is set */
+		else {
+			p = a;
+#			if !WL_ASB_SIMPLE
+				/* Do match finding until `c` is at the next alignment */
+				for (; (Pt)p&(sizeof(UMax)-1) && sa && *(char*)p != b; p++, 
+				sa--);
+				/* If there still bytes remaining and the next byte isn't a 
+				 * match 
+				*/
+				if (sa && *p != b) {
+					const char m = b*_LOW;
+					/* Now that `a` is aligned. We check the value of the size
+					 * of alignment for the presence of a byte that has a `b`
+					 * character. If there isn't one, increment `a` to the 
+					 * next alignment, if there is one or more, go to the next
+					 * step.
+					 */
+					for (; !_HASZERO(*p^m) && sa>=sizeof(UMax); 
+					p+=sizeof(UMax), sa-=sizeof(UMax));
+				}
+				/* Now we do know that there is a matching byte somewhere in 
+				 * this alignment, check each byte in it, if it's a match, 
+				 * return.
+				 */
+#			endif
+			/* Loops until a match is found or we are at the beggining of 
+			 * the array
+			 */
+			for (; sa && *p != b; p++, sa--);
+		}
+
+		/* Returns the address where or the offset at which (depending on 
+		 * the WL_ASB_PTRDIFF flag) a match was found, or returns NULL if
+		 * we looped through the entire array and didn't find any matches
+		 */
+		return (Pt)p - (Pt)a*!!(flags&2);
 	}
-	/* Else if WL_ASF_REVERSED is set */
-	else if (flags&1) {
-#		if WL_ASB_SIMPLE
-			const Pt l = (Pt)a+sa;
-			for (; *p!=b || p<l; p--);
-			return p-a;
-#		endif
-	}
-	/* Else */
-	else {
-#		if WL_ASB_SIMPLE
-			const char* p = a;
-			const Pt l = (Pt)a+sa;
-			for (; *p!=b || p<l; p++);
-			return p-a;
-#		endif
-	}
+
+	return 0;
 }
