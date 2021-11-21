@@ -47,7 +47,7 @@ Sl sl(const char* restrict const s) {
 		supress "this ‘for’ clause does not guard..." */
 
 
-		/* 4. Now we do now that, that there is a NUL character somewhere in this
+		/* 4. Now we do know that, that there is a NUL character somewhere in this
 		* alignment, check each character, if it's NUL, return there difference
 		* between `s` and `a` &mdash; this is our string length.
 		*/
