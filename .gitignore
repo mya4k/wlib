@@ -1,4 +1,10 @@
 *.gch
 *.o
 *.a
+*.dmp
 .*
+obj/
+asm/
+lib/
+bin/
+notes/
