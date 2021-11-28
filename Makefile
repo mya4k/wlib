@@ -1,7 +1,8 @@
-gcc = /usr/bin/gcc -Iinc -Wall -Wextra -Werror -Wfatal-errors
-g++ = /usr/bin/g++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
-clang = /usr/bin/clang -Iinc -Wall -Wextra -Werror -Wfatal-errors
-clang++ = /usr/bin/clang++ -Iinc -Wall -Wextra -Werror -Wfatal-errors
+gcc = 		/usr/bin/gcc 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o
+g++ = 		/usr/bin/g++ 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o
+clang = 	/usr/bin/clang 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o
+clang++ = 	/usr/bin/clang++	-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o
+
 
 .PHONY: _test test test_header compile clean asm obj
 
@@ -15,98 +16,92 @@ asm:
 	$(gcc) -Wpedantic -O2 -S -o asm/string.s -c src/string.c $(F)
 objdump:
 	mkdir -p obj
-	objdump -d obj/string.o > obj/string.dmp
-	objdump -d obj/array.o > obj/array.dmp
+	objdump -d $(C) > obj/$(shell basename $(C)).dmp
 _test:
-	$(gcc) -c $(C) -Wpedantic -std=c90 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=iso9899:199409 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c99 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c11 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c17 $(F)
-	$(gcc) -c $(C) -Wpedantic -std=c2x $(F)
-	$(gcc) -c $(C) -std=gnu90 $(F)
-	$(gcc) -c $(C) -std=gnu99 $(F)
-	$(gcc) -c $(C) -std=gnu11 $(F)
-	$(gcc) -c $(C) -std=gnu17 $(F)
-	$(gcc) -c $(C) -std=gnu2x $(F)
-	$(g++) -c $(C) -Wpedantic -std=c++98 $(F) 
-	$(g++) -c $(C) -Wpedantic -std=c++11 $(F)
-	$(g++) -c $(C) -Wpedantic -std=c++14 $(F)
-	$(g++) -c $(C) -Wpedantic -std=c++17 $(F)
-	$(g++) -c $(C) -Wpedantic -std=c++20 $(F)
-	$(g++) -c $(C) -Wpedantic -std=c++23 $(F)
-	$(g++) -c $(C) -std=gnu++98 $(F)
-	$(g++) -c $(C) -std=gnu++11 $(F)
-	$(g++) -c $(C) -std=gnu++14 $(F)
-	$(g++) -c $(C) -std=gnu++17 $(F)
-	$(g++) -c $(C) -std=gnu++20 $(F)
-	$(g++) -c $(C) -std=gnu++23 $(F)
+	$(gcc) -Wpedantic -std=c90 $(F)
+	$(gcc) -Wpedantic -std=iso9899:199409 $(F)
+	$(gcc) -Wpedantic -std=c99 $(F)
+	$(gcc) -Wpedantic -std=c11 $(F)
+	$(gcc) -Wpedantic -std=c17 $(F)
+	$(gcc) -Wpedantic -std=c2x $(F)
+	$(gcc) -std=gnu90 $(F)
+	$(gcc) -std=gnu99 $(F)
+	$(gcc) -std=gnu11 $(F)
+	$(gcc) -std=gnu17 $(F)
+	$(gcc) -std=gnu2x $(F)
+	$(g++) -Wpedantic -std=c++98 $(F) 
+	$(g++) -Wpedantic -std=c++11 $(F)
+	$(g++) -Wpedantic -std=c++14 $(F)
+	$(g++) -Wpedantic -std=c++17 $(F)
+	$(g++) -Wpedantic -std=c++20 $(F)
+	$(g++) -Wpedantic -std=c++23 $(F)
+	$(g++) -std=gnu++98 $(F)
+	$(g++) -std=gnu++11 $(F)
+	$(g++) -std=gnu++14 $(F)
+	$(g++) -std=gnu++17 $(F)
+	$(g++) -std=gnu++20 $(F)
+	$(g++) -std=gnu++23 $(F)
 test:
-	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c90 $(F)
-	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
-	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c99 $(F)
-	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c11 $(F)
-	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c17 $(F)
-	$(clang) -c $(C) -pedantic-errors -Wpedantic -std=c2x $(F)
-	$(clang) -c $(C) -std=gnu90 $(F)
-	$(clang) -c $(C) -std=gnu99 $(F)
-	$(clang) -c $(C) -std=gnu11 $(F)
-	$(clang) -c $(C) -std=gnu17 $(F)
-	$(clang) -c $(C) -std=gnu2x $(F)
-	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c90 $(F)
-	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
-	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c99 $(F)
-	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c11 $(F)
-	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c17 $(F)
-	$(gcc) -c $(C) -pedantic-errors -Wpedantic -std=c2x $(F)
-	$(gcc) -c $(C) -std=gnu90 $(F)
-	$(gcc) -c $(C) -std=gnu99 $(F)
-	$(gcc) -c $(C) -std=gnu11 $(F)
-	$(gcc) -c $(C) -std=gnu17 $(F)
-	$(gcc) -c $(C) -std=gnu2x $(F)
-# /usr/bin/pcc -c $(C) -Iinc
+	$(clang) -pedantic-errors -Wpedantic -std=c90 $(F)
+	$(clang) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
+	$(clang) -pedantic-errors -Wpedantic -std=c99 $(F)
+	$(clang) -pedantic-errors -Wpedantic -std=c11 $(F)
+	$(clang) -pedantic-errors -Wpedantic -std=c17 $(F)
+	$(clang) -pedantic-errors -Wpedantic -std=c2x $(F)
+	$(clang) -std=gnu90 $(F)
+	$(clang) -std=gnu99 $(F)
+	$(clang) -std=gnu11 $(F)
+	$(clang) -std=gnu17 $(F)
+	$(clang) -std=gnu2x $(F)
+	$(gcc) -pedantic-errors -Wpedantic -std=c90 $(F)
+	$(gcc) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
+	$(gcc) -pedantic-errors -Wpedantic -std=c99 $(F)
+	$(gcc) -pedantic-errors -Wpedantic -std=c11 $(F)
+	$(gcc) -pedantic-errors -Wpedantic -std=c17 $(F)
+	$(gcc) -pedantic-errors -Wpedantic -std=c2x $(F)
+	$(gcc) -std=gnu90 $(F)
+	$(gcc) -std=gnu99 $(F)
+	$(gcc) -std=gnu11 $(F)
+	$(gcc) -std=gnu17 $(F)
+	$(gcc) -std=gnu2x $(F)
+# /usr/bin/pcc -Iinc
 test_header:
-	$(clang) -c $(C) -std=c90 $(F)
-	$(clang) -c $(C) -std=iso9899:199409 $(F)
-	$(clang) -c $(C) -std=c99 $(F)
-	$(clang) -c $(C) -std=c11 $(F)
-	$(clang) -c $(C) -std=c17 $(F)
-	$(clang) -c $(C) -std=c2x $(F)
-	$(clang) -c $(C) -std=gnu90 $(F)
-	$(clang) -c $(C) -std=gnu99 $(F)
-	$(clang) -c $(C) -std=gnu11 $(F)
-	$(clang) -c $(C) -std=gnu17 $(F)
-	$(clang) -c $(C) -std=gnu2x $(F)
-	$(gcc) -c $(C) -std=c90 $(F)
-	$(gcc) -c $(C) -std=iso9899:199409 $(F)
-	$(gcc) -c $(C) -std=c99 $(F)
-	$(gcc) -c $(C) -std=c11 $(F)
-	$(gcc) -c $(C) -std=c17 $(F)
-	$(gcc) -c $(C) -std=c2x $(F)
-	$(gcc) -c $(C) -std=gnu90 $(F)
-	$(gcc) -c $(C) -std=gnu99 $(F)
-	$(gcc) -c $(C) -std=gnu11 $(F)
-	$(gcc) -c $(C) -std=gnu17 $(F)
-	$(gcc) -c $(C) -std=gnu2x $(F)
+	$(clang) -std=c90 $(F)
+	$(clang) -std=iso9899:199409 $(F)
+	$(clang) -std=c99 $(F)
+	$(clang) -std=c11 $(F)
+	$(clang) -std=c17 $(F)
+	$(clang) -std=c2x $(F)
+	$(clang) -std=gnu90 $(F)
+	$(clang) -std=gnu99 $(F)
+	$(clang) -std=gnu11 $(F)
+	$(clang) -std=gnu17 $(F)
+	$(clang) -std=gnu2x $(F)
+	$(gcc) -std=c90 $(F)
+	$(gcc) -std=iso9899:199409 $(F)
+	$(gcc) -std=c99 $(F)
+	$(gcc) -std=c11 $(F)
+	$(gcc) -std=c17 $(F)
+	$(gcc) -std=c2x $(F)
+	$(gcc) -std=gnu90 $(F)
+	$(gcc) -std=gnu99 $(F)
+	$(gcc) -std=gnu11 $(F)
+	$(gcc) -std=gnu17 $(F)
+	$(gcc) -std=gnu2x $(F)
 compile:
-	make test_header C="inc/wc/sys/lang.h"
-	make test_header C="inc/wc/sys/arch.h"
-	make test_header C="inc/wc/sys/osys.h"
-	make test_header C="inc/wc/sys/comp.h"
-	make test_header C="inc/wc/sys/damo.h"
-	make test_header C="inc/wc/core.h"
-	make test_header C="inc/wc/types.h"
-	make test_header C="inc/wc/char.h"
-	make test_header C="inc/wc/string.h"
-	make test_header C="inc/wc/array.h"
-	make test_header C="inc/wc/config.h"
-
-	make test C="src/string.c"
-	make test C="src/array.c"
+	for F in `find -name "*.h"`; do make test_header C=$$F; done
+	for F in `find -name "*.c"`; do make test C=$$F; done
 clean:
-	rm -f inc/wc/*.gch
-	rm -f inc/wc/sys/*.gch
-	rm -f src/*.gch
-	rm -rf obj
-	rm -rf bin
-	rm -rf asm
+	rm -f $(shell find -name "*.gch")
+	rm -f $(shell find -name "*.o")
+	rm -f $(shell find -name "*.s")
+	rm -f $(shell find -name "*.a")
+
+
+
+carray:
+	mkdir -p obj/array
+	for F in `find src/array/ -name "*.c"`; do make test C=$$F; done
+array: carray
+	mkdir -p lib
+	ar -rc lib/libwca.a obj/array/*

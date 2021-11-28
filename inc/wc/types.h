@@ -135,6 +135,9 @@
 #	ifndef TRUE
 #		define TRUE WL_TRUE
 #	endif
+#	ifndef NULL
+#		define NULL WL_NULL
+#	endif
 #endif
 
 /*
@@ -598,6 +601,10 @@
 /* [FALSE] */
 #ifndef WL_FALSE
 #	define WL_FALSE	0
+#endif
+/* [NULL] */
+#ifndef WL_NULL
+#	define WL_NULL	((void*)0)
 #endif
 
 

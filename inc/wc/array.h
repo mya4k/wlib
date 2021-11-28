@@ -44,7 +44,9 @@
 #	define anxorl	wl_anxorl
 #	define aeq		wl_aeq
 #	define anq		wl_anq
+#	define _anol	wl__anol
 #	define asb		wl_asb
+#	define asa		wl_asa
 #	ifndef WL_NO_ALIASES
 #		define ArraySize		wl_ArraySize
 #		define ArrayFunc		wl_ArrayFunc
@@ -63,131 +65,24 @@
 
 
 
-/**
- * \brief Array Assign
- * \def wl_aas(a,b,size)
- * Assigns array `b` to array `a` using `wl_afa`
- * \return `a`
- */
 #define wl_aas(a,b,size)	wl_afa((a),	(b),	NULL,	WL_AF_NOA,	(size))
-/**
- * \brief Array NOT
- * \def wl_ant(a,b,size)
- * Compliments every bit of array `b` and assigns it to array `a`
- * \return `a`
- */
-#define wl_ant(a,b,size)	wl_afa((a),	(b),	NULL,	WL_AF_NTA,	(size))
-/**
- * \brief Array OR
- * \def wl_ant(a,b,size)
- * Disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
+#define wl_ant(r,a,size)	wl_afa((r),	(a),	NULL,	WL_AF_NTA,	(size))
 #define wl_aor(r,a,b,size)	wl_afa((r),	(a),	(b),	WL_AF_ORA,	(size))
-/**
- * \brief Array AND
- * \def wl_aan(r,a,b,size)
- * Conjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
 #define wl_aan(r,a,b,size)	wl_afa((r),	(a),	(b),	WL_AF_ANA,	(size))
-/**
- * \brief Array XOR
- * \def wl_axr(r,a,b,size)
- * Exclusive-disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
 #define wl_axr(r,a,b,size)	wl_afa((r),	(a),	(b),	WL_AF_XRA,	(size))
-/**
- * \brief Array OR
- * \def wl_anr(r,a,b,size)
- * Invert-disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
 #define wl_anr(r,a,b,size)	wl_afa((r),	(a),	(b),	WL_AF_NRA,	(size))
-/**
- * \brief Array NAND
- * \def wl_ann(r,a,b,size)
- * Invert-conjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
 #define wl_ann(r,a,b,size)	wl_afa((r),	(a),	(b),	WL_AF_NNA,	(size))
-/**
- * \brief Array NXOR
- * \def wl_anx(r,a,b,size)
- * invert-exclusive-disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
 #define wl_anx(r,a,b,size)	wl_afa((r),	(a),	(b),	WL_AF_NXA,	(size))
 
-/**
- * \brief Array logic NO
- * \def wl_antl(a,b,size)
- * Compliments every bit of array `b` and assigns it to array `a`
- * \return `a`
- */
-#define wl_anol(a,size)	wl_afb((a),	NULL,	WL_AF_NTL,	(size))
-/**
- * \brief Array logic NOT
- * \def wl_antL(a,b,size)
- * Compliments every bit of array `b` and assigns it to array `a`
- * \return `a`
- */
-#define wl_antl(a,size)	wl_afb((a),	NULL,	WL_AF_NOL,	(size))
-/**
- * \brief Array logic OR
- * \def wl_aorl(a,b,size)
- * Disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
-#define wl_aorl(a,b,size)	wl_afb((a),	(b),	WL_AF_NRL,	(size))
-/**
- * \brief Array logic AND
- * \def wl_aanl(r,a,b,size)
- * Conjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
-#define wl_aanl(a,b,size)	wl_afb((a),	(b),	WL_AF_NNL,	(size))
-/**
- * \brief Array logic XOR
- * \def wl_axrl(r,a,b,size)
- * Exclusive-disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
-#define wl_axrl(a,b,size)	wl_afb((a),	(b),	WL_AF_NXL,	(size))
-/**
- * \brief Array logic OR
- * \def wl_anrl(r,a,b,size)
- * Invert-disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
-#define wl_anrl(a,b,size)	wl_afb((a),	(b),	WL_AF_ORL,	(size))
-/**
- * \brief Array logic NAND
- * \def wl_annl(r,a,b,size)
- * Invert-conjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
-#define wl_annl(a,b,size)	wl_afb((a),	(b),	WL_AF_ANL,	(size))
-/**
- * \brief Array logic NXOR
- * \def wl_anxl(r,a,b,size)
- * invert-exclusive-disjuncts arrays `a` and `b` and assigns it to array `r`, if `r` = NULL,
- * a new array is allocated.
- * \return `r`
- */
-#define wl_anxl(a,b,size)	wl_afb((a),	(b),	WL_AF_XRL,	(size))
+#define wl_anol(a,size)		wl__anol(a,size,WL_TRUE)
+#define wl_antl(a,size)		wl__anol(a,size,WL_FALSE)
+
+#define wl_aorl(a,b,size)	(wl_anol(a,size)	||	wl_anol(b,size))
+#define wl_aanl(a,b,size)	(wl_anol(a,size)	&&	wl_anol(b,size))
+#define wl_axrl(a,b,size)	(wl_anol(a,size)	^	wl_anol(b,size))
+#define wl_anrl(a,b,size)	(wl_antl(a,size)	&&	wl_antl(b,size))
+#define wl_annl(a,b,size)	(wl_antl(a,size)	||	wl_antl(b,size))
+#define wl_anxl(a,b,size)	(wl_anol(a,size)	^	wl_antl(b,size))
 
 #define wl_aeq(a,b,size)	wl_antl(wl_axr(NULL,	(a),	(b),	(size)	), (size))
 #define wl_anq(a,b,size)	wl_anol(wl_axr(NULL,	(a),	(b),	(size)	), (size))
@@ -272,6 +167,9 @@ EXTERN Bl wl_afb(
 	const As size
 );
 
+/* Array Logical No Operation/NOT */
+EXTERN Bl wl__anol(const void* a, As size, Bl r);
+
 /* Array Fill */
 EXTERN const void* wl_afl(
 	const void* restrict const a,
@@ -288,6 +186,13 @@ EXTERN Pt wl_asb(
 	const Asf					flags
 );
 
-
+/* Array Search Array */
+EXTERN Pt wl_asa(
+	const void* restrict const	_a,
+	As							sa,
+	const void*					b,
+	As							sb,
+	const Asf					flags
+);
 
 #endif
