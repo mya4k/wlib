@@ -3,6 +3,7 @@
 *.a
 *.s
 *.l
+*.dmp
 .*
 asm
 obj
