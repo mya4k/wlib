@@ -69,6 +69,9 @@
 /*
  *	IMPLIMENTATION OPTIONS
  */
+#ifndef WL_PREFIX
+#	define WL_PREFIX		0
+#endif
 /* Primitive `sl` implimentation */
 #ifndef WL_SL_SIMPLE
 #	define WL_SL_SIMPLE		0
