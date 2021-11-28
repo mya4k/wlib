@@ -69,8 +69,13 @@
 /*
  *	IMPLIMENTATION OPTIONS
  */
+/* Defines identifiers without the `wl_` prefix */
 #ifndef WL_PREFIX
 #	define WL_PREFIX		0
+#endif
+/* Defines readable aliases for identifiers*/
+#ifndef WL_ALIASES
+#	define WL_ALIASES		0
 #endif
 /* Primitive `sl` implimentation */
 #ifndef WL_SL_SIMPLE
