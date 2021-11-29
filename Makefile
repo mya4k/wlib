@@ -18,6 +18,7 @@ objdump:
 	mkdir -p obj
 	objdump -d $(C) > obj/$(shell basename $(C)).dmp
 _test:
+
 	$(gcc) -Wpedantic -std=c90 $(F)
 	$(gcc) -Wpedantic -std=iso9899:199409 $(F)
 	$(gcc) -Wpedantic -std=c99 $(F)
@@ -42,6 +43,7 @@ _test:
 	$(g++) -std=gnu++20 $(F)
 	$(g++) -std=gnu++23 $(F)
 test:
+	mkdir -p obj
 	$(clang) -pedantic-errors -Wpedantic -std=c90 $(F)
 	$(clang) -pedantic-errors -Wpedantic -std=iso9899:199409 $(F)
 	$(clang) -pedantic-errors -Wpedantic -std=c99 $(F)
@@ -66,6 +68,7 @@ test:
 	$(gcc) -std=gnu2x $(F)
 # /usr/bin/pcc -Iinc
 test_header:
+	mkdir -p obj/array
 	$(clang) -std=c90 $(F)
 	$(clang) -std=iso9899:199409 $(F)
 	$(clang) -std=c99 $(F)

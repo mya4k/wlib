@@ -64,6 +64,9 @@
 #endif
 
 
+
+#if	WL_OPTIMIZE_SPEED == 2
+#else
 /*
  *	ARRAY BITWISE FUNCTIONS
  */
@@ -116,6 +119,7 @@
 /* Array Logical NXOR */
 #define wl_anxl(a,b,size)	(wl_anol(a,size)	^	wl_antl(b,size))
 #define wl_anxorl			wl_anxl
+#endif
 
 /*
  *	ARRAY COMPARISON FUNCTIONS
