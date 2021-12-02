@@ -94,8 +94,8 @@
  *  (but use `#undef` before defining to avoid redefinition errors)  *
  *                                                                   *
  *********************************************************************/
-#undef WL_OPTIMIZE_SPEED
-#define WL_OPTIMIZE_SPEED 2
+/* #undef WL_OPTIMIZE_SPEED
+#define WL_OPTIMIZE_SPEED 2 */
 
 
 

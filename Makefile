@@ -1,7 +1,7 @@
-gcc = 		/usr/bin/gcc 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
-g++ = 		/usr/bin/g++ 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
-clang = 	/usr/bin/clang 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
-clang++ = 	/usr/bin/clang++	-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -g -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
+gcc = 		/usr/bin/gcc 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
+g++ = 		/usr/bin/g++ 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
+clang = 	/usr/bin/clang 		-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
+clang++ = 	/usr/bin/clang++	-Iinc -Wall -Wextra -Werror -Wfatal-errors -c $(C) -o obj/$(shell echo $C | cut -d / -f 1 --complement - | cut -d . -f 1 -).o -include wc/config.h
 
 .PHONY: _test test test_header compile clean asm obj
 
@@ -59,7 +59,9 @@ test_header:
 	$(gcc) -std=gnu2x $(F)
 compile:
 	mkdir -p obj
-	$(gcc) -pedantic-errors -Wpedantic $(F)
+	$(gcc) -pedantic-errors -Wpedantic $(F) -O2
+asm:
+	$(gcc) -pedantic-errors -Wpedantic -O2 -S $(F)
 clean:
 	rm -f $(shell find -name "*.gch")
 	rm -f $(shell find -name "*.o")
