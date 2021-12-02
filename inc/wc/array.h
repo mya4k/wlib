@@ -65,34 +65,40 @@
 
 
 
-#if	WL_OPTIMIZE_SPEED == 2
-#else
-/*
- *	ARRAY BITWISE FUNCTIONS
- */
-/* Array Bitwise No Operation [r = a] */
-#define wl_ano(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NOA,	(size))
+#define AFADECL1(NAME)	const void* NAME(const void* _a, const void* b, As size)
+#define AFADECL2(NAME)	const void* NAME(const void* _a, const void* b, const void* c, As size)
+
+#if	WL_OPTIMIZE_SPEED != 2
+	/*
+	*	ARRAY BITWISE FUNCTIONS
+	*/
+	/* Array Bitwise No Operation [r = a] */
+	#define wl_ano(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NOA,	(size))
+	/* Array Bitwise NOT [a = ~b] */
+	#define wl_ant(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NTA,	(size))
+	/* Array Bitwise OR [r = a|b] */
+	#define wl_aor(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_ORA,	(size))
+	/* Array Bitwise AND [r = a&b] */
+	#define wl_aan(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_ANA,	(size))
+	/* Array Bitwise XOR [r = a^b] */
+	#define wl_axr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_XRA,	(size))
+	/* Array Bitwise NOR [r = ~(a|b)] */
+	#define wl_anr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NRA,	(size))
+	/* Array Bitwise NAND [r = ~(a&b)] */
+	#define wl_ann(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NNA,	(size))
+	/* Array Bitwise NXOR [r = ~(a^b)] */
+	#define wl_anx(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NXA,	(size))
+#endif
+
 /* Array Assign [a = b] */
 #define wl_aas(a,b,size)		wl_ano(a,b,size)
-/* Array Bitwise NOT [a = ~b] */
-#define wl_ant(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NTA,	(size))
+
+/* Aliases */
 #define wl_anot					wl_ant
-/* Array Bitwise OR [r = a|b] */
-#define wl_aor(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_ORA,	(size))
-/* Array Bitwise AND [r = a&b] */
-#define wl_aan(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_ANA,	(size))
-#define wl_aand					wl_and
-/* Array Bitwise XOR [r = a^b] */
-#define wl_axr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_XRA,	(size))
+#define wl_aand					wl_aan
 #define wl_axor					wl_axr
-/* Array Bitwise NOR [r = ~(a|b)] */
-#define wl_anr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NRA,	(size))
-#define wl_anor					wl_anr
-/* Array Bitwise NAND [r = ~(a&b)] */
-#define wl_ann(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NNA,	(size))
 #define wl_anand				wl_ann
-/* Array Bitwise NXOR [r = ~(a^b)] */
-#define wl_anx(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NXA,	(size))
+#define wl_anor					wl_anr
 #define wl_anxor				wl_anx
 
 /*
@@ -119,7 +125,8 @@
 /* Array Logical NXOR */
 #define wl_anxl(a,b,size)	(wl_anol(a,size)	^	wl_antl(b,size))
 #define wl_anxorl			wl_anxl
-#endif
+
+
 
 /*
  *	ARRAY COMPARISON FUNCTIONS
@@ -159,7 +166,7 @@ typedef enum wl_Af {
 	WL_AF_NXL = 23 	/**< Logic NXOR */
 } wl_Af;
 /* The maximal size of the array that array functions support. */
-typedef U16 wl_As;
+typedef	wl_U16	wl_As;
 /* Search Flags */
 typedef enum wl_Asf {
 	WL_ASF_OFFSET = 0,		/**< Return the offset from base pointer */
@@ -170,6 +177,17 @@ typedef enum wl_Asf {
 } wl_Asf;
 
 
+
+#if WL_OPTIMIZE_SPEED == 2
+	EXTERN AFADECL1(wl_ano);
+	EXTERN AFADECL1(wl_ant);
+	EXTERN AFADECL2(wl_aan);
+	EXTERN AFADECL2(wl_aor);
+	EXTERN AFADECL2(wl_axr);
+	EXTERN AFADECL2(wl_ann);
+	EXTERN AFADECL2(wl_anr);
+	EXTERN AFADECL2(wl_anx);
+#endif
 
 /* Array Function Assign */
 EXTERN const void* wl_afa(
