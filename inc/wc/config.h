@@ -81,9 +81,25 @@
 #ifndef WL_SL_SIMPLE
 #	define WL_SL_SIMPLE		0
 #endif
+/* Primitive `afa` implimentation */
+#ifndef WL_AFA_SIMPLE
+#	define WL_AFA_SIMPLE	0
+#endif
+/* Primitive `afb` implimentation */
+#ifndef WL_AFB_SIMPLE
+#	define WL_AFB_SIMPLE	0
+#endif
+/* Primitive `afl` implimentation */
+#ifndef WL_AFL_SIMPLE
+#	define WL_AFL_SIMPLE	0
+#endif
 /* Primitive `asb` implimentation */
 #ifndef WL_ASB_SIMPLE
 #	define WL_ASB_SIMPLE	0
+#endif
+/* Primitive `asa` implimentation */
+#ifndef WL_ASA_SIMPLE
+#	define WL_ASA_SIMPLE	0
 #endif
 
 
