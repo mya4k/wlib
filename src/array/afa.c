@@ -112,24 +112,24 @@
 		 */
 		if (c)	switch (func) {
 			/* aan() -- Array bitwise AND */
-			case WL_AF_ANA: AFATEMP(*((UMax*)a), *((UMax*)b) & *((UMax*)c)) break;
+			case WL_AF_AN: AFATEMP(*((UMax*)a), *((UMax*)b) & *((UMax*)c)) break;
 			/* aor() -- Array bitwise OR */
-			case WL_AF_ORA: AFATEMP(*((UMax*)a), *((UMax*)b) | *((UMax*)c)) break;
+			case WL_AF_OR: AFATEMP(*((UMax*)a), *((UMax*)b) | *((UMax*)c)) break;
 			/* axr() -- Array bitwise XOR */
-			case WL_AF_XRA: AFATEMP(*((UMax*)a), *((UMax*)b) ^ *((UMax*)c)) break;
+			case WL_AF_XR: AFATEMP(*((UMax*)a), *((UMax*)b) ^ *((UMax*)c)) break;
 			/* ann() -- Array bitwise NAND */
-			case WL_AF_NNA: AFATEMP(*((UMax*)a), ~(*((UMax*)b) & *((UMax*)c))) break;
+			case WL_AF_NN: AFATEMP(*((UMax*)a), ~(*((UMax*)b) & *((UMax*)c))) break;
 			/* anr() -- Array bitwise NOR */
-			case WL_AF_NRA: AFATEMP(*((UMax*)a), ~(*((UMax*)b) | *((UMax*)c))) break;
+			case WL_AF_NR: AFATEMP(*((UMax*)a), ~(*((UMax*)b) | *((UMax*)c))) break;
 			/* anx() -- Array bitwise NXOR */
-			case WL_AF_NXA: AFATEMP(*((UMax*)a), ~(*((UMax*)b) ^ *((UMax*)c))) break;
+			case WL_AF_NX: AFATEMP(*((UMax*)a), ~(*((UMax*)b) ^ *((UMax*)c))) break;
 			default: break;
 		}
 		else 	switch (func) {
 			/* aas() -- Array assignment */
-			case WL_AF_NOA: AFATEMP(*((UMax*)a), *((UMax*)b)) break;
+			case WL_AF_NO: AFATEMP(*((UMax*)a), *((UMax*)b)) break;
 			/* ant() -- Array bitwise NOT */
-			case WL_AF_NTA: AFATEMP(*((UMax*)a), ~*((UMax*)b)) break;
+			case WL_AF_NT: AFATEMP(*((UMax*)a), ~*((UMax*)b)) break;
 			default: break;
 		}
 		AFAFOOT
