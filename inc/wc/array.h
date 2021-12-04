@@ -73,21 +73,21 @@
 	*	ARRAY BITWISE FUNCTIONS
 	*/
 	/* Array Bitwise No Operation [r = a] */
-	#define wl_ano(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NOA,	(size))
+	#define wl_ano(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NO,	(size))
 	/* Array Bitwise NOT [a = ~b] */
-	#define wl_ant(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NTA,	(size))
+	#define wl_ant(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NT,	(size))
 	/* Array Bitwise OR [r = a|b] */
-	#define wl_aor(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_ORA,	(size))
+	#define wl_aor(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_OR,	(size))
 	/* Array Bitwise AND [r = a&b] */
-	#define wl_aan(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_ANA,	(size))
+	#define wl_aan(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_AN,	(size))
 	/* Array Bitwise XOR [r = a^b] */
-	#define wl_axr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_XRA,	(size))
+	#define wl_axr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_XR,	(size))
 	/* Array Bitwise NOR [r = ~(a|b)] */
-	#define wl_anr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NRA,	(size))
+	#define wl_anr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NR,	(size))
 	/* Array Bitwise NAND [r = ~(a&b)] */
-	#define wl_ann(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NNA,	(size))
+	#define wl_ann(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NN,	(size))
 	/* Array Bitwise NXOR [r = ~(a^b)] */
-	#define wl_anx(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NXA,	(size))
+	#define wl_anx(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NX,	(size))
 #endif
 
 /* Array Assign [a = b] */
