@@ -139,43 +139,30 @@
 
 
 /* Array Functions */
-typedef enum wl_Af {
+enum wl_Af {
 	WL_AF_NO = 0,	/**< Bitwise no operation */
-	WL_AF_AN = 1,	/**< Bitwise AND */
-	WL_AF_OR = 2,	/**< Bitwise OR */
-	WL_AF_XR = 3,	/**< Bitwise XOR */
-	WL_AF_NT = 4,	/**< Bitwise NOT */
-	WL_AF_NN = 5,	/**< Bitwise NAND */
-	WL_AF_NR = 6,	/**< Bitwise NOR */
+	WL_AF_NT = 1,	/**< Bitwise NOT */
+	WL_AF_AN = 2,	/**< Bitwise AND */
+	WL_AF_NN = 3,	/**< Bitwise NAND */
+	WL_AF_OR = 4,	/**< Bitwise OR */
+	WL_AF_NR = 5,	/**< Bitwise NOR */
+	WL_AF_XR = 6,	/**< Bitwise XOR */
 	WL_AF_NX = 7,	/**< Bitwise NXOR */
-	WL_AF_NOA = 8,	/**< Bitwise no operation assignment */
-	WL_AF_ANA = 9,	/**< Bitwise AND assignment */
-	WL_AF_ORA = 10,	/**< Bitwise OR assignment */
-	WL_AF_XRA = 11,	/**< Bitwise XOR assignment */
-	WL_AF_NTA = 12,	/**< Bitwise NOT assignment */
-	WL_AF_NNA = 13,	/**< Bitwise NAND assignment */
-	WL_AF_NRA = 14,	/**< Bitwise NOR assignment */
-	WL_AF_NXA = 15,	/**< Bitwise NXOR assignment */
-	WL_AF_NOL = 16, /**< Logic no operation */
-	WL_AF_ANL = 17, /**< Logic AND */
-	WL_AF_ORL = 18, /**< Logic OR */
-	WL_AF_XRL = 19, /**< Logic XOR */
-	WL_AF_NTL = 20, /**< Logic NOT */
-	WL_AF_NNL = 21, /**< Logic NAND */
-	WL_AF_NRL = 22, /**< Logic NOR */
-	WL_AF_NXL = 23 	/**< Logic NXOR */
-} wl_Af;
-/* The maximal size of the array that array functions support. */
-typedef	wl_U16	wl_As;
+};
 /* Search Flags */
-typedef enum wl_Asf {
+enum wl_Asf {
 	WL_ASF_OFFSET = 0,		/**< Return the offset from base pointer */
 	WL_ASF_NORMAL = 0,		/**< Searching from beginning to end */
 	WL_ASF_REVERSED = 1,	/**< Searching from end to beggining */
 	WL_ASF_PTRDIFF = 2,		/**< Return pointer difference from the base pointer */
 	WL_ASF_COUNT = 4		/**< Return the count of occurrences */
-} wl_Asf;
+};
 
+
+/* The maximal size of the array that array functions support. */
+typedef	wl_U16	wl_As;
+/* 8-bits is enough */
+typedef wl_U8	wl_Af, wl_Asf;
 
 
 #if WL_OPTIMIZE_SPEED == 2
@@ -207,7 +194,7 @@ EXTERN Bl wl_afb(
 );
 
 /* Array Logical No Operation/NOT */
-EXTERN Bl wl__anol(const void* a, wl_As size, Bl r);
+EXTERN Bl wl__anol(const void* a, const void* b, As size, wl_Af func);
 
 /* Array Fill */
 EXTERN const void* wl_afl(
