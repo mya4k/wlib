@@ -105,9 +105,9 @@
  *	ARRAY LOGICAL FUNCTIONS
  */
 /* Array Logical No Operation [!!a] or [(Bl)a] */
-#define wl_anol(a,size)		wl__anol(a,size,WL_TRUE)
+#define wl_anol(a,size)		wl_afb(a,WL_NULL,size,WL_FALSE)
 /* Array Logical NOT [!a] */
-#define wl_antl(a,size)		wl__anol(a,size,WL_FALSE)
+#define wl_antl(a,size)		wl_afb(a,WL_NULL,size,WL_TRUE)
 /* Array Logical OR [a||b] */
 #define wl_aorl(a,b,size)	(wl_anol(a,size)	||	wl_anol(b,size))
 /* Array Logical AND [a||b] */
@@ -131,10 +131,17 @@
 /*
  *	ARRAY COMPARISON FUNCTIONS
  */
+#if WL_OPTIMIZE_SIZE == 2
 /* Array Equal [a==b] */
 #define wl_aeq(a,b,size)	wl_antl(wl_axr(NULL,	(a),	(b),	(size)	), (size))
 /* Array Not Equal [a!=b] */
 #define wl_anq(a,b,size)	wl_anol(wl_axr(NULL,	(a),	(b),	(size)	), (size))
+#else
+/* Array Equal [a==b] */
+#define wl_aeq(a,b,size)	wl_afb(a,b,size,WL_FALSE)
+/* Array Not Equal [a!=b] */
+#define wl_anq(a,b,size)	wl_afb(a,b,size,WL_TRUE)
+#endif
 
 
 
@@ -178,7 +185,7 @@ typedef wl_U8	wl_Af, wl_Asf;
 
 /* Array Function Assign */
 EXTERN const void* wl_afa(
-	const void* restrict a, 
+	const void* a, 
 	const void* restrict const b,
 	const void* restrict const c,
 	const wl_Af func,
@@ -186,15 +193,7 @@ EXTERN const void* wl_afa(
 );
 
 /* Array Function Boolean */
-EXTERN Bl wl_afb(
-	const void* restrict const a, 
-	const void* restrict const b,
-	const wl_Af func,
-	const wl_As size
-);
-
-/* Array Logical No Operation/NOT */
-EXTERN Bl wl__anol(const void* a, const void* b, As size, wl_Af func);
+EXTERN wl_Bl wl_afb(const void* a, const void* b, wl_As size, wl_Bl mode);
 
 /* Array Fill */
 EXTERN const void* wl_afl(
@@ -205,7 +204,7 @@ EXTERN const void* wl_afl(
 );
 
 /* Array Search Byte */
-EXTERN Pt wl_asb(
+EXTERN wl_Pt wl_asb(
 	const void* restrict const	a,
 	wl_As						sa,
 	const char					b,
@@ -213,7 +212,7 @@ EXTERN Pt wl_asb(
 );
 
 /* Array Search Array */
-EXTERN Pt wl_asa(
+EXTERN wl_Pt wl_asa(
 	const void* restrict const	_a,
 	wl_As						sa,
 	const void*					b,
