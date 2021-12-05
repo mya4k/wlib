@@ -73,25 +73,44 @@
 	*	ARRAY BITWISE FUNCTIONS
 	*/
 	/* Array Bitwise No Operation [r = a] */
-	#define wl_ano(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NO,	(size))
+#	define wl_ano(r,a,size)			wl_afa((r),	(a),	WL_NULL,	WL_AF_NO,			(size))
+	
 	/* Array Bitwise NOT [a = ~b] */
-	#define wl_ant(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_AF_NT,	(size))
+#	define wl_ant(r,a,size)			wl_afa((r),	(a),	WL_NULL,	WL_AF_NT,			(size))
+	
 	/* Array Bitwise OR [r = a|b] */
-	#define wl_aor(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_OR,	(size))
+#	define wl_aor(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_AF_OR,			(size))
+	
 	/* Array Bitwise AND [r = a&b] */
-	#define wl_aan(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_AN,	(size))
+#	define wl_aan(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_AF_AN,			(size))
+	
 	/* Array Bitwise XOR [r = a^b] */
-	#define wl_axr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_XR,	(size))
+#	define wl_axr(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_AF_XR,			(size))
+
 	/* Array Bitwise NOR [r = ~(a|b)] */
-	#define wl_anr(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NR,	(size))
+#	define wl_anr(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_AF_NR,			(size))
+
 	/* Array Bitwise NAND [r = ~(a&b)] */
-	#define wl_ann(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NN,	(size))
+#	define wl_ann(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_AF_NN,			(size))
+
 	/* Array Bitwise NXOR [r = ~(a^b)] */
-	#define wl_anx(r,a,b,size)		wl_afa((r),	(a),	(b),	WL_AF_NX,	(size))
+#	define wl_anx(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_AF_NX,			(size))
 #endif
 
+#define wl_anos(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_I8N|WL_AF_NO,	(size))
+#define wl_ants(r,a,size)		wl_afa((r),	(a),	WL_NULL,	WL_I8N|WL_AF_NT,	(size))
+#define wl_aors(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_I8N|WL_AF_OR,	(size))
+#define wl_aans(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_I8N|WL_AF_AN,	(size))
+#define wl_axrs(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_I8N|WL_AF_XR,	(size))
+#define wl_anrs(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_I8N|WL_AF_NR,	(size))
+#define wl_anns(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_I8N|WL_AF_NN,	(size))
+#define wl_anxs(r,a,b,size)		wl_afa((r),	(a),	(b),		WL_I8N|WL_AF_NX,	(size))
+
 /* Array Assign [a = b] */
-#define wl_aas(a,b,size)		wl_ano(a,b,size)
+#define wl_aas					wl_ano
+#define wl_aass					wl_anos
+/* Array Copy & Paste */
+#define wl_acp					wl_aass
 
 /* Aliases */
 #define wl_anot					wl_ant
@@ -100,6 +119,12 @@
 #define wl_anand				wl_ann
 #define wl_anor					wl_anr
 #define wl_anxor				wl_anx
+#define wl_anots				wl_ants
+#define wl_aands				wl_aans
+#define wl_axors				wl_axrs
+#define wl_anands				wl_anns
+#define wl_anors				wl_anrs
+#define wl_anxors				wl_anxs
 
 /*
  *	ARRAY LOGICAL FUNCTIONS

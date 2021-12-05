@@ -2,9 +2,12 @@
 
 
 
-#if !defined(WL_MAL_IMPLIMENTED) || !defined(mal)
+#if !defined(WL_MAL_IMPLIMENTED)
 #	include <stdlib.h>
+#	undef mal
 #	define mal malloc
+#	undef mfr
+#	define mfr free
 #endif
 
 
@@ -68,8 +71,12 @@
 		if (!_a) _a = mal(size);	\
 		a = _a;
 
-#define AFAFOOT	\
-	}			\
+#define AFAFOOT											\
+	if (_a != a && func&I8N) {							\
+		const char* const __a = aas(NULL, _a, _a-(Pt)a);\
+		mfr(_a);										\
+		return __a;										\
+	}													\
 	return _a;
 
 #define AFADEF1(NAME, _ASVARG_A, _ASVARG_B)	\
@@ -127,13 +134,19 @@
 		 * comment above `_ASV` for more information.
 		 */
 
-		 /* All function require `b` != NULL, otherwise, no action will 
-		 * performed 
+		/* All function require `b` != NULL, otherwise, no action will 
+		* performed 
 		 */
+
+		/* If the leftmost bit of func is 1, then all operations should be to 
+		 * an intermediate buffer first.
+		 */
+
+
 		/* Those functions that require `c`, will only be done if `c` is 
 		 * not NULL 
 		 */
-		if (c)	switch (func) {
+		if (c)	switch (func&I8X) {
 			/* aan() -- Array bitwise AND */
 			case WL_AF_AN: AFATEMP2(A, B & C) break;
 			/* aor() -- Array bitwise OR */
