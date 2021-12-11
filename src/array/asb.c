@@ -153,7 +153,7 @@ Pt asb(
 		/* If size was not set, search for the needle until a match is found.
 		 * Here flags WL_ASF_REVERSE and WL_ASF_COUNT, are inapplicable
 		 */
-		if (!flags&(WL_ASF_REVERSED|WL_ASF_COUNT)) {
+		if (!(flags&(WL_ASF_REVERSED|WL_ASF_COUNT))) {
 #			if !WL_ASB_SIMPLE
 				for (; (Pt)p&(sizeof(UMax)-1) && *(char*)p != b; p++);
 				if (*p != b) {

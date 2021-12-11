@@ -37,7 +37,7 @@ Pt asa(
 			}
 		}
 
-		if (!flags&(WL_ASF_REVERSED|WL_ASF_COUNT)) {
+		if (!(flags&(WL_ASF_REVERSED|WL_ASF_COUNT))) {
 			while ( (a = asb((const void* const)a,*(const char*)b,0,flags&WL_ASF_REVERSED))) {
 				if ( aeq( (const void*)(a+1), (const void*)(((Pt)b)+1), sb-1 ) ) {
 					if (flags&WL_ASF_COUNT) c++;
