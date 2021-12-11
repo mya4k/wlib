@@ -1,4 +1,5 @@
 #include <wc/array.h>
+#include <wc/error.h>
 
 
 
@@ -62,21 +63,29 @@
 #define AFAHEAD1					\
 	if (size&&b) {					\
 		const char* a;				\
-		if (!_a) _a = mal(size);	\
+		if (!_a) {					\
+			wrn(afa, WRNULL);		\
+			_a = mal(size);			\
+		}							\
 		a = _a;
 
 #define AFAHEAD2					\
 	if (size&&b&&c) {				\
 		const char* a;				\
-		if (!_a) _a = mal(size);	\
+		if (!_a) {					\
+			wrn(afa, WRNULL);		\
+			_a = mal(size);			\
+		}							\
 		a = _a;
 
-#define AFAFOOT											\
-	if (_a != a && func&I8N) {							\
-		const char* const __a = aas(NULL, _a, _a-(Pt)a);\
-		mfr(_a);										\
-		return __a;										\
-	}													\
+#define AFAFOOT															\
+		if (_a != a && func&I8N) {										\
+			const char* const __a = aas(NULL, _a, (const char*)_a-a);	\
+			mfr((char*)_a);												\
+			return __a;													\
+		}																\
+	}																	\
+	err(afa, ERNULL);													\
 	return _a;
 
 #define AFADEF1(NAME, _ASVARG_A, _ASVARG_B)	\
