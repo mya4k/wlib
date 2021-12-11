@@ -1,4 +1,5 @@
 #include <wc/array.h>
+#include <wc/error.h>
 
 
 
@@ -49,6 +50,9 @@ const void* afl(
 
 		return a;
 	}
+	/* Error checkin' */
+	if (sa)	err(afl,ERNULL);
+	else	err(afl,ERZERO);
 	/* Otherwise just return NULL */
 	return NULL;
 }

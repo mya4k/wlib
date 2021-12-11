@@ -5,6 +5,7 @@
 
 #if !WL_PREFIX
 #	define ERNULL	WL_ERNULL
+#	define ERZERO	WL_ERZERO
 #	define WRNULL	WL_WRNULL
 
 #	define err		wl_err
@@ -14,6 +15,7 @@
 
 
 #define WL_ERNULL	"Null pointer"
+#define WL_ERZERO	"Zero value variable"
 #define WL_WRNULL	"Null pointer, allocating"
 
 
