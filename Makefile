@@ -70,8 +70,8 @@ clean:
 
 
 carray:
-	make compile F="src/array/_anol.c"
 	make compile F="src/array/afa.c"
+	make compile F="src/array/afb.c"
 	make compile F="src/array/afl.c"
 	make compile F="src/array/asa.c"
 	make compile F="src/array/asb.c"
