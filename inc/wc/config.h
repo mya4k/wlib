@@ -112,6 +112,7 @@
  *********************************************************************/
 /* #undef WL_OPTIMIZE_SPEED
 #define WL_OPTIMIZE_SPEED 2 */
+#define WL_ERROR	1
 
 
 
