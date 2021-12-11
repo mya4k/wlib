@@ -1,4 +1,5 @@
 #include <wc/array.h>
+#include <wc/error.h>
 
 
 
@@ -175,6 +176,7 @@ Pt asb(
 
 
 	}
-
+	/* Error checkin' */
+	err(afl,ERNULL);
 	return 0;
 }
