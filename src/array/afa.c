@@ -196,15 +196,13 @@
 				/* anx() -- Array bitwise NXOR */
 				case WL_AF_NX: AFATEMP2(A, ~(B ^ C)) break;
 			}
-
-			switch (_func) {
+			else switch (_func) {
 				/* aas() -- Array assignment */
 				case WL_AF_NO: AFATEMP1(A, B) break;
 				/* ant() -- Array bitwise NOT */
 				case WL_AF_NT: AFATEMP1(A, ~B) break;
+				default: err(afa,ERNULL); break;
 			}
-			
-			err(afa,ERNULL);
 		}
 		else err(afa,ERFUNC);
 		AFAFOOT
