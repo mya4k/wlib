@@ -60,23 +60,45 @@
 		}
 #endif
 
-#define AFAHEAD1					\
-	if (size&&b) {					\
-		const char* a;				\
-		if (!_a) {					\
-			wrn(afa, WRNULL);		\
-			_a = mal(size);			\
-		}							\
-		a = _a;
+#if !WL_OPTIMIZE_MEMORY
+#	define AFAHEAD1						\
+		if (size&&b) {					\
+			const char* a;				\
+			const Af _func = func&I8X;	\
+			if (!_a) {					\
+				wrn(afa, WRNULL);		\
+				_a = mal(size);			\
+			}							\
+			a = _a;
 
-#define AFAHEAD2					\
-	if (size&&b&&c) {				\
-		const char* a;				\
-		if (!_a) {					\
-			wrn(afa, WRNULL);		\
-			_a = mal(size);			\
-		}							\
-		a = _a;
+#	define AFAHEAD2						\
+		if (size&&b&&c) {				\
+			const char* a;				\
+			const Af _func = func&I8X;	\
+			if (!_a) {					\
+				wrn(afa, WRNULL);		\
+				_a = mal(size);			\
+			}							\
+			a = _a;
+#else
+#	define AFAHEAD1						\
+		if (size&&b) {					\
+			const char* a;				\
+			if (!_a) {					\
+				wrn(afa, WRNULL);		\
+				_a = mal(size);			\
+			}							\
+			a = _a;
+
+#	define AFAHEAD2						\
+		if (size&&b&&c) {				\
+			const char* a;				\
+			if (!_a) {					\
+				wrn(afa, WRNULL);		\
+				_a = mal(size);			\
+			}							\
+			a = _a;
+#endif
 
 #define AFAFOOT															\
 		if (_a != a && func&I8N) {										\
@@ -133,6 +155,9 @@
 #else
 	const void* afa(const void* _a, const void* b, const void* c, const	Af func, As size) {
 		AFAHEAD1
+#		if WL_OPTIMIZE_MEMORY
+#			define _func	func&I8X
+#		endif
 		/* Method in a nutshell:
 		 * 1.	Treat values in chunks of SM bytes
 		 * 2.	When there are less than SM bytes remaining, 
@@ -144,7 +169,7 @@
 		 */
 
 		/* All function require `b` != NULL, otherwise, no action will 
-		* performed 
+		 * performed 
 		 */
 
 		/* If the leftmost bit of func is 1, then all operations should be to 
@@ -155,28 +180,33 @@
 		/* Those functions that require `c`, will only be done if `c` is 
 		 * not NULL 
 		 */
-		if (c)	switch (func&I8X) {
-			/* aan() -- Array bitwise AND */
-			case WL_AF_AN: AFATEMP2(A, B & C) break;
-			/* aor() -- Array bitwise OR */
-			case WL_AF_OR: AFATEMP2(A, B | C) break;
-			/* axr() -- Array bitwise XOR */
-			case WL_AF_XR: AFATEMP2(A, B ^ C) break;
-			/* ann() -- Array bitwise NAND */
-			case WL_AF_NN: AFATEMP2(A, ~(B & C)) break;
-			/* anr() -- Array bitwise NOR */
-			case WL_AF_NR: AFATEMP2(A, ~(B | C)) break;
-			/* anx() -- Array bitwise NXOR */
-			case WL_AF_NX: AFATEMP2(A, ~(B ^ C)) break;
-			default: break;
+
+		if (_func <= WL_AF_NX) {
+			if (c)	switch (_func) {
+				/* aan() -- Array bitwise AND */
+				case WL_AF_AN: AFATEMP2(A, B & C) break;
+				/* aor() -- Array bitwise OR */
+				case WL_AF_OR: AFATEMP2(A, B | C) break;
+				/* axr() -- Array bitwise XOR */
+				case WL_AF_XR: AFATEMP2(A, B ^ C) break;
+				/* ann() -- Array bitwise NAND */
+				case WL_AF_NN: AFATEMP2(A, ~(B & C)) break;
+				/* anr() -- Array bitwise NOR */
+				case WL_AF_NR: AFATEMP2(A, ~(B | C)) break;
+				/* anx() -- Array bitwise NXOR */
+				case WL_AF_NX: AFATEMP2(A, ~(B ^ C)) break;
+			}
+
+			switch (_func) {
+				/* aas() -- Array assignment */
+				case WL_AF_NO: AFATEMP1(A, B) break;
+				/* ant() -- Array bitwise NOT */
+				case WL_AF_NT: AFATEMP1(A, ~B) break;
+			}
+			
+			err(afa,ERNULL);
 		}
-		else 	switch (func) {
-			/* aas() -- Array assignment */
-			case WL_AF_NO: AFATEMP1(A, B) break;
-			/* ant() -- Array bitwise NOT */
-			case WL_AF_NT: AFATEMP1(A, ~B) break;
-			default: break;
-		}
+		else err(afa,ERFUNC);
 		AFAFOOT
 	}
 #endif
