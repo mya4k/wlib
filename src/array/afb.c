@@ -1,4 +1,5 @@
 #include <wc/array.h>
+#include <wc/error.h>
 
 
 
@@ -55,6 +56,10 @@ Bl afb(const void* a, const void* b, As size, Bl mode) {
 
 		return mode;
 	}
-
+#if WL_ERROR
+	/* Error checkin' */
+	if (size)	err(afb,ERNULL);
+	else		err(afb,ERZERO);
+#endif
 	return FALSE;
 }
