@@ -49,9 +49,11 @@ Pt asa(
 			}
 		}
 	}
+#if WL_ERROR
 	/* Error checkin' */
-	if (sb)	err(afl,ERNULL);
-	else	err(afl,ERZERO);
+	if (sb)	err(afb,ERNULL);
+	else		err(afb,ERZERO);
+#endif
 	
 	return c;
 }

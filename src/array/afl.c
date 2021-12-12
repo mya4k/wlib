@@ -50,9 +50,11 @@ const void* afl(
 
 		return a;
 	}
+#if WL_ERROR
 	/* Error checkin' */
-	if (sa)	err(afl,ERNULL);
-	else	err(afl,ERZERO);
+	if (sa)	err(afb,ERNULL);
+	else	err(afb,ERZERO);
+#endif
 	/* Otherwise just return NULL */
 	return NULL;
 }
