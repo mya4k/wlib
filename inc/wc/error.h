@@ -7,6 +7,7 @@
 #	define ERNULL	WL_ERNULL
 #	define ERZERO	WL_ERZERO
 #	define WRNULL	WL_WRNULL
+#	define WRZERO	WL_WRZERO
 
 #	define err		wl_err
 #	define wrn		wl_wrn
@@ -14,9 +15,10 @@
 
 
 
-#define WL_ERNULL	"Null pointer"
-#define WL_ERZERO	"Zero value variable"
-#define WL_WRNULL	"Null pointer, allocating"
+#define WL_ERNULL	"Null agrument"
+#define WL_ERZERO	"Zero agrument"
+#define WL_WRNULL	"Null agrument, allocating"
+#define WL_WRZERO	"Zero agrument, assuming infinity"
 
 
 

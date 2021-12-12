@@ -1,4 +1,5 @@
 #include <wc/array.h>
+#include <wc/error.h>
 
 
 
@@ -37,6 +38,7 @@ Pt asa(
 			}
 		}
 
+		wrn(asa,WRZERO);
 		if (!(flags&(WL_ASF_REVERSED|WL_ASF_COUNT))) {
 			while ( (a = asb((const void* const)a,*(const char*)b,0,flags&WL_ASF_REVERSED))) {
 				if ( aeq( (const void*)(a+1), (const void*)(((Pt)b)+1), sb-1 ) ) {
@@ -47,6 +49,9 @@ Pt asa(
 			}
 		}
 	}
+	/* Error checkin' */
+	if (sb)	err(afl,ERNULL);
+	else	err(afl,ERZERO);
 	
 	return c;
 }
