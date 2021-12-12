@@ -171,7 +171,7 @@
 
 
 /* Array Functions */
-enum wl_Af {
+ENUM(wl_Af) {
 	WL_AF_NO = 0,	/**< Bitwise no operation */
 	WL_AF_NT = 1,	/**< Bitwise NOT */
 	WL_AF_AN = 2,	/**< Bitwise AND */
@@ -179,10 +179,10 @@ enum wl_Af {
 	WL_AF_OR = 4,	/**< Bitwise OR */
 	WL_AF_NR = 5,	/**< Bitwise NOR */
 	WL_AF_XR = 6,	/**< Bitwise XOR */
-	WL_AF_NX = 7,	/**< Bitwise NXOR */
+	WL_AF_NX = 7	/**< Bitwise NXOR */
 };
 /* Search Flags */
-enum wl_Asf {
+ENUM(wl_Asf) {
 	WL_ASF_OFFSET = 0,		/**< Return the offset from base pointer */
 	WL_ASF_NORMAL = 0,		/**< Searching from beginning to end */
 	WL_ASF_REVERSED = 1,	/**< Searching from end to beggining */
