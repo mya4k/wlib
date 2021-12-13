@@ -9,50 +9,55 @@
 
 
 #if !WL_PREFIX
-#	define ano		wl_ano
-#	define aas		wl_aas
-#	define ant		wl_ant
-#	define anot		wl_anot
-#	define aor		wl_aor
-#	define aan		wl_aan
-#	define aand		wl_aand
-#	define axr		wl_axr
-#	define axor		wl_axor
-#	define anr		wl_anr
-#	define anor		wl_anor
-#	define ann		wl_ann
-#	define anand	wl_anand
-#	define anx		wl_anx
-#	define anxor	wl_anxor
+#	define ano			wl_ano
+#	define aas			wl_aas
+#	define ant			wl_ant
+#	define anot			wl_anot
+#	define aor			wl_aor
+#	define aan			wl_aan
+#	define aand			wl_aand
+#	define axr			wl_axr
+#	define axor			wl_axor
+#	define anr			wl_anr
+#	define anor			wl_anor
+#	define ann			wl_ann
+#	define anand		wl_anand
+#	define anx			wl_anx
+#	define anxor		wl_anxor
 
-#	define anol		wl_ano
-#	define antl		wl_ant
-#	define anotl	wl_anot
-#	define aorl		wl_aor
-#	define aanl		wl_aan
-#	define aandl	wl_aand
-#	define axrl		wl_axr
-#	define axorl	wl_axor
-#	define anrl		wl_anr
-#	define anorl	wl_anor
-#	define annl		wl_ann
-#	define anandl	wl_anand
-#	define anxl		wl_anx
-#	define anxorl	wl_anxor
+#	define anol			wl_anol
+#	define antl			wl_antl
+#	define anotl		wl_anotl
+#	define aorl			wl_aorl
+#	define aanl			wl_aanl
+#	define aandl		wl_aandl
+#	define axrl			wl_axrl
+#	define axorl		wl_axorl
+#	define anrl			wl_anrl
+#	define anorl		wl_anorl
+#	define annl			wl_annl
+#	define anandl		wl_anandl
+#	define anxl			wl_anxl
+#	define anxorl		wl_anxorl
 
-#	define aeq		wl_aeq
-#	define anq		wl_anq
+#	define aeq			wl_aeq
+#	define anq			wl_anq
 
-#	define Af		wl_Af
-#	define As		wl_As
-#	define Asf		wl_Asf
+#	define ASF_OFFSET	WL_ASF_OFFSET
+#	define ASF_NORMAL	WL_ASF_NORMAL
+#	define ASF_REVERSED	WL_ASF_REVERSED
+#	define ASF_PTRDIFF	WL_ASF_PTRDIFF
+#	define ASF_COUNT	WL_ASF_COUNT
 
-#	define afa		wl_afa
-#	define afb		wl_afb
-#	define _anol	wl__anol
-#	define afl		wl_afl
-#	define asb		wl_asb
-#	define asa		wl_asa
+#	define Af			wl_Af
+#	define As			wl_As
+#	define Asf			wl_Asf
+
+#	define afa			wl_afa
+#	define afb			wl_afb
+#	define afl			wl_afl
+#	define asb			wl_asb
+#	define asa			wl_asa
 
 #	if	WL_ALIASES
 #		define acompl	wl_acompl
