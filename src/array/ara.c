@@ -25,8 +25,12 @@ void ara(
 		else {
 			if (( z = asa(a,sa,b,sb,flags&ASF_REVERSED) )
 				if (sb==sr) aas(b,r,sb);
-				else {:
+				else {
+					mal();
 					
+					s = aas( NULL, (void*)(z+sb), sa-(z+sb) );
+			   		aas(z, r, sr);
+						
 				}
 		}
 	}
