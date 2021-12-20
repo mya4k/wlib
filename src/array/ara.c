@@ -44,7 +44,6 @@ void ara(
 #if WL_WRITE_UNALLOC
 				aas(b,r,sb);
 #else
-#endif
 				if (sr<=sb) aas(b,r,sb);
 				else {
 			   		const char* _a = mal(sa+sr-sb);
@@ -56,6 +55,7 @@ void ara(
 			}
 		}
 	}
+#endif
 #if WL_ERROR
 	else	if (sb) err(ara,ERZERO);
 			else	err(ara,ERNULL);
