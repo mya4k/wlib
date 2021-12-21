@@ -31,5 +31,5 @@ void arb(
 		/* ASF_REVERSE will replace the last needle, and ASF_NORMAL the first */
 		else if (( z = asb(a,sa,b,flags&WL_ASF_REVERSED) )) *(char*)z = r;
 	}
-	else err(arb,ERNULL);
+	else { err(arb,ERNULL); } /* -Wempty-body braces suggestion */
 }

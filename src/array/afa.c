@@ -204,7 +204,7 @@
 				default: err(afa,ERNULL); break;
 			}
 		}
-		else err(afa,ERFUNC);
+		else { err(afa,ERFUNC); }/* -Wempty-body braces suggestion */
 		AFAFOOT
 	}
 #endif
