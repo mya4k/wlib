@@ -58,6 +58,9 @@
 #	define afl			wl_afl
 #	define asb			wl_asb
 #	define asa			wl_asa
+#	define arb			wl_arb
+#	define ara			wl_ara
+#	define ar			wl_ar
 
 #	if	WL_ALIASES
 #		define acompl	wl_acompl
@@ -173,6 +176,8 @@
 #define wl_anq(a,b,size)	wl_afb(a,b,size,WL_TRUE)
 #endif
 
+#define wl_ar				wl_ara
+
 
 
 /* Array Functions */
@@ -250,6 +255,24 @@ EXTERN wl_Pt wl_asa(
 	const wl_Asf				flags
 );
 
+/* Array Replace Byte */
+EXTERN void wl_arb(
+	const void* restrict const a,
+	const wl_As sa,
+	const char b,
+	const char r,
+	const wl_Asf flags
+);
 
+/* Array Replace Array */
+EXTERN void wl_ara(
+	const void* restrict const a,
+	const wl_As sa,
+	const void* restrict const b,
+	const wl_As sb,
+	const void* restrict const r,
+	const wl_As sr,
+	const wl_Asf flags
+);
 
 #endif
