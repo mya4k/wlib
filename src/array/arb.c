@@ -50,7 +50,7 @@ U8 arb(
 		/* ASF_REVERSE will replace the last needle, and ASF_NORMAL the first */
 		else if (( _a = asb(a,sa,b,flags&WL_ASF_REVERSED) )) { *(char*)z = r; rci++ }
 	}
-	else err(arb,ERNULL);
-
+	else { err(arb,ERNULL); } /* -Wempty-body braces suggestion */
+	
 	return rci;
 }
