@@ -12,42 +12,44 @@ U8 arb(
 	const char r,
 	const Asf flags
 ) {
-/*	Haystack cannot be NULL
- *	check for flags
- *		a)	ASF_COUNT flag will replace every occurance of `b`
- *			1.	Make sure haystack size is specified here
- *			2.	Haystack gets offset to the next occurance of the needle, until
- *				no needles are left
- *			3.	For every needle, 
- *				(i)		assign replacement byte to the needle pointers
- *				(ii)	incriment haystack pointer
- *				(iii)	update the haystack size
- *				(iv)	incriment replacement count/indicator
- *		b)	ASF_REVERSE flag will replace first occurance of `b`
- *		c)	ASF_NORMAL flag will replace last occurance of `b`
- *			1.	Find first/last occurance, replace it, and incriment rci
- */
 	U8 rci = 0;
 
+	/* Haystack cannot be NULL */
 	if (a) {
 		char* _a = a;
 		/* ASF_COUNT will replace all needles */
 #if WL_ERROR
 		if (flags&ASF_COUNT)
+			/* Make sure haystack size is specified here */
 			if (sa)
+				/* Haystack gets offset to the next occurance of the needle, 
+				 * until no needles are left. For every needle, 
+				 */
 				while (( _a = asb(a,sa,b,0) )) {
+					/* Assign replacement byte to the needle pointers */
 					*_a = r;
-					sa -= (_a++)-(const char* const)a; rci++; 
+					/* Incriment haystack pointer and update the haystack size */
+					sa -= (_a++)-(const char* const)a; 
+					/* Incriment replacement count */
+					rci++; 
 				}
 			else err(arb,ERZERO);
 #else
-		if (flags&ASF_COUNT && sa)
+		if (flags&ASF_COUNT && sa) /* Make sure haystack size is specified here */
+			/* Haystack gets offset to the next occurance of the needle, 
+				 * until no needles are left. For every needle, 
+				 */
 			while (( a = asb(a,sa,b,0) )) {
-				*_a = r;
-				sa -= (_a++)-a; rci++;
+					/* Assign replacement byte to the needle pointers */
+					*_a = r;
+					/* Incriment haystack pointer and update the haystack size */
+					sa -= (_a++)-(const char* const)a; 
+					/* Incriment replacement count */
+					rci++; 
 			}
 #endif
 		/* ASF_REVERSE will replace the last needle, and ASF_NORMAL the first */
+		/* Find first/last occurance, replace it, and incriment rci */
 		else if (( _a = asb(a,sa,b,flags&WL_ASF_REVERSED) )) { _a = r; rci++; }
 	}
 	else { err(arb,ERNULL); } /* -Wempty-body braces suggestion */
