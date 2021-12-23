@@ -30,14 +30,14 @@ U8 arb(
 	U8 rci = 0;
 
 	if (a) {
-		const char* _a;
+		char* _a = a;
 		/* ASF_COUNT will replace all needles */
 #if WL_ERROR
 		if (flags&ASF_COUNT)
 			if (sa)
 				while (( _a = asb(a,sa,b,0) )) {
 					*_a = r;
-					sa -= (_a++)-a; rci++; 
+					sa -= (_a++)-(const char* const)a; rci++; 
 				}
 			else err(arb,ERZERO);
 #else
@@ -48,7 +48,7 @@ U8 arb(
 			}
 #endif
 		/* ASF_REVERSE will replace the last needle, and ASF_NORMAL the first */
-		else if (( _a = asb(a,sa,b,flags&WL_ASF_REVERSED) )) { *(char*)z = r; rci++ }
+		else if (( _a = asb(a,sa,b,flags&WL_ASF_REVERSED) )) { _a = r; rci++; }
 	}
 	else { err(arb,ERNULL); } /* -Wempty-body braces suggestion */
 	
