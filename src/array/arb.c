@@ -6,7 +6,7 @@
 /* Array Replace Byte */
 /* Replace all occurrences of byte `b` with `r` in array `a` */
 U8 arb(
-	const void* restrict const a,
+	/* const */ void* restrict const a,
 	As sa,
 	const char b,
 	const char r,
@@ -25,7 +25,7 @@ U8 arb(
 				/* Haystack gets offset to the next occurance of the needle, 
 				 * until no needles are left. For every needle, 
 				 */
-				while (( _a = asb(a,sa,b,0) )) {
+				while (( _a = (char*)asb(_a,sa,b,0) )) {
 					/* Assign replacement byte to the needle pointers */
 					*_a = r;
 					/* Incriment haystack pointer and update the haystack size */
@@ -39,7 +39,7 @@ U8 arb(
 			/* Haystack gets offset to the next occurance of the needle, 
 				 * until no needles are left. For every needle, 
 				 */
-			while (( a = asb(a,sa,b,0) )) {
+			while (( _a = (char*)asb(_a,sa,b,0) )) {
 					/* Assign replacement byte to the needle pointers */
 					*_a = r;
 					/* Incriment haystack pointer and update the haystack size */
@@ -50,7 +50,7 @@ U8 arb(
 #endif
 		/* ASF_REVERSE will replace the last needle, and ASF_NORMAL the first */
 		/* Find first/last occurance, replace it, and incriment rci */
-		else if (( _a = asb(a,sa,b,flags&WL_ASF_REVERSED) )) { _a = r; rci++; }
+		else if (( _a = (char*)asb(_a,sa,b,flags&WL_ASF_REVERSED) )) { *_a = r; rci++; }
 	}
 	else { err(arb,ERNULL); } /* -Wempty-body braces suggestion */
 	

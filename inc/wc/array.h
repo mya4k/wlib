@@ -256,8 +256,8 @@ EXTERN wl_Pt wl_asa(
 );
 
 /* Array Replace Byte */
-EXTERN void wl_arb(
-	const void* restrict const a,
+EXTERN wl_U8 wl_arb(
+	/* const */ void* restrict const a,
 	const wl_As sa,
 	const char b,
 	const char r,
