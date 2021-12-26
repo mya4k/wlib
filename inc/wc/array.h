@@ -171,9 +171,9 @@
 #define wl_anq(a,b,size)	wl_anol(wl_axr(NULL,	(a),	(b),	(size)	), (size))
 #else
 /* Array Equal [a==b] */
-#define wl_aeq(a,b,size)	wl_afb(a,b,size,WL_FALSE)
+#define wl_aeq(a,b,size)	wl_afb(a,b,size,WL_TRUE)
 /* Array Not Equal [a!=b] */
-#define wl_anq(a,b,size)	wl_afb(a,b,size,WL_TRUE)
+#define wl_anq(a,b,size)	wl_afb(a,b,size,WL_FALSE)
 #endif
 
 #define wl_ar				wl_ara

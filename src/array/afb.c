@@ -43,6 +43,7 @@ Bl afb(const void* a, const void* b, As size, Bl mode) {
 					const UMax m = ((UMax)1<<size) - 1;
 					if ((A^B)&m) return !mode;
 				}
+				return mode;
 			}
 #		endif
 		
