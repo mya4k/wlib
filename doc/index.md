@@ -1124,3 +1124,101 @@ Below is the table of ASCII character set.
     </tr>
   </tbody>
 </table>
+
+# 3. Array
+
+Array module consists of various functions and macro functions, which are handy for performing bitwise arithmetical and boolean algebraic (logical) operations on arrays, searching for values and replacing the values in an array.
+
+<table>
+  <tr>
+    <th colspan="2">Glossary</th>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <th>Mnemonics</th>
+  </tr>
+  <tr><th colspan="2">Bitwise Arithmetic</th></tr>
+    <tr>
+      <td><code>ano</code></td>
+      <td>Array No Bitwise Operation</td>
+    </tr>
+    <tr>
+      <td><code>aan</code>, <code>aand</code></td>
+      <td>Array Bitwise AND</td>
+    </tr>
+    <tr>
+      <td><code>aor</code></td>
+      <td>Array Bitwise OR</td>
+    </tr>
+    <tr>
+      <td><code>axr</code>, <code>axor</code></td>
+      <td>Array Bitwise XOR</td>
+    </tr>
+    <tr>
+      <td><code>ant</code>, <code>anot</code></td>
+      <td>Array Bitwise NOT</td>
+    </tr>
+    <tr>
+      <td><code>ann</code>, <code>anand</code></td>
+      <td>Array Bitwise NAND</td>
+    </tr>
+    <tr>
+      <td><code>anr</code>, <code>anor</code></td>
+      <td>Array Bitwise NOR</td>
+    </tr>
+    <tr>
+      <td><code>anx</code>, <code>anxor</code></td>
+      <td>Array Bitwise NXOR</td>
+    </tr>
+    <tr><th colspan="2">Boolean Algebra</th></tr>
+    <tr>
+      <td><code>anol</code></td>
+      <td>Array No Logical Operation</td>
+    </tr>
+    <tr>
+      <td><code>aanl</code>, <code>aandl</code></td>
+      <td>Array Logical AND</td>
+    </tr>
+    <tr>
+      <td><code>aorl</code></td>
+      <td>Array Logical OR</td>
+    </tr>
+    <tr>
+      <td><code>axrl</code>, <code>axorl</code></td>
+      <td>Array Logical XOR</td>
+    </tr>
+    <tr>
+      <td><code>antl</code>, <code>anotl</code></td>
+      <td>Array Logical NOT</td>
+    </tr>
+    <tr>
+      <td><code>annl</code>, <code>anandl</code></td>
+      <td>Array Logical NAND</td>
+    </tr>
+    <tr>
+      <td><code>anrl</code>, <code>anorl</code></td>
+      <td>Array Logical NOR</td>
+    </tr>
+    <tr>
+      <td><code>anxl</code>, <code>anxorl</code></td>
+      <td>Array Logical NXOR</td>
+    </tr>
+  <tr><th colspan="2">Search & Replace</th></tr>
+    <tr>
+      <td><code>asb</code></td>
+      <td>Array Search Byte</td>
+    </tr>
+    <tr>
+      <td><code>asa</code></td>
+      <td>Array Search Array</td>
+    </tr>
+    <tr>
+      <td><code>arb</code></td>
+      <td>Array Search & Replace Byte</td>
+    </tr>
+    <tr>
+      <td><code>ara</code></td>
+      <td>Array Search & Replace Array</td>
+    </tr>
+  <tr><th colspan="2"> Function</th></tr>
+</table>
