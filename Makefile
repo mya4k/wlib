@@ -34,6 +34,10 @@ carray carr cwca:
 	for file in src/array/*; do make compile F=$$file; done
 oarray oarr owca: dirobj
 	for file in src/array/*; do $(cc) $(flags) -O2 -c $$file -o obj/array/`basename $$file | sed 's/\.c/\.o/'`; done
+oarrayd oarrd owcad: dirobj
+	for file in src/array/*; do $(cc) $(flags) -O0 -c $$file -o obj/array/`basename $$file | sed 's/\.c/\.o/'` -g; done
+arrayd arrd wcad array_debug arr_debug wca_debug: owcad dirlib
+	ar -rc lib/libwca.a obj/array/*
 array arr wca: owca dirlib
 	ar -rc lib/libwca.a obj/array/*
 clean clear:
