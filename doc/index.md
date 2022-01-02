@@ -1133,11 +1133,29 @@ Array module consists of various functions and macro functions, which are handy 
 
 <table>
   <tr>
-    <th colspan="2">Glossary</th>
-  </tr>
-  <tr>
     <th>Name</th>
     <th>Mnemonics</th>
+  </tr>
+  <tr>
+    <th colspan="2">Constants Glossary</th>
+  </tr>
+  <tr>
+    <th colspan="2">Type Glossary</th>
+  </tr>
+    <tr>
+      <td><code>Af</code></td>
+      <td>Array Function Type</td>
+    </tr>
+    <tr>
+      <td><code>Asf</code></td>
+      <td>Array Search Flags Type</td>
+    </tr>
+    <tr>
+      <td><code>As</code></td>
+      <td>Array Size Type</td>
+    </tr>
+  <tr>
+    <th colspan="2">Functions Glossary</th>
   </tr>
   <tr><th colspan="2">Bitwise Arithmetic</th></tr>
     <tr>
@@ -1222,9 +1240,16 @@ Array module consists of various functions and macro functions, which are handy 
       <td><code>ara</code></td>
       <td>Array Search & Replace Array</td>
     </tr>
-  <tr><th colspan="2">Other Functions</th></tr>
+  <tr><th colspan="2">Other Function</th></tr>
+    <tr>
+      <td><code>aas</code></td>
+      <td>Array Assign</td>
+    </tr>
     <tr>
       <td><code>afa</code></td>
-      <td></td>
+      <td>Array Function Assignment</td>
     </tr>
+    <tr>
+      <td><code>afb</code></td>
+      <td>Array Function Boolean</td>
 </table>
