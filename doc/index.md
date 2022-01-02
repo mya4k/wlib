@@ -387,7 +387,7 @@ Below is the table of ASCII character set.
       <td class="ASCII-control">&#9222;</td>
       <td class="ASCII-control">&#9223;</td>
       <td class="ASCII-control">&#9224;</td>
-      <td class="ASCII-control ASCII-whitespace">&#9225;</td>
+      <td class="ASCII-control ASCII8-whitespace">&#9225;</td>
       <td class="ASCII-control ASCII-whitespace">&#9226;</td>
       <td class="ASCII-control ASCII-whitespace">&#9227;</td>
       <td class="ASCII-control ASCII-whitespace">&#9228;</td>
@@ -1129,6 +1129,8 @@ Below is the table of ASCII character set.
 
 Array module consists of various functions and macro functions, which are handy for performing bitwise arithmetical and boolean algebraic (logical) operations on arrays, searching for values and replacing the values in an array.
 
+
+
 <table>
   <tr>
     <th colspan="2">Glossary</th>
@@ -1220,5 +1222,9 @@ Array module consists of various functions and macro functions, which are handy 
       <td><code>ara</code></td>
       <td>Array Search & Replace Array</td>
     </tr>
-  <tr><th colspan="2"> Function</th></tr>
+  <tr><th colspan="2">Other Functions</th></tr>
+    <tr>
+      <td><code>afa</code></td>
+      <td></td>
+    </tr>
 </table>

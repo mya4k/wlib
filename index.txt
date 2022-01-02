@@ -1,0 +1,44 @@
+:REPO:	https://github.com/wspvlv/wlib
+
+*WLib* (official pronunciation -- /wi&#720;l&#618;b/), or *WLibC*, or *WC* -- is a standard-independent <<library,library>> written _the C Programming Language ("C")_, that consists of several _modules_ (library files / source directories, and header files) that can be used either as an alternative to or an addition of _the C standard library_ (a.k.a libc or stdlib), depending on the edition installed/configuration at built-time. This library is free of charge and {REPO}[open-source] with focus on minimalism and optimization on all levels (execution speed, memory usage, storage occupation, etc.).
+
+== Requirements
+
+If you want to use our library to write your own code, your compiler should comply with the only requirements: ANSI C / ISO C / ISO C++ (all of any revision) standard support (while there are efforts to support K&R C compilers, like `pcc`, however, you are on your own);
+
+== Installation
+=== Building from the source code
+If you want to make a personally-configured build of our library or if you just feel like building from source, follow next steps. *(Currently this is the only way to get a copy of our library)*
+
+==== 1. Acquire the source code
+To acquire the source code you can either clone the Git repository or checkout the needed module source code files in your terminal.
+
+===== Clone the repository
+====== Through HTTPS
+.With Git
+[source,sh]
+git clone https://github.com/wspvlv/wlib.git [PATH]
+
+.With SVN
+[source,sh]
+svn checkout https://github.com/wspvlv/wlib.git [PATH]
+
+====== Through SSH
+[source,sh]
+git clone git@github.com:wspvlv/wlib.git [PATH]
+
+===== Checkout a single folder
+[source,sh]
+svn checkout https://github.com/wspvlv/wlib.git/trunk/[FOLDER] [PATH]
+
+==== 2. Build the needed modules using Make
+There's a Makefile in the repository, which contains targets for quickly building or compiling the modules.
+[source,sh]
+make [MODULE]
+
+=== Downloading releases on GitHub
+=== Installing from package repositories
+
+== link:doc.html[Documentation]
+
+== Contributing
