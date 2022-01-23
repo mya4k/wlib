@@ -643,7 +643,7 @@ ENUM(wl_Asf) {
 };
 ```
 
-`Asf` type is intended to store its constant values, or by other words search flags. 
+`Asf` type is intended to store its constant values, or by other words search flags. These flags are signalled to `asb`, `asa`, `arb` and `ara` to control the searching and replacing algorithms and the output of these functions.
 
 ****
 This type is an enumarated and a typedef type. However, as all enumarated types are same width as `int`, it is unoptimal for this enum as it only stores 4 enumarated constants; therefore, there's a type definiton that defines `Asf` with the type long enough to hold one of 4 different values (`U8`).
@@ -651,6 +651,59 @@ This type is an enumarated and a typedef type. However, as all enumarated types 
 
 WLib defines 4 flags for search, some of them can be combined, some have to be used alone:
 
-* `ASF_OR` (`ASF_IN_ORDER`)
-* `ASF_RV` (`ASF_REVERSE`)
-* `ASF_PD` (`ASF_PTRDIFF`)
+* `ASF_OR` (`ASF_IN_ORDER`) makes `asb`, `asa` return the location of the first needle from the base pointer, and `arb`, `asa` replace the first needle. Incompatible with `ASF_CN`
+* `ASF_RV` (`ASF_IN_REVERSE`) makes `asb`, `asa` return the location of the last needle from the base pointer, and `arb`, `asa` replace the last needle. Incompatible with `ASF_CN`
+* `ASF_PD` (`ASF_PTRDIFF`) makes `asb`, `asa` return the difference between the pointer to the needle and the base pointer (the offset from the base pointer). Incompatible with `ASF_CN`; this flag is ignored if passed to `arb` and `ara`.
+* `ASF_CN` (`ASF_COUNT`) makes `asb` and `asa` return the quantity of needles in an array, and `arb` and `ara` to replace every needle.
+
+==== 4.1.3. Array Function Type
+
+`_af` is an auxulary type used for `_afa` function.
+
+****
+This type is an enumarated and a typedef type. However, as all enumarated types are same width as `int`, it is unoptimal for this enum as it only stores 8 enumarated constants; therefore, there's a type definiton that defines `Asf` with the type long enough to hold one of 8 different values (`U8`).
+****
+
+=== 4.2. Functions
+==== 4.2.1. Bitwise Arithmetic
+Macro f
+
+Macro functions that perform bitwise arithmetic opertations with one or two arrays and assigns the result array into a specified pointer, returning that pointer address, expand to the `_afa` function with the appropriate function flags set. There are 8 of these macro functions with different bitwise arithmetic operations they will perform.
+
+===== 4.2.1.1. `ano` -- Array Bitwise No Operation
+```c
+#define ano					wl_ano
+#define wl_ano(r,a,size)	wl_afa((r),(a),WL_NULL,(size),_WL_AF_NO)
+```
+
+Macro function `ano` is called Array Bitwise No Operation because it performs no operation on the array `a`. If the pointer `r` is a null pointer, `ano` calls for memory allocation of `size` bytes. The content of array `a` is copied to `r`. Returns the `` 
+===== 4.2.1.2. `aan`, `aand` -- Array Bitwise AND
+===== 4.2.1.3. `aor` -- Array Bitwise OR
+===== 4.2.1.4. `axr`, `axor` -- Array Bitwise XOR
+===== 4.2.1.5. `ant`, `anot` -- Array Bitwise NOT
+===== 4.2.1.6. `ann`, `anand` -- Array Bitwise NAND
+===== 4.2.1.7. `anr`, `anor` -- Array Bitwise NOR
+===== 4.2.1.8. `anx`, `anxor` -- Array Bitwise NXOR
+==== 4.2.2. Boolean Logic
+===== 4.2.2.1. `anol` -- Array Logical No Operation
+===== 4.2.2.2. `aanl`, `aandl` -- Array Logical AND
+===== 4.2.2.3. `aorl` -- Array Logical OR
+===== 4.2.2.4. `axrl`, `axorl` -- Array Logical XOR
+===== 4.2.2.5. `antl`, `anotl` -- Array Logical NOT
+===== 4.2.2.6. `annl`, `anandl` -- Array Logical NAND
+===== 4.2.2.7. `anrl`, `anorl` -- Array Logical NOR
+===== 4.2.2.8. `anxl`, `anxorl` -- Array Logical NXOR
+==== 4.2.3. Array Comparison
+===== 4.2.3.1. `aeq`, `aequals` -- Arrays Equals
+===== 4.2.3.2. `anq`, `aneq`, anoteq`, `anotequals` -- Arrays Not Equals
+==== 4.2.4. Filling Arrays
+===== 4.2.4.1. `aas`, `aassign` -- Array Assign
+===== 4.2.4.2. `afl`, `afill` -- Array Fill
+==== 4.2.5. Searching & Replacing
+===== 4.2.5.1. `asb` -- Array Search Byte
+===== 4.2.5.2. `asa` -- Array Search Array
+===== 4.2.5.3. `arb` -- Array Search & Replace Byte
+===== 4.2.5.4. `ara` -- Array Search & Replace Array
+==== 4.2.6. Auxulary Functions
+===== 4.2.6.1. `_afa` -- Array Function Assignment
+===== 4.2.6.2. `_afb` -- Array Function Boolean
