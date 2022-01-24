@@ -1,0 +1,89 @@
+= WLib Documentation
+
+== 1. System information
+=== 1.1. Architectures
+=== 1.2. Operating Systems
+=== 1.3. Data models
+=== 1.4. Compilers
+=== 1.5. Language
+== 2. C/C++ compatibility
+=== 2.1. `enum`
+=== 2.2. `extern`
+=== 2.3. `inline`
+=== 2.4. `restrict`
+== 3. Basic types
+=== 3.1. Fixed-width numeric types
+=== 3.2. C/C++ compatibility types
+=== 3.3. Special types
+=== 3.4. Type widths
+=== 3.5. Type limits
+== 4. Character utilities
+=== 4.1. Control Characters
+The numerical value of ASCII Control Characters can be conveniently accessed using next macros.
+[%autowidth]
+|===
+|DEC|BIN    |OCT|HEX|Name
+|0  |0000000|000|00 |`NUL`
+|1  |0000001|001|01 |`SOH`
+|2  |0000010|002|02 |`STX`
+|3  |0000011|003|03 |`ETX`
+|4  |0000100|004|04 |`EOT`
+|5  |0000101|005|05 |`ENQ`
+|6  |0000110|006|06 |`ACK`
+|7  |0000111|007|07 |`BEL`
+|8  |0001000|010|08 |`BS`
+|9  |0001001|011|09 |`HT`
+|10 |0001010|012|0A |`LF`
+|11 |0001011|013|0B |`VT`
+|12 |0001100|014|0C |`FF`
+|13 |0001101|015|0D |`CR`
+|14 |0001110|016|0E |`SO`
+|15 |0001111|017|0F |`SI`
+|16 |0010000|020|10 |`DLE`
+|17 |0010001|021|11 |`DC1`
+|18 |0010010|022|12 |`DC2`
+|19 |0010011|023|13 |`DC3`
+|20 |0010100|024|14 |`DC4`
+|21 |0010101|025|15 |`NAK`
+|22 |0010110|026|16 |`SYN`
+|23 |0010111|027|17 |`ETB`
+|24 |0011000|030|18 |`CAN`
+|25 |0011001|031|19 |`EM`
+|26 |0011010|032|1A |`SUB`
+|27 |0011011|033|1B |`ESC`
+|28 |0011100|034|1C |`FS`
+|29 |0011101|035|1D |`GS`
+|30 |0011110|036|1E |`RS`
+|31 |0011111|037|1F |`US`
+|127|1111111|177|7F |`DEL`
+|===
+=== 4.2. Character set checking
+==== 4.2.1. `cia` -- Character Is Alphanumeric
+==== 4.2.2. `cic` -- Character Is Control
+==== 4.2.3. `cil` -- Character Is Letter
+==== 4.2.4. `cill` -- Character Is Lowercase Letter
+==== 4.2.5. `cin` -- Character Is Numerical
+==== 4.2.6. `cis` -- Character Is Symbol
+==== 4.2.7. `ciw` -- Character Is Whitespace
+==== 4.2.8. `ciul` -- Character Is Uppercase Letter
+=== 4.3. Character transformation
+==== 4.3.1. `c2l` -- Character To Lowercase
+==== 4.3.2. `c2u` -- Character To Uppercase
+==== 4.3.3. `c2d` -- Character To Digit
+==== 4.3.4. `d2c` -- Digit To Character
+== 5. Array utilities
+=== 5.1. Bitwise arithmetic
+[%autowidth]
+|===
+|`ano`|Array No Operation
+|`ant`|Array NOT
+|`aan`|Array AND
+|`aor`|Array OR
+|`axr`|Array XOR
+|`ann`|Array NAND
+|`anr`|Array NOR
+|`anx`|Array NXOR
+|===
+=== 5.2. Boolean logic
+=== 5.3. Searching & Replacing
+== 6. String utilities
