@@ -59,6 +59,13 @@ The numerical value of ASCII Control Characters can be conveniently accessed usi
 |===
 === 4.2. Character set checking
 ==== 4.2.1. `cia` -- Character Is Alphanumeric
+```c
+#define cia(c)	...
+```
+`cia(c)` is a macro function that checks if the specified character is an alphanumeric character by returning _true_ if `c` belongs to the set of alphanumeric characters and _false_ otherwise.
+
+*Parameters*:
+c -- Character
 ==== 4.2.2. `cic` -- Character Is Control
 ==== 4.2.3. `cil` -- Character Is Letter
 ==== 4.2.4. `cill` -- Character Is Lowercase Letter
@@ -85,5 +92,21 @@ The numerical value of ASCII Control Characters can be conveniently accessed usi
 |`anx`|Array NXOR
 |===
 === 5.2. Boolean logic
+[%autowidth]
+|===
+|`anol`|Array No Operation Logical
+|`antl`|Array NOT Logical
+|`aanl`|Array AND Logical
+|`aorl`|Array OR Logical
+|`axrl`|Array XOR Logical
+|`annl`|Array NAND Logical
+|`anrl`|Array NOR Logical
+|`anxl`|Array NXOR Logical
+|===
 === 5.3. Searching & Replacing
+==== 5.3.1. `asb` -- Array Search Byte
+==== 5.3.2. `asa` -- Array Search Array
+==== 5.3.3. `arb` -- Array Search & Replace Byte
+==== 5.3.4. `ara` -- Array Search & Replace Array
 == 6. String utilities
+== 7. Configuration
