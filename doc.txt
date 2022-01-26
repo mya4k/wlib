@@ -18,6 +18,49 @@
 === 3.4. Type widths
 === 3.5. Type limits
 == 4. Character utilities
+Below is the table of ASCII character set. 
+
+- Characters belonging to the Control Character Set are inside blue cells (x00--x1F and x7F);
+- Characters belonging to the Symbol Character Set are inside yellow cells (x20--x2F and x3A--x40 and x5B--x60 and x7B--x7E);
+- Characters belonging to the Digit Character Set are inside pink/magenta cells (x30--x39);
+- Characters belonging to the Uppercase Character Set are inside red cells (x41--x5A);
+- Characters belonging to the Lowercase Character Set are inside green cells (x61--x7A);
+- Characters belonging to the Whitespace Character Set are in red color (x09--x0D);
+- The Letter Character Set or Alphabetical Set is a combined set of the Uppercase Character Set and the Lowercase Character Set;
+- The Alphanumeric Character Set is a combined set of the Letter Character Set and the Digit Character Set;
+- The RFC 4648 Base32 Character Set is a set of characters consisting of the entire Uppercase Letter Character Set, digits from `2` to `7` and the padding character `=`;
+- The RFC 4648 Base64 Character Set is a set of characters consisting of the entire Uppercase, Lowercase Letters and Decimal Digit Character Sets, plus character `+`, `/` and the padding character `=`;
+- The Extended ASCII Character Set is any character beyond the order number 127 (x7F) or ␡ character.
+- The Binary Digit Character Set is a set of two characters: `0` and `1`
+- The Octal Digit Character Set -- eight characters from `0` to `7`
+- The Hexadecimal Digit Character Set -- sixteen characters, including the entire Decimal Digit Character Set and uppercase letter from `A` to `F`
+- The Triacontabinary Digit Character Set -- thirty-two character, includes the entire Decimal Digit Character Set and uppercase letter from `A` to `V`
+- The Hexecontaquaternary Digit Character Set -- sixty-four character, same as RFC 4648 Base64.
+
+[cols="^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^, ^.^"]
+|===
+|			| 00								| 01							| 02							| 03			| 04			| 05		| 06		| 07
+| 08		| 09								| 0A							| 0B							| 0C			| 0D			| 0E		| 0F		|
+| 00		|{set:cellbgcolor:#EEEEFF} &#9216;	| &#9217;						| &#9218;						| &#9219;		| &#9220;		| &#9221;	| &#9222;	| &#9223;
+| &#9224;	|[red]#&#9225;#						|[red]#&#9226;#					|[red]#&#9227;#					|[red]#&#9228;#	|[red]#&#9229;#	| &#9230;	| &#9231;	|{set:cellbgcolor:} 0F
+| 10		|{set:cellbgcolor:#EEEEFF} &#9223;	| &#9233;						| &#9234;						| &#9235;		| &#9236;		| &#9237;	| &#9238;	| &#9239;	
+| &#9240;	| &#9241;							| &#9242;						| &#9243;						| &#9244;		| &#9245;		| &#9246;	| &#9247;	|{set:cellbgcolor:} 1F
+| 20		|{set:cellbgcolor:#FFFFEE} &#9251;	| !								| &quot;						| &num;			| $				| %			| &amp;		| &#39;		
+| (			| )									| &ast;							| +								| ,				| -				| .			| /			|{set:cellbgcolor:} 2F
+| 30		|{set:cellbgcolor:#FFEEFF} 0		| 1								| 2								| 3				| 4				| 5			| 6			| 7
+| 8			| 9									|{set:cellbgcolor:#FFFFEE} :	| ;								| &lt;			| =				| &gt;		| ?			|{set:cellbgcolor:} 3F
+| 40		|{set:cellbgcolor:#FFFFEE} @		|{set:cellbgcolor:#FFEEEE} A	| B								| C				| D				| E			| F			| G			
+| H			| I									| J								| K								| L				| M				| N			| O			|{set:cellbgcolor:} 4F
+| 50		|{set:cellbgcolor:#FFEEEE} P		| Q								| R								| S				| T				| U			| V			| W
+| X			| Y									| Z								|{set:cellbgcolor:#FFFFEE} &	| \				| ]				| ^			| _			|{set:cellbgcolor:} 5F
+| 60		|{set:cellbgcolor:#FFFFEE} &grave;	|{set:cellbgcolor:#EEFFEE} a	| b								| c				| d				| e			| f			| g
+| h			| i									| j								| k								| l				| m				| n			| o			|{set:cellbgcolor:} 6F
+| 70		|{set:cellbgcolor:#EEFFEE} p		| q								| r								| s				| t				| u			| v			| w
+| x			| y									| z								|{set:cellbgcolor:#FFFFEE} {	| &vert;		| }				| ~			| \			|{set:cellbgcolor:} 7F
+|			| 70								| 71							| 72							| 73			| 74			| 75		| 76		| 77
+| 78		| 79								| 7A							| 7B							| 7C			| 7D			| 7E		| 7F		|
+|===
+
 === 4.1. Control Characters
 The numerical value of ASCII Control Characters can be conveniently accessed using next macros.
 [%autowidth]
@@ -58,28 +101,65 @@ The numerical value of ASCII Control Characters can be conveniently accessed usi
 |127|1111111|177|7F |`DEL`
 |===
 === 4.2. Character set checking
-==== 4.2.1. `cia` -- Character Is Alphanumeric
-```c
-#define cia(c)	...
-```
-`cia(c)` is a macro function that checks if the specified character is an alphanumeric character by returning _true_ if `c` belongs to the set of alphanumeric characters and _false_ otherwise.
+Character set checking macro functions check if the specified character belongs to the set of character the function is specified to check against.
 
-*Parameters*:
-c -- Character
-==== 4.2.2. `cic` -- Character Is Control
-==== 4.2.3. `cil` -- Character Is Letter
-==== 4.2.4. `cill` -- Character Is Lowercase Letter
-==== 4.2.5. `cin` -- Character Is Numerical
-==== 4.2.6. `cis` -- Character Is Symbol
-==== 4.2.7. `ciw` -- Character Is Whitespace
-==== 4.2.8. `ciul` -- Character Is Uppercase Letter
-=== 4.3. Character transformation
-==== 4.3.1. `c2l` -- Character To Lowercase
-==== 4.3.2. `c2u` -- Character To Uppercase
-==== 4.3.3. `c2d` -- Character To Digit
-==== 4.3.4. `d2c` -- Digit To Character
+*Name*: `ci32`, `ci64`, `cib`, `cic`, `cid`, `cih`, `cihq`, `cil`, `cild`, `cill`, `cin`, `cinx`, `cio`, `cip`, `cis`, `citb`, `ciul`, `civ`, `ciw`, `cix`
+
+*Synopsis*:
+```c
+#define ci32(c)	...
+#define ci64(c)	...
+#define cib(c)	...
+#define cic(c)	...
+#define cid(c)	...
+#define cih(c)	...
+#define cihq(c)	...
+#define cil(c)	...
+#define cild(c)	...
+#define cill(c)	...
+#define cin(c)	...
+#define cinx(c)	...
+#define cio(c)	...
+#define cip(c)	...
+#define cis(c)	...
+#define citb(c)	...
+#define ciul(c)	...
+#define civ(c)	...
+#define ciw(c)	...
+#define cix(c)	...
+```
+
+*Description*:
+
+- `ci32` (Character Is Base32) checks for inclusion in RFC 4648 Base32 Character set,
+- `ci64` (Character Is Base64) -- RFC 4648 Base64 Character set,
+- `cib` (Character Is Binary digit) -- Binary Digit Character set,
+- `cic` (Character Is Control) -- Control Character set
+- `cid` (Character Is Decimal digit) -- Decimal Digit Character set,
+- `cih` (Character Is Hexadecimal digit) -- Hexadecimal Digit Character set,
+- `cihq` (Character Is Hexecontaquaternary digit) -- Hexecontaquaternary Digit Character set,
+- `cil` (Character Is Letter) -- Alphabetical Character set,
+- `cild` (Character Is Letter or Decimal digit) -- Alphanumerical Character set,
+- `cill` (Character Is Lowercase Letter) -- Lowercase Letter Character set,
+- `cin` (Character Is blaNk) -- Blank Character set,
+- `cinx` (Character Is Not eXtended ASCII) -- Base ASCII Character set,
+- `cio` (Character Is Octal digit) -- Octal Digit Character set,
+- `cip` (Character Is Printable) -- Printable Character set,
+- `cis` (Character Is Symbol) -- Symbol Digit Character set,
+- `citb` (Character Is Triacontabinary digit) -- Triacontabinary Digit Character set,
+- `ciul` (Character Is Uppercase Letter) -- Uppercase Letter Character set,
+- `civ` (Character Is Visible) -- Visible Character set,
+- `ciw` (Character Is Whitespace) -- Whitespace Digit set,
+- `cix` (Character Is eXtended ASCII) -- Extended ASCII Character set
+
+*Returns*: _true_ or _false_ as `const int`.
+
 == 5. Array utilities
 === 5.1. Bitwise arithmetic
+Array bitwise arithmetic operation functions are macro function that perform the corresponding logic operation bitwise.
+
+*Name*: 
+
 [%autowidth]
 |===
 |`ano`|Array No Operation
