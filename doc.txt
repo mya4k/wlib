@@ -150,26 +150,76 @@ Character set checking macro functions check if the specified character belongs 
 - `ciul` (Character Is Uppercase Letter) -- Uppercase Letter Character set,
 - `civ` (Character Is Visible) -- Visible Character set,
 - `ciw` (Character Is Whitespace) -- Whitespace Digit set,
-- `cix` (Character Is eXtended ASCII) -- Extended ASCII Character set
+- `cix` (Character Is eXtended ASCII) -- Extended ASCII Character set.
 
-*Returns*: _true_ or _false_ as `const int`.
+*Parameters*: `c`` -- character to be checked.
+
+*Returns*: _true_ or _false_.
 
 == 5. Array utilities
 === 5.1. Bitwise arithmetic
 Array bitwise arithmetic operation functions are macro function that perform the corresponding logic operation bitwise.
 
-*Name*: 
+*Name*: `aan`, `aand`, `anand`, `ann`, `ano`, `anor`, `anot`, `anr`, `ant`, `anx`, `anxor`, `aor`, `axor`, `axr`.
+
+```c
+#define aan(r,a,b,s)	...
+#define ann(r,a,b,s)	...
+#define ano(r,a,s)		...
+#define anr(r,a,b,s)	...
+#define ant(r,a,s)		...
+#define anx(r,a,s)		...
+#define aor(r,a,s)		...
+#define axr(r,a,b,s)	...
+#define aand			aan
+#define anand			ann
+#define anor			anr
+#define anot			ant
+#define anxor			anx
+#define axor			axr
+```
+
+*Description*:
+
+- `aan`, `aand` (Array AND) performs AND on every bit of `a` and `b` streaming the result of this operation to the array `r`;
+- `ann`, `anand` (Array NAND) performs NAND on every bit of `a` and `b` streaming the result of this operation to the array `r`;
+- `ano`, (Array No Operation) does not do anything with `a`, copies array `a` to array `r`. By other words, this function assigns array `a` to array `r`;
+- `anr`, `anor` (Array NOR) performs NOR on every bit of `a` and `b` streaming the result of this operation to the array `r`;
+- `ant`, `anot` (Array NOT) inverts every bit in array `a` streaming the result of this operation to the array `r`;
+- `anx`, `anxor` (Array NXOR) performs NXOR on every bit of `a` and `b` streaming the result of this operation to the array `r`;
+- `aor` (Array OR) performs OR on every bit of `a` and `b` streaming the result of this operation to the array `r`;
+- `axr`, `axor` (Array XOR) performs XOR on every bit of `a` and `b` streaming the result of this operation to the array `r`.
+
+*Parameters*:
+
+1. For `ano`, `ant`, `anot`: 
+	- `r` -- Result pointer (has to be any integer or pointer type);
+	- `a` -- Array A (has to be any integer or pointer type);
+	- `size` -- Size of arrays in bytes (has to be any integer type, preferably `As`).
+2. For the rest: 
+	- `r` -- Result pointer (has to be any integer or pointer type);
+	- `a` -- Array A (has to be any integer or pointer type);
+	- `b` -- Array B (has to be any integer or pointer type);
+	- `size` -- Size of arrays in bytes (has to be any integer type, preferably `As`).
+
+*Returns*: `r`
+
+*Special cases*:
+
+If `r` is a null pointer, array `r` is dynamically allocated with size `size`.
+If `a` or `b` (if applicable) is a null pointer, immediately returns NULL with Null Pointer Parameter Error.
+
 
 [%autowidth]
 |===
-|`ano`|Array No Operation
-|`ant`|Array NOT
-|`aan`|Array AND
-|`aor`|Array OR
-|`axr`|Array XOR
-|`ann`|Array NAND
-|`anr`|Array NOR
-|`anx`|Array NXOR
+|`ano`			|Array No Operation
+|`ant`, `anot`	|Array NOT
+|`aan`, `aand`	|Array AND
+|`aor`			|Array OR
+|`axr`, `axor`	|Array XOR
+|`ann`, `anand`	|Array NAND
+|`anr`, `anor`	|Array NOR
+|`anx`, `anxor`	|Array NXOR
 |===
 === 5.2. Boolean logic
 [%autowidth]
