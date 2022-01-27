@@ -18,7 +18,7 @@
 === 3.4. Type widths
 === 3.5. Type limits
 == 4. Character utilities
-Below is the table of ASCII character set. 
+Below is the table of ASCII character set.
 
 - Characters belonging to the Control Character Set are inside blue cells (x00--x1F and x7F);
 - Characters belonging to the Symbol Character Set are inside yellow cells (x20--x2F and x3A--x40 and x5B--x60 and x7B--x7E);
@@ -152,7 +152,7 @@ Character set checking macro functions check if the specified character belongs 
 - `ciw` (Character Is Whitespace) -- Whitespace Digit set,
 - `cix` (Character Is eXtended ASCII) -- Extended ASCII Character set.
 
-*Parameters*: `c`` -- character to be checked.
+*Parameters*: `c` -- character to be checked.
 
 *Returns*: _true_ or _false_.
 
@@ -209,19 +209,9 @@ Array bitwise arithmetic operation functions are macro function that perform the
 If `r` is a null pointer, array `r` is dynamically allocated with size `size`.
 If `a` or `b` (if applicable) is a null pointer, immediately returns NULL with Null Pointer Parameter Error.
 
-
-[%autowidth]
-|===
-|`ano`			|Array No Operation
-|`ant`, `anot`	|Array NOT
-|`aan`, `aand`	|Array AND
-|`aor`			|Array OR
-|`axr`, `axor`	|Array XOR
-|`ann`, `anand`	|Array NAND
-|`anr`, `anor`	|Array NOR
-|`anx`, `anxor`	|Array NXOR
-|===
 === 5.2. Boolean logic
+Array boolean logic macro functions
+
 [%autowidth]
 |===
 |`anol`|Array No Operation Logical
