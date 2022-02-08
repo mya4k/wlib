@@ -156,21 +156,66 @@ Character set checking macro functions check if the specified character belongs 
 
 == 5. Array utilities
 === 5.1. Bitwise arithmetic
-Array bitwise arithmetic operation functions are macro function that perform the corresponding logic operation bitwise.
+Array bitwise arithmetic operation functions are macro function that perform the corresponding logic operation bitwise. 
 
-*Name*: 
+*Name*: `aan`, `aand`, `anand`, `ann`, `ano`, `anor`, `anot`, `anr`, `ant`, `anx`, `anxor`, `aor`, `axor`, `axr`
 
-[%autowidth]
-|===
-|`ano`|Array No Operation
-|`ant`|Array NOT
-|`aan`|Array AND
-|`aor`|Array OR
-|`axr`|Array XOR
-|`ann`|Array NAND
-|`anr`|Array NOR
-|`anx`|Array NXOR
-|===
+*Synopsis*:
+```c
+#define aan(r,a,b,size)	afa((r),(a),(b),AF_AN,(size))
+#define aand	aan
+#define anand	ann
+#define ann(r,a,b,size)	afa((r),(a),(b),AF_NN,(size))
+#define ano(r,a,size)	afa((r),(a),NULL,AF_NO,(size))
+#define anor	anr
+#define anot	ant
+#define anr(r,a,b,size)	afa((r),(a),(b),AF_NR,(size))
+#define ant(r,a,size)	afa((r),(a),NULL,AF_NT,(size))
+#define anx(r,a,b,size)	afa((r),(a),(b),AF_NX,(size))
+#define anxor	anx
+#define aor(r,a,b,size)	afa((r),(a),NULL,AF_OR,(size))
+#define axor	axr
+#define axr(r,a,b,size)	afa((r),(a),NULL,AF_XR,(size))
+```
+
+*Description*:
+
+- `aan` (Array AND) performs bitwise AND on two objects pointed by `a` and `b` and the result object is written at `r`;
+- `aand` (Array AND) is an alias of `aan`;
+- `anand` (Array NAND) is an alias of `ann`;
+- `ann` (Array NAND) performs bitwise NAND on two objects pointed by `a` and `b` and the result object is written at `r`;
+- `ano` (Array NAND) does not perform any operation on the object pointed by `a` and copies that object to the location `r`
+- `anor` is an alias of `anr`;
+- `anot` is an alias of `ant`;
+- `anr` performs bitwise NOR on two objects pointed by `a` and `b` and the result object is written at `r`;
+- `ant` performs bitwise NOT on the object pointed by `a` and the result object is written at `r`;
+- `anx` performs bitwise NXOR on two objects pointed by `a` and `b` and the result object is written at `r`;
+- `anxor` is an alias of `anx`
+- `aor` performs bitwise OR on two objects pointed by `a` and `b` and the result object is written at `r`;
+- `axor` is an alias of `axr`;
+- `axr` performs bitwise XOR on two objects pointed by `a` and `b` and the result object is written at `r`.
+
+All of these macro functions eventually end up expanding to `afa`, which is actually responsible for performing the respective operations.
+
+*Parameters*:
+
+For `ano`, `ant` and `anot`:
+
+- `a` -- pointer to the operand object;
+- `r` -- a pointer where the result object of the operation will be stored. If this parameter is a null pointer.
+
+For `aan`, `ann`, `anr`, `anx`, `aor`, `axr` and their aliases:
+
+- `a` -- pointer to the left operand object;
+- `b` -- pointer to the right operand object;
+- `r` -- a pointer where the result object of the operation will be stored. If this parameter is a null pointer, the algorithm calls for allocated of size bytes for writing the array; the pointer to that newly allocated sequence of bytes will be assigned to `r`
+
+*Returns*: the value of `r` -- the pointer to the result object
+
+*Configurability*:
+
+If `WL_CONF_XXX_FUNC`, where XXX is the name of macro functions that will expand to 
+
 === 5.2. Boolean logic
 [%autowidth]
 |===
@@ -188,5 +233,6 @@ Array bitwise arithmetic operation functions are macro function that perform the
 ==== 5.3.2. `asa` -- Array Search Array
 ==== 5.3.3. `arb` -- Array Search & Replace Byte
 ==== 5.3.4. `ara` -- Array Search & Replace Array
+=== 5.4. Auxiliary Identifiers
 == 6. String utilities
 == 7. Configuration
