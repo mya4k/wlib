@@ -18,7 +18,7 @@
 === 3.4. Type widths
 === 3.5. Type limits
 == 4. Character utilities
-Below is the table of ASCII character set. 
+Below is the table of ASCII character set.
 
 - Characters belonging to the Control Character Set are inside blue cells (x00--x1F and x7F);
 - Characters belonging to the Symbol Character Set are inside yellow cells (x20--x2F and x3A--x40 and x5B--x60 and x7B--x7E);
@@ -150,9 +150,11 @@ Character set checking macro functions check if the specified character belongs 
 - `ciul` (Character Is Uppercase Letter) -- Uppercase Letter Character set,
 - `civ` (Character Is Visible) -- Visible Character set,
 - `ciw` (Character Is Whitespace) -- Whitespace Digit set,
-- `cix` (Character Is eXtended ASCII) -- Extended ASCII Character set
+- `cix` (Character Is eXtended ASCII) -- Extended ASCII Character set.
 
-*Returns*: _true_ or _false_ as `const int`.
+*Parameters*: `c` -- character to be checked.
+
+*Returns*: _true_ or _false_.
 
 == 5. Array utilities
 === 5.1. Bitwise arithmetic
@@ -217,6 +219,8 @@ For `aan`, `ann`, `anr`, `anx`, `aor`, `axr` and their aliases:
 If `WL_CONF_XXX_FUNC`, where XXX is the name of macro functions that will expand to 
 
 === 5.2. Boolean logic
+Array boolean logic macro functions
+
 [%autowidth]
 |===
 |`anol`|Array No Operation Logical
