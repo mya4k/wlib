@@ -352,7 +352,7 @@ Flags for tweaking the return value:
 
 - if `AS_PT` or `AS_POINTER` flag is set or implied, returns the pointer to the needle object, if found, otherwise returns `PTN` (`NULL`).
 
-Default flags are: `AS_FR` and `AS_PT`
+Default flags are: `AS_FR` and `AS_PT`.
 
 
 ==== 5.3.3. `arb` -- Array Replace Byte
@@ -375,7 +375,7 @@ EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
 | `As`		| `size`	| size of the object in bytes
 | `char`	| `b`		| byte value to be searched for (needle)
 | `char`	| `c`		| byte value to replace to (replacement)
-| `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
+| `_Arf`	| `flag`	| appropriate Search or Replace Flags ORed togethers
 |===
 
 `a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
@@ -386,27 +386,84 @@ EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
 
 Replaces the first, last or all occurrences of byte `b` with byte `c` in object `a`. 
 
+Special cases:
+
+- If `a` is NULL or `sa` is 0, returns immediately as if no occurrences were found, also sends WL_ERRNUL.
+
+Flags for tweaking the search target:
+
+- If `AR_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`
+
+Flags for tweaking the return value:
+
+- If `AR_FR` or `AR_FIRST` flag is set or implied, only replaces the first occurrence;
+
+- if `AR_LS` or `AR_LAST` flag is set, only replaces the last occurrence;
+
+- If `AR_ALL` flag is set, every occurrence will be replaced;
+
+Default flags are: `AR_ALL`.
+
+==== 5.3.4. `ara` -- Array Replace Array
+
+`arb` is a data modification utility that replaces the first, the last or all occurrences of object `b` with object `c` in object `a`.
+
+*Synopsis*:
+```c
+#define arb(a,sa,b,c,flag) ((a) = _arb((char*)(a),(sa),(b),(c),(flag)))
+EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
+```
+
+*Name*: `arb` -- Array Replace Byte
+
+*Parameters*
+
+[%autowidth]
+|===
+|           | `a` 		| pointer to the object which will be searched (haystack)
+| `As`		| `sa`		| size of the object `a` in bytes
+|			| `b`		| byte value to be searched for (needle)
+| `As`		| `sb`		| size of the object `b` in bytes
+|			| `c`		| byte value to replace to (replacement)
+| `As`		| `sc`		| size of the object `c` in bytes
+| `_Arf`	| `flag`	| appropriate Search or Replace Flags ORed togethers
+|===
+
+`a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
+`b` and `c` should be of any integer or pointer type.
+
+*Returns*: `char*` -- pointer to the modified object `a`
+
+*Description*:
+
+Replaces the first, last or all occurrences of object `b` with object `c` in object `a`. 
+
 If the sizes of the object `b` and the object `c` are different, the resulting size of object `a` is subject to change. If object size of `c` is bigger than of `b` and replacements have been made, the size of object `a` has increased, therefore it is a subject to reallocation, the algorithm will also assign the return value to `a` for you; unless the WL_CONF_CALL_MAL flag is set to 0, in which case the overflowing bytes will be written right outside the bounds of object `a`.
 
 Special cases:
 
 - If `a` is NULL or `sa` is 0, returns immediately as if no occurrences were found, also sends WL_ERRNUL.
 
-Flags for tweaking the search targ
+Flags for tweaking the search target:
 
-- If `AS_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`
+- If `AR_AC` or `AR_ANYCHAR` flag is set, instead of looking for the occurrence of object `b`, the algorithm will look for the occurrence of any byte in the object `b` and replaces it with respective byte from the object `c`. If there is no respective byte in the object `c` due to size of the object `c` being less than of the object `b`, those bytes will cut, replaced with nothing.
+
+- If `AR_NG` or `AR_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`. With `AR_AC` or `AR_ANYCHAR` flag, the algorithm will look for the occurrence of any byte values that object `b` is not comprised of and replace it with the entire object `c`
 
 Flags for tweaking the return value:
 
-- If `AS_FR` or `AS_FIRST` flag is set or implied, only replaces the first occurrence;
+- If `AR_FR` or `AR_FIRST` flag is set or implied, only replaces the first occurrence;
 
-- if `AS_LS` or `AS_LAST` flag is set, only replaces the last occurrence;
+- if `AR_LS` or `AR_LAST` flag is set, only replaces the last occurrence;
 
-- If `AR_ALL` flag is set, the every occurrence will be replaced;
+- If `AR_ALL` flag is set, every occurrence will be replaced.
 
-==== 5.3.4. `ara` -- Array Replace Array
+Default flag is `AR_ALL`.
 
 
-=== 5.4. Auxiliary Identifiers
+=== 5.4. Other Identifiers
+==== 5.4.1. _afa
+==== 5.4.2. _afb
+==== 5.4.3. Aliases
 == 6. String utilities
 == 7. Configuration
