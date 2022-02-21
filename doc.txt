@@ -105,7 +105,7 @@ Character set checking macro functions check if the specified character belongs 
 
 *Name*: `ci32`, `ci64`, `cib`, `cic`, `cid`, `cih`, `cihq`, `cil`, `cild`, `cill`, `cin`, `cinx`, `cio`, `cip`, `cis`, `citb`, `ciul`, `civ`, `ciw`, `cix`
 
-*Synopsis*:
+*Synopsis*
 ```c
 #define ci32(c)	...
 #define ci64(c)	...
@@ -129,7 +129,7 @@ Character set checking macro functions check if the specified character belongs 
 #define cix(c)	...
 ```
 
-*Description*:
+*Description*
 
 - `ci32` (Character Is Base32) checks for inclusion in RFC 4648 Base32 Character set,
 - `ci64` (Character Is Base64) -- RFC 4648 Base64 Character set,
@@ -156,13 +156,14 @@ Character set checking macro functions check if the specified character belongs 
 
 *Returns*: _true_ or _false_.
 
+
 == 5. Array utilities
 === 5.1. Bitwise arithmetic
 Array bitwise arithmetic operation functions are macro function that perform the corresponding logic operation bitwise. 
 
 *Name*: `aan`, `aand`, `anand`, `ann`, `ano`, `anor`, `anot`, `anr`, `ant`, `anx`, `anxor`, `aor`, `axor`, `axr`
 
-*Synopsis*:
+*Synopsis*
 ```c
 #define aan(r,a,b,size)	afa((r),(a),(b),AF_AN,(size))
 #define aand	aan
@@ -180,26 +181,29 @@ Array bitwise arithmetic operation functions are macro function that perform the
 #define axr(r,a,b,size)	afa((r),(a),NULL,AF_XR,(size))
 ```
 
-*Description*:
+*Description*
 
-- `aan` (Array AND) performs bitwise AND on two objects pointed by `a` and `b` and the result object is written at `r`;
-- `aand` (Array AND) is an alias of `aan`;
-- `anand` (Array NAND) is an alias of `ann`;
-- `ann` (Array NAND) performs bitwise NAND on two objects pointed by `a` and `b` and the result object is written at `r`;
-- `ano` (Array NAND) does not perform any operation on the object pointed by `a` and copies that object to the location `r`
-- `anor` is an alias of `anr`;
-- `anot` is an alias of `ant`;
-- `anr` performs bitwise NOR on two objects pointed by `a` and `b` and the result object is written at `r`;
-- `ant` performs bitwise NOT on the object pointed by `a` and the result object is written at `r`;
-- `anx` performs bitwise NXOR on two objects pointed by `a` and `b` and the result object is written at `r`;
-- `anxor` is an alias of `anx`
-- `aor` performs bitwise OR on two objects pointed by `a` and `b` and the result object is written at `r`;
-- `axor` is an alias of `axr`;
-- `axr` performs bitwise XOR on two objects pointed by `a` and `b` and the result object is written at `r`.
+[%autowidth]
+|===
+|`aan`	|**A**rray **AN**D		|performs bitwise AND on two objects pointed by `a` and `b` and the result object is written at `r`
+|`aand`	|**A**rray *AND*		|is an alias of `aan`
+|`anand`|**A**rray *NAND*		|is an alias of `ann`
+|`ann`	|**A**rray **N**A**N**D	|performs bitwise NAND on two objects pointed by `a` and `b` and the result object is written at `r`
+|`ano`	|**A**rray No Operation	|does not perform any operation on the object pointed by `a` and copies that object to the location `r`
+|`anor`	|**A**rray *NOR*		|is an alias of `anr`
+|`anot`	|**A**rray *NOT*		|is an alias of `ant`
+|`anr`	|**A**rray **N**O**R**	|performs bitwise NOR on two objects pointed by `a` and `b` and the result object is written at `r`
+|`ant`	|**A**rray **N**O**T**	|performs bitwise NOT on the object pointed by `a` and the result object is written at `r`
+|`anx`	|**A**rray **NX**OR		|performs bitwise NXOR on two objects pointed by `a` and `b` and the result object is written at `r`
+|`anxor`|**A**rray *NXOR*		|is an alias of `anx`
+|`aor`	|**A**rray *OR*			|performs bitwise OR on two objects pointed by `a` and `b` and the result object is written at `r`
+|`axor`	|**A**rray *XOR*		|is an alias of `axr`
+|`axr`	|**A**rray **X**O**R**	|performs bitwise XOR on two objects pointed by `a` and `b` and the result object is written at `r` 
+|===
 
 All of these macro functions eventually end up expanding to `afa`, which is actually responsible for performing the respective operations.
 
-*Parameters*:
+*Parameters*
 
 For `ano`, `ant` and `anot`:
 
@@ -214,29 +218,195 @@ For `aan`, `ann`, `anr`, `anx`, `aor`, `axr` and their aliases:
 
 *Returns*: the value of `r` -- the pointer to the result object
 
-*Configurability*:
+*Configurability*
 
-If `WL_CONF_XXX_FUNC`, where XXX is the name of macro functions that will expand to 
+Next configuration flags are applicable for these functions: `WL_CONF_AAN_FUNC`, `WL_CONF_ANN_FUNC`, `WL_CONF_ANO_FUNC`, `WL_CONF_ANR_FUNC`, `WL_CONF_ANT_FUNC`, `WL_CONF_ANX_FUNC`,`WL_CONF_AOR_FUNC`, `WL_CONF_AXR_FUNC`.
+
 
 === 5.2. Boolean logic
-Array boolean logic macro functions
+Array bitwise arithmetic operation functions are macro function that perform the corresponding logical or standard boolean algebraic operation.
 
 [%autowidth]
 |===
-|`anol`|Array No Operation Logical
-|`antl`|Array NOT Logical
-|`aanl`|Array AND Logical
-|`aorl`|Array OR Logical
-|`axrl`|Array XOR Logical
-|`annl`|Array NAND Logical
-|`anrl`|Array NOR Logical
-|`anxl`|Array NXOR Logical
+|`aanl`		|**A**rray **AN**D **L**ogical	|performs bitwise AND on two objects pointed by `a` and `b` and the result object is written at `r`
+|`aandl`	|**A**rray *AND* **L**ogical	|is an alias of `aan`
+|`anandl`	|**A**rray *NAND* **L**ogical	|is an alias of `ann`
+|`annl`		|**A**rray **N**A**N**D **L**ogical	|performs bitwise NAND on two objects pointed by `a` and `b` and the result object is written at `r`
+|`anol`		|**A**rray **N**o **O**peration **L**ogical	|does not perform any operation on the object pointed by `a` and copies that object to the location `r`
+|`anorl`	|**A**rray *NOR* **L**ogical	|is an alias of `anr`
+|`anotl`	|**A**rray *NOT* **L**ogical	|is an alias of `ant`
+|`anrl`		|**A**rray **N**O**R** **L**ogical	|performs bitwise NOR on two objects pointed by `a` and `b` and the result object is written at `r`
+|`antl`		|**A**rray **N**O**T** **L**ogical	|performs bitwise NOT on the object pointed by `a` and the result object is written at `r`
+|`anxl`		|**A**rray **NX**OR **L**ogical	|performs bitwise NXOR on two objects pointed by `a` and `b` and the result object is written at `r`
+|`anxorl`	|**A**rray *NXOR* **L**ogical	|is an alias of `anx`
+|`aorl`		|**A**rray *OR* **L**ogical	|performs bitwise OR on two objects pointed by `a` and `b` and the result object is written at `r`
+|`axorl`	|**A**rray *XOR* **L**ogical	|is an alias of `axr`
+|`axrl`		|**A**rray **X**O**R** **L**ogical	|performs bitwise XOR on two objects pointed by `a` and `b` and the result object is written at `r`
 |===
+
+
 === 5.3. Searching & Replacing
 ==== 5.3.1. `asb` -- Array Search Byte
+`asb` is a data search utility that looks for the first, last occurrence or the total amount of occurrences of specified byte value
+
+*Synopsis*:
+```c
+#define asb(a,s,b,flags)	_asb((char*)(a),(s),(b),(flags))
+EXTERN Pt _asb(const char* const restrict a, As s, const char b, const _Asf flags);
+```
+
+*Name*: `asb` -- Array Search Byte
+
+*Parameters*
+
+[%autowidth]
+|===
+|			| `a` 		| pointer to the object which will be searched (haystack)
+| `As`		| `size`	| size of the object in bytes
+| `char`	| `b`		| byte value to be searched for (needle)
+| `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
+|===
+
+`a` should be of any integer or pointer type.
+
+*Returns*: `Pt`.
+
+*Description*
+
+Check for any byte with value `b`.
+
+Special cases:
+
+- If `a` is NULL or `sa` is 0, returns immediately as if no occurrences were found, also sends WL_ERRNUL.
+
+Flags for tweaking the search target:
+
+- If `AS_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`.
+
+Flags for tweaking the return value:
+
+- If `AS_FR` or `AS_FIRST` flag is set or implied, only looks looks for the first occurrence;
+
+- if `AS_LS` or `AS_LAST` flag is set, only looks looks for the last occurrence;
+
+- if `AS_CO` or `AS_COUNT` flag is set, the number of occurrence is returned;
+
+- if `AS_OF` or `AS_OFFSET` flag is set, pointer difference between the base of object `a` (i.e. the value passed as a parameter) and the location of the needle byte, if found, otherwise returns `PTX`;
+
+- if `AS_PT` or `AS_POINTER` flag is set or implied, returns the pointer to the needle byte, if found, otherwise returns `PTN` (`NULL`).
+
+Default flags are: `AS_FR` and `AS_PT`
+
+
 ==== 5.3.2. `asa` -- Array Search Array
-==== 5.3.3. `arb` -- Array Search & Replace Byte
-==== 5.3.4. `ara` -- Array Search & Replace Array
+`asa` is a data search utility that looks for the first, last occurrence or the total amount of occurrences of specified object in a larger object.
+
+*Synopsis*:
+```c
+#define asa(a,sa,b,sb,flags)	_asa((char*)(a),(sa),(char*)(b),(sb),(flags))
+EXTERN void* _asa(const char* const restrict a, As s, const char* b, As b, const _Asf flags);
+```
+
+*Name*: `asa` -- Array Search Array
+
+*Parameters*
+
+[%autowidth]
+|===
+|			| `a` 		| pointer to the object which will be searched (haystack)
+| `As`		| `size`	| size of the object `a` in bytes
+|			| `b`		| pointer to the object to be searched for (needle)
+| `As`		| `size`	| size of the object `b` in bytes
+| `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
+|===
+
+`a` and `b` should be of any integer or pointer type.
+
+*Returns*: `Pt`.
+
+*Description*
+
+Checks for an occurrence of object `b` in object `a`
+
+Special cases:
+
+- If `a` is NULL or `sa` is 0, returns immediately as if no occurrences were found, also sends WL_ERRNUL.
+
+- If `b` is NULL or `sb` is 0, returns immediately as if no occurrences were found, however, with `AS_NEGATIVE` the count of occurrences will be equal to `PTX`, the last occurrence will be the end of object `a` and the first occurrence at its base; also sends WL_ERRNUL
+
+Flags for tweaking the search target:
+
+- If `AS_AC` or `AS_ANYCHAR` flag is set, instead of looking for the occurrence of object `b`, the algorithm will look for the occurrence of any byte in the object `b`.
+
+- If `AS_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of object `b`. With `AS_AC` or `AS_ANYCHAR` flag, the algorithm will look for the occurrence of any byte values that object `b` is not comprised of.
+
+Flags for tweaking the return value:
+
+- If `AS_FR` or `AS_FIRST` flag is set or implied, only looks looks for the first occurrence;
+
+- if `AS_LS` or `AS_LAST` flag is set, only looks looks for the last occurrence;
+
+- if `AS_CO` or `AS_COUNT` flag is set, the number of occurrence is returned;
+
+- if `AS_OF` or `AS_OFFSET` flag is set, pointer difference between the base of object `a` (i.e. the value passed as a parameter) and the location of the needle object, if found, otherwise returns `PTX`;
+
+- if `AS_PT` or `AS_POINTER` flag is set or implied, returns the pointer to the needle object, if found, otherwise returns `PTN` (`NULL`).
+
+Default flags are: `AS_FR` and `AS_PT`
+
+
+==== 5.3.3. `arb` -- Array Replace Byte
+
+`arb` is a data modification utility that replaces the first, the last or all occurrences of byte `b` with byte `c` in object `a`.
+
+*Synopsis*:
+```c
+#define arb(a,sa,b,c,flag) ((a) = _arb((char*)(a),(sa),(b),(c),(flag)))
+EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
+```
+
+*Name*: `arb` -- Array Replace Byte
+
+*Parameters*
+
+[%autowidth]
+|===
+|           | `a` 		| pointer to the object which will be searched (haystack)
+| `As`		| `size`	| size of the object in bytes
+| `char`	| `b`		| byte value to be searched for (needle)
+| `char`	| `c`		| byte value to replace to (replacement)
+| `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
+|===
+
+`a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
+
+*Returns*: `char*` -- pointer to the modified object `a`
+
+*Description*:
+
+Replaces the first, last or all occurrences of byte `b` with byte `c` in object `a`. 
+
+If the sizes of the object `b` and the object `c` are different, the resulting size of object `a` is subject to change. If object size of `c` is bigger than of `b` and replacements have been made, the size of object `a` has increased, therefore it is a subject to reallocation, the algorithm will also assign the return value to `a` for you; unless the WL_CONF_CALL_MAL flag is set to 0, in which case the overflowing bytes will be written right outside the bounds of object `a`.
+
+Special cases:
+
+- If `a` is NULL or `sa` is 0, returns immediately as if no occurrences were found, also sends WL_ERRNUL.
+
+Flags for tweaking the search targ
+
+- If `AS_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`
+
+Flags for tweaking the return value:
+
+- If `AS_FR` or `AS_FIRST` flag is set or implied, only replaces the first occurrence;
+
+- if `AS_LS` or `AS_LAST` flag is set, only replaces the last occurrence;
+
+- If `AR_ALL` flag is set, the every occurrence will be replaced;
+
+==== 5.3.4. `ara` -- Array Replace Array
+
+
 === 5.4. Auxiliary Identifiers
 == 6. String utilities
 == 7. Configuration
