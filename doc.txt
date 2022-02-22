@@ -462,8 +462,10 @@ Default flag is `AR_ALL`.
 
 
 === 5.4. Other Identifiers
-==== 5.4.1. _afa
-==== 5.4.2. _afb
-==== 5.4.3. Aliases
+==== 5.4.1. _Af -- Array Function
+==== 5.4.2. _Asf -- Array Search Flags
+==== 5.4.3. _Arf -- Array Replace Flags
+==== 5.4.4. _afa -- Array Function Assignment
+==== 5.4.5. _afb -- Array Function Boolean
 == 6. String utilities
 == 7. Configuration
