@@ -5,7 +5,7 @@ Macros and macro functions: `ABC`
 Types: `Abc`
 Functions, variables, parameters: `abc`
 Auxiliary: `_abc`
-Dependency: `abc_`
+Child indentifier: `abc_`
 
 
 == 1. System information
@@ -479,7 +479,7 @@ This type is merely used for the parameter ``
 
 *Synopsis*:
 ```c
-char* _asf(char* r, char* a, char* b)
+char* _afa(const char* r, char* const a, char* const b)
 ```
 
 
