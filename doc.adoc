@@ -1,5 +1,13 @@
 = WLib Documentation
 
+=== Naming policy
+Macros and macro functions: `ABC`
+Types: `Abc`
+Functions, variables, parameters: `abc`
+Auxiliary: `_abc`
+Dependency: `abc_`
+
+
 == 1. System information
 === 1.1. Architectures
 === 1.2. Operating Systems
@@ -165,20 +173,20 @@ Array bitwise arithmetic operation functions are macro function that perform the
 
 *Synopsis*
 ```c
-#define aan(r,a,b,size)	afa((r),(a),(b),AF_AN,(size))
+#define aan(r,a,b,size)	_afa((r),(a),(b),AF_AN,(size))
 #define aand	aan
 #define anand	ann
-#define ann(r,a,b,size)	afa((r),(a),(b),AF_NN,(size))
-#define ano(r,a,size)	afa((r),(a),NULL,AF_NO,(size))
+#define ann(r,a,b,size)	_afa((r),(a),(b),AF_NN,(size))
+#define ano(r,a,size)	_afa((r),(a),NULL,AF_NO,(size))
 #define anor	anr
 #define anot	ant
-#define anr(r,a,b,size)	afa((r),(a),(b),AF_NR,(size))
-#define ant(r,a,size)	afa((r),(a),NULL,AF_NT,(size))
-#define anx(r,a,b,size)	afa((r),(a),(b),AF_NX,(size))
+#define anr(r,a,b,size)	_afa((r),(a),(b),AF_NR,(size))
+#define ant(r,a,size)	_afa((r),(a),NULL,AF_NT,(size))
+#define anx(r,a,b,size)	_afa((r),(a),(b),AF_NX,(size))
 #define anxor	anx
-#define aor(r,a,b,size)	afa((r),(a),NULL,AF_OR,(size))
+#define aor(r,a,b,size)	_afa((r),(a),NULL,AF_OR,(size))
 #define axor	axr
-#define axr(r,a,b,size)	afa((r),(a),NULL,AF_XR,(size))
+#define axr(r,a,b,size)	_afa((r),(a),NULL,AF_XR,(size))
 ```
 
 *Description*
@@ -463,9 +471,18 @@ Default flag is `AR_ALL`.
 
 === 5.4. Other Identifiers
 ==== 5.4.1. _Af -- Array Function
+This type is merely used for the parameter `` 
 ==== 5.4.2. _Asf -- Array Search Flags
 ==== 5.4.3. _Arf -- Array Replace Flags
 ==== 5.4.4. _afa -- Array Function Assignment
+`_afa` is an auxillary function that performs a selected operation on one or two objects and assigns the result to a specified pointer.
+
+*Synopsis*:
+```c
+char* _asf(char* r, char* a, char* b)
+```
+
+
 ==== 5.4.5. _afb -- Array Function Boolean
 == 6. String utilities
 == 7. Configuration
