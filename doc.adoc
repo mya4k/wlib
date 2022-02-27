@@ -255,7 +255,7 @@ Array bitwise arithmetic operation functions are macro function that perform the
 
 === 5.3. Searching & Replacing
 ==== 5.3.1. `asb` -- Array Search Byte
-`asb` is a data search utility that looks for the first, last occurrence or the total amount of occurrences of specified byte value
+`asb` is a data search utility that looks for the first, last occurrence or the total amount of occurrences of specified byte value.
 
 *Synopsis*:
 ```c
@@ -303,7 +303,7 @@ Flags for tweaking the return value:
 
 - if `AS_PT` or `AS_POINTER` flag is set or implied, returns the pointer to the needle byte, if found, otherwise returns `PTN` (`NULL`).
 
-Default flags are: `AS_FR` and `AS_PT`
+Default flags are: `AS_FR` and `AS_PT`.
 
 
 ==== 5.3.2. `asa` -- Array Search Array
@@ -312,19 +312,19 @@ Default flags are: `AS_FR` and `AS_PT`
 *Synopsis*:
 ```c
 #define asa(a,sa,b,sb,flags)	_asa((char*)(a),(sa),(char*)(b),(sb),(flags))
-EXTERN void* _asa(const char* const restrict a, As s, const char* b, As b, const _Asf flags);
+EXTERN void* _asa(const char* const restrict a, const As sa, const char* restrict b, const As sb, const _Asf flags);
 ```
 
-*Name*: `asa` -- Array Search Array
+*Name*: `asa` -- Array Search Array.
 
 *Parameters*
 
 [%autowidth]
 |===
 |			| `a` 		| pointer to the object which will be searched (haystack)
-| `As`		| `size`	| size of the object `a` in bytes
+| `As`		| `sa`		| size of the object `a` in bytes
 |			| `b`		| pointer to the object to be searched for (needle)
-| `As`		| `size`	| size of the object `b` in bytes
+| `As`		| `sb`		| size of the object `b` in bytes
 | `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
 |===
 
@@ -334,13 +334,13 @@ EXTERN void* _asa(const char* const restrict a, As s, const char* b, As b, const
 
 *Description*
 
-Checks for an occurrence of object `b` in object `a`
+Checks for an occurrence of object `b` in object `a`.
 
 Special cases:
 
 - If `a` is NULL or `sa` is 0, returns immediately as if no occurrences were found, also sends WL_ERRNUL.
 
-- If `b` is NULL or `sb` is 0, returns immediately as if no occurrences were found, however, with `AS_NEGATIVE` the count of occurrences will be equal to `PTX`, the last occurrence will be the end of object `a` and the first occurrence at its base; also sends WL_ERRNUL
+- If `b` is NULL or `sb` is 0, returns immediately as if no occurrences were found, however, with `AS_NEGATIVE` the count of occurrences will be equal to `PTX`, the last occurrence will be the end of object `a` and the first occurrence at its base; also sends WL_ERRNUL.
 
 Flags for tweaking the search target:
 
@@ -370,10 +370,10 @@ Default flags are: `AS_FR` and `AS_PT`.
 *Synopsis*:
 ```c
 #define arb(a,sa,b,c,flag) ((a) = _arb((char*)(a),(sa),(b),(c),(flag)))
-EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
+EXTERN char* _arb(const char* restrict const a, const As sa, const char b, const char c, const _Asf flag)
 ```
 
-*Name*: `arb` -- Array Replace Byte
+*Name*: `arb` -- Array Replace Byte.
 
 *Parameters*
 
@@ -388,7 +388,7 @@ EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
 
 `a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
 
-*Returns*: `char*` -- pointer to the modified object `a`
+*Returns*: `char*` -- pointer to the modified object `a`.
 
 *Description*:
 
@@ -400,7 +400,7 @@ Special cases:
 
 Flags for tweaking the search target:
 
-- If `AR_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`
+- If `AR_NG` or `AS_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`.
 
 Flags for tweaking the return value:
 
@@ -408,39 +408,44 @@ Flags for tweaking the return value:
 
 - if `AR_LS` or `AR_LAST` flag is set, only replaces the last occurrence;
 
-- If `AR_ALL` flag is set, every occurrence will be replaced;
+- If `AR_ALL` flag is set, every occurrence will be replaced.
 
 Default flags are: `AR_ALL`.
 
 ==== 5.3.4. `ara` -- Array Replace Array
 
-`arb` is a data modification utility that replaces the first, the last or all occurrences of object `b` with object `c` in object `a`.
+`ara` is a data modification utility that replaces the first, the last or all occurrences of object `b` with object `c` in object `a`.
 
 *Synopsis*:
 ```c
-#define arb(a,sa,b,c,flag) ((a) = _arb((char*)(a),(sa),(b),(c),(flag)))
-EXTERN char* _arb(char* a, As sa, const char b, const char c, const _Asf flag)
+#define ara(a,sa,b,sb,c,sc,flag) ((a) = _ara((char*)(a),(sa),(char*)(b),(sb),(char*)(c),(sc),(flag)))
+EXTERN char* _ara(
+	char*						a,	const As sa, 
+	const char* restrict const	b,	const As sb,
+	const char* restrict const	c,	const As sc,
+	const _Asf					flag
+)
 ```
 
-*Name*: `arb` -- Array Replace Byte
+*Name*: `arb` -- Array Replace Byte.
 
 *Parameters*
 
 [%autowidth]
 |===
-|           | `a` 		| pointer to the object which will be searched (haystack)
-| `As`		| `sa`		| size of the object `a` in bytes
-|			| `b`		| byte value to be searched for (needle)
-| `As`		| `sb`		| size of the object `b` in bytes
-|			| `c`		| byte value to replace to (replacement)
-| `As`		| `sc`		| size of the object `c` in bytes
-| `_Arf`	| `flag`	| appropriate Search or Replace Flags ORed togethers
+|           	| `a` 		| pointer to the object which will be searched (haystack)
+| `const As`	| `sa`		| size of the object `a` in bytes
+|				| `b`		| byte value to be searched for (needle)
+| `const As`	| `sb`		| size of the object `b` in bytes
+| 				| `c`		| byte value to replace to (replacement)
+| `const As`	| `sc`		| size of the object `c` in bytes
+| `const _Arf`	| `flag`	| appropriate Search or Replace Flags ORed togethers
 |===
 
 `a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
 `b` and `c` should be of any integer or pointer type.
 
-*Returns*: `char*` -- pointer to the modified object `a`
+*Returns*: `char*` -- pointer to the modified object `a`.
 
 *Description*:
 
@@ -456,7 +461,7 @@ Flags for tweaking the search target:
 
 - If `AR_AC` or `AR_ANYCHAR` flag is set, instead of looking for the occurrence of object `b`, the algorithm will look for the occurrence of any byte in the object `b` and replaces it with respective byte from the object `c`. If there is no respective byte in the object `c` due to size of the object `c` being less than of the object `b`, those bytes will cut, replaced with nothing.
 
-- If `AR_NG` or `AR_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`. With `AR_AC` or `AR_ANYCHAR` flag, the algorithm will look for the occurrence of any byte values that object `b` is not comprised of and replace it with the entire object `c`
+- If `AR_NG` or `AR_NEGATIVE` flag is set, the algorithm will look for the absence of occurrence of byte `b`, and if found, will replace those byte with `c`. With `AR_AC` or `AR_ANYCHAR` flag, the algorithm will look for the occurrence of any byte values that object `b` is not comprised of and replace it with the entire object `c`.
 
 Flags for tweaking the return value:
 
@@ -475,12 +480,31 @@ This type is merely used for the parameter ``
 ==== 5.4.2. _Asf -- Array Search Flags
 ==== 5.4.3. _Arf -- Array Replace Flags
 ==== 5.4.4. _afa -- Array Function Assignment
-`_afa` is an auxillary function that performs a selected operation on one or two objects and assigns the result to a specified pointer.
+`_afa` is an auxiliary function that performs a selected operation on one or two objects and assigns the result to a specified pointer.
 
 *Synopsis*:
 ```c
-char* _afa(const char* r, char* const a, char* const b)
+EXTERN char* _afa(char* r, const char* restrict const a, const char* restrict const b, const As size, const _Af func);
 ```
+
+*Name*: `_afa` -- Array Function Assign.
+
+*Parameters*:
+[%autowidth]
+|===
+| `char*`						| `r`		| Pointer for the result object
+| `const char* restrict const`	| `a`		| Pointer to the first operand
+| `const char* restrict const`	| `b`		| Pointer to the second operand
+| `const As`					| `size`	| The length of operands
+| `const _Af`					| `func`	| Bitwise function
+|===
+
+*Returns*: pointer to the object where the result of the operation is stored.
+
+*Description*:
+
+Performs a bitwise operation specified by `func` to objects `a` and `b`, with the result being stored in `r`
+
 
 
 ==== 5.4.5. _afb -- Array Function Boolean
