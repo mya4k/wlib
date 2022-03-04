@@ -476,7 +476,46 @@ Default flag is `AR_ALL`.
 
 === 5.4. Other Identifiers
 ==== 5.4.1. _Af -- Array Function
-This type is merely used for the parameter `` 
+`_Af` is type and an enumerator type. The type is only used in the declarations of `_afa` and `_afb` as the type of parameter `func`. The emumerator type holds enumerator constants that can be passed in `func`, each representing a boolean function.
+
+*Synopsis*:
+```c
+typedef char _Af;
+typedef enum _Af {
+	_AF_NO = 0,
+	_AF_AN = 1,
+	_AF_OR = 2,
+	_AF_XR = 3,
+	_AF_NR = 4,
+	_AF_NN = 5,
+	_AF_NR = 6,
+	_AF_NX = 7
+};
+```
+
+*Name*: `_Af` -- Array Function
+
+*Description*:
+
+The `_Af` type should large enough to the range of values of `_Af`'s constants.
+
+`_AF_NO` performs no operation;
+
+`_AF_AN` performs AND (conjunction);
+
+`_AF_OR` performs OR (disjunction);
+
+`_AF_XR` performs XOR (exclusive disjunction);
+
+`_AF_NR` performs NOT (inversion) only on `a`, `b` is ignored;
+
+`_AF_NN` performs NAND (inverted conjunction);
+
+`_AF_NR` performs NOR (inverted disjunction);
+
+`_AF_NX` performs NXOR (inverted exclsive disjunction);
+
+ 
 ==== 5.4.2. _Asf -- Array Search Flags
 ==== 5.4.3. _Arf -- Array Replace Flags
 ==== 5.4.4. _afa -- Array Function Assignment
