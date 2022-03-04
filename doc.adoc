@@ -5,7 +5,7 @@ Macros and macro functions: `ABC`
 Types: `Abc`
 Functions, variables, parameters: `abc`
 Auxiliary: `_abc`
-Child indentifier: `abc_`
+Child identifier: `abc_`
 
 
 == 1. System information
@@ -513,7 +513,7 @@ The `_Af` type should large enough to the range of values of `_Af`'s constants.
 
 `_AF_NR` performs NOR (inverted disjunction);
 
-`_AF_NX` performs NXOR (inverted exclsive disjunction);
+`_AF_NX` performs NXOR (inverted exclsive disjunction).
 
  
 ==== 5.4.2. _Asf -- Array Search Flags
@@ -542,10 +542,36 @@ EXTERN char* _afa(char* r, const char* restrict const a, const char* restrict co
 
 *Description*:
 
-Performs a bitwise operation specified by `func` to objects `a` and `b`, with the result being stored in `r`
-
+Performs a bitwise operation specified by `func` to objects `a` and `b`, with the result being stored in `r`.
 
 
 ==== 5.4.5. _afb -- Array Function Boolean
+`_afb` is an auxiliary function that performs a selected operation on one or two objects and returns whether that operation is true or false.
+
+*Synopsis*:
+```c
+EXTERN Bl _afb(const char* restrict const a, const char* restrict const b, const As size, const _Af func);
+```
+
+*Name*: `_afb` -- Array Function Boolean.
+
+*Parameters*:
+[%autowidth]
+|===
+| `const char* restrict const`	| `a`		| Pointer to the first operand
+| `const char* restrict const`	| `b`		| Pointer to the second operand
+| `const As`					| `size`	| The length of operands
+| `const _Af`					| `func`	| Boolean function
+|===
+
+*Returns*: _true_ or _false_
+
+*Description*:
+
+For `func==_AF_NO` returns value of `a` cast to `Bl` (by other words, returns true if the object holds a non-zero value).
+For `func==_AF_NT` return value of `a` logically negated (by other words, return true if the object holds the value of zero).
+For other values of `func`, both objects are cast to `Bl` and the respective logical operation is performed on them.
+
+
 == 6. String utilities
 == 7. Configuration
