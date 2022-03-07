@@ -272,7 +272,7 @@ EXTERN Pt _asb(const char* const restrict a, As s, const char b, const _Asf flag
 |			| `a` 		| pointer to the object which will be searched (haystack)
 | `As`		| `size`	| size of the object in bytes
 | `char`	| `b`		| byte value to be searched for (needle)
-| `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
+| `_Asf`	| `flag`	| appropriate Search Flags ORed together
 |===
 
 `a` should be of any integer or pointer type.
@@ -325,7 +325,7 @@ EXTERN void* _asa(const char* const restrict a, const As sa, const char* restric
 | `As`		| `sa`		| size of the object `a` in bytes
 |			| `b`		| pointer to the object to be searched for (needle)
 | `As`		| `sb`		| size of the object `b` in bytes
-| `_Asf`	| `flag`	| appropriate Search Flags ORed togethers
+| `_Asf`	| `flag`	| appropriate Search Flags ORed together
 |===
 
 `a` and `b` should be of any integer or pointer type.
@@ -383,7 +383,7 @@ EXTERN char* _arb(const char* restrict const a, const As sa, const char b, const
 | `As`		| `size`	| size of the object in bytes
 | `char`	| `b`		| byte value to be searched for (needle)
 | `char`	| `c`		| byte value to replace to (replacement)
-| `_Arf`	| `flag`	| appropriate Search or Replace Flags ORed togethers
+| `_Arf`	| `flag`	| appropriate Search or Replace Flags ORed together
 |===
 
 `a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
@@ -439,7 +439,7 @@ EXTERN char* _ara(
 | `const As`	| `sb`		| size of the object `b` in bytes
 | 				| `c`		| byte value to replace to (replacement)
 | `const As`	| `sc`		| size of the object `c` in bytes
-| `const _Arf`	| `flag`	| appropriate Search or Replace Flags ORed togethers
+| `const _Arf`	| `flag`	| appropriate Search or Replace Flags ORed together
 |===
 
 `a` should be of any non-constant integer or pointer type and its object should be of non-const type, because it is a subject to modification and reallocation.
@@ -469,14 +469,14 @@ Flags for tweaking the return value:
 
 - if `AR_LS` or `AR_LAST` flag is set, only replaces the last occurrence;
 
-- If `AR_ALL` flag is set, every occurrence will be replaced.
+- If `AR_AL` or `AR_ALL` flag is set, every occurrence will be replaced.
 
 Default flag is `AR_ALL`.
 
 
 === 5.4. Other Identifiers
 ==== 5.4.1. _Af -- Array Function
-`_Af` is type and an enumerator type. The type is only used in the declarations of `_afa` and `_afb` as the type of parameter `func`. The emumerator type holds enumerator constants that can be passed in `func`, each representing a boolean function.
+`_Af` is type and an enumerator type. The type is only used in the declarations of `_afa` and `_afb` as the type of parameter `func`. The enumerator type holds enumerator constants that can be passed in `func`, each representing a boolean function.
 
 *Synopsis*:
 ```c
@@ -497,27 +497,146 @@ typedef enum _Af {
 
 *Description*:
 
-The `_Af` type should large enough to the range of values of `_Af`'s constants.
+The `_Af` type should large enough to hold the range of values of `_Af`'s constants.
 
-`_AF_NO` performs no operation;
+`_Af` contains next constants:
 
-`_AF_AN` performs AND (conjunction);
+- `_AF_NO` performs no operation;
 
-`_AF_OR` performs OR (disjunction);
+- `_AF_AN` performs AND (conjunction);
 
-`_AF_XR` performs XOR (exclusive disjunction);
+- `_AF_OR` performs OR (disjunction);
 
-`_AF_NR` performs NOT (inversion) only on `a`, `b` is ignored;
+- `_AF_XR` performs XOR (exclusive disjunction);
 
-`_AF_NN` performs NAND (inverted conjunction);
+- `_AF_NR` performs NOT (inversion) only on `a`, `b` is ignored;
 
-`_AF_NR` performs NOR (inverted disjunction);
+- `_AF_NN` performs NAND (inverted conjunction);
 
-`_AF_NX` performs NXOR (inverted exclsive disjunction).
+- `_AF_NR` performs NOR (inverted disjunction);
+
+- `_AF_NX` performs NXOR (inverted exclusive disjunction).
 
  
 ==== 5.4.2. _Asf -- Array Search Flags
+`_Asf` is type and an enumerator type. The type is only used in the declarations of `asb` and `asa` as the type of parameter `flags`. The enumerator type holds enumerator constants that can be passed in `flags`, each signalling the way objects will be search and the return value.
+
+*Synopsis*:
+```c
+typedef unsigned char _Asf;
+enum _Asf {
+	_AS_FR = 0,
+	_AS_PT = 0,
+	_AS_LS = 1,
+	_AS_OF = 2,
+	_AS_CO = 4,
+	_AS_NG = 8
+	_AS_FIRST = 0,
+	_AS_POINTER = 0,
+	_AS_LAST = 1,
+	_AS_OFFSET = 2,
+	_AS_COUNT = 4,
+	_AS_NEGATIVE = 8
+
+};
+```
+
+*Name*:
+
+`_Asf` -- Array Search Flags.
+
+*Description*:
+
+The `_Asf` type should large enough to hold the range of values of `_Asf`'s constants.
+
+`_Asf` contains next constants:
+
+- `_AS_FR` signals to search for the first needle (default);
+
+- `_AS_PT` signals to return the pointer to the needle (default);
+
+- `_AS_LS` signals to search for the last needle;
+
+- `_AS_OF` signals to return the offset from the haystack pointer;
+
+- `_AS_CO` signals to return the count of occurrences;
+
+- `_AS_NG` signals to search for the absence of needle;
+
+For more information for these flags, see the functions that accept them.
+
+Aliases:
+
+- `_AS_FIRST` = `_AS_FR`; 
+
+- `_AS_POINTER` = `_AS_PT`;
+
+- `_AS_LAST` = `_AS_LS`;
+
+- `_AS_OFFSET` = `_AS_OF`;
+
+- `_AS_COUNT` = `_AS_CO`;
+
+- `_AS_NEGATIVE` = `_AS_NG`;
+
+
 ==== 5.4.3. _Arf -- Array Replace Flags
+`_Arf` is type and an enumerator type. The type is only used in the declarations of `arb` and `ara` as the type of parameter `flags`. The enumerator type holds enumerator constants that can be passed in `flags`, each signalling the way objects will be search and the return value.
+
+*Synopsis*:
+```c
+
+typedef unsigned char _Arf;
+enum _Arf {
+	_AR_FR = 0,
+	_AR_LS = 1,
+	_AR_AC = 2,
+	_AR_AL = 4,
+	_AR_FR = 0,
+	_AR_NG = 8
+	_AR_FIRST = 0,
+	_AR_LAST = 1,
+	_AR_ANYCHAR = 2,
+	_AR_ALL = 4,
+	_AR_NEGATIVE = 8
+
+};
+```
+
+*Name*:
+
+`_Arf` -- Array Search Flags.
+
+*Description*:
+
+The `_Arf` type should large enough to hold the range of values of `_Arf`'s constants.
+
+`_Arf` contains next constants:
+
+- `_AR_FR` signals to search for the first needle;
+
+- `_AR_LS` signals to search for the last needle;
+
+- `_AR_AL` signals to return the count of occurrences (default);
+
+- `_AR_NG` signals to search for the absence of needle;
+
+_ `_AR_AC` signals to search for the occurrence of any needle byte;
+
+For more information for these flags, see the functions that accept them.
+
+Aliases:
+
+- `_AR_FIRST` = `_AR_FR`; 
+
+- `_AR_LAST` = `_AR_LS`;
+
+- `_AR_ALL` = `_AR_AL`;
+
+- `_AR_NEGATIVE` = `_AR_NG`;
+
+- `_AR_ANYCHAR` = `_AR_AC`;
+
 ==== 5.4.4. _afa -- Array Function Assignment
 `_afa` is an auxiliary function that performs a selected operation on one or two objects and assigns the result to a specified pointer.
 
