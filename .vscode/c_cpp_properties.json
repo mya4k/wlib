@@ -4,6 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${default}",
+                "${workspaceFolder}/inc",
                 "inc"
             ],
             "compilerPath": "/usr/bin/gcc",
