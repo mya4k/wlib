@@ -41,6 +41,14 @@
 #	endif
 #endif
 
+#if !defined(WL_LG_CPP) && WL_LG_CPP >= WL_VR_CPP11
+#	define WL_CPP_ATTR	1
+#endif
+
+#if !defined(WL_LG_C) && WL_LG_C >= WL_VR_C23
+#	define WL_C_ATTR	1
+#endif
+
 /* "WLib" only supports:
 	* C language with ISO/IEC 9899 (ISO C) or ANSI C standard
 	* C++ language with ISO/IEC 14882 (ISO C++) standard
