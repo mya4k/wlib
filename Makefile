@@ -1,5 +1,5 @@
 cc = /bin/gcc
-flags = -Wall -Wextra -Wpedantic -Iinc
+flags = -Wall -Wextra -Iinc
 clang = /bin/clang $(flags) -c $(F) -o /dev/null
 gcc = /bin/gcc $(flags) -c $(F) -o /dev/null
 
