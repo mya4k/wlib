@@ -1,4 +1,10 @@
+[[toc]]
+
 = WLib Documentation
+
+This AsciiDoc document is the official documentation, or developers' manual, for the WLib library. The documentation provides information on identifiers defined by library header and source files, as well as serves to regulate the way the WLib library is implemented. It is divided into chapters for each the library module, the chapters are further divided into sections.
+
+The information provided by the documentation should be represented by the implementation (declarations and definitions of identifiers) of this library. An implementation may deviate from the information, provided by the documentation, if it achieves some form optimization or additional compatibility with external libraries or compliance with standards; regardless, the documentation should be updated.
 
 === Naming policy
 Macros and macro functions: `ABC`
@@ -6,6 +12,7 @@ Types: `Abc`
 Functions, variables, parameters: `abc`
 Auxiliary: `_abc`
 Child identifier: `abc_`
+
 
 
 == 1. System information
@@ -260,7 +267,7 @@ Array bitwise arithmetic operation functions are macro function that perform the
 *Synopsis*:
 ```c
 #define asb(a,s,b,flags)	_asb((char*)(a),(s),(b),(flags))
-EXTERN Pt _asb(const char* const restrict a, As s, const char b, const _Asf flags);
+EXTERN Pt _asb(const char* const restrict a, const As s, const char b, const _Asf flags);
 ```
 
 *Name*: `asb` -- Array Search Byte
@@ -312,7 +319,7 @@ Default flags are: `AS_FR` and `AS_PT`.
 *Synopsis*:
 ```c
 #define asa(a,sa,b,sb,flags)	_asa((char*)(a),(sa),(char*)(b),(sb),(flags))
-EXTERN void* _asa(const char* const restrict a, const As sa, const char* restrict b, const As sb, const _Asf flags);
+EXTERN Pt _asa(const char* const restrict a, const As sa, const char* restrict b, const As sb, const _Asf flags);
 ```
 
 *Name*: `asa` -- Array Search Array.
@@ -419,6 +426,8 @@ Default flags are: `AR_ALL`.
 *Synopsis*:
 ```c
 #define ara(a,sa,b,sb,c,sc,flag) ((a) = _ara((char*)(a),(sa),(char*)(b),(sb),(char*)(c),(sc),(flag)))
+#define rep		ara
+#define replace ara
 EXTERN char* _ara(
 	char*						a,	const As sa, 
 	const char* restrict const	b,	const As sb,
@@ -642,7 +651,7 @@ Aliases:
 
 *Synopsis*:
 ```c
-EXTERN char* _afa(char* r, const char* restrict const a, const char* restrict const b, const As size, const _Af func);
+EXTERN char* _afa(char* r, const char* a, const char* b, As size, const _Af func);
 ```
 
 *Name*: `_afa` -- Array Function Assign.
@@ -650,11 +659,11 @@ EXTERN char* _afa(char* r, const char* restrict const a, const char* restrict co
 *Parameters*:
 [%autowidth]
 |===
-| `char*`						| `r`		| Pointer for the result object
-| `const char* restrict const`	| `a`		| Pointer to the first operand
-| `const char* restrict const`	| `b`		| Pointer to the second operand
-| `const As`					| `size`	| The length of operands
-| `const _Af`					| `func`	| Bitwise function
+| `char*`		| `r`		| Pointer for the result object
+| `const char*`	| `a`		| Pointer to the first operand
+| `const char*`	| `b`		| Pointer to the second operand
+| `As`			| `size`	| The length of operands
+| `const _Af`	| `func`	| Bitwise function
 |===
 
 *Returns*: pointer to the object where the result of the operation is stored.
@@ -687,10 +696,38 @@ EXTERN Bl _afb(const char* restrict const a, const char* restrict const b, const
 
 *Description*:
 
-For `func==_AF_NO` returns value of `a` cast to `Bl` (by other words, returns true if the object holds a non-zero value).
-For `func==_AF_NT` return value of `a` logically negated (by other words, return true if the object holds the value of zero).
+For `func == _AF_NO` returns value of `a` cast to `Bl` (by other words, returns true if the object holds a non-zero value).
+
+For `func == _AF_NT` return value of `a` logically negated (by other words, return true if the object holds the value of zero).
+
 For other values of `func`, both objects are cast to `Bl` and the respective logical operation is performed on them.
+
+Special cases:
+
+If `a == NULL`, the function fails, returns a value with all bits set to 1, also throws `ERNULL` error.
+
+If `b == NULL` and `func` does not equal `_AF_NO`|`_AF_NT`, the function fails, returns a value with all bits set to 1, also throws `ERNULL` error.
+
+If a value that is not a enum constant of `_Af` passed to `func`, the function fails, returns a value with all bits set to 1, also throws `ERNULL` error.
 
 
 == 6. String utilities
-== 7. Configuration
+== 7. Error handling
+=== 7.1. Runtime errors
+==== 7.1.1. `ERZERO` (W01) -- Zero parameter
+This error is supposed to be raised when a function, with error handling support, has the value of zero passed to one of its scalar parameters, which only accept non-zero values. Error ID: `01`
+
+==== 7.1.2. `ERNULL` (W02) -- Null parameter
+This error is supposed to be raised when a function, with error handling support, has the value of null passed to one of its pointer-type parameters, which only accept non-null values. Error ID: `02`
+
+==== 7.1.3. `EROUT` (W03) -- Out of range
+This error is supposed to be raised when a function, with error handling support, has the value, that does not belong to the accepted range of values, passed to one of its parameters. Error ID: `03`
+
+=== 7.2. Runtime warnings
+==== 7.2.1. `WRZERO` (W01) -- Zero parameter
+This warning is supposed to be raised by a function, with error handling support, to inform the user that value of zero that has been passed to a scalar parameter has a special purpose and may cause an unexpected outcome. Warning ID: `01`
+
+==== 7.2.2. `WRNULL` (W02) -- Null parameter
+This warning is supposed to be raised by a function, with error handling support, to inform the user that value of null that has been passed to a pointer parameter has a special purpose and may cause an unexpected outcome. Warning ID: `02`
+
+== 8. Configuration
