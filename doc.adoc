@@ -4,14 +4,40 @@
 :hardbreaks-option:
 
 == 0. Introduction
-This document is the official documentation, or developers' manual, for the WLib library. The documentation provides information on identifiers defined by library header and source files, as well as serves to regulate the way the WLib library is implemented. It is divided into chapters for each the library module, the chapters are further divided into sections.
+// About, composition, and abstraction
+This document is the official documentation, or developers' manual, for the WLib library. The documentation provides information on identifiers defined by library header and source files, as well as serves to regulate the way the WLib library is implemented. It is divided into chapters for each the library module, the chapters are further divided into sections. **All identifier names in this documentation are mentioned without the prefix.**
 
-The information provided by the documentation should be represented by the implementation (declarations and definitions of identifiers) of this library. An implementation may deviate from the information, provided by the documentation, if it achieves some form optimization or additional compatibility with external libraries or compliance with standards; regardless, the documentation should be updated.
+// Parity
+The information provided by the documentation should be represented by the implementation (declarations and definitions of identifiers) of this library. The implementation may deviate from the information, provided by the documentation, if it achieves some form optimization or additional compatibility with external libraries or compliance with standards; regardless, the documentation should be updated.
+
+// Formatting
+- Identifiers are formatted in monospace (`LikeThis`).
+- When files or directories are mentioned, they are formatted in monospace, encapsuled within inequality signs (`<file.h>`). If a directory is at the end of the path, a slash is appended (`<dir/>`).
 
 === Definitions
-_Module_ -- a conceptually divided part of the library containing identifiers, usually comprised of a header file with pre-processor, type, enumerator type, enumerated constant, struct definitions and external variable, function declarations. External functions and variables are defined in source files inside folders dedicated for a module. Modules are usually built either into their separate library file or several modules are built into one library file
+_Function_, as a WLib identifier, refers to both functions and function-like macros.
 
-== 1. System information
+_Identifier_ -- an undelimited sequence of bytes that has a declaration in a source or header file.
+
+_Macro_ is the same thing as preprocessor definition.
+
+_Object-like macro_ are macros that replace the name of the identifier with it's definition.
+
+_Function-like macro_ are macros that do the same thing as object-like macro but also replace the name of parameters in the definition with the identifier passed to those parameters.
+
+_Module_ -- a conceptually divided part of the library containing identifiers, usually comprised of a header file with pre-processor, type, enumerator type, enumerated constant, struct definitions and external variable, function declarations. External functions and variables are defined in source files inside folders dedicated for a module. Modules are usually built either into their separate library file or several modules are built into one library file.
+
+_Type_, as a WLib identifier, -- an identifier that is an alias to a type, as a rule, declared through a `typedef` declaration. Usually, types first letter, excluding the identifier prefix, (`Type` or `__Type` or `_wl_Type`).
+
+_Object_, as a WLib identifier, -- any identifier that is or an alias to a declared object. Usually, types start with a lowercase letter (`object`, or ).
+
+Identifier _prefix_ is the prefix that is applied to an identifier. Default prefix is `wl_` (`WL_` for macros). All identifiers are prefixed (auxiliary identifies may not be prefixed), however each identifier also has an alias without the prefix, unless configured otherwise. If there are libraries that a developer uses, which has a identifier with the same name as a WLib's identifiers, developers can configure to undefine unprefixed aliases, and use all WLib identifiers with the prefix.
+
+
+
+
+== 1. System Information `<sys/>`
+The System Information Module consists of several headers: `<arch.h>`
 === 1.1. Architectures
 === 1.2. Operating Systems
 === 1.3. Data models
