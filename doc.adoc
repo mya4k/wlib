@@ -1,19 +1,15 @@
 [[toc]]
 
 = WLib Documentation
+:hardbreaks-option:
 
-This AsciiDoc document is the official documentation, or developers' manual, for the WLib library. The documentation provides information on identifiers defined by library header and source files, as well as serves to regulate the way the WLib library is implemented. It is divided into chapters for each the library module, the chapters are further divided into sections.
+== 0. Introduction
+This document is the official documentation, or developers' manual, for the WLib library. The documentation provides information on identifiers defined by library header and source files, as well as serves to regulate the way the WLib library is implemented. It is divided into chapters for each the library module, the chapters are further divided into sections.
 
 The information provided by the documentation should be represented by the implementation (declarations and definitions of identifiers) of this library. An implementation may deviate from the information, provided by the documentation, if it achieves some form optimization or additional compatibility with external libraries or compliance with standards; regardless, the documentation should be updated.
 
-=== Naming policy
-Macros and macro functions: `ABC`
-Types: `Abc`
-Functions, variables, parameters: `abc`
-Auxiliary: `_abc`
-Child identifier: `abc_`
-
-
+=== Definitions
+_Module_ -- a conceptually divided part of the library containing identifiers, usually comprised of a header file with pre-processor, type, enumerator type, enumerated constant, struct definitions and external variable, function declarations. External functions and variables are defined in source files inside folders dedicated for a module. Modules are usually built either into their separate library file or several modules are built into one library file
 
 == 1. System information
 === 1.1. Architectures
