@@ -695,6 +695,12 @@ EXTERN char* _afa(char* r, const char* a, const char* b, As size, const _Af func
 
 Performs a bitwise operation specified by `func` to objects `a` and `b`, with the result being stored in `r`.
 
+Special cases:
+If `r == NULL`, a memory segment of size `size` is allocated, the pointer to the segment is stored in `r`, also `WRNULL` is raised.
+If `a == NULL`, the function fails, returns a value with all bits set to 1, also throws `ERNULL` error.
+If `b == NULL` and `func` does not equal `_AF_NO`|`_AF_NT`, the function fails, returns a value with all bits set to 1, also throws `ERNULL` error.
+If a value that is not a enum constant of `_Af` passed to `func`, the function fails, returns a value with all bits set to 1, also throws `ERNULL` error.
+ 
 
 ==== 5.4.5. _afb -- Array Function Boolean
 `_afb` is an auxiliary function that performs a selected operation on one or two objects and returns whether that operation is true or false.
