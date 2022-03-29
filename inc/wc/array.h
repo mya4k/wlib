@@ -87,6 +87,7 @@
 	#define asaac				wl_asaac
 	#define asanc				wl_asanc
 	#define asa9nc				wl_asa9nc
+	#define As					wl_As
 	#define _Af					wl__Af
 	#define Asf					wl_Asf
 	#define Arf					wl_Arf
@@ -202,16 +203,16 @@
 #define wl_arbnc(a,s,b)		wl_arb(a,s,b,AR_FR|AR_NG|AR_AC)	/* Anychar Negative First */
 #define wl_arb9nc(a,s,b)	wl_arb(a,s,b,AR_LS|AR_NG|AR_AC)	/* Anychar Negative Last */
 
-#define wl_asa1(a,s,b)		wl_asa(a,s,b,AR_FR)				/* First */
-#define wl_asa9(a,s,b)		wl_asa(a,s,b,AR_LS)				/* Last */
-#define wl_asaa(a,s,b)		wl_asa(a,s,b,AR_AL)				/* All */
-#define wl_asan(a,s,b)		wl_asa(a,s,b,AR_FR|AR_NG)		/* Negative First */
-#define wl_asa9n(a,s,b)		wl_asa(a,s,b,AR_LS|AR_NG)		/* Negative Last */
-#define wl_asa1c(a,s,b)		wl_asa(a,s,b,AR_FR|AR_AC)		/* Anychar First */
-#define wl_asa9c(a,s,b)		wl_asa(a,s,b,AR_LS|AR_AC)		/* Anychar Last */
-#define wl_asaac(a,s,b)		wl_asa(a,s,b,AR_AL|AR_AC)		/* Anychar All */
-#define wl_asanc(a,s,b)		wl_asa(a,s,b,AR_FR|AR_NG|AR_AC)	/* Anychar Negative First */
-#define wl_asa9nc(a,s,b)	wl_asa(a,s,b,AR_LS|AR_NG|AR_AC)	/* Anychar Negative Last */
+#define wl_ara1(a,s,b)		wl_asa(a,s,b,AR_FR)				/* First */
+#define wl_ara9(a,s,b)		wl_asa(a,s,b,AR_LS)				/* Last */
+#define wl_araa(a,s,b)		wl_asa(a,s,b,AR_AL)				/* All */
+#define wl_aran(a,s,b)		wl_asa(a,s,b,AR_FR|AR_NG)		/* Negative First */
+#define wl_ara9n(a,s,b)		wl_asa(a,s,b,AR_LS|AR_NG)		/* Negative Last */
+#define wl_ara1c(a,s,b)		wl_asa(a,s,b,AR_FR|AR_AC)		/* Anychar First */
+#define wl_ara9c(a,s,b)		wl_asa(a,s,b,AR_LS|AR_AC)		/* Anychar Last */
+#define wl_araac(a,s,b)		wl_asa(a,s,b,AR_AL|AR_AC)		/* Anychar All */
+#define wl_aranc(a,s,b)		wl_asa(a,s,b,AR_FR|AR_NG|AR_AC)	/* Anychar Negative First */
+#define wl_ara9nc(a,s,b)	wl_asa(a,s,b,AR_LS|AR_NG|AR_AC)	/* Anychar Negative Last */
 
 
 
@@ -290,22 +291,16 @@ EXTERN char* wl__arb(
 	const char b, 
 	const char c, 
 	const wl__Asf flag
-);
+) nodiscard;
 /* 5.3.4. `ara` -- Array Replace Array */
 EXTERN char* wl__ara(
 	char*						a,	const wl_As sa, 
 	const char* restrict const	b,	const wl_As sb,
 	const char* restrict const	c,	const wl_As sc,
 	const wl__Asf				flag
-);
+) nodiscard;
 /* 5.4.4. `_afa` -- Array Function Assignment */
-EXTERN char* wl__afa(
-	char* r, 
-	const char* restrict const a, 
-	const char* restrict const b, 
-	const wl_As size, 
-	const wl__Af func
-);
+EXTERN char* wl__afa(char* r, const char* a, const char* b, wl_As size, const wl__Af func) nonnull(2) returns_nonnull;
 /* 5.4.5. `_afb` -- Array Function Boolean */
 EXTERN wl_Bl wl__afb(
 	const char* restrict const a, 
