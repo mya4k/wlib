@@ -68,15 +68,8 @@
  * Array utility function that performs bitwise logic.
  */
 char* _afa(char* r, const char* a, const char* b, As size, const _Af func) {
-
-	/* Allocate null result pointer */
-	if (unlikely(r)) {
-		r = mal(size);
-		wrn(_afa, WRNULL);
-	}
-
-	/* Proceed if a isn't null */
-	if (likely(a)) {
+	/* Proceed if `a` isn't null and `size` is specified */
+	if (likely(a && size)) {
 #		if WL_OPTIMIZE_MEMORY
 			/* Pointers are at least 32-bits (usually 64), `As` is 16-bit. 
 			 * Preserving `size` requires less memory but the base of the
@@ -95,6 +88,12 @@ char* _afa(char* r, const char* a, const char* b, As size, const _Af func) {
 			char* restrict const _r = r;
 #endif
 
+		/* Allocate null result pointer */
+		if (unlikely(r)) {
+			r = mal(size);
+			wrn(_afa, WRNULL);
+		}
+
 		/* First, check for _AF_NO */
 		if (func==_AF_NO) _AFA1(A)
 		/* Second, check for _AF_NT */
@@ -112,6 +111,10 @@ char* _afa(char* r, const char* a, const char* b, As size, const _Af func) {
 		}
 	}
 	
-	err(afa, WRNULL);
+	/* Only try to figure out the cause for failure, if error checking is on */
+#	if WL_ERROR
+		if (size)	err(afa, ERNULL);
+		else		err(afa, ERZERO);
+#	endif
 	return NULL;
 }
