@@ -76,7 +76,7 @@ char* _afa(char* r, const char* a, const char* b, As size, const _Af func) {
 			 * object will have to be computed, hence the drop in speed of
 			 * execution
 			 */
-			As _size = size;
+			const As _size = size;
 			/* First, get to the end of the object `r` using the remainder of
 			 * `size`, then subtract `_size` to get to the base pointer
 			 */
@@ -85,14 +85,18 @@ char* _afa(char* r, const char* a, const char* b, As size, const _Af func) {
 			/* Preserve `r`, as the pointer to the base of the object is 
 			 * required for the return statement
 			 */
-			char* restrict const _r = r;
-#endif
+			char* _r;
+#		endif
 
 		/* Allocate null result pointer */
 		if (unlikely(r)) {
 			r = mal(size);
 			wrn(_afa, WRNULL);
 		}
+
+#		if !WL_OPTIMIZE_MEMORY
+			_r = r;
+#		endif
 
 		/* First, check for _AF_NO */
 		if (func==_AF_NO) _AFA1(A)
