@@ -35,7 +35,7 @@
 #	endif
 /* End of a set of external definitions */
 #	ifndef C_DECL_END
-#		define C_DECL_END	}
+#		define C_DECL_END
 #	endif
 #	ifndef ENUM
 #		define ENUM(NAME)	enum NAME
