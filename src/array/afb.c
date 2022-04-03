@@ -10,57 +10,43 @@
 
 
 
-/* Abbreviation for `sizeof(UMax)` */
-#define SM	(sizeof(UMax))
-/* Pointer add assignment */
-#define PADA(a,b) (a = (const void*)((Pt)a+(Pt)b))
+Bl _afb(const char* a, const char* b, As size) {
+#	define A (*(UMax*)a)
+#	define B (*(UMax*)b)
 
-#define A	(*((UMax*)a))
-#define B	(*((UMax*)b))
-
-#define AFBTEMP(COND)							\
-	for (; size >= SM; PADA(a,SM), size -= SM)	\
-		if (COND) return func&1;				\
-	if (size<<=3) {								\
-		const UMax m = ((UMax)1<<size) - 1;		\
-		if ((COND)&m) return func&1;			\
-	}
-
-Bl afb(const void* a, const void* b, As size, Bl mode) {
-	/* 1. `a` cannot be NULL and `size` should be > `0`*/
-	if (a&&size) {
-		/* If `mode` is true, the functions return value will be negated */
-
-#		if OPTIMIZE_SIZE != 2
-			/* 2. If b != NULL, then aeq/anq */
-			if (b) {
-				/* XOR each byte of `a` and `b`. If at any point 
-				* the result of XOR is not zero, the strings aren't equal.
-				*/
-				for (; size >= SM; PADA(a,SM), size -= SM)
-					if (A^B) return !mode;
-				if (size<<=3) {
-					const UMax m = ((UMax)1<<size) - 1;
-					if ((A^B)&m) return !mode;
-				}
-				return mode;
+	/* Proceed if `a` isn't null and `size` is specified */
+	if (likely(a && size)) {
+		/* If `b` is non-null, check if `*a` and `*b` are equal */
+		if (unlikely(b)) {
+			/* XOR each byte to check for equality*/
+			while (size >= sizeof(UMax)) {
+				if (unlikely(A^B)) return WL_FALSE;
+				a += sizeof(UMax);
+				b += sizeof(UMax);
+				size -= sizeof(UMax);
 			}
-#		endif
-		
-		/* If any byte of `a` is not zero, the array is true */
-		for (; size >= SM; PADA(a,SM), size -= SM)
-			if (A) return !mode;
-		if (size<<=3) {
-			const UMax m = ((UMax)1<<size) - 1;
-			if (A&m) return !mode;
+			/* `(A^B) & (1<<size)-1` masks `size` left-most bits with 0 */
+			if (size*=8 && (A^B) & ((1<<size)-1)) return WL_TRUE;
+			return WL_FALSE;
 		}
-
-		return mode;
+		/* If `b` is null, just check if `*b` is true */
+		else {
+			/* If any byte of `a` is not zero, the array is true */
+			while (size >= sizeof(UMax)) {
+				if (unlikely(A)) return WL_TRUE;
+				a += sizeof(UMax);
+				size -= sizeof(UMax);
+			}
+			/* `A & (1<<size)-1` masks `size` left-most bits with 0 */
+			if (size*=8 && A & ((1<<size)-1)) return WL_TRUE;
+			return WL_FALSE;
+		}
 	}
-#if WL_ERROR
-	/* Error checkin' */
-	if (size)	err(afb,ERNULL);
-	else		err(afb,ERZERO);
-#endif
-	return FALSE;
+
+	/* Only try to figure out the cause for failure, if error checking is on */
+#	if WL_ERROR
+		if (size)	err(afa, ERNULL);
+		else		err(afa, ERZERO);
+#	endif
+	return -1;
 }

@@ -1,12 +1,19 @@
 cc = /bin/gcc
-flags = -Wall -Wextra -Iinc -c $(F) -o /dev/null
+flags = -Wall -Wextra -Iinc -c $(F) -o /dev/null -include inc/wc/config.h
 clang = /bin/clang $(flags)
-gcc = /bin/gcc $(flags)
+gcc = /bin/gcc $(flags) -fanalyzer -Wanalyzer-too-complex -Wno-analyzer-possible-null-dereference -p
 
 dirobj:
 	mkdir -p obj/
 dirlib:
 	mkdir -p lib/
+
+# Macro dump
+macro:
+	$(cc) -E $(F) -dM -Iinc -std=c90 -Wall -Wextra -pedantic-errors -Wpedantic
+# Check for undefined macros
+undef:
+	$(cc) -c $(F) -Iinc -Wall -Wextra -pedantic-errors -Wpedantic -Wundef
 
 # Compile with Clang (ISO)
 cmpci:
