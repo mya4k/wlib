@@ -14,9 +14,15 @@
 
 
 
-#define R (*(UMax*)r)
-#define A (*(UMax*)a)
-#define B (*(UMax*)b)
+#if !WL__AFA_SIMPLE
+#	define R (*(UMax*)r)
+#	define A (*(UMax*)a)
+#	define B (*(UMax*)b)
+#else
+#	define R *r
+#	define A *a
+#	define B *b
+#endif
 
 
 
@@ -39,26 +45,42 @@
  *	Firstly, assigns in chunks of `sizeof(UMax)`, for the remaining bits uses
  *	`_ASSIGN_SUBWORD()`
  */
-#define _AFA1(EXP) {							\
-	while (size >= sizeof(UMax)) {				\
-		R = (EXP);								\
-		size -= sizeof(UMax);					\
-		r += sizeof(UMax);						\
-		a += sizeof(UMax);						\
-	}											\
-	if (size*=8) _ASSIGN_SUBWORD(R,(EXP),size);	\
-}
+#if !WL__AFA_SIMPLE
+#	define _AFA1(EXP) {							\
+		while (size >= sizeof(UMax)) {				\
+			R = (EXP);								\
+			size -= sizeof(UMax);					\
+			r += sizeof(UMax);						\
+			a += sizeof(UMax);						\
+		}											\
+		if (size*=8) _ASSIGN_SUBWORD(R,(EXP),size);	\
+	}
 
-#define _AFA2(EXP) {							\
-	while (size >= sizeof(UMax)) {				\
-		R = (EXP);								\
-		size -= sizeof(UMax);					\
-		r += sizeof(UMax);						\
-		a += sizeof(UMax);						\
-		b += sizeof(UMax);						\
-	}											\
-	if (size*=8) _ASSIGN_SUBWORD(R,(EXP),size);	\
-}
+#	define _AFA2(EXP) {							\
+		while (size >= sizeof(UMax)) {				\
+			R = (EXP);								\
+			size -= sizeof(UMax);					\
+			r += sizeof(UMax);						\
+			a += sizeof(UMax);						\
+			b += sizeof(UMax);						\
+		}											\
+		if (size*=8) _ASSIGN_SUBWORD(R,(EXP),size);	\
+	}
+#else
+#	define _AFA1(EXP) {
+		while (size) {
+			R = (EXP);
+			size--; r++; a++;
+		}
+	}
+
+#	define _AFA2(EXP) {
+		while (size) {
+			R = (EXP);
+			size--; r++; a++; b++;
+		}
+	}
+#endif
 
 
 
