@@ -41,11 +41,11 @@
 #	endif
 #endif
 
-#if !defined(WL_LG_CPP) && WL_LG_CPP >= WL_VR_CPP11
+#if WL_LG_CPP >= WL_VR_CPP11
 #	define WL_CPP_ATTR	1
 #endif
 
-#if !defined(WL_LG_C) && WL_LG_C >= WL_VR_C23
+#if WL_LG_C >= WL_VR_C23
 #	define WL_C_ATTR	1
 #endif
 
