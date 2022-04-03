@@ -145,14 +145,14 @@
 #define wl_axor		wl_axr
 #define wl_axr(r,a,b,size)	wl__afa((r),(char*)(a),(char*)(b),(size),WL__AF_XR)
 /* 5.2. Boolean logic */
-#define wl_anol(a,s)	wl__afb((char*)(a),WL_NULL,(s),WL__AF_NO)
-#define wl_aorl(a,b,s)	wl__afb((char*)(a),(char*)(b),(s),WL__AF_OR)
-#define wl_aanl(a,b,s)	wl__afb((char*)(a),(char*)(b),(s),WL__AF_AN)
-#define wl_axrl(a,b,s)	wl__afb((char*)(a),(char*)(b),(s),WL__AF_XR)
-#define wl_antl(a,s)	wl__afb((char*)(a),WL_NULL,(s),WL__AF_NT)
-#define wl_anrl(a,b,s)	wl__afb((char*)(a),(char*)(b),(s),WL__AF_NN)
-#define wl_annl(a,b,s)	wl__afb((char*)(a),(char*)(b),(s),WL__AF_NN)
-#define wl_anxl(a,b,s)	wl__afb((char*)(a),(char*)(b),(s),WL__AF_NX)
+#define wl_anol(a,s)	wl__afb((char*)(a),WL_NULL,(s),WL_FALSE)
+#define wl_aorl(a,b,s)	(wl_anol(a,s)|wl_anol(b,s))
+#define wl_aanl(a,b,s)	(wl_anol(a,s)&wl_anol(b,s))
+#define wl_axrl(a,b,s)	(wl_anol(a,s)^wl_anol(b,s))
+#define wl_antl(a,s)	wl__afb((char*)(a),WL_NULL,(s),WL_TRUE)
+#define wl_anrl(a,b,s)	(wl_antl(a,s)&wl_antl(b,s))
+#define wl_annl(a,b,s)	(wl_antl(a,s)|wl_antl(b,s))
+#define wl_anxrl(a,b,s)	(!wl_axrl(a,b,s))
 #define wl_aandl	wl_aanl
 #define wl_anandl	wl_annl
 #define wl_anorl	wl_anrl
@@ -302,12 +302,7 @@ EXTERN char* wl__ara(
 /* 5.4.4. `_afa` -- Array Function Assignment */
 EXTERN char* wl__afa(char* r, const char* a, const char* b, wl_As size, const wl__Af func) nonnull(2) returns_nonnull;
 /* 5.4.5. `_afb` -- Array Function Boolean */
-EXTERN wl_Bl wl__afb(
-	const char* restrict const a, 
-	const char* restrict const b, 
-	const wl_As size, 
-	const wl__Af func
-);
+EXTERN wl_Bl wl__afb(const char* a, const char* b, const wl_As size);
 
 
 
