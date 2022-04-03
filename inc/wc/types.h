@@ -1,5 +1,5 @@
-#ifndef WC_TYPES_H
-#define WC_TYPES_H
+#ifndef WL_TYPES_H
+#define WL_TYPES_H
 
 
 

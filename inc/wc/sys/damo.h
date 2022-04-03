@@ -1,5 +1,5 @@
-#ifndef WC_SYS_DAMO_H
-#define WC_SYS_DAMO_H
+#ifndef WL_SYS_DAMO_H
+#define WL_SYS_DAMO_H
 
 
 

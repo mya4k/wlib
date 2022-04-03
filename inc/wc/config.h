@@ -1,5 +1,5 @@
-#ifndef WC_CONFIG_H
-#define WC_CONFIG_H
+#ifndef WL_CONFIG_H
+#define WL_CONFIG_H
 
 
 

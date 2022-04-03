@@ -1,5 +1,5 @@
-#ifndef WC_STRING_H
-#define WC_STRING_H
+#ifndef WL_STRING_H
+#define WL_STRING_H
 
 
 

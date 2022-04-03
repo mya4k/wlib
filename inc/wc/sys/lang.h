@@ -1,5 +1,5 @@
-#ifndef LANG_H
-#define LANG_H
+#ifndef WL_SYS_LANG_H
+#define WL_SYS_LANG_H
 
 
 

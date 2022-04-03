@@ -1,5 +1,5 @@
-#ifndef WC_ERROR_H
-#define WC_ERROR_H
+#ifndef WL_ERROR_H
+#define WL_ERROR_H
 
 
 

@@ -1,5 +1,5 @@
-#ifndef WC_CORE_H
-#define WC_CORE_H
+#ifndef WL_CORE_H
+#define WL_CORE_H
 
 
 
