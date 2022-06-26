@@ -1,119 +1,106 @@
 #ifndef WL_CONFIG_H
-#define WL_CONFIG_H
+#define WL_CONFIG_H	1
 
 
 
-/**********************************
- *                                *
- *  YOUR CONFIGURATION GOES HERE  *
- *                                *
- **********************************/
+/*********************************************************************************
+ *                                   CONSTANTS                                   *
+ *********************************************************************************/
+/* C version constants */
+#define WL_CONF_VER_ANSI	199000L
+#define WL_CONF_VER_C89		WL_CONF_VER_ANSI
+#define	WL_CONF_VER_C90		WL_CONF_VER_ANSI
+#define WL_CONF_VER_C94		199409L
+#define WL_CONF_VER_C99		199901L
+#define WL_CONF_VER_C11		201112L
+#define WL_CONF_VER_C17		201710L
+#define WL_CONF_VER_C18		WL_CONF_VER_C17
+#define WL_CONF_VER_C23		202000L
+
+/* C++ version constants */
+#define WL_CONF_VER_CPP98	199711L
+#define WL_CONF_VER_CPP11	201103L
+#define WL_CONF_VER_CPP14	201402L
+#define WL_CONF_VER_CPP17	201703L
+#define WL_CONF_VER_CPP20	202002L
+#define WL_CONF_VER_CPP23	202100L
+
+/* Optimization constants */
+#define WL_CONF_NONE			0
+#define WL_CONF_SIZE			1
+#define WL_CONF_SPEED			2
+#define WL_CONF_MEMORY			3
+#define WL_CONF_SIZE_EXTRA		5
+#define WL_CONF_SPEED_EXTRA		6
+#define WL_CONF_MEMORY_EXTRA	7
 
 
 
-/*
- *	STANDARD C LIBRARY INTEGRATION
- */
+/*********************************************************************************
+ *                                OVERALL OPTIONS                                *
+ *********************************************************************************/
 
-/* Allow using the Standard C Library */
-#ifndef WL_USE_LIBC
-#	define WL_USE_LIBC		0
-#endif
+/* C language */
+#ifndef WL_CONF_C
+#	ifdef __STDC__
+#		ifdef __STDC_VERSION__
+#			define WL_CONF_C	__STDC_VERSION__
+#		else	/* __STDC_VERSION__ */
+#			define WL_CONF_C	WL_CONF_VER_C89
+#		endif	/* __STDC_VERSION__ */
+#	endif	/* __STDC__ */
+#endif	/* WL_CONF_C */
 
-/* If WL_USE_LIBC is TRUE, allow using all headers, otherwise disallow */
+/* C++ language */
+#ifndef WL_CONF_CPP
+#	ifdef __cplusplus
+#		define WL_CONF_C	__cplusplus
+#	endif	/* __cplusplus */
+#endif	/* WL_CONF_CPP */
 
-/* Allow including <limits.h> */
-#ifndef WL_USE_LIMITS
-#	define WL_USE_LIMITS	WL_USE_LIBC
-#endif
+/* Optimization */
+#ifndef WL_CONF_OPTIMIZE
+#	define WL_CONF_OPTIMIZE	WL_CONF_SPEED
+#endif	/* WL_CONF_OPTIMIZE */
 
-/* Allow including <stdint.h> */
-#ifndef WL_USE_STDINT
-#	define WL_USE_STDINT	WL_USE_LIBC
-#endif
+/* Use of libc in implementation */
+#define WL_CONF_LIBC	1
+#define WL_CONF_LIBCPP	0
+#if WL_CONF_LIBC || WL_CONF_LIBCPP
+#	ifndef WL_CONF_STDINT
+#		define WL_CONF_STDINT	1
+#	endif	/* WL_CONF_STDINT */
+#	ifndef WL_CONF_LIMITS
+#		define WL_CONF_LIMITS	1
+#	endif	/* WL_CONF_LIMITS */
+#endif	/* WL_CONF_LIBC || WL_CONF_LIBCPP */
 
-/* Allow including <stdlib.h> */
-#ifndef WL_USE_STDLIB
-#	define WL_USE_STDLIB	WL_USE_LIBC
-#endif
+
+
+/*********************************************************************************
+ *                                    HEADERS                                    *
+ *********************************************************************************/
+/* Use of <stdint.h> in implementation */
+#	ifndef WL_CONF_STDINT
+#		define WL_CONF_STDINT	0
+#	endif /* WL_CONF_STDINT */
+
+/* Use of <limits.h> in implementation */
+#	ifndef WL_CONF_LIMITS
+#		define WL_CONF_LIMITS	0
+#	endif /* WL_CONF_LIMITS */
 
 
 
-/*
- *	OPTIMIZATION
- */
-
-/* Optimize implimentation of WLib for maximal execution speed */
-#ifndef WL_OPTIMIZE_SPEED
-#	if defined(__OPTIMIZE_SPEED__) && __OPTIMIZE_SPEED__ == 0
-#		define WL_OPTIMIZE_SPEED	0
+/*********************************************************************************
+ *                                     TYPES                                     *
+ *********************************************************************************/
+#ifndef	WL_CONF_FIXED
+#	if WL_CONF_OPTIMIZE&4 == WL_CONF_MEMORY
+#		define WL_CONF_FIXED	WL_CONF_LEAST
 #	else
-#		define WL_OPTIMIZE_SPEED	1
-#	endif
-#endif
-/* Optimize implimentation of WLib for minimal size of binary files */
-#ifndef WL_OPTIMIZE_SIZE
-#	if defined(__OPTIMIZE_SIZE__) || defined(PREFER_SIZE_OVER_SPEED)
-#		define WL_OPTIMIZE_SIZE		1
-#	else
-#		define WL_OPTIMIZE_SIZE		0
-#	endif
-#endif
-/* Optimize implimentation of WLib for the least memory (RAM) usage */
-#ifndef WL_OPTIMIZE_MEMORY
-#	define WL_OPTIMIZE_MEMORY		0
-#endif
-
-
-
-/*
- *	IMPLIMENTATION OPTIONS
- */
-/* Defines identifiers without the `wl_` prefix */
-#ifndef WL_PREFIX
-#	define WL_PREFIX		0
-#endif
-/* Defines readable aliases for identifiers*/
-#ifndef WL_ALIASES
-#	define WL_ALIASES		0
-#endif
-/* Primitive `sl` implimentation */
-#ifndef WL_SL_SIMPLE
-#	define WL_SL_SIMPLE		0
-#endif
-/* Primitive `afa` implimentation */
-#ifndef WL_AFA_SIMPLE
-#	define WL_AFA_SIMPLE	0
-#endif
-/* Primitive `afb` implimentation */
-#ifndef WL_AFB_SIMPLE
-#	define WL_AFB_SIMPLE	0
-#endif
-/* Primitive `afl` implimentation */
-#ifndef WL_AFL_SIMPLE
-#	define WL_AFL_SIMPLE	0
-#endif
-/* Primitive `asb` implimentation */
-#ifndef WL_ASB_SIMPLE
-#	define WL_ASB_SIMPLE	0
-#endif
-/* Primitive `asa` implimentation */
-#ifndef WL_ASA_SIMPLE
-#	define WL_ASA_SIMPLE	0
-#endif
-
-
-
-/*********************************************************************
- *                                                                   *
- *  ... OR HERE                                                      *
- *  (but use `#undef` before defining to avoid redefinition errors)  *
- *                                                                   *
- *********************************************************************/
-/* #undef WL_OPTIMIZE_SPEED
-#define WL_OPTIMIZE_SPEED 2 */
-#define WL_ERROR	1
-
-
+#		define	WL_CONF_FIXED	WL_CONF_FAST
+#	endif	/* WL_CONF_OPTIMIZE&4 == WL_CONF_MEMORY */
+#endif	/* WL_CONF_FIXED */
 
 #endif

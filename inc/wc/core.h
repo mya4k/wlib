@@ -3,12 +3,11 @@
 
 
 
-#include <wc/sys/lang.h>
-#include <wc/sys/comp.h>
+#include <wc/config.h>
 
 
 
-#ifdef WL_LG_CPP
+#ifdef WL_CONF_CPP
 /* Extern compatibility */
 #	ifndef EXTERN
 #		define EXTERN		extern "C"
@@ -59,20 +58,20 @@
 #	endif
 #endif */
 
-#if defined(WL_LG_C) && WL_LG_C < WL_VR_C99
+#if defined(WL_CONF_C) && WL_CONF_C < WL_CONF_VER_C99
 /* Inline */
 #	undef	inline
 #	define	inline
 /* Restrict */
 #	undef	restrict
 #	define	restrict
-#elif defined(WL_LG_CPP)
+#elif defined(WL_CONF_CPP)
 /* Restrict */
 #	undef	restrict
 #	define	restrict
 #endif
 
-#if WL_GCCLIKE
+#if WL_CONF_GCCLIKE
 #define likely(cond)	__glibc_likely((long)cond)	
 #define unlikely(cond)	__glibc_unlikely((long)cond)
 #else
@@ -80,12 +79,12 @@
 #define unlikely(cond)	(cond)
 #endif
 
-#if WL_C_ATTR
+#if WL_CONF_C_ATTR
 #	if !defined(nodiscard) && __has_c_attribute(nodiscard)
 #	define nodiscard		[[nodiscard]]
 #	endif
 
-#	if WL_GNU_ATTR
+#	if WL_CONF_GNU_ATTR
 #		if !defined(nonnull) && __has_c_attribute(gnu::nonnull)
 #		define nonnull(...)		[[gnu::nonnull(__VA_ARGS__)]]
 #		endif
@@ -96,12 +95,12 @@
 #	endif
 #endif
 
-#if WL_CPP_ATTR
+#if WL_CONF_CPP_ATTR
 #	if !defined(nodiscard) && WL_LG_CPP < WL_VR_CPP17
 #	define nodiscard		[[nodiscard]]
 #	endif
 
-#	if WL_GNU_ATTR
+#	if WL_CONF_GNU_ATTR
 #		if !defined(nonnull)
 #		define nonnull(...)		[[gnu::nonnull(__VA_ARGS__)]]
 #		endif
@@ -112,7 +111,7 @@
 #	endif
 #endif
 
-#if (WL_GNU_ATTR || WL_CLANG_ATTR || WL_MINGW_ATTR) && !(__STRICT_ANSI__) && defined(__glibc_has_attribute)
+#if (WL_CONF_GNU_ATTR || WL_CONF_CLANG_ATTR || WL_CONF_MINGW_ATTR) && !(__STRICT_ANSI__) && defined(__glibc_has_attribute)
 #	if !defined(nodiscard) && __glibc_has_attribute(warn_unused_result)
 #	define nodiscard		__attribute__((warn_unused_result))
 #	endif
