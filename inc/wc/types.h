@@ -136,15 +136,15 @@
 #	define PTX	WL_PTX
 
 #	ifndef NULL
-#		define NULL	((void*)0)
+#		define NULL		WL_NULL
 #	endif
 
 #	ifndef TRUE
-#		define TRUE ((_Bool)1)
+#		define TRUE		WL_TRUE
 #	endif
 
 #	ifndef FALSE
-#		define FALSE ((_Bool)0)
+#		define FALSE	WL_FALSE
 #	endif
 
 #define CHAR_MIN	WL_CHAR_MIN
@@ -677,10 +677,10 @@
 
 
 
-#define WL_NULL	((void*)0)
+#define WL_NULL		((void*)0)
 
-#define WL_TRUE
-#define WL_FALSE
+#define WL_FALSE	((Bl)0)
+#define WL_TRUE		((Bl)1)
 
 
 
