@@ -1,25 +1,7 @@
 #include <wc/array.h>
+#include <wc/memory.h>
 
 
-
-#ifndef mal
-#	include <stdlib.h>
-#	define mal(n)	calloc(n,1)
-#endif
-
-
-
-/* Enumerator for */
-enum _Af {
-	_AF_NO,	/* No operation */
-	_AF_NT,	/* NOT */
-	_AF_AN,	/* AND */
-	_AF_OR,	/* OR */
-	_AF_XR,	/* XOR */
-	_AF_NN,	/* NAND */
-	_AF_NR,	/* NOR */
-	_AF_NX	/* NXOR */
-};
 
 /*
  *	Assigns `n` bits of `b` to `a`, preserving the remaining bits of `a`
@@ -47,7 +29,7 @@ enum _Af {
  */
 #define _AFA1(EXP)												\
 	{															\
-		const Sz rem = (Pt)arr1%UMB;							\
+		const Pt rem = (Pt)arr1%sizeof(UMax);					\
 		if (unlikely(rem>0)) {									\
 			_ASSIGN_SUBWORD(*_res, (EXP), CHB*rem);				\
 			len -= rem;											\
@@ -65,7 +47,7 @@ enum _Af {
 
 #define _AFA2(EXP)												\
 	{															\
-		const Sz rem = (Pt)arr1%UMB;							\
+		const U32 rem = (Pt)arr1%sizeof(UMax);					\
 		if (unlikely(rem>0)) {									\
 			_ASSIGN_SUBWORD(*_res, (EXP), CHB*rem);				\
 			len -= rem;											\
@@ -100,7 +82,7 @@ enum _Af {
 const UMax* _afa(
 	const	UMax*					arr1,
 	const	UMax*					arr2,
-			Sz						len,
+			U32						len,
 			UMax*	restrict const	res,
 	const	_Af						func
 ) {
@@ -117,14 +99,9 @@ const UMax* _afa(
 		/* Allocation could fail */
 		if (likely(_res != NULL)) {
 			/* First, check for _AF_NO */
-			if (likely(func==_AF_NO)) {
+			if (likely(func == _AF_NO)) {
 				_AFA1(*arr1);
-				return _res;
-			}
-			/* Second, check for _AF_NT */
-			else if (unlikely(func==_AF_NT)) {
-				_AFA1(~*arr1);
-				return _res;
+				return res;
 			}
 			/* Then do other functions */
 			else if (unlikely(arr2!=NULL)) {
@@ -132,12 +109,16 @@ const UMax* _afa(
 					case _AF_AN: _AFA2(*arr1 & *arr2);		return _res;
 					case _AF_OR: _AFA2(*arr1 | *arr2);		return _res;
 					case _AF_XR: _AFA2(*arr1 ^ *arr2);		return _res;
-					case _AF_NN: _AFA2(~(*arr1 & *arr2));	return _res;
-					case _AF_NR: _AFA2(~(*arr1 | *arr2));	return _res;
-					case _AF_NX: _AFA2(~(*arr1 ^ *arr2));	return _res;
 					default:;
 				}
 			}
+			/*	INVERSED FUNCTION SHOULD BE HANDLED IN THEIR MACRO EXPANSION. 
+			 *	Why? 
+			 *	1.	It's faster that way (instead of jumping branches, we just
+			 *		invert at the expansion, this way we save instructions 
+			 *		overall)
+			 *	2.	Function length decreases, making this function take less space
+			 */
 		}
 	}
 
