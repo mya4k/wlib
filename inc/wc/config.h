@@ -41,38 +41,45 @@
  *********************************************************************************/
 
 /* C language */
-#ifndef WL_CONF_C
-#	ifdef __STDC__
-#		ifdef __STDC_VERSION__
-#			define WL_CONF_C	__STDC_VERSION__
-#		else	/* __STDC_VERSION__ */
-#			define WL_CONF_C	WL_CONF_VER_C89
-#		endif	/* __STDC_VERSION__ */
-#	endif	/* __STDC__ */
-#endif	/* WL_CONF_C */
+#if !defined(WL_CONF_C) && defined(__STDC__)
+#	ifdef __STDC_VERSION__
+#		define WL_CONF_C	__STDC_VERSION__
+#	else	/* __STDC_VERSION__ */
+#		define WL_CONF_C	WL_CONF_VER_C89
+#	endif	/* __STDC_VERSION__ */
+#endif	/*  !defined(WL_CONF_C) && defined(__STDC__) */
 
 /* C++ language */
-#ifndef WL_CONF_CPP
-#	ifdef __cplusplus
-#		define WL_CONF_C	__cplusplus
-#	endif	/* __cplusplus */
-#endif	/* WL_CONF_CPP */
+#if !defined(WL_CONF_CPP) && defined(__cplusplus)
+#	define WL_CONF_C	__cplusplus
+#endif	/* !defined(WL_CONF_CPP) && defined(__cplusplus) */
 
 /* Optimization */
 #ifndef WL_CONF_OPTIMIZE
 #	define WL_CONF_OPTIMIZE	WL_CONF_SPEED
 #endif	/* WL_CONF_OPTIMIZE */
 
-/* Use of libc in implementation */
-#define WL_CONF_LIBC	1
-#define WL_CONF_LIBCPP	0
+/* Use built-in functions provided by the compiler (apart from built-in 
+ * ISO C library function) */
+#define WL_CONF_BUILT_IN	1
+
+/* Use of C library in implementation */
+#define WL_CONF_LIBC		1
+
+/* Use of C++ library in implementation */
+#ifdef WL_CONF_CPP
+#	define WL_CONF_LIBCPP	1
+#else
+#	define WL_CONF_LIBCPP	0
+#endif
+
+/* Enabling `WL_CONF_LIBC` or `WL_CONF_LIBCPP` also enabled next options */
 #if WL_CONF_LIBC || WL_CONF_LIBCPP
-#	ifndef WL_CONF_STDINT
-#		define WL_CONF_STDINT	1
-#	endif	/* WL_CONF_STDINT */
-#	ifndef WL_CONF_LIMITS
-#		define WL_CONF_LIMITS	1
-#	endif	/* WL_CONF_LIMITS */
+
+#	define	WL_CONF_LIMITS	1
+#	define	WL_CONF_STDINT	1
+#	define	WL_CONF_STDLIB	1
+
 #endif	/* WL_CONF_LIBC || WL_CONF_LIBCPP */
 
 
@@ -80,15 +87,20 @@
 /*********************************************************************************
  *                                    HEADERS                                    *
  *********************************************************************************/
+/* Use of <limits.h> in implementation */
+#	ifndef WL_CONF_LIMITS
+#		define WL_CONF_LIMITS	0
+#	endif /* WL_CONF_LIMITS */
+
 /* Use of <stdint.h> in implementation */
 #	ifndef WL_CONF_STDINT
 #		define WL_CONF_STDINT	0
 #	endif /* WL_CONF_STDINT */
 
-/* Use of <limits.h> in implementation */
-#	ifndef WL_CONF_LIMITS
-#		define WL_CONF_LIMITS	0
-#	endif /* WL_CONF_LIMITS */
+/* Use of <stdlib.h> in implementation */
+#	ifndef WL_CONF_STDLIB
+#		define WL_CONF_STDLIB	0
+#	endif /* WL_CONF_STDLIB */
 
 
 
