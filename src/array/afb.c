@@ -12,6 +12,13 @@
 #define _ANOL_N(EXP,N)	\
 	if (likely(((EXP) & (((UMax)1 << CHB*N)-1)))) return TRUE;
 
+/* Optimal type for `rem` */
+#if WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY
+#	define _Rem	Pt
+#else	/* WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY */
+#	define _Rem	U8
+#endif	/* WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY */
+
 /* `arr1` have to be non-null and `len` greater than zero */
 /* Get how many bytes till the next alignment */
 /* Check for trueness in such bytes */
@@ -24,7 +31,7 @@
 	if (((Pt)arr1 & len) != 0) {						\
 		if (likely(len > sizeof(UMax))) {				\
 			{											\
-				Pt rem = (Pt)arr1%sizeof(UMax);			\
+				const _Rem rem = (Pt)arr1%sizeof(UMax);	\
 				if (likely(rem>0)) {					\
 					_ANOL_N(*arr1,rem)					\
 					len -= rem;							\
@@ -48,7 +55,8 @@
 	if (((Pt)arr1 & (Pt)arr2 & len) != 0)	{								\
 		if (likely(len > sizeof(UMax))) {									\
 			{																\
-				Pt rem = _min2((Pt)arr1%sizeof(UMax), (Pt)arr2%sizeof(UMax));\
+				const _Rem rem = 											\
+				_min2((Pt)arr1%sizeof(UMax), (Pt)arr2%sizeof(UMax));		\
 				if (likely(rem>0)) {										\
 					_ANOL_N((exp),rem)										\
 					len -= rem;												\
