@@ -3,6 +3,8 @@
 
 
 
+#define _min2(x,y)	((x)<=(y) ? (x) : (y))
+
 /*
  *	Assigns `n` bits of `b` to `a`, preserving the remaining bits of `a`
  */
@@ -13,10 +15,17 @@
 #else
 /* Here we use memory, but it's faster */
 #	define _ASSIGN_SUBWORD(arr1,arr2,N)	{		\
-		const UMax m = ((UMax)1<<N) - 1;	\
-		((arr1) = ((arr2)&m) + ((arr1)&~m));			\
+		const UMax m = ((UMax)1<<N) - 1;		\
+		((arr1) = ((arr2)&m) + ((arr1)&~m));	\
 	}
 #endif
+
+/* Optimal type for `rem` */
+#if WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY
+#	define _Rem	Pt
+#else	/* WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY */
+#	define _Rem	U8
+#endif	/* WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY */
 
 /*
  *	Assigns all bytes of `EXP` to `r`, where `EXP` is a expression.
@@ -27,101 +36,101 @@
  * 		2.	Copy bytes one word at a time
  * 		3.	Copy the remaining bytes (less than word bytes)
  */
-#define _AFA1(EXP)												\
-	{															\
-		const Pt rem = (Pt)arr1%sizeof(UMax);					\
-		if (unlikely(rem>0)) {									\
-			_ASSIGN_SUBWORD(*_res, (EXP), CHB*rem);				\
-			len -= rem;											\
-			_res = (UMax*)((char*)_res + rem);					\
-			arr1 = (UMax*)((char*)arr1 + rem);					\
-		}														\
-	}															\
-																\
-	while (len >= sizeof(UMax)) {								\
-		*_res = (EXP);											\
-		_res++; arr1++; len -= sizeof(UMax);					\
-	}															\
-																\
-	if (likely(len))	_ASSIGN_SUBWORD(*_res, (EXP), CHB*len);
+#define _AFA1(EXP)															\
+	if (likely(arr1 != NULL && len > 0)) {									\
+		UMax* _res = res;													\
+		if (likely(_res == NULL)) _res = mal(len);							\
+		if (likely(_res != NULL)) {											\
+			if (likely(len > sizeof(UMax))) {								\
+				{															\
+					const _Rem rem = (Pt)arr1%sizeof(UMax);					\
+					if (unlikely(rem>0)) {									\
+						_ASSIGN_SUBWORD(*_res, (EXP), CHB*rem);				\
+						len -= rem;											\
+						_res = (UMax*)((char*)_res + rem);					\
+						arr1 = (UMax*)((char*)arr1 + rem);					\
+					}														\
+				}															\
+																			\
+				while (len >= sizeof(UMax)) {								\
+					*_res = (EXP);											\
+					_res++; arr1++; len -= sizeof(UMax);					\
+				}															\
+																			\
+				if (likely(len))	_ASSIGN_SUBWORD(*_res, (EXP), CHB*len);	\
+			}																\
+			if (unlikely(len == sizeof(UMax))) *_res = (EXP);				\
+			_ASSIGN_SUBWORD(*_res, (EXP), CHB*len);							\
+			return _res;													\
+		}																	\
+	}																		\
+	return NULL
 
-#define _AFA2(EXP)												\
-	{															\
-		const U32 rem = (Pt)arr1%sizeof(UMax);					\
-		if (unlikely(rem>0)) {									\
-			_ASSIGN_SUBWORD(*_res, (EXP), CHB*rem);				\
-			len -= rem;											\
-			_res = (UMax*)((char*)_res + rem);					\
-			arr1 = (UMax*)((char*)arr1 + rem);					\
-			arr2 = (UMax*)((char*)arr2 + rem);					\
-		}														\
-	}															\
-																\
-	while (len >= sizeof(UMax)) {								\
-		*_res = (EXP);											\
-		_res++; arr1++; arr2++; len -= sizeof(UMax);			\
-	}															\
-																\
-	if (likely(len))	_ASSIGN_SUBWORD(*_res, (EXP), CHB*len);
+#define _AFA2(EXP)															\
+	if (likely(arr1 != NULL && arr2 != NULL && len > 0)) {					\
+		UMax* _res = res;													\
+		if (likely(_res == NULL)) _res = mal(len);							\
+		if (likely(_res != NULL)) {											\
+			if (likely(len > sizeof(UMax))) {								\
+				{															\
+					const _Rem rem = 										\
+					_min2((Pt)arr1%sizeof(UMax), (Pt)arr2%sizeof(UMax));	\
+					if (unlikely(rem>0)) {									\
+						_ASSIGN_SUBWORD(*_res, (EXP), CHB*rem);				\
+						len -= rem;											\
+						_res = (UMax*)((char*)_res + rem);					\
+						arr1 = (UMax*)((char*)arr1 + rem);					\
+						arr2 = (UMax*)((char*)arr2 + rem);					\
+					}														\
+				}															\
+																			\
+				while (len >= sizeof(UMax)) {								\
+					*_res = (EXP);											\
+					_res++; arr1++; arr2++; len -= sizeof(UMax);			\
+				}															\
+																			\
+				if (likely(len))	_ASSIGN_SUBWORD(*_res, (EXP), CHB*len);	\
+			}																\
+			if (unlikely(len == sizeof(UMax))) *_res = (EXP);				\
+			_ASSIGN_SUBWORD(*_res, (EXP), CHB*len);							\
+			return _res;													\
+		}																	\
+	}																		\
+	return NULL
 
-/*
- *	ADD GCC ATTRIBUTES!!!
- */
-/**
- * \brief 
- * \fn		const char* _afa(const UMax* arr1, const UMax* arr2, Sz len, UMax* restrict const res, const _Af func)
- * \param	arr1 
- * \param	arr2 
- * \param	count 
- * \param	res 
- * \return	char* 
- * 
- * Future improvements:
- * 	- Page coping
- */
-const UMax* _afa(
+
+
+const UMax* _ano(
+	const	UMax*					arr1,
+			U32						len,
+			UMax*	restrict const	res
+) {
+	_AFA1(*arr1);
+}
+
+const UMax* _aan(
 	const	UMax*					arr1,
 	const	UMax*					arr2,
 			U32						len,
-			UMax*	restrict const	res,
-	const	_Af						func
+			UMax*	restrict const	res
 ) {
-	/* Store the base of the operands */
-/* 	const	UMax* const _arr1 = arr1;
-			UMax* const _arr2 = arr2; */
+	_AFA2(*arr1 & *arr2);
+}
 
-	/* An operant cannot be nullptr and length has to be larger than 0 */
-	if (likely(arr1 != NULL && len > 0)) {
-		UMax* _res = res;
+const UMax* _aor(
+	const	UMax*					arr1,
+	const	UMax*					arr2,
+			U32						len,
+			UMax*	restrict const	res
+) {
+	_AFA2(*arr1 | *arr2);
+}
 
-		/* If `res` is NULL, it should be allocated by the algorithm */
-		if (likely(_res == NULL)) _res = mal(len);
-		/* Allocation could fail */
-		if (likely(_res != NULL)) {
-			/* First, check for _AF_NO */
-			if (likely(func == _AF_NO)) {
-				_AFA1(*arr1);
-				return res;
-			}
-			/* Then do other functions */
-			else if (unlikely(arr2!=NULL)) {
-				switch (func) {
-					case _AF_AN: _AFA2(*arr1 & *arr2);		return _res;
-					case _AF_OR: _AFA2(*arr1 | *arr2);		return _res;
-					case _AF_XR: _AFA2(*arr1 ^ *arr2);		return _res;
-					default:;
-				}
-			}
-			/*	INVERSED FUNCTION SHOULD BE HANDLED IN THEIR MACRO EXPANSION. 
-			 *	Why? 
-			 *	1.	It's faster that way (instead of jumping branches, we just
-			 *		invert at the expansion, this way we save instructions 
-			 *		overall)
-			 *	2.	Function length decreases, making this function take less space
-			 */
-		}
-	}
-
-	/* If the flow of the function ends up here, there was an error */
-	return NULL;
+const UMax* _axr(
+	const	UMax*					arr1,
+	const	UMax*					arr2,
+			U32						len,
+			UMax*	restrict const	res
+) {
+	_AFA2(*arr1 ^ *arr2);
 }
