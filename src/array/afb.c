@@ -1,52 +1,92 @@
 #include <wc/array.h>
-#include <wc/error.h>
+#include <wc/memory.h>
 
 
 
-#if !defined(WL_MAL_IMPLIMENTED) || !defined(mal)
-#	include <stdlib.h>
-#	define mal malloc
-#endif
+/**
+ * \brief	Check N bytes of EXP for trueness
+ * \def		_ANOL_NBITS(EXP,N)
+ * \param	EXP	Expression
+ * \param	N	Amount of bytes
+ */
+#define _ANOL_N(EXP,N)	\
+	if (likely(((EXP) & (((UMax)1 << CHB*N)-1)))) return TRUE;
+
+/* `arr1` have to be non-null and `len` greater than zero */
+/* Get how many bytes till the next alignment */
+/* Check for trueness in such bytes */
+/* Check each word for trueness, until less than word size bytes are 
+ * left
+ */
+/* Check the remaining bits for trueness */
+/* Not a single true byte has been discovered */
+#define _ANOL(arr1)										\
+	if (((Pt)arr1 & len) != 0) {						\
+		if (likely(len > sizeof(UMax))) {				\
+			{											\
+				Pt rem = (Pt)arr1%sizeof(UMax);			\
+				if (likely(rem>0)) {					\
+					_ANOL_N(*arr1,rem)					\
+					len -= rem;							\
+					arr1 = (UMax*)((char*)arr1 + rem);	\
+				}										\
+			}											\
+			while (likely(len>=sizeof(UMax))) {			\
+				if (unlikely(*arr1)) return TRUE;		\
+				len -= sizeof(UMax);					\
+				arr1++;									\
+			}											\
+			if (likely(len>0)) _ANOL_N(*arr1,len)		\
+		}												\
+		if (unlikely(len == sizeof(UMax)))				\
+			return *arr1 != 0;							\
+		return (*arr1 & (((UMax)1 << CHB*len)-1)) != 0;	\
+	}													\
+	return FALSE
+
+#define _ANOL2(exp)															\
+	if (((Pt)arr1 & (Pt)arr2 & len) != 0)	{								\
+		if (likely(len > sizeof(UMax))) {									\
+			{																\
+				Pt rem = _min2((Pt)arr1%sizeof(UMax), (Pt)arr2%sizeof(UMax));\
+				if (likely(rem>0)) {										\
+					_ANOL_N((exp),rem)										\
+					len -= rem;												\
+					arr1 = (UMax*)((char*)arr1 + rem);						\
+					arr2 = (UMax*)((char*)arr2 + rem);						\
+				}															\
+			}																\
+			while (likely(len>=sizeof(UMax))) {								\
+				if (unlikely((exp))) return TRUE;							\
+				len -= sizeof(UMax);										\
+				arr1++;	arr2++;												\
+			}																\
+			if (likely(len>0)) _ANOL_N((exp),len)							\
+		}																	\
+		if (unlikely(len == sizeof(UMax)))									\
+			return (exp) != 0;												\
+		return ((exp) & (((UMax)1 << CHB*len)-1)) != 0;						\
+	}																		\
+	return FALSE
 
 
+/**
+ * \brief 
+ * 
+ * \param arr1 
+ * \param len 
+ * \return Bl 
+ */
+Bl _anol(const UMax* arr1, U32 len) {
+	_ANOL(arr1);
+}
 
-Bl _afb(const char* a, const char* b, As size) {
-#	define A (*(UMax*)a)
-#	define B (*(UMax*)b)
+#define _min2(x,y)	((x)<=(y) ? (x) : (y))
 
-	/* Proceed if `a` isn't null and `size` is specified */
-	if (likely(a && size)) {
-		/* If `b` is non-null, check if `*a` and `*b` are equal */
-		if (unlikely(b)) {
-			/* XOR each byte to check for equality*/
-			while (size >= sizeof(UMax)) {
-				if (unlikely(A^B)) return WL_FALSE;
-				a += sizeof(UMax);
-				b += sizeof(UMax);
-				size -= sizeof(UMax);
-			}
-			/* `(A^B) & (1<<size)-1` masks `size` left-most bits with 0 */
-			if (size*=8 && (A^B) & ((1<<size)-1)) return WL_TRUE;
-			return WL_FALSE;
-		}
-		/* If `b` is null, just check if `*b` is true */
-		else {
-			/* If any byte of `a` is not zero, the array is true */
-			while (size >= sizeof(UMax)) {
-				if (unlikely(A)) return WL_TRUE;
-				a += sizeof(UMax);
-				size -= sizeof(UMax);
-			}
-			/* `A & (1<<size)-1` masks `size` left-most bits with 0 */
-			if (size*=8 && A & ((1<<size)-1)) return WL_TRUE;
-			return WL_FALSE;
-		}
-	}
+Bl _aanl(const UMax* arr1, const UMax* arr2, U32 len) {
+	_ANOL2((Pt)arr1&(Pt)arr2);
+}
 
-	/* Only try to figure out the cause for failure, if error checking is on */
-#	if WL_ERROR
-		if (size)	err(afa, ERNULL);
-		else		err(afa, ERZERO);
-#	endif
-	return -1;
+Bl _aorl(const UMax* arr1, const UMax* arr2, U32 len) {
+	_ANOL2((Pt)arr1|(Pt)arr2);
 }
