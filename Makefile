@@ -1,7 +1,7 @@
-cc = /bin/gcc
+cc = /bin/gcc 
 flags = -Wall -Wextra -Iinc -c $(F) -o /dev/null -include inc/wc/config.h
 clang = /bin/clang $(flags)
-gcc = /bin/gcc $(flags) -fanalyzer -Wanalyzer-too-complex -Wno-analyzer-possible-null-dereference -p
+gcc = /bin/gcc $(flags) -fanalyzer -Wanalyzer-too-complex
 
 dirobj:
 	mkdir -p obj/
@@ -55,10 +55,18 @@ compile comp cmp: cmpc cmpg
 compile_header cmph: cmpgg cmpcg
 # Compilation time statistics
 cmpt:
-	$(gcc) -pedantic-errors -Wpedantic -ftime-report
+	$(gcc) -std=gnu2x -pedantic-errors -Wpedantic -ftime-report
 # Compilation time statistics (for headers)
 cmpth:
-	$(gcc) -ftime-report
+	$(gcc) -std=gnu2x -ftime-report
+# Generate assembly
+asm:
+	$(cc) -fverbose-asm -std=c2x -Iinc -S $(F) -Ofast -o asm/`basename $(F) | sed 's/\.c/\.s/'` -masm=intel
+#	$(cc) -std=c2x -Iinc -c $(F) -o obj/afa.o -g
+#	objdump -drw -Mintel -S obj/afa.o > asm/afa.s
+
+.PHONY: asm
+
 
 carray carr cwca:
 	for file in src/array/*; do make compile F=$$file; done
