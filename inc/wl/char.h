@@ -267,7 +267,7 @@
  * \return	True, if character is a symbol character, false otherwise
  */
 #define wl_cis(a)												\
-	((a) >= '!' && (a) <= '/' || (a) >= ':' && (a) <= '@' ||	\ 
+	((a) >= '!' && (a) <= '/' || (a) >= ':' && (a) <= '@' ||	\
 	(a) >= '[' && (a) <= '`' || (a) >= '{' && (a) <= '~')
 /**
  * \brief	Is Whitespace Character

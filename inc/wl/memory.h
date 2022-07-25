@@ -15,8 +15,8 @@
 
 
 #include <stdlib.h>
-#define wl_mal(len)	malloc(len)
-#define wl_mfr(ptr)	free(ptr)
+#define wl_mal	malloc
+#define wl_mfr	free
 
 
 
