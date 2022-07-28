@@ -1,7 +1,7 @@
 cc = /bin/gcc 
-flags = -Wall -Wextra -Iinc -c $(F) -o /dev/null -include inc/wc/config.h
+flags = -Wall -Wextra -Iinc -c $(F) -include inc/wc/config.h
 clang = /bin/clang $(flags)
-gcc = /bin/gcc $(flags) -fanalyzer -Wanalyzer-too-complex
+gcc = /bin/gcc $(flags) -fanalyzer # -Wanalyzer-too-complex
 
 dirobj:
 	mkdir -p obj/
@@ -47,12 +47,14 @@ cmpgg:
 	$(gcc) -std=gnu11 
 	$(gcc) -std=gnu17 
 	$(gcc) -std=gnu2x
+cmp65:
+	cc65 -Iinc -D__STDC__ -o /dev/null $(F)
 # Compile with GCC (All)
 cmpg: cmpgi cmpgg
 # Compile with all compilers
-compile comp cmp: cmpc cmpg
+compile comp cmp: cmpc cmpg cmp65
 # Compile with all compiler (for headers)
-compile_header cmph: cmpgg cmpcg
+compile_header cmph: cmpgg cmpcg cmpgi cmpci
 # Compilation time statistics
 cmpt:
 	$(gcc) -std=gnu2x -pedantic-errors -Wpedantic -ftime-report
@@ -60,24 +62,37 @@ cmpt:
 cmpth:
 	$(gcc) -std=gnu2x -ftime-report
 # Generate assembly
+BASE = `basename $(F) | sed 's/\.c//'`
 asm:
-	$(cc) -fverbose-asm -std=c2x -Iinc -S $(F) -Ofast -o asm/`basename $(F) | sed 's/\.c/\.s/'` -masm=intel
-#	$(cc) -std=c2x -Iinc -c $(F) -o obj/afa.o -g
-#	objdump -drw -Mintel -S obj/afa.o > asm/afa.s
+#	$(cc) -fverbose-asm -Iinc -S $(F) -Ofast -o asm/`basename $(F) | sed 's/\.c/\.s/'` -masm=intel
+	$(cc) -std=c2x -Iinc -S $(F) -o asm/$(BASE).s -Ofast -g -fverbose-asm -masm=intel
+#	objdump -d -Mintel obj/$(BASE).o -l > asm/$(BASE).s
 
 .PHONY: asm
+.DEFAULT:
 
 
-carray carr cwca:
-	for file in src/array/*; do make compile F=$$file; done
-oarray oarr owca: dirobj
-	for file in src/array/*; do $(cc) $(flags) -O2 -c $$file -o obj/array/`basename $$file | sed 's/\.c/\.o/'`; done
-oarrayd oarrd owcad: dirobj
-	for file in src/array/*; do $(cc) $(flags) -O0 -c $$file -o obj/array/`basename $$file | sed 's/\.c/\.o/'` -g; done
-arrayd arrd wcad array_debug arr_debug wca_debug: owcad dirlib
-	ar -rc lib/libwca.a obj/array/*
-array arr wca: owca dirlib
-	ar -rc lib/libwca.a obj/array/*
+carray carr:
+	make cmp F="src/array/axx.c"
+	make cmp F="src/array/axxl.c"
+oarray oarr: dirobj
+	$(cc) -Iinc-O2 -c src/array/axx.c -o obj/axx.o
+# $(cc) -O2 -c src/array/axxl.c -o obj/axxl.o
+wlib lib: oarray dirlib
+	ar -rc lib/libwca.a obj/axx.o obj/axxl.o
+
+	
+
+# carray carr cwca:
+# 	for file in src/array/*; do make compile F=$$file; done
+# oarray oarr owca: dirobj
+# 	for file in src/array/*; do $(cc) $(flags) -O2 -c $$file -o obj/array/`basename $$file | sed 's/\.c/\.o/'`; done
+# oarrayd oarrd owcad: dirobj
+# 	for file in src/array/*; do $(cc) $(flags) -O0 -c $$file -o obj/array/`basename $$file | sed 's/\.c/\.o/'` -g; done
+# arrayd arrd wcad array_debug arr_debug wca_debug: owcad dirlib
+# 	ar -rc lib/libwca.a obj/array/*
+# array arr wca: owca dirlib
+# 	ar -rc lib/libwca.a obj/array/*
 clean clear:
 	find . -name "*.o" -type f -delete
 	find . -name "*.s" -type f -delete
