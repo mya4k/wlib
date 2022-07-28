@@ -5,20 +5,7 @@
 
 #define _min2(x,y)	((x)<=(y) ? (x) : (y))
 
-/*
- *	Assigns `n` bits of `b` to `a`, preserving the remaining bits of `a`
- */
-#if WL_CONF_OPTIMIZE&4 == WL_OPTIMIZE_MEMORY
-/* Here doesn't use memory */
-#	define _COPY_SUBWORD(dst,src,N)	\
-		((dst) = ((src)&(((UMax)1<<N) - 1)) + ((src)&(UMX>>N<<N)));
-#else
-/* Here we use memory, but it's faster */
-#	define _COPY_SUBWORD(arr1,arr2,N)	{	\
-		const UMax m = ((UMax)1<<N) - 1;	\
-		((dst) = ((src)&m) + ((src)&~m));	\
-	}
-#endif
+
 
 #define _AFA1_COPY1			\
 	if (unlikely(len & 1))	\
@@ -228,10 +215,9 @@ static void _axrsw(
 	_AFA2_COPY1(^)
 }
 
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
-	always_inline
-#endif
-static const _Afa_U512* __ano_bare(
+
+
+const _Afa_U512* _ano(
 	const _Afa_U512* restrict arr, U32 len, _Afa_U512* restrict res
 ) {
 	/* Preserve `res` for return */
@@ -264,10 +250,7 @@ static const _Afa_U512* __ano_bare(
 	return _res;
 }
 
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
-	always_inline
-#endif
-static const _Afa_U512* __aan_bare(
+const _Afa_U512* _aan(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
@@ -301,10 +284,7 @@ static const _Afa_U512* __aan_bare(
 	return _res;
 }
 
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
-	always_inline
-#endif
-static const _Afa_U512* __aor_bare(
+const _Afa_U512* _aor(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
@@ -338,10 +318,7 @@ static const _Afa_U512* __aor_bare(
 	return _res;
 }
 
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
-	always_inline
-#endif
-static const _Afa_U512* __axr_bare(
+const _Afa_U512* _axr(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
@@ -374,80 +351,3 @@ static const _Afa_U512* __axr_bare(
 	}
 	return _res;
 }
-
-
-
-const _Afa_U512* _ano(
-	const _Afa_U512* restrict arr, U32 len, _Afa_U512* restrict res
-) {
-	if (unlikely(arr != NULL && len > 0)) {
-		/**	For userspace `ano`, the `res` parameter is optional; therefore, if
-		 *	it's NULL, we need to allocate it
-		 */
-		if (unlikely(res == NULL))	res = mal(len);
-		/* Make sure `mal` didn't fail */
-		if (likely(res != NULL))	return __ano_bare(arr, len, res);
-	}
-	return NULL;
-}
-
-const _Afa_U512* _aan(
-	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
-	_Afa_U512* restrict res
-) {
-	if (unlikely(arr1 != NULL && arr2 != NULL && len > 0)) {
-		/**	For userspace `ano`, the `res` parameter is optional; therefore, if
-		 *	it's NULL, we need to allocate it
-		 */
-		if (unlikely(res == NULL))	res = mal(len);
-		/* Make sure `mal` didn't fail */
-		if (likely(res != NULL))	return __aan_bare(arr1, arr2, len, res);
-	}
-	return NULL;
-}
-
-const _Afa_U512* _aor(
-	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
-	_Afa_U512* restrict res
-)  {
-	if (unlikely(arr1 != NULL && arr2 != NULL && len > 0)) {
-		/**	For userspace `ano`, the `res` parameter is optional; therefore, if
-		 *	it's NULL, we need to allocate it
-		 */
-		if (unlikely(res == NULL))	res = mal(len);
-		/* Make sure `mal` didn't fail */
-		if (likely(res != NULL))	return __aor_bare(arr1, arr2, len, res);
-	}
-	return NULL;
-}
-
-const _Afa_U512* _axr(
-	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
-	_Afa_U512* restrict res
-)  {
-	if (unlikely(arr1 != NULL && arr2 != NULL && len > 0)) {
-		/**	For userspace `ano`, the `res` parameter is optional; therefore, if
-		 *	it's NULL, we need to allocate it
-		 */
-		if (unlikely(res == NULL))	res = mal(len);
-		/* Make sure `mal` didn't fail */
-		if (likely(res != NULL))	return __axr_bare(arr1, arr2, len, res);
-	}
-	return NULL;
-}
-
-const _Afa_U512* _ano_bare(
-	const _Afa_U512* restrict arr1, U32 len, _Afa_U512* restrict res
-)  { return __ano_bare(arr1, len, res); }
-const _Afa_U512* _aan_bare(
-	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
-	_Afa_U512* restrict res
-)  { return __aan_bare(arr1, arr2, len, res); }
-const _Afa_U512* _aor_bare(
-	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
-	_Afa_U512* restrict res
-)  { return __aor_bare(arr1, arr2, len, res); }
-const _Afa_U512* _axr_bare(
-	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
-	_Afa_U512* restrict res
-)  { return __axr_bare(arr1, arr2, len, res); }
