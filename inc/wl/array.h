@@ -65,7 +65,7 @@
  * \arg		res		Pointer to store the result in (optional)
  * \return	void*
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_ano(arr, len, ...)	\
 	(void*)wl__ano((wl__Afa_U512*)(arr), (len), (wl__Afa_U512*)(__VA_ARGS__+0))
 #else
@@ -87,7 +87,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_aan(arr1, arr2, len, ...)										\
 	((void*)wl__aan((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
 	(wl__Afa_U512*)(__VA_ARGS__+0)))
@@ -111,7 +111,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_aor(arr1, arr2, len, ...)										\
 	((void*)wl__aor((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
 	(wl__Afa_U512*)(__VA_ARGS__+0)))
@@ -135,7 +135,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_axr(arr1, arr2, len, ...)										\
 	((void*)wl__axr((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
 	(wl__Afa_U512*)(__VA_ARGS__+0)))
@@ -157,7 +157,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_ant(arr, len, ...)	\
 		(!wl_ano((arr), (len), (__VA_ARGS__+0)))
 #else
@@ -179,7 +179,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_ann(arr1, arr2, len, ...)\
 		(!wl_aan((arr1), (arr1), (len), (__VA_ARGS__+0)))
 #else
@@ -201,7 +201,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_anr(arr1, arr2, len, ...)\
 		(!wl_aor((arr1), (arr1), (len), (__VA_ARGS__+0)))
 #else
@@ -223,7 +223,7 @@
  * 
  * \see		_afa
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_anx(arr1, arr2, len, ...)\
 		(!wl_axr((arr1), (arr1), (len), (__VA_ARGS__+0)))
 #else
@@ -350,7 +350,7 @@
  * copy to, only the remaining amount of bytes from `src` object will be 
  * copied.
  */
-#if WL_CONF_VARIADIC_MACRO
+#if WL_C_VA_MACRO
 #	define wl_afl(dst, ldst, src, ...)			\
 		(__VA_ARGS__+0)							\
 		? afla(dst, ldst, src, (__VA_ARGS__))	\
@@ -428,7 +428,7 @@
  *	Do not use this type as an integer type on your own, because it's 
  *	actually a vector of integers.
 */
-#if WL_CONF_GCC_VECTOR
+#if WL_GCC_VECTOR
 	typedef unsigned int wl__Afa_U512 __attribute__((vector_size(64)));
 #else
 	typedef wl_UMax wl__Afa_U512;

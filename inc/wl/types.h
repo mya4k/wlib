@@ -7,18 +7,18 @@
 
 
 
-#if defined(WL_CONF_CPP)
+#if defined(WL_CPP)
 
 /* If C++, `bool` is a keyword, but `_Bool` is not */
 #	define _WL__BOOL_DEFINED	0
 #	define _WL_BOOL_DEFINED		1
 
 /* If >C++11, `long long` is a valid type */
-#if WL_CONF_CPP >= WL_CONF_VER_CPP11
+#if WL_CPP >= WL_VER_CPP11
 #	define _WL_LLONG_DEFINED	1
 #else
 #	define _WL_LLONG_DEFINED	0
-#endif /* WL_CONF_CPP >= WL_CONF_VER_CPP11 */
+#endif /* WL_CPP >= WL_VER_CPP11 */
 
 #else
 
@@ -30,15 +30,15 @@
 #	endif	/* bool */
 
 /* If >C99, `_Bool` and `long long` are valid types */
-#if WL_CONF_C >= WL_CONF_VER_C99
+#if WL_C >= WL_VER_C99
 #	define _WL__BOOL_DEFINED	1
 #	define _WL_LLONG_DEFINED	1
-#else	/* WL_CONF_C >= WL_CONF_VER_C99 */
+#else	/* WL_C >= WL_VER_C99 */
 #	define _WL__BOOL_DEFINED	0
 #	define _WL_LLONG_DEFINED	0
-#endif	/* WL_CONF_C >= WL_CONF_VER_C99 */
+#endif	/* WL_C >= WL_VER_C99 */
 
-#endif /* defined(WL_CONF_CPP) */
+#endif /* defined(WL_CPP) */
 
 
 
@@ -353,7 +353,7 @@
 
 
 
-#if WL_CONF_LIMITS
+#if WL_C_LIMITS
 #	include <limits.h>
 
 /* Minimal values of fundamental types */
@@ -526,7 +526,7 @@
 
 
 
-#if WL_CONF_STDINT
+#if WL_C_STDINT
 #	include <stdint.h>
 
 	typedef	int_fast8_t		wl_I8f,		wl_i8f;
@@ -794,7 +794,7 @@
 
 
 
-#if WL_CONF_FIXED == WL_CONF_FAST
+#if WL_FIXED == WL_FIXED_FAST
 	typedef wl_I8f	wl_I8,	wl_i8;
 	typedef wl_I16f	wl_I16,	wl_i16;
 	typedef wl_I32f wl_I32,	wl_i32;
@@ -885,10 +885,10 @@
 #		define WL_UMN	WL_ULLN
 #		define WL_UMX	WL_ULLX
 
-#		if WL_CONF_FLOAT
+#		if WL_C_FLOAT
 			/* Maximal-width real floating-point type */
 			typedef long double									wl_FMax, wl_fmax;
-#			if WL_CONF_COMPLEX
+#			if WL_C_COMPLEX
 				/* Maximal-width complex floating-point type */
 				typedef long double _Complex					wl_CMax, wl_cmax;
 #			endif
@@ -922,12 +922,12 @@
  *	floating-point types, due to hardware limitation of targets they compile 
  *	for.
  */
-#		if	WL_CONF_FLOAT
-#			if		WL_CONF_FLOAT128
+#		if	WL_C_FLOAT
+#			if		WL_C_FLOAT128
 				/* Maximal-width real floating-point type */
 				typedef __float128							wl_FMax, wl_fmax;
 #				define FMB	128
-#			elif	WL_CONF_FLOAT80
+#			elif	WL_C_FLOAT80
 				/* Maximal-width real floating-point type */
 				typedef __float80							wl_FMax, wl_fmax;
 #				define FMB	128
@@ -937,13 +937,13 @@
 #				define FMB	64
 #			endif
 
-#			if WL_CONF_COMPLEX
-#				if		WL_CONF_FLOAT128
+#			if WL_C_COMPLEX
+#				if		WL_C_FLOAT128
 					/* Maximal-width real floating-point type */
 					typedef _Complex float __attribute__((mode(TC)))
 															wl_CMax, wl_cmax;
 #					define CMB	256
-#				elif		WL_CONF_FLOAT80
+#				elif		WL_C_FLOAT80
 					/* Maximal-width real floating-point type */
 					typedef _Complex float __attribute__((mode(XC)))
 															wl_CMax, wl_cmax;

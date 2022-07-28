@@ -13,11 +13,11 @@
 	if (likely(((EXP) & (((UMax)1 << CHB*N)-1)))) return TRUE;
 
 /* Optimal type for `rem` */
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY
+#if WL_OPTIMIZE&4 != WL_OPTIMIZE_MEMORY
 #	define _Rem	Pt
-#else	/* WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY */
+#else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_MEMORY */
 #	define _Rem	U8
-#endif	/* WL_CONF_OPTIMIZE&4 != WL_CONF_MEMORY */
+#endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_MEMORY */
 
 /* `arr1` have to be non-null and `len` greater than zero */
 /* Get how many bytes till the next alignment */

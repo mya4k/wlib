@@ -136,14 +136,14 @@
 
 
 /* Copy less than 64 bytes */
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
+#if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
 	always_inline
 #endif 
 static void _anosw(
 	const _Afa_U512* restrict arr, U32 len, 
 	_Afa_U512* restrict res
 ) {
-#if WL_CONF_GCC_VECTOR
+#if WL_GCC_VECTOR
 	_AFA1_COPY32
 	_AFA1_COPY16
 	_AFA1_COPY8
@@ -156,14 +156,14 @@ static void _anosw(
 }
 
 /* Copy less than 64 bytes but also AND arr1 and arr2 */
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
+#if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
 	always_inline
 #endif
 static void _aansw(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len,
 	_Afa_U512* restrict res
 ) {
-#if WL_CONF_GCC_VECTOR
+#if WL_GCC_VECTOR
 	_AFA2_COPY32(&)
 	_AFA2_COPY16(&)
 	_AFA2_COPY8(&)
@@ -176,14 +176,14 @@ static void _aansw(
 }
 
 /* Copy less than 64 bytes but also OR arr1 and arr2 */
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
+#if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
 	always_inline
 #endif
 static void _aorsw(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len,
 	_Afa_U512* restrict res
 ) {
-#if WL_CONF_GCC_VECTOR
+#if WL_GCC_VECTOR
 	_AFA2_COPY32(|)
 	_AFA2_COPY16(|)
 	_AFA2_COPY8(|)
@@ -196,14 +196,14 @@ static void _aorsw(
 }
 
 /* Copy less than 64 bytes but also XOR arr1 and arr2 */
-#if WL_CONF_OPTIMIZE&4 != WL_CONF_SIZE
+#if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
 	always_inline
 #endif
 static void _axrsw(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len,
 	_Afa_U512* restrict res
 ) {
-#if WL_CONF_GCC_VECTOR
+#if WL_GCC_VECTOR
 	_AFA2_COPY32(^)
 	_AFA2_COPY16(^)
 	_AFA2_COPY8(^)

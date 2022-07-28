@@ -7,7 +7,7 @@
 
 
 
-#ifdef WL_CONF_CPP
+#ifdef WL_CPP
 /* Extern compatibility */
 #	ifndef EXTERN
 #		define EXTERN		extern "C"
@@ -41,9 +41,9 @@
 #	endif
 #endif
 
-#if defined(WL_CONF_C) && WL_CONF_C < WL_CONF_VER_C99
+#if defined(WL_C) && WL_C < WL_VER_C99
 /* Inline */
-#	if WL_CONF_GCC
+#	if WL_GCC
 #		undef	inline
 #		define	inline
 #	else
@@ -53,20 +53,20 @@
 /* Restrict */
 #	undef	restrict
 #	define	restrict
-#elif defined(WL_CONF_CPP)
+#elif defined(WL_CPP)
 /* Restrict */
 #	undef	restrict
 #	define	restrict
 #endif
 
 #undef	always_inline
-#if WL_CONF_GCC
+#if WL_GCC
 #	define always_inline	inline __attribute__((always_inline))
 #else
 #	define always_inline	inline
 #endif
 
-#if WL_CONF_GCCLIKE
+#if WL_GCCLIKE
 #define likely(cond)	__glibc_likely((long)(cond))	
 #define unlikely(cond)	__glibc_unlikely((long)(cond))
 #else
@@ -78,15 +78,15 @@
 /* Some compilers complain about an illegal function call even when the code 
  * should not be compiled
  */
-#if !WL_CONF_GCC_ATTRIBUTE && !defined(__attribute__)
+#if !WL_GCC_ATTRIBUTE && !defined(__attribute__)
 #	define __attribute__(X)
 #endif
 
-#if !WL_CONF_C_ATTRIBUTE && !defined(__has_c_attribute)
+#if !WL_C_ATTRIBUTE && !defined(__has_c_attribute)
 #	define __has_c_attribute(X)	0
 #endif
 
-#if !WL_CONF_CPP_ATTRIBUTE && !defined(__has_cpp_attribute)
+#if !WL_CPP_ATTRIBUTE && !defined(__has_cpp_attribute)
 #	define __has_cpp_attribute(X)	0
 #endif
 
@@ -94,7 +94,7 @@
 /*
  *	ATTRIBUTES
  */
-#if WL_CONF_C_ATTRIBUTE
+#if WL_C_ATTRIBUTE
 
 	/* [[fallthrough]] */
 #	if __has_c_attribute(fallthrough)
@@ -120,7 +120,7 @@
 #		define noreturn				_Noreturn
 #	endif
 
-#elif WL_CONF_CPP_ATTRIBUTE
+#elif WL_CPP_ATTRIBUTE
 
 	/* [[fallthrough]] */
 #	if __has_cpp_attribute(fallthrough)
@@ -148,7 +148,7 @@
 
 #else
 
-#	if WL_CONF_C >= WL_CONF_VER_C11
+#	if WL_C >= WL_VER_C11
 #		define noreturn				_Noreturn
 #	else
 #		define noreturn
