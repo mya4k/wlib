@@ -3,9 +3,9 @@
 
 
 
-#include <wc/sys/arch.h>
-#include <wc/sys/osys.h>
-#include <wc/sys/comp.h>
+#include <wl/sys/arch.h>
+#include <wl/sys/osys.h>
+#include <wl/sys/comp.h>
 
 
 

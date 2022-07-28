@@ -1,5 +1,5 @@
-#include <wc/array.h>
-#include <wc/memory.h>
+#include <wl/array.h>
+#include <wl/memory.h>
 
 
 

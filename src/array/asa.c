@@ -1,59 +1,32 @@
-#include <wc/array.h>
-#include <wc/error.h>
+#include <wl/array.h>
+
+
+#define wl_A_asb	wl_asb
+#define wl_A_aeq	wl_aeq
 
 
 
-Pt asa(
-	const void* restrict const	_a,
-	As							_sa,
-	const void*					b,
-	As							sb,
-	const Asf					flags
+const void* _asa(
+	const char* restrict const haystack,		U32 lenh,
+	const char* restrict const needle,	const	U32 lenn
 ) {
-	As c = 0;	/* Counter */
-
-	if (_a && b && sb) {
-		Pt a = (Pt)_a;	/* Preserve initial `a` */
-
-		if (_sa) {
-			As sa = _sa;	/* Preserve initial `sa` */
-
-			/* Search for first/last occurrence of *b's first byte (we'll refer to
-			* as "b[0]").
-			* If b[0] was not found anywhere in `*a`, return NULL;
-			* Else check `sb-1` next bytes of `*a` whether they are equal to other
-			* bytes of `*b`
-			*/
-			while ( (a = asb((const void* const)a,sa,*(const char*)b,flags&WL_ASF_REVERSED)) && sa ) {
-				if ( aeq( (const void*)(a+1), (const void*)(((Pt)b)+1), sb-1 ) ) {
-					/* Then the algorithm either returns or increments the counter */
-					if (flags&WL_ASF_COUNT) c++;
-					else return a - (Pt)_a*(Bl)(flags&WL_ASF_PTRDIFF);
-				}
-				a++;	/* Move onto the next index, to search for the next occurrence */
-				/* In count mode we need to recalculate `sa`, as we move on 
-				* with the string 
-				*/
-				( sa >= a-(Pt)_a ) ? ( sa = _sa - (a-(Pt)_a) ) : ( sa = 0 );
-			}
-		}
-
-		wrn(asa,WRZERO);
-		if (!(flags&(WL_ASF_REVERSED|WL_ASF_COUNT))) {
-			while ( (a = asb((const void* const)a,*(const char*)b,0,flags&WL_ASF_REVERSED))) {
-				if ( aeq( (const void*)(a+1), (const void*)(((Pt)b)+1), sb-1 ) ) {
-					if (flags&WL_ASF_COUNT) c++;
-					else return a - (Pt)_a*(Bl)(flags&WL_ASF_PTRDIFF);
-				}
-				a++;
-			}
+	/* If `lenn` > `lehn`, return NULL */
+	/* If `lenn` == `lehn`, test that both object are the same */
+	if (unlikely(lenn>=lenh)) {
+		if (unlikely(lenn==lenh))
+			return (void*)((Pt)haystack*(wl_A_aeq(haystack, needle, lenh)));
+	}
+	else {
+		const char* restrict _haystack = haystack;
+		while (likely(lenh>0)) {
+			/* Find the first byte of needle */
+			_haystack = wl_A_asb(_haystack, lenh, *needle);
+			lenh = _haystack - haystack;
+			/* If not found, return NULL */
+			if (unlikely(_haystack==NULL)) return NULL;
+			/* If found, check wether the next bytes are a match */
+			if (wl_A_aeq(_haystack++, needle+1, lenn-1)) return _haystack-1;
 		}
 	}
-#if WL_ERROR
-	/* Error checkin' */
-	if (sb)	err(afb,ERNULL);
-	else		err(afb,ERZERO);
-#endif
-	
-	return c;
+	return NULL;
 }

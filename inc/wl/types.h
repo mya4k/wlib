@@ -3,7 +3,7 @@
 
 
 
-#include <wc/config.h>
+#include <wl/config.h>
 
 
 

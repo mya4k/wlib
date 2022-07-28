@@ -1,5 +1,5 @@
-#include <wc/array.h>
-#include <wc/memory.h>
+#include <wl/array.h>
+#include <wl/memory.h>
 
 
 
@@ -220,6 +220,13 @@ static void _axrsw(
 const _Afa_U512* _ano(
 	const _Afa_U512* restrict arr, U32 len, _Afa_U512* restrict res
 ) {
+	/* Allocate destination if \a res is NULL*/
+	if (unlikely(res == NULL)) {
+		res = mal(len);
+	}
+#indef WL_C_STRING
+	return memcpy(res, arr, len);
+#else
 	/* Preserve `res` for return */
 	const _Afa_U512* const _res = res;
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
@@ -248,12 +255,17 @@ const _Afa_U512* _ano(
 		_anosw(arr, len, res);
 	}
 	return _res;
+#endif
 }
 
 const _Afa_U512* _aan(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
+	/* Allocate destination if \a res is NULL*/
+	if (unlikely(res == NULL)) {
+		res = mal(len);
+	}
 	/* Preserve `res` for return */
 	const _Afa_U512* const _res = res;
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
@@ -288,6 +300,10 @@ const _Afa_U512* _aor(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
+	/* Allocate destination if \a res is NULL*/
+	if (unlikely(res == NULL)) {
+		res = mal(len);
+	}
 	/* Preserve `res` for return */
 	const _Afa_U512* const _res = res;
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
