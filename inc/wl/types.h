@@ -248,6 +248,9 @@
 
 #	ifndef NULL
 #	define NULL		WL_NULL
+/*	CC65 complains about macro redefinition not being the same because it 
+	defines NULL as 0. Yes, really. */
+#	define _HAVE_NULL	1
 #	endif
 
 #	ifndef TRUE
