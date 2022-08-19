@@ -11,6 +11,7 @@
 #define WL_VER_C89					WL_VER_ANSI
 #define	WL_VER_C90					WL_VER_ANSI
 #define WL_VER_C94					199409L
+#define WL_VER_C95					199409L
 #define WL_VER_C99					199901L
 #define WL_VER_C11					201112L
 #define WL_VER_C17					201710L
@@ -69,14 +70,14 @@
 
 /* Use of C library in implementation */
 #ifndef WL_LIBC
-#	define WL_LIBC				1
+#	define WL_LIBC					0
 #endif
 
 /* Use of C++ library in implementation */
 #if defined(WL_CPP) && !defined(WL_LIBCPP)
-#	define WL_LIBCPP			1
+#	define WL_LIBCPP				1
 #else
-#	define WL_LIBCPP			0
+#	define WL_LIBCPP				0
 #endif
 
 /* Enabling `WL_LIBC` or `WL_LIBCPP` also enabled next options */
@@ -87,13 +88,17 @@
 #	endif
 
 #	if !defined(WL_C_STDINT) && WL_C >= WL_VER_C99
-#		define	WL_C_STDINT		1
+#		define	WL_C_STDINT			1
 #	else
-#		define	WL_C_STDINT		0
+#		define	WL_C_STDINT			0
 #	endif
 
 #	ifndef WL_C_STDLIB
 #		define	WL_C_STDLIB			1
+#	endif
+
+#	ifndef WL_C_STRING
+#		define WL_C_STRING			1
 #	endif
 
 #endif	/* WL_LIBC || WL_LIBCPP */
@@ -103,33 +108,11 @@
 /*****************************************************************************
  *                                 COMPILERS                                 *
  *****************************************************************************/
-
-/* GCC compiler */
-#if !defined(WL_GCC) && defined(__GNUC__)
-#	define WL_GCC				__GNUC__
-#else
-#	define WL_GCC				0
-#endif
-
 /* Clang compiler */
 #if !defined(WL_CLANG) && defined(__clang__)
-#	define WL_CLANG			1
+#	define WL_CLANG				1
 #else
-#	define WL_CLANG			0
-#endif
-
-/* MinGW compiler */
-#if !defined(WL_MINGW) && defined(__MINGW32__)
-#	define WL_MINGW			1
-#else
-#	define WL_MINGW			0
-#endif
-
-/* MinGW-w64 compiler */
-#if !defined(WL_MINGW64) && defined(__MINGW64__)
-#	define WL_MINGW64			1
-#else
-#	define WL_MINGW64			0
+#	define WL_CLANG				0
 #endif
 
 /* CC65 compiler */
@@ -139,11 +122,39 @@
 #	define WL_CC65				0
 #endif
 
+/* GCC compiler */
+#if !defined(WL_GCC) && defined(__GNUC__)
+#	define WL_GCC				__GNUC__
+#else
+#	define WL_GCC				0
+#endif
+
+/* MinGW compiler */
+#if !defined(WL_MINGW) && defined(__MINGW32__)
+#	define WL_MINGW				1
+#else
+#	define WL_MINGW				0
+#endif
+
+/* MinGW-w64 compiler */
+#if !defined(WL_MINGW64) && defined(__MINGW64__)
+#	define WL_MINGW64			1
+#else
+#	define WL_MINGW64			0
+#endif
+
 /* Microsoft Visual C++ compiler */
 #if !defined(WL_MSC) && defined(_MSC_VER)
 #	define WL_MSC				_MSC_FULL_VER
 #else
 #	define WL_MSC				0
+#endif
+
+/* GCC compiler */
+#if !defined(WL_TCC) && defined(__TINYC__)
+#	define WL_TCC				__TINYC__
+#else
+#	define WL_TCC				0
 #endif
 
 /* Whether maximal-width type should alias to types defined by standard library
@@ -163,8 +174,18 @@
 /****************************************************************************
  *                             FEATURE CHECKING                             *
  ****************************************************************************/
+/* Template */
+#ifdef WL_CONFIG_TEMPLATE
+#ifdef WL_C_
+#	if WL_C>=WL_VER_C99
+#		define WL_C_	1
+#	else
+#		define WL_C_	0
+#	endif
+#endif /* WL_C_ */
+#endif
 
-/* Floating-point types */
+/* Support for floating-point types */
 #ifndef WL_C_FLOAT
 #	ifdef __GCC_IEC_559
 #		define WL_C_FLOAT			__GCC_IEC_559
@@ -175,7 +196,34 @@
 #	endif
 #endif
 
-/* Complex types */
+/* Support for digraphs (C95/C++) */
+#ifndef WL_C_DIGRATHS
+#	if WL_C>=WL_VER_C95 || defined(WL_CPP)
+#		define WL_C_DIGRATHS	1
+#	else
+#		define WL_C_DIGRATHS	0
+#	endif
+#endif /* WL_C_DIGRAPHS */
+
+/* Support for _Bool (C99) */
+#ifndef WL_C_BOOL
+#	if WL_C>=WL_VER_C99
+#		define WL_C_BOOL	1
+#	else
+#		define WL_C_BOOL	0
+#	endif
+#endif /* WL_C_BOOL */
+
+/* Support for concatenation of narrow and wide characters (C99) */
+#ifdef WL_C_CAT_NARWIDE
+#	if WL_C>=WL_VER_C99
+#		define WL_C_CAT_NARWIDE	1
+#	else
+#		define WL_C_CAT_NARWIDE	0
+#	endif
+#endif /* WL_C_CAT_NARWIDE */
+
+/* Complex floating-point type (C99) */
 #ifndef WL_C_COMPLEX
 #	if WL_C_FLOAT == 0
 #		define WL_C_COMPLEX				0
@@ -188,7 +236,191 @@
 #	else
 #		define WL_C_COMPLEX				0
 #	endif
-#endif
+#endif /* WL_C_COMPLEX */
+
+/* Support for compound initializers (C99) */
+#ifndef WL_C_COMPOUND
+#	if WL_C>=WL_VER_C99
+#		define WL_C_COMPOUND	1
+#	else
+#		define WL_C_COMPOUND	0
+#	endif
+#endif /* WL_C_COMPOUND */
+
+/* Support for // commenting (C99)*/
+#ifdef WL_C_DSLASH
+#	if WL_C>=WL_VER_C99
+#		define WL_C_DSLASH	1
+#	else
+#		define WL_C_DSLASH	0
+#	endif
+#endif /* WL_C_DSLASH */
+
+/* Support for empty arguments in macro definitions (C99) */
+#ifdef WL_C_EMPTY_ARGS
+#	if WL_C>=WL_VER_C99
+#		define WL_C_EMPTY_ARGS	1
+#	else
+#		define WL_C_EMPTY_ARGS	0
+#	endif
+#endif /* WL_C_EMPTY_ARGS */
+
+/* Support for `_Exit()` (C99) */
+#ifdef WL_C__EXIT
+#	if WL_C>=WL_VER_C99
+#		define WL_C__EXIT	1
+#	else
+#		define WL_C__EXIT	0
+#	endif
+#endif /* WL_C__EXIT */
+
+/* Support for flexible array members (C99) */
+#ifndef WL_C_FLEXIBLE
+#	if WL_C>=WL_VER_C99
+#		define WL_C_FLEXIBLE	1
+#	else
+#		define WL_C_FLEXIBLE	0
+#	endif
+#endif /* WL_C_FLEXIBLE */
+
+/* Support for declarations in the init-close of the for loops (C99) */
+#ifdef WL_C_FOR_DECL
+#	if WL_C>=WL_VER_C99
+#		define WL_C_FOR_DECL	1
+#	else
+#		define WL_C_FOR_DECL	0
+#	endif
+#endif /* WL_C_FOR_DECL */
+
+/* Support for __FUNC__ definitions (C99)  */
+#ifndef WL_C___FUNC__
+#	if WL_C>=WL_VER_C99
+#		define WL_C___FUNC__	1
+#	else
+#		define WL_C___FUNC__	0
+#	endif
+#endif /* WL_C___FUNC__ */
+
+/* Support for hexadecimal floating-point format (C99) */
+#ifndef WL_C_HEXFLOAT
+#	if WL_C>=WL_VER_C99
+#		define WL_C_HEXFLOAT	1
+#	else
+#		define WL_C_HEXFLOAT	0
+#	endif
+#endif /* WL_C_HEXFLOAT */
+
+/* Support for `hh` length specifier (C99) */
+#ifdef WL_C_HH
+#	if WL_C>=WL_VER_C99
+#		define WL_C_HH	1
+#	else
+#		define WL_C_HH	0
+#	endif
+#endif /* WL_C_HH */
+
+/* Support for `inline` keyword (C99) */
+#ifdef WL_C_INLINE
+#	if WL_C>=WL_VER_C99
+#		define WL_C_INLINE	1
+#	else
+#		define WL_C_INLINE	0
+#	endif
+#endif /* WL_C_INLINE */
+
+/* Support for mixed declaration and code (C99) */
+#ifdef WL_C_MIXED
+#	if WL_C>=WL_VER_C99
+#		define WL_C_MIXED	1
+#	else
+#		define WL_C_MIXED	0
+#	endif
+#endif /* WL_C_MIXED */
+
+/* Support for monetary formatting (C99) */
+#ifdef WL_C_MONETARY
+#	if WL_C>=WL_VER_C99
+#		define WL_C_MONETARY	1
+#	else
+#		define WL_C_MONETARY	0
+#	endif
+#endif /* WL_C_MONETARY */
+
+/* Support for `ll` length specifier (C99) */
+#ifdef WL_C_HH
+#	if WL_C>=WL_VER_C99
+#		define WL_C_LL	1
+#	else
+#		define WL_C_LL	0
+#	endif
+#endif /* WL_C_LL */
+
+/* Support for long long (C99/C++11) */
+#ifndef WL_C_LONG_LONG
+#	if WL_C>=WL_VER_C99 || WL_CPP>=WL_VER_CPP11
+#		define WL_C_LONG_LONG	1
+#	else
+#		define WL_C_LONG_LONG	0
+#	endif
+#endif /* WL_C_LONG_LONG */
+
+/* Support for restrict keyword (C99) */
+#ifndef WL_C_RESTRICT
+#	if WL_C>=WL_VER_C99
+#		define WL_C_RESTRICT	1
+#	else
+#		define WL_C_RESTRICT	0
+#	endif
+#endif /* WL_C_RESTRICT */
+
+/* Support for trailing comma in enums (C99) */
+#ifdef WL_C_TRAILING_ENUM
+#	if WL_C>=WL_VER_C99
+#		define WL_C_TRAILING_ENUM	1
+#	else
+#		define WL_C_TRAILING_ENUM	0
+#	endif
+#endif /* WL_C_TRAILING_ENUM */
+
+/* Support for `va_copy()` (C99) */
+#ifdef WL_C_VA_COPY
+#	if WL_C>=WL_VER_C99
+#		define WL_C_VA_COPY	1
+#	else
+#		define WL_C_VA_COPY	0
+#	endif
+#endif /* WL_C_VA_COPY */
+
+/* Support for Variadic macros */
+#if defined(WL_C_VA_MACRO) 
+#	if WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11
+#		define WL_C_VA_MACRO	1
+#	else
+#		define WL_C_VA_MACRO	0
+#	endif
+#endif /* WL_C_VA_MACRO */
+
+/* Implicit int (removed in C99) */
+#ifndef WL_C_IMPLICIT_INT
+#	if WL_C<WL_VER_C99
+#		define WL_C_IMPLICIT_INT	1
+#	else
+#		define WL_C_IMPLICIT_INT	0
+#	endif
+#endif /* WL_C_IMPLICIT_INT */
+
+/* `gets` (deprecated in C99, removed in C11) */
+#ifndef WL_C_GETS
+#	if WL_C<WL_VER_C99
+#		define WL_C_IMPLICIT	2
+#	else	/* WL_C<WL_VER_C99 */
+#		if WL_C<WL_VER_C11
+#			define WL_C_GETS	1	/* Deprecated */
+#		else	/* WL_C<WL_VER_C11 */
+#			define WL_C_GETS	0	/* Removed */
+#		endif	/* WL_C<WL_VER_C11 */
+#	endif	/* WL_C<WL_VER_C99 */
+#endif /* WL_C_GETS */
 
 /* C attributes */
 #if !defined(WL_C_ATTRIBUTE) && defined(WL_C) &&\
@@ -213,14 +445,6 @@
 #	define WL_C_VARIADIC			0
 #endif
 
-/* Variadic macros */
-#if !defined(WL_C_VA_MACRO) && WL_C >= WL_VER_C99 ||\
-	WL_CPP >= WL_VER_CPP11
-#	define WL_C_VA_MACRO	1
-#else
-#	define WL_C_VA_MACRO	0
-#endif
-
 /* GCC attributes */
 #if	!defined(WL_GCC_ATTRIBUTE) && WL_GCC &&\
 	(__GNUC__ > 3 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 8))
@@ -241,6 +465,21 @@
 /*****************************************************************************
  *                                  HEADERS                                  *
  *****************************************************************************/
+/* Use of <fenv.h> in implementation */
+#	ifndef WL_C_FENV
+#		define WL_C_FENV		0
+#	endif /* WL_C_FENV */
+
+/* Use of <inttypes.h> in implementation */
+#	ifndef WL_C_INTTYPES
+#		define WL_C_INTTYPES	0
+#	endif /* WL_C_INTTYPES */
+
+/* Use of <iso646.h> in implementation */
+#	ifndef WL_C_ISO646
+#		define WL_C_ISO646		0
+#	endif /* WL_C_ISO646 */
+
 /* Use of <limits.h> in implementation */
 #	ifndef WL_C_LIMITS
 #		define WL_C_LIMITS		0
@@ -255,6 +494,26 @@
 #	ifndef WL_C_STDLIB
 #		define WL_C_STDLIB		0
 #	endif /* WL_C_STDLIB */
+
+/* Use of <string.h> in implementation */
+#	ifndef WL_C_STRING
+#		define WL_C_STRING		0
+#	endif /* WL_C_STRING */
+
+/* Use of <tgmath.h> in implementation */
+#	ifndef WL_C_TGMATH
+#		define WL_C_TGMATH		0
+#	endif /* WL_C_TGMATH */
+
+/* Use of <wchar.h> in implementation */
+#	ifndef WL_C_WCHAR
+#		define WL_C_WCHAR		0
+#	endif /* WL_C_WCHAR */
+
+/* Use of <wctype.h> in implementation */
+#	ifndef WL_C_WCTYPE
+#		define WL_C_WCTYPE		0
+#	endif /* WL_C_WCTYPE */
 
 
 
