@@ -9,7 +9,6 @@
 
 
 #if !WL_CONF_PREFIX
-#	define _Afa_U512	wl__Afa_U512
 #	define ano			wl_ano
 #	define aan			wl_aan
 #	define aor			wl_aor
@@ -60,17 +59,25 @@
 /**
  * \brief	Array No Operation (Array copy)
  * \def		wl_ano(arr, len, res)
- * \arg		arr		Array operand
+ * \arg		arr	Array operand
  * \arg		len	Length of the operand in bytes
- * \arg		res		Pointer to store the result in (optional)
+ * \arg		res	Pointer to store the result in (optional)
  * \return	void*
  */
-#if WL_C_VA_MACRO
-#	define wl_ano(arr, len, ...)	\
-	(void*)wl__ano((wl__Afa_U512*)(arr), (len), (wl__Afa_U512*)(__VA_ARGS__+0))
+#if WL_C_STRING
+#	if WL_C_VA_MACRO
+#		define wl_ano(arr, len, ...)	memcpy((__VA_ARGS__+0), (arr), (len))
+#	else
+#		define wl_ano(arr, len, res)	memcpy((res), (arr), (len))
+#	endif
 #else
-#	define wl_ano(arr, len, res)	\
-	(void*)wl__ano((wl__Afa_U512*)(arr), (len), (wl__Afa_U512*)(res))
+#	if WL_C_VA_MACRO
+#		define wl_ano(arr, len, ...)	\
+	wl__ano((char*)(arr), (len), (char*)(__VA_ARGS__+0))
+#	else
+#		define wl_ano(arr, len, res)	\
+	wl__ano((char*)(arr), (len), (char*)(res))
+#	endif
 #endif
 
 /**
@@ -89,12 +96,12 @@
  */
 #if WL_C_VA_MACRO
 #	define wl_aan(arr1, arr2, len, ...)										\
-	((void*)wl__aan((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
-	(wl__Afa_U512*)(__VA_ARGS__+0)))
+	(wl__aan((char*)(arr1), (char*)(arr2), (len),	\
+	(char*)(__VA_ARGS__+0)))
 #else
 #	define wl_aan(arr1, arr2, len, res)										\
-	((void*)wl__aan((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
-	(wl__Afa_U512*)(res)))
+	(wl__aan((char*)(arr1), (char*)(arr2), (len),	\
+	(char*)(res)))
 #endif
 
 /**
@@ -113,12 +120,12 @@
  */
 #if WL_C_VA_MACRO
 #	define wl_aor(arr1, arr2, len, ...)										\
-	((void*)wl__aor((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
-	(wl__Afa_U512*)(__VA_ARGS__+0)))
+	(wl__aor((char*)(arr1), (char*)(arr2), (len),	\
+	(char*)(__VA_ARGS__+0)))
 #else
 #	define wl_aor(arr1, arr2, len, res)										\
-	((void*)wl__aor((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
-	(wl__Afa_U512*)(res)))
+	(wl__aor((char*)(arr1), (char*)(arr2), (len),	\
+	(char*)(res)))
 #endif
 
 /**
@@ -137,12 +144,12 @@
  */
 #if WL_C_VA_MACRO
 #	define wl_axr(arr1, arr2, len, ...)										\
-	((void*)wl__axr((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
-	(wl__Afa_U512*)(__VA_ARGS__+0)))
+	(wl__axr((char*)(arr1), (char*)(arr2), (len),	\
+	(char*)(__VA_ARGS__+0)))
 #else
 #	define wl_axr(arr1, arr2, len, res)										\
-	((void*)wl__axr((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len),	\
-	(wl__Afa_U512*)(res)))
+	(wl__axr((char*)(arr1), (char*)(arr2), (len),	\
+	(char*)(res)))
 #endif
 
 /**
@@ -245,7 +252,7 @@
  * \arg		len		Length of the operands in bytes
  * Returns TRUE, unless all data of the array is set to 0
  */
-#define wl_anol(arr, len)			wl__anol((wl__Afa_U512*)(arr), (len))
+#define wl_anol(arr, len)			wl__anol((char*)(arr), (len))
 /**
  * \brief	Array AND Logical
  * \def		wl_aanl(arr1, arr2, len)
@@ -257,7 +264,7 @@
  * Returns TRUE, if both array are not filled with 0
  */
 #define wl_aanl(arr1, arr2, len)\
-	wl__aanl((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len))
+	wl__aanl((char*)(arr1), (char*)(arr2), (len))
 /**
  * \brief	Array OR Logical
  * \def		wl_aorl(arr1, arr2, len)
@@ -269,7 +276,7 @@
  * Returns TRUE, if any array is not filled with 0
  */
 #define wl_aorl(arr1, arr2, len)\
-	wl__aorl((wl__Afa_U512*)(arr1), (wl__Afa_U512*)(arr2), (len))
+	wl__aorl((char*)(arr1), (char*)(arr2), (len))
 /**
  * \brief	Array XOR Logical
  * \def		wl_axrl(arr1, arr2, len)
@@ -415,27 +422,6 @@
 
 
 
-/**	A 512-bit unsigned integer type for use in library functions
- *
- *	The goal is to use ZMM registers to copy 64 bytes of memory at a time. But
- *	if that's not possible, GCC will use a multiple of YMM or XMM or QWORD 
- *	registers to emulate 512-bit data type. Regardless, it is be significantly
- *	faster than copying 64-bit, or even 32-bit, words.
- *
- * If using vector extensions is not possible, `wl__Afa_U512` merely aliases to 
- * `UMax`
- *	
- *	Do not use this type as an integer type on your own, because it's 
- *	actually a vector of integers.
-*/
-#if WL_GCC_VECTOR
-	typedef unsigned int wl__Afa_U512 __attribute__((vector_size(64)));
-#else
-	typedef wl_UMax wl__Afa_U512;
-#endif
-
-
-
 /* Defined in `array/afl.c` */
 EXTERN const void* wl_afla(
 			char* restrict arr1,		wl_U32 len1,
@@ -449,35 +435,35 @@ EXTERN const void* wl_aflv(
 ) nonnull((1));
 
 /* Defined in `array/axx.c` */
-EXTERN const wl__Afa_U512* wl__ano(
-	const	wl__Afa_U512* restrict	arr, 
+EXTERN const void* wl__ano(
+	const	char* restrict	arr, 
 			wl_U32					len,
-			wl__Afa_U512* restrict	res
+			char* restrict	res
 )
 nonnull((1));
 
 /* Defined in `array/axx.c` */
-EXTERN const wl__Afa_U512* wl__aan(
-	const	wl__Afa_U512* restrict	arr1, 
-	const	wl__Afa_U512* restrict	arr2, 
+EXTERN const void* wl__aan(
+	const	char* restrict	arr1, 
+	const	char* restrict	arr2, 
 			wl_U32					len, 
-			wl__Afa_U512* restrict	res
+			char* restrict	res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
-EXTERN const wl__Afa_U512* wl__aor(
-	const	wl__Afa_U512* restrict	arr1, 
-	const	wl__Afa_U512* restrict	arr2, 
+EXTERN const void* wl__aor(
+	const	char* restrict	arr1, 
+	const	char* restrict	arr2, 
 			wl_U32					len, 
-			wl__Afa_U512* restrict	res
+			char* restrict	res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
-EXTERN const wl__Afa_U512* wl__axr(
-	const	wl__Afa_U512* restrict	arr1, 
-	const	wl__Afa_U512* restrict	arr2, 
+EXTERN const void* wl__axr(
+	const	char* restrict	arr1, 
+	const	char* restrict	arr2, 
 			wl_U32					len, 
-			wl__Afa_U512* restrict	res
+			char* restrict	res
 ) nonnull((1,2));
 
 /* Defined in `array/axxl.c` */
