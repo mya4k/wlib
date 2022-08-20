@@ -1,3 +1,21 @@
+/**
+ * \file array.h
+ * \author Wispy (wspvlv@gmail.com)
+ * \brief Array manipulation functions
+ * \version 0.1
+ * \date 2022-08-19
+ * 
+ * This header provides functions:
+ * 	- copy data
+ * 	- perform binary operations on data
+ * 	- perform logical operation on data
+ * 	- search for a specific byte or data in memory
+ * 	- replace occurrences of byte or data in memory
+ * 	- fill memory with data
+ */
+
+
+
 #ifndef WL_ARRAY_H
 #define WL_ARRAY_H	1
 
@@ -42,10 +60,6 @@
 #	define _anol		wl__anol
 #	define _aanl		wl__aanl
 #	define _aorl		wl__aorl
-#	define _ano_bare	wl__ano_bare
-#	define _aan_bare	wl__aan_bare
-#	define _aor_bare	wl__aor_bare
-#	define _axr_bare	wl__axr_bare
 #	define _asb			wl__asb
 #	define _asbr		wl__asbr
 #	define _asbc		wl__asbc
@@ -58,11 +72,30 @@
 
 /**
  * \brief	Array No Operation (Array copy)
- * \def		wl_ano(arr, len, res)
+ * 
+ * \def		ano(arr, len, ...)
+ * \def		ano(arr, len, res)
+ * 
  * \arg		arr	Array operand
  * \arg		len	Length of the operand in bytes
- * \arg		res	Pointer to store the result in (optional)
- * \return	void*
+ * \arg		res	Pointer to store the result in (C99 optional)
+ * 
+ * \return	void*	
+ * 
+ * Copies the object of \a len bytes beginning at \a arr into the object of the
+ * same size beginning at \a res.   
+ * 
+ * Visualization:
+ * \code 
+ * *res = *arr
+ * \endcode
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning If two objects overlap, object \a arr will be overwritten in the proccess
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_STRING
 #	if WL_C_VA_MACRO
@@ -82,17 +115,35 @@
 
 /**
  * \brief	Array AND
- * \def		wl_aan(arr1, arr2, len, res)
+ * 
+ * \def		aan(arr1, arr2, len, ...)
+ * \def		aan(arr1, arr2, len, res)
+ * 
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
- * \arg		len		Length of the operands in bytes
- * \arg		res		Pointer to store the result in (optional)
- * \return	void*
+ * \arg		len		Length of the operand in bytes
+ * \arg		res		Pointer to store the result in (C99 optional)
  * 
- * Performs bitwise AND operation on bits from \a arr1 and \a arr2, coping the
- * result to \a res.
+ * \return	void*	
  * 
- * \see		_afa
+ * Performs binary AND on the objects of \a len bytes beginning at \a arr1 and
+ * \a arr2, then the resulting object is output to the object of the same size
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = *arr1 & *arr2
+ * \endcode
+ * 
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
+ * pointer to freshly allocated object of \a len bytes.
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_aan(arr1, arr2, len, ...)										\
@@ -106,17 +157,35 @@
 
 /**
  * \brief	Array OR
- * \def		wl_aor(arr1, arr2, len, res)
+ * 
+ * \def		aor(arr1, arr2, len, ...)
+ * \def		aor(arr1, arr2, len, res)
+ * 
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
- * \arg		len		Length of the operands in bytes
- * \arg		res		Pointer to store the result in (optional)
- * \return	void*
+ * \arg		len		Length of the operand in bytes
+ * \arg		res		Pointer to store the result in (C99 optional)
  * 
- * Performs bitwise OR operation on bits from \a arr1 and \a arr2, coping the
- * result to \a res.
+ * \return	void*	
  * 
- * \see		_afa
+ * Performs binary OR on the objects of \a len bytes beginning at \a arr1 and
+ * \a arr2, then the resulting object is output to the object of the same size
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = *arr1 | *arr2
+ * \endcode
+ * 
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
+ * pointer to freshly allocated object of \a len bytes.
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_aor(arr1, arr2, len, ...)										\
@@ -130,17 +199,35 @@
 
 /**
  * \brief	Array XOR
- * \def		wl_aor(arr1, arr2, len, res)
- * \arg		res		Array holding operation result
+ * 
+ * \def		axr(arr1, arr2, len, ...)
+ * \def		axr(arr1, arr2, len, res)
+ * 
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
- * \arg		len	Length of the operands in bytes
- * \return	void*
+ * \arg		len		Length of the operand in bytes
+ * \arg		res		Pointer to store the result in (C99 optional)
  * 
- * Performs bitwise XOR operation on bits from \a arr1 and \a arr2, coping the
- * result to \a res.
+ * \return	void*	
  * 
- * \see		_afa
+ * Performs binary XOR on the objects of \a len bytes beginning at \a arr1 and
+ * \a arr2, then the resulting object is output to the object of the same size
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = *arr1 ^ *arr2
+ * \endcode
+ * 
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
+ * pointer to freshly allocated object of \a len bytes.
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_axr(arr1, arr2, len, ...)										\
@@ -153,16 +240,32 @@
 #endif
 
 /**
- * \brief	Array NOT Operation (Array copy)
- * \def		wl_ano(res, arr, len)
- * \arg		arr		Array operand
- * \arg		len		Length of the operand in bytes
- * \arg		res		Pointer to store the result in (optional)
- * \return	void*
+ * \brief	Array NOT
  * 
- * Copies \a len bytes from \a arr to \a res.
+ * \def		ant(arr, len, ...)
+ * \def		ant(arr, len, res)
  * 
- * \see		_afa
+ * \arg		arr	Array operand
+ * \arg		len	Length of the operand in bytes
+ * \arg		res	Pointer to store the result in (C99 optional)
+ * 
+ * \return	void*	
+ * 
+ * Performs binary NOT on the object of \a len bytes beginning at \a arr, 
+ * then the resulting object is output to the object of the same size 
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = ~*arr
+ * \endcode
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning If two objects overlap, object \a arr will be overwritten in the proccess
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_ant(arr, len, ...)	\
@@ -174,17 +277,35 @@
 
 /**
  * \brief	Array NAND
- * \def		wl_ann(arr1, arr2, len, res)
+ * 
+ * \def		ann(arr1, arr2, len, ...)
+ * \def		ann(arr1, arr2, len, res)
+ * 
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
- * \arg		len		Length of the operands in bytes
- * \arg		res		Pointer to store the result in (optional)
- * \return	void*
+ * \arg		len		Length of the operand in bytes
+ * \arg		res		Pointer to store the result in (C99 optional)
  * 
- * Performs bitwise NAND operation on bits from \a arr1 and \a arr2, coping the
- * result to \a res.
+ * \return	void*	
  * 
- * \see		_afa
+ * Performs binary NAND on the objects of \a len bytes beginning at \a arr1 and
+ * \a arr2, then the resulting object is output to the object of the same size
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = ~(*arr1 & *arr2)
+ * \endcode
+ * 
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
+ * pointer to freshly allocated object of \a len bytes.
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_ann(arr1, arr2, len, ...)\
@@ -196,17 +317,35 @@
 
 /**
  * \brief	Array NOR
- * \def		wl_anr(arr1, arr2, len, res)
+ * 
+ * \def		anr(arr1, arr2, len, ...)
+ * \def		anr(arr1, arr2, len, res)
+ * 
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
- * \arg		len		Length of the operands in bytes
- * \arg		res		Pointer to store the result in (optional)
- * \return	void*
+ * \arg		len		Length of the operand in bytes
+ * \arg		res		Pointer to store the result in (C99 optional)
  * 
- * Performs bitwise NOR operation on bits from \a arr1 and \a arr2, coping the
- * result to \a res.
+ * \return	void*	
  * 
- * \see		_afa
+ * Performs binary NOR on the objects of \a len bytes beginning at \a arr1 and
+ * \a arr2, then the resulting object is output to the object of the same size
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = ~(*arr1 | *arr2)
+ * \endcode
+ * 
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
+ * pointer to freshly allocated object of \a len bytes.
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_anr(arr1, arr2, len, ...)\
@@ -218,17 +357,35 @@
 
 /**
  * \brief	Array NXOR
- * \def		wl_anx(arr1, arr2, len, res)
+ * 
+ * \def		anx(arr1, arr2, len, ...)
+ * \def		anx(arr1, arr2, len, res)
+ * 
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
- * \arg		len		Length of the operands in bytes
- * \arg		res		Pointer to store the result in (optional)
- * \return	void*
+ * \arg		len		Length of the operand in bytes
+ * \arg		res		Pointer to store the result in (C99 optional)
  * 
- * Performs bitwise NXOR operation on bits from \a arr1 and \a arr2, coping the
- * result to \a res.
+ * \return	void*	
  * 
- * \see		_afa
+ * Performs binary NXOR on the objects of \a len bytes beginning at \a arr1 and
+ * \a arr2, then the resulting object is output to the object of the same size
+ * beginning at \a res.
+ * 
+ * Visualization:
+ * \code 
+ * *res = ~(*arr1 ^ *arr2)
+ * \endcode
+ * 
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
+ * pointer to freshly allocated object of \a len bytes.
+ * 
+ * \note \a len is interpreted as \e U32
+ * 
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * 
+ * \todo Integrate \a res null pointer handling into the expansion of the 
+ * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
 #	define wl_anx(arr1, arr2, len, ...)\
@@ -238,11 +395,7 @@
 		(!wl_axr((arr1), (arr1), (len), (res)))
 #endif
 
-/**
- *	If \a res is NULL, \a res is allocated
- *	If \a arr1 is NULL, \a arr2 is NULL or \a len is 0, error
- *	No memory overlap protection
- */
+
 
 /**
  * \brief	Array No Operation Logical
