@@ -1,5 +1,5 @@
 #include <wl/array.h>
-
+#include <wl/math.h>
 
 
 
@@ -16,10 +16,14 @@
 #	endif
 
 /* Whether there's a byte that has a value of `0x00` */
-#define _HASZERO(X)	(((X)-_LOW) & ~(X) & _HIGH)
+#define _HASZERO(X)		(((X)-_LOW) & ~(X) & _HIGH)
+#define _HASZERO8(X)	(((X)-((U8l)_LOW)) & ~(X) & ((U8l)_HIGH))
+#define _HASZERO16(X)	(((X)-((U16l)_LOW)) & ~(X) & ((U16l)_HIGH))
+#define _HASZERO32(X)	(((X)-((U32l)_LOW)) & ~(X) & ((U32l)_HIGH))
 
 
 
+#ifdef RKGRMG
 typedef U8 _V8b __attribute__((vector_size (64)));
 
 
@@ -189,4 +193,76 @@ U32 _asbc(
 	}
 
 	return count;
+}
+#endif
+
+static inline _asbsw(
+	const	char* restrict	haystack,
+	const	U32				len,
+	const	char			byte
+) {
+	int a;
+
+#	if UMB >= 64
+		if (unlikely(len & 4)) {
+			a = __builtins_clz(_HASZERO32((*(U32l*)haystack)^byte)) / CHB;
+			if (unlikely(a < 4)) return haystack + a;
+			haystack += 4;
+		}
+#	endif
+	if (unlikely(len & 2)) {
+		a = __builtins_clz(_HASZERO16((*(U16l*)haystack)^byte)) / CHB;
+		if (unlikely(a < 2)) return haystack + a;
+		haystack += 2;
+	}
+	if (unlikely(len & 1)) {
+		/* This is faster than using `_HASZERO` and other stuff */
+		if (unlikely(*haystack == byte)) return haystack;
+		haystack += 1;
+	}
+
+	return NULL;
+}
+
+
+const char* _asb(
+	const	char* restrict	haystack,
+			U32				len,
+	const	char			byte
+) {
+	/* If we are allowed to use functions in `<string.h>`, just call this 
+	function through its macro, which will make a call to a libc function. */
+#	if WL_C_STRING
+		return asb(haystack,len,byte);
+#	else
+		/* If searching in a subword haystack, skip alignment and wordwide 
+		search */
+		if (unlikely(len <= sizeof(UMax))) {
+			goto remaining;
+		}
+		else {
+			/* Align haystack */
+			{
+				const Pt rem = (Pt)haystack % sizeof(UMax);
+				const char* const a = asbsw(haystack,rem,byte);
+				if (unlikely(a)) return a; 
+				len -= rem;
+			}
+
+			/* Search every word */
+			for (likely(len >= sizeof(UMax))) {
+				a = __builtins_clz(_HASZERO((*(UMax*)haystack)^byte)) / CHB;
+				if (unlikely(a < sizeof(UMax))) return haystack + a;
+				haystack += sizeof(UMax);			
+			}
+
+remaining:
+			/* Search the remaining bits */
+			const char* const a = asbsw(haystack,rem,byte);
+			if (unlikely(a)) return a;
+
+			/* If not found */
+			return NULL;
+		}
+#	endif
 }
