@@ -7,46 +7,11 @@
 
 
 
-#if defined(WL_CPP)
-
-/* If C++, `bool` is a keyword, but `_Bool` is not */
-#	define _WL__BOOL_DEFINED	0
-#	define _WL_BOOL_DEFINED		1
-
-/* If >C++11, `long long` is a valid type */
-#if WL_CPP >= WL_VER_CPP11
-#	define _WL_LLONG_DEFINED	1
-#else
-#	define _WL_LLONG_DEFINED	0
-#endif /* WL_CPP >= WL_VER_CPP11 */
-
-#else
-
-/* Check in case `bool` is defined as a macro */
-#	ifdef bool
-#	define _WL_BOOL_DEFINED		1
-#	else	/* bool */
-#	define _WL_BOOL_DEFINED		0
-#	endif	/* bool */
-
-/* If >C99, `_Bool` and `long long` are valid types */
-#if WL_C >= WL_VER_C99
-#	define _WL__BOOL_DEFINED	1
-#	define _WL_LLONG_DEFINED	1
-#else	/* WL_C >= WL_VER_C99 */
-#	define _WL__BOOL_DEFINED	0
-#	define _WL_LLONG_DEFINED	0
-#endif	/* WL_C >= WL_VER_C99 */
-
-#endif /* defined(WL_CPP) */
-
-
-
-#if !WL_CONF_PREFIX
+#if !WL_PREFIX
 #	define Bl	wl_Bl
 #	define bl	wl_bl
 #	define Bool	wl_Bool
-#	if	!_WL_BOOL_DEFINED
+#	if	!WL_CPP_BOOL && !defined(bool)
 #	define bool wl_bool
 #	endif	/* !_WL_BOOL_DEFINED */
 
@@ -80,14 +45,14 @@
 #	define UIB	WL_UIB
 #	define ULB	WL_ULB
 
-#	if	_WL_LLONG_DEFINED
+#	if	WL_C_LONG_LONG
 #	define LLB	WL_LLB
 #	define LLN	WL_LLN
 #	define LLX	WL_LLX
 #	define ULLB	WL_ULLB
 #	define ULLN	WL_ULLN
 #	define ULLX	WL_ULLX
-#	endif	/* _WL_LLONG_DEFINED */
+#	endif	/* WL_C_LONG_LONG */
 
 #	define I8l	wl_I8l
 #	define I16l	wl_I16l
@@ -346,9 +311,9 @@
  * 	Else if `_Bool` is a keyword (C99), `Bl`, `Bool` == `_Bool`
  * 	Else `Bl` and `Bool` are 
  */
-#if _WL_BOOL_DEFINED
+#if WL_CPP_BOOL
 	typedef	bool	wl_Bl, wl_bl, wl_Bool, wl_bool;
-#elif _WL__BOOL_DEFINED
+#elif WL_C_BOOL
 	typedef	_Bool	wl_Bl, wl_bl, wl_Bool, wl_bool;
 #else
 	typedef	char	wl_Bl, wl_bl, wl_Bool, wl_bool;
@@ -382,13 +347,13 @@
 #	define WL_ULX	ULONG_MAX
 
 /* Minimal and maximal values of `long long` types (>C99/>C++11) */
-#	if	_WL_LLONG_DEFINED
+#	if	WL_C_LONG_LONG
 #	define WL_LLN	LLONG_MIN
 #	define WL_ULLN	ULLONG_MIN
 
 #	define WL_LLX	LLONG_MAX
 #	define WL_ULLX	ULLONG_MAX
-#	endif	/* _WL_LLONG_DEFINED */
+#	endif	/* WL_C_LONG_LONG */
 
 /* Widths of fundamental types */
 #	ifdef CHAR_WIDTH
@@ -461,7 +426,7 @@
 #	define WL_UCX	((unsigned char)0xFF)
 
 
-#if _WL_DM == _WL_DM_SILP64
+#if WL_DM == WL_DM_SILP64
 #	define WL_SHB	64
 #	define WL_SHN	((short)0x8000000000000000)
 #	define WL_SHX	((short)0x7FFFFFFFFFFFFFFF)
@@ -479,7 +444,7 @@
 #	define WL_USX	((unsigned short)0xFFFF)
 #endif
 
-#if _WL_DM == _WL_DM_ILP64 || _WL_DM == _WL_DM_SILP64
+#if WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64
 #	define WL_INB	64
 #	define WL_INN	((int)0x8000000000000000)
 #	define WL_INX	((int)0x7FFFFFFFFFFFFFFF)
@@ -497,7 +462,7 @@
 #	define WL_UIX	((unsigned int)0xFFFFFFFF)
 #endif
 
-#if _WL_DM == _WL_DM_LP64 || _WL_DM == _WL_DM_ILP64 || _WL_DM == _WL_DM_SILP64
+#if WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64
 #	define WL_LOB	64
 #	define WL_LON	((long)0x8000000000000000)
 #	define WL_LOX	((long)0x7FFFFFFFFFFFFFFF)
@@ -515,7 +480,7 @@
 #	define WL_ULX	((unsigned long)0xFFFFFFFF)
 #endif
 
-#if _WL_LLONG_DEFINED
+#if WL_C_LONG_LONG
 #	define WL_LLB	64
 #	define WL_LLN	((long long)0x8000000000000000)
 #	define WL_LLX	((long long)0x7FFFFFFFFFFFFFFF)
@@ -743,7 +708,7 @@
 #	define WL_U32LX	WL_ULX
 #	endif
 
-#	if _WL_LLONG_DEFINED
+#	if WL_C_LONG_LONG
 		/* `long long` is guaranteed to be at least 64-bit */
 		typedef long long			wl_I64l,	wl_i64l;
 		typedef unsigned long long	wl_U64l,	wl_u64l;
@@ -770,13 +735,44 @@
 
 	typedef signed char				wl_I8f, wl_i8f;
 	typedef unsigned char			wl_U8f, wl_u8f;
-#	if WL_CONF_WORDSIZE == 64
+
+#	define WL_I8FB	WL_SCB
+#	define WL_I8FN	WL_SCN
+#	define WL_I8FX	WL_SCX
+#	define WL_U8FB	WL_UCB
+#	define WL_U8FN	WL_UCN
+#	define WL_U8FX	WL_UCX
+
+#	define WL_I8LB	WL_UCB
+
+#	if WL_WORDSIZE == 64
 		typedef wl_I64l				wl_I16f, wl_i16f;
 		typedef wl_I64l				wl_I32f, wl_i32f;
 		typedef wl_I64l				wl_I64f, wl_i64f;
 		typedef wl_U64l				wl_U16f, wl_u16f;
 		typedef wl_U64l				wl_U32f, wl_u32f;
 		typedef wl_U64l				wl_U64f, wl_u64f;
+
+#		define WL_I16FB	WL_I64LB
+#		define WL_I16FN	WL_I64LN
+#		define WL_I16FX	WL_I64LX
+#		define WL_I32FB	WL_I64LB
+#		define WL_I32FN	WL_I64LN
+#		define WL_I32FX	WL_I64LX
+#		define WL_I64FB	WL_I64LB
+#		define WL_I64FN	WL_I64LN
+#		define WL_I64FX	WL_I64LX
+
+#		define WL_U16FB	WL_U64LB
+#		define WL_U16FN	WL_U64LN
+#		define WL_U16FX	WL_U64LX
+#		define WL_U32FB	WL_U64LB
+#		define WL_U32FN	WL_U64LN
+#		define WL_U32FX	WL_U64LX
+#		define WL_U64FB	WL_U64LB
+#		define WL_U64FN	WL_U64LN
+#		define WL_U64FX	WL_U64LX
+
 #	else
 		typedef wl_I32l				wl_I16f, wl_i16f;
 		typedef wl_I32l				wl_I32f, wl_i32f;
@@ -784,14 +780,33 @@
 		typedef wl_U32l				wl_U16f, wl_u16f;
 		typedef wl_U32l				wl_U32f, wl_u32f;
 		typedef wl_U32l				wl_U64f, wl_u64f;
+
+#		define WL_I16FB	WL_I32LB
+#		define WL_I16FN	WL_I32LN
+#		define WL_I16FX	WL_I32LX
+#		define WL_I32FB	WL_I32LB
+#		define WL_I32FN	WL_I32LN
+#		define WL_I32FX	WL_I32LX
+#		define WL_I64FB	WL_I32LB
+#		define WL_I64FN	WL_I32LN
+#		define WL_I64FX	WL_I32LX
+
+#		define WL_U16FB	WL_U32LB
+#		define WL_U16FN	WL_U32LN
+#		define WL_U16FX	WL_U32LX
+#		define WL_U32FB	WL_U32LB
+#		define WL_U32FN	WL_U32LN
+#		define WL_U32FX	WL_U32LX
+#		define WL_U64FB	WL_U32LB
+#		define WL_U64FN	WL_U32LN
+#		define WL_U64FX	WL_U32LX
+
 #	endif
 
+
+
 /* Pointer type */
-#	if WL_CONF_WORDSIZE == 64
-		typedef wl_U64l	wl_Pt, wl_pt;
-#	else
-		typedef wl_U32l	wl_Pt, wl_pt;
-#	endif
+typedef wl_U64l	wl_Pt, wl_pt;
 
 #endif
 
@@ -876,7 +891,7 @@
 
 
 /* Maximal width types */
-#	if WL_CONF_MAXSTD
+#	if WL_STDMAX
 		/* Maximal-width signed integer type */
 		typedef long long									wl_IMax, wl_imax;
 		/* Maximal-width unsigned integer type */
@@ -897,7 +912,7 @@
 #			endif
 #		endif
 #	else
-#		if WL_CONF_INT128
+#		if WL_INT128
 			/* Maximal-width signed integer type */
 			typedef __int128								wl_IMax, wl_imax;
 			/* Maximal-width unsigned integer type */
@@ -1001,7 +1016,7 @@
 #define WL_UINT_BIT		WL_UIB
 #define WL_ULONG_BIT	WL_ULB
 
-#if _WL_LLONG_DEFINED
+#if WL_C_LONG_LONG
 #	define WL_LLONG_MIN		WL_LLN
 #	define WL_ULLONG_MIN	WL_ULLN
 #	define WL_LLONG_MAX		WL_LLX
