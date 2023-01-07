@@ -377,8 +377,8 @@
  * *res = ~(*arr1 ^ *arr2)
  * \endcode
  * 
- * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
- * pointer to freshly allocated object of \a len bytes.
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned
+ * a pointer to freshly allocated object of \a len bytes.
  * 
  * \note \a len is interpreted as \e U32
  * 
@@ -399,13 +399,24 @@
 
 /**
  * \brief	Array No Operation Logical
- * \def		wl_anol(arr1, len)
- * \arg		arr1	First array operand
- * \arg		arr2	Second array operand
- * \arg		len		Length of the operands in bytes
- * Returns TRUE, unless all data of the array is set to 0
+ * 
+ * \def		anol(arr, len)
+ * 
+ * \arg		arr	First array operand
+ * \arg		len	Length of the operands in bytes
+ * 
+ * \return	TRUE, unless the object is filled with only zero bits
+ * 
+ * The `anol()` function returns the boolean value of the object
+ * 
+ * Visualization:
+ * \code 
+ * return !!*arr
+ * \endcode
+ * 
+ * \note \a len is interpreted as \e U32
  */
-#define wl_anol(arr, len)			wl__anol((char*)(arr), (len))
+#define wl_anol(arr, len)	wl__anol((char*)(arr), (len))
 /**
  * \brief	Array AND Logical
  * \def		wl_aanl(arr1, arr2, len)
@@ -416,8 +427,10 @@
  * 
  * Returns TRUE, if both array are not filled with 0
  */
-#define wl_aanl(arr1, arr2, len)\
-	wl__aanl((char*)(arr1), (char*)(arr2), (len))
+#define wl_aanl(arr1, arr2, len) (				\
+	wl__anol((char*)(arr1), (len)) 				\
+	? ( wl__anol((char*)(arr2), (len)) ? 1 : 0) \
+	: 0 )
 /**
  * \brief	Array OR Logical
  * \def		wl_aorl(arr1, arr2, len)
@@ -428,8 +441,10 @@
  * 
  * Returns TRUE, if any array is not filled with 0
  */
-#define wl_aorl(arr1, arr2, len)\
-	wl__aorl((char*)(arr1), (char*)(arr2), (len))
+#define wl_aanl(arr1, arr2, len) (				\
+	wl__anol((char*)(arr1), (len)) 				\
+	? 1  										\
+	: (wl__anol((char*)(arr2), (len)) ? 1 : 0) )
 /**
  * \brief	Array XOR Logical
  * \def		wl_axrl(arr1, arr2, len)
@@ -620,22 +635,7 @@ EXTERN const void* wl__axr(
 ) nonnull((1,2));
 
 /* Defined in `array/axxl.c` */
-EXTERN wl_Bl wl__anol(const wl_UMax* restrict arr1, wl_U32 len) nonnull((1));
-
-/* Defined in `array/axxl.c` */
-EXTERN wl_Bl wl__aanl(
-	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
-)
-nonnull((1,2));
-
-/* Defined in `array/axxl.c` */
-EXTERN wl_Bl wl__aorl(
-	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
-) nonnull((1,2));
-
-EXTERN wl_Bl wl__anq(
-	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
-) nonnull((1,2));
+EXTERN wl_Bl wl__anol(const char* restrict arr1, wl_U32 len) nonnull((1));
 
 /* Defined in `array/asb.c` */
 EXTERN const char* wl__asb(

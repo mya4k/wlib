@@ -78,17 +78,6 @@
 	return FALSE
 
 
-/**
- * \brief 
- * 
- * \param arr1 
- * \param len 
- * \return Bl 
- */
-Bl _anol(const UMax* restrict arr1, U32 len) {
-	_ANOL(arr1);
-}
-
 #define _min2(x,y)	((x)<=(y) ? (x) : (y))
 
 Bl _aanl(const UMax* restrict arr1, const UMax* restrict arr2, U32 len) {
