@@ -1,5 +1,12 @@
+#ifdef rgrkgrgkr
 #include <wl/array.h>
 #include <wl/memory.h>
+
+
+
+#if WL_C_STRING
+#	include <string.h>
+#endif
 
 
 
@@ -64,7 +71,7 @@
 		arr = (_Afa_U512*)((_Afa_U256*)arr + 1);							\
 	}
 
-#define _AFA1_COPY64	if (len & 64) *res = *arr;
+#define _AFA1_COPY64	if (unlikely(len & 64)) *res = *arr;
 
 
 #define _AFA2_COPY1(OP)								\
@@ -136,24 +143,26 @@
 
 
 /* Copy less than 64 bytes */
-#if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
-	always_inline
-#endif 
-static void _anosw(
-	const _Afa_U512* restrict arr, U32 len, 
-	_Afa_U512* restrict res
-) {
-#if WL_GCC_VECTOR
-	_AFA1_COPY32
-	_AFA1_COPY16
-	_AFA1_COPY8
+#if !WL_C_STRING
+#	if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
+		always_inline
+#	endif 
+	static void _anosw(
+		const _Afa_U512* restrict arr, U32 len, 
+		_Afa_U512* restrict res
+	) {
+	#if WL_GCC_VECTOR
+		_AFA1_COPY32
+		_AFA1_COPY16
+		_AFA1_COPY8
+	#endif
+	#if UMB >= 64
+		_AFA1_COPY4
+	#endif
+		_AFA1_COPY2
+		_AFA1_COPY1
+	}
 #endif
-#if UMB >= 64
-	_AFA1_COPY4
-#endif
-	_AFA1_COPY2
-	_AFA1_COPY1
-}
 
 /* Copy less than 64 bytes but also AND arr1 and arr2 */
 #if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
@@ -220,15 +229,22 @@ static void _axrsw(
 const _Afa_U512* _ano(
 	const _Afa_U512* restrict arr, U32 len, _Afa_U512* restrict res
 ) {
+#if !WL_MIXED && !WL_C_STRING
+	const _Afa_U512* _res;
+#endif
 	/* Allocate destination if \a res is NULL*/
 	if (unlikely(res == NULL)) {
 		res = mal(len);
 	}
-#indef WL_C_STRING
+#if WL_C_STRING
 	return memcpy(res, arr, len);
 #else
 	/* Preserve `res` for return */
+#	if WL_MIXED
 	const _Afa_U512* const _res = res;
+#	else
+	_res = res;
+#	endif
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
 	if (likely(len <= sizeof(_Afa_U512))) {
 		_AFA1_COPY64
@@ -262,12 +278,19 @@ const _Afa_U512* _aan(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
+#if !WL_MIXED
+	const _Afa_U512* _res;
+#endif
 	/* Allocate destination if \a res is NULL*/
 	if (unlikely(res == NULL)) {
 		res = mal(len);
 	}
 	/* Preserve `res` for return */
+#if WL_MIXED
 	const _Afa_U512* const _res = res;
+#else
+	_res = res;
+#endif
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
 	if (likely(len <= sizeof(_Afa_U512))) {
 		_AFA2_COPY64(&);
@@ -300,12 +323,19 @@ const _Afa_U512* _aor(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
+#if !WL_MIXED
+	const _Afa_U512* _res;
+#endif
 	/* Allocate destination if \a res is NULL*/
 	if (unlikely(res == NULL)) {
 		res = mal(len);
 	}
 	/* Preserve `res` for return */
+#if WL_MIXED
 	const _Afa_U512* const _res = res;
+#else
+	_res = res;
+#endif
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
 	if (likely(len <= sizeof(_Afa_U512))) {
 		_AFA2_COPY64(|);
@@ -338,8 +368,19 @@ const _Afa_U512* _axr(
 	const _Afa_U512* restrict arr1, const _Afa_U512* restrict arr2, U32 len, 
 	_Afa_U512* restrict res
 ) {
+#if !WL_MIXED
+	const _Afa_U512* _res;
+#endif
+	/* Allocate destination if \a res is NULL*/
+	if (unlikely(res == NULL)) {
+		res = mal(len);
+	}
 	/* Preserve `res` for return */
+#if WL_MIXED
 	const _Afa_U512* const _res = res;
+#else
+	_res = res;
+#endif
 	/* If `len` is smaller than 64 bytes, we won't need to loop */
 	if (likely(len <= sizeof(_Afa_U512))) {
 		_AFA2_COPY64(^);
@@ -366,4 +407,46 @@ const _Afa_U512* _axr(
 		_axrsw(arr1, arr2, len, res);
 	}
 	return _res;
+}
+#endif
+
+
+
+#include <wl/array.h>
+#include <wl/extint.h>
+
+
+
+const void* _ano(const U512* restrict arr, U32 len, void* restrict res) {
+#	if !WL_MIXED && !WL_C_STRING
+		/**	If declaration and code cannot be mixed and we don't make calls to 
+		 *	libc, we should declare it right away, before we test `res`.
+		 */
+		const void* _res;
+#	endif
+
+	/* If NULL is a not valid pointer address (optimal behavior) */
+#	if !WL_ALLOW_NULL
+		/* Allocate destination if \a res is NULL*/
+		if (unlikely(res == NULL)) {
+			res = mal(len);
+		}
+#	endif
+
+#	if WL_C_STRING
+		/* If allowed, we make a call to libc's analogous function */
+		return memcpy(res, arr, len);
+#	else
+		/* Preserve `res` for return */
+#		if WL_MIXED
+			/* If mixed declaration and code are allowed, we define this object here*/
+			const _Afa_U512* const _res = res;
+#		else
+			_res = res;
+#		endif
+
+		if (unlikely(len & 0x1 && len > 0)) {
+			
+		}
+#	endif
 }

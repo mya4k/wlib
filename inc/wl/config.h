@@ -45,6 +45,10 @@
  *                              OVERALL OPTIONS                              *
  *****************************************************************************/
 
+#ifndef WL_PREFIX
+#	define WL_PREFIX	0
+#endif	/* WL_PREFIX */
+
 /* C language */
 #if !defined(WL_C) && defined(__STDC__)
 #	ifdef __STDC_VERSION__
@@ -103,6 +107,18 @@
 
 #endif	/* WL_LIBC || WL_LIBCPP */
 
+/* Word size of the architecture */
+#ifndef WL_WORDSIZE
+#	ifdef __WORDSIZE
+#		define WL_WORDSIZE	__WORDSIZE
+#	else
+		/**
+		 * \todo Figure which architectures are 32-bit, or what compilers on
+		 * what conditions generate code in 32-bit mode
+		 */
+#		define WL_WORDSIZE	64
+#	endif
+#endif	/* Word size of the architecture */
 
 
 /*****************************************************************************
@@ -422,6 +438,25 @@
 #	endif	/* WL_C<WL_VER_C99 */
 #endif /* WL_C_GETS */
 
+/* `_Generic` (C11) */
+#ifndef WL_C_GENERIC
+#	if	WL_C<WL_VER_C11
+#		define WL_C_GENERIC	0
+#	else	/* WL_C<WL_VER_C11 */
+#		define WL_C_GENERIC	1
+#	endif	/* WL_C<WL_VER_C11 */
+#endif	/* WL_C_GENERIC */
+
+/* Support for bool as a keyword (C++) */
+#ifndef WL_CPP_BOOL
+#	if WL_CPP
+#		define WL_CPP_BOOL	1
+#	else
+#		define WL_CPP_BOOL	0
+#	endif
+#endif /* WL_CPP_BOOL */
+
+
 /* C attributes */
 #if !defined(WL_C_ATTRIBUTE) && defined(WL_C) &&\
 	WL_C >= WL_VER_C23
@@ -452,6 +487,14 @@
 #	define WL_C_ALLOCA	0
 #endif
 
+/* __builtin_clz/l/ll() (GCC 3.4.0) */
+#if	WL_BUILTIN && WL_GCC \
+	&& (__GNUC__ == 3 && __GNUC_MINOR__ >= 4) || __GNUC__ > 3
+#	define WL_BUILTIN_CLZ	1
+#else
+#	define WL_BUILTIN_CLZ	0
+#endif
+
 /* GCC attributes */
 #if	!defined(WL_GCC_ATTRIBUTE) && WL_GCC &&\
 	(__GNUC__ > 3 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 8))
@@ -466,6 +509,13 @@
 #else
 #	define WL_GCC_VECTOR		0
 #endif
+
+/* Signedness of `char` */
+#  ifdef __CHAR_UNSIGNED__
+#   define WL_CHAR_UNSIGNED
+#  else
+#   define WL_CHAR_SIGNED
+#  endif
 
 
 

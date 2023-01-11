@@ -1,7 +1,7 @@
 cc = /bin/gcc 
-flags = -Wall -Wextra -Iinc -c $(F) -include inc/wl/config.h
+flags = -Wall -Wextra -Iinc -c $(F) -Werror
 clang = /bin/clang $(flags)
-gcc = /bin/gcc $(flags) -fanalyzer # -Wanalyzer-too-complex
+gcc = /bin/gcc $(flags) # -fanalyzer -Wanalyzer-too-complex
 
 dirobj:
 	mkdir -p obj/
@@ -71,14 +71,16 @@ cmpgg:
 	$(gcc) -std=gnu2x -DWL_FIXED=1
 cmp65:
 	cc65 -Iinc -D__STDC__ -o /dev/null $(F)
+cmpt:
+	tcc -Iinc -o /dev/null -c $(F) -Wall -Werror -Wunsupported -Wwrite-strings
 # Compile with GCC (All)
 cmpg: cmpgi cmpgg
 # Compile with all compilers
-compile comp cmp: cmpc cmpg cmp65
+compile comp cmp: cmpc cmpg cmp65 cmpt
 # Compile with all compiler (for headers)
-compile_header cmph: cmpgg cmpcg cmpgi cmpci
+compile_header cmph: cmpgg cmpcg cmpgi cmpci cmp65 cmpt
 # Compilation time statistics
-cmpt:
+cmptm:
 	$(gcc) -std=gnu2x -pedantic-errors -Wpedantic -ftime-report
 # Compilation time statistics (for headers)
 cmpth:
@@ -98,7 +100,7 @@ carray carr:
 	make cmp F="src/array/axx.c"
 	make cmp F="src/array/axxl.c"
 oarray oarr: dirobj
-	$(cc) -Iinc-O2 -c src/array/axx.c -o obj/axx.o
+	$(cc) -Iinc -O2 -c src/array/axx.c -o obj/axx.o
 # $(cc) -O2 -c src/array/axxl.c -o obj/axxl.o
 wlib lib: oarray dirlib
 	ar -rc lib/libwca.a obj/axx.o obj/axxl.o
