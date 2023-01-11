@@ -1,63 +1,62 @@
 #include <wl/array.h>
-#include <wl/error.h>
+#if WL_C_ALLOCA
+#	include <alloca.h>
+#endif
 
 
-
+/* WLib does not have `mal` and `mfr` functions yet, so just use libc 
+definitions */
 #ifndef mal
 #	include <stdlib.h>
-#	define mal malloc 
+#	define mal(n)	malloc(n)
 #endif
+
 #ifndef mfr
 #	include <stdlib.h>
-#	define mfr free
+#	define mfr(n)	free(n)
 #endif
 
 
 
-void ara(
-	const void* restrict const a,
-	const As sa,
-	const void* restrict const b,
-	const As sb,
-	const void* restrict const r,
-	const As sr,
-	const Asf flags
+const char* _ara(
+	const char* restrict const src,
+	const char* restrict const ndl,
+	const char* restrict const rep,
+	const U32 lens, const U32 lenn, const U32 lenr 
 ) {
-/*	1. Make sure there's a haystack and a needle, otherwise return ERNULL.
- *	2. Make sure size of a haystack is specified, otherwise return ERZERO.
- *	3. If ASF_COUNT flag is set, replace every occurance of `*b` with `*r`:
- *	4. Else, get the pointer to the first/last occurance of `*b`
- *		4a. Check if `sr` <= `sb`; we can just assign `r` to `b` if it is. 
- *		Note, when `sr` < `sb`, there will be `sr-sb` rightmost bytes remaining
- *		from `*a`, but you need to treat the array as it has shrunk, and those
- *		bytes are out of its scope. 
- *		4b. Otherwise, create an intermediate buffer `_a`
- *		4c.
- */
-	if (a && b && sb) {
-		Pt z;
-		if (flags&ASF_COUNT) {
-			/* Not implimented */
-		}
-		else {
-			if (( z = asa(a,sa,b,sb,flags&ASF_REVERSED) )) {
-#if WL_WRITE_UNALLOC
-				aas(b,r,sb);
+	/* Find the needle */
+	const char* where = asa(src, ndl, lens, lenn);
+	/* If found */
+	if (likely(where)) {
+		/* Just replace `ndl` with `rep`*/
+		if (lenn == lenr) ano(rep, lenr, where);
+		/* If replacement data is longer than needle data */
+		else if (lenr > lenn) {
+			/* Preserve the data proceeding `ndl` */
+			const char* slice;
+			Pt sliceSize;
+			where += lenn;
+			sliceSize = lens-(where-src);
+#if WL_C_ALLOCA
+			slice = alloca(sliceSize);
 #else
-				if (sr<=sb) aas(b,r,sb);
-				else {
-			   		const char* _a = mal(sa+sr-sb);
-					aas(_a, a, z-(Pt)a); _a += z-(Pt)a;
-					aas(_a, a, z); _a += z;
-					aas(_a, a, sa-z-(z-(Pt)a));
-					mfr((void*)a);
-				}
-			}
+			slice = mal(sliceSize);
+#endif
+			ano(where, sliceSize, slice);
+			where -= lenn;
+			/* Replace */
+			ano(rep, lenr, where);
+			/* Reattach the sliced data */
+			ano(slice, lens-sliceSize, where+lenr);
+		}
+		/* If replacement data shorter than needle data */
+		else {
+			/* Overwrite needle with replacement data */
+			ano(rep, lenr, where);
+			/* Shift the data proceeding replaced data to fill the gap*/
+			asl(where+lenr, lens-(where-src)+lenr, lenn-lenr);
 		}
 	}
-#endif
-#if WL_ERROR
-	else	if (sb) err(ara,ERZERO);
-			else	err(ara,ERNULL);
-#endif
+
+	return src;
 }

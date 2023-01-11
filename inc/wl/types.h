@@ -444,7 +444,10 @@
 #	define WL_USX	((unsigned short)0xFFFF)
 #endif
 
-#if WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64
+/* For some reason if `WL_DM` is not defined, this exoression is TRUE, so
+ * lets also check that the macro is defined first.
+ */
+#if defined(WL_DM) && (WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64)
 #	define WL_INB	64
 #	define WL_INN	((int)0x8000000000000000)
 #	define WL_INX	((int)0x7FFFFFFFFFFFFFFF)
@@ -743,9 +746,7 @@
 #	define WL_U8FN	WL_UCN
 #	define WL_U8FX	WL_UCX
 
-#	define WL_I8LB	WL_UCB
-
-#	if WL_WORDSIZE == 64
+#	if WL_WORDSIZE == 64 || WL_C_LONG_LONG
 		typedef wl_I64l				wl_I16f, wl_i16f;
 		typedef wl_I64l				wl_I32f, wl_i32f;
 		typedef wl_I64l				wl_I64f, wl_i64f;
