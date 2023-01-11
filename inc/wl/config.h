@@ -445,6 +445,13 @@
 #	define WL_C_VARIADIC			0
 #endif
 
+/* `alloca` */
+#if !defined(WL_C_ALLOCA) && (defined(WL_GCC) || defined(WL_CLANG))
+#	define WL_C_ALLOCA	1
+#else
+#	define WL_C_ALLOCA	0
+#endif
+
 /* GCC attributes */
 #if	!defined(WL_GCC_ATTRIBUTE) && WL_GCC &&\
 	(__GNUC__ > 3 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 8))
