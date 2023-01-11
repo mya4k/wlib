@@ -27,42 +27,66 @@
 
 
 #if !WL_CONF_PREFIX
-#	define ano			wl_ano
-#	define aan			wl_aan
-#	define aor			wl_aor
-#	define axr			wl_axr
-#	define ant			wl_ant
-#	define ann			wl_ann
-#	define anr			wl_anr
-#	define anx			wl_anx
-#	define anol			wl_anol
-#	define aanl			wl_aanl
-#	define aorl			wl_aorl
-#	define axrl			wl_axrl
-#	define antl			wl_antl
-#	define annl			wl_annl
-#	define anrl			wl_anrl
-#	define anxl			wl_anxl
-#	define aeq			wl_aeq
-#	define anq			wl_anq
-#	define afl			wl_afl
-#	define asb			wl_asb
-#	define asbr			wl_asbr
-#	define asbc			wl_asbc
-#	define asa			wl_asa
+#	ifdef WL_C_VA_MACRO
+#		define ano(arr,len,...)			wl_ano(arr,len,__VA_ARGS__)
+#		define aan(arr1,arr2,len,...)	wl_aan(arr1,arr2,len,__VA_ARGS__)
+#		define aor(arr1,arr2,len,...)	wl_aor(arr1,arr2,len,__VA_ARGS__)
+#		define axr(arr1,arr2,len,...)	wl_axr(arr1,arr2,len,__VA_ARGS__)
+#		define ant(arr,len,...)			wl_ant(arr,len,__VA_ARGS__)
+#		define ann(arr1,arr2,len,...)	wl_ann(arr1,arr2,len,__VA_ARGS__)
+#		define anr(arr1,arr2,len,...)	wl_anr(arr1,arr2,len,__VA_ARGS__)
+#		define anx(arr1,arr2,len,...)	wl_anx(arr1,arr2,len,__VA_ARGS__)
+#		define afl(dst,ldst,src,...)	wl_afl(dst,ldst,src,__VA_ARGS__)
+#	else
+#		define ano(arr,len,res)			wl_ano(arr,len,res)
+#		define aan(arr1,arr2,len,res)	wl_aan(arr1,arr2,len,res)
+#		define aor(arr1,arr2,len,res)	wl_aor(arr1,arr2,len,res)
+#		define axr(arr1,arr2,len,res)	wl_axr(arr1,arr2,len,res)
+#		define ant(arr,len,res)			wl_ant(arr,len,res)
+#		define ann(arr1,arr2,len,res)	wl_ann(arr1,arr2,len,res)
+#		define anr(arr1,arr2,len,res)	wl_anr(arr1,arr2,len,res)
+#		define anx(arr1,arr2,len,res)	wl_anx(arr1,arr2,len,res)
+#		define afl(dst,ldst,src,lsrc)	wl_afl(dst,ldst,src,lsrc)
+#	endif
+
+#	define asl(arr,len,by)			wl_asl(arr,len,by)
+#	define asr(arr,len,by)			wl_asr(arr,len,by)
+
+#	define anol(arr,len)			wl_anol(arr,len)
+#	define aanl(arr1,arr2,len)		wl_aanl(arr1,arr2,len)
+#	define aorl(arr1,arr2,len)		wl_aorl(arr1,arr2,len)
+#	define axrl(arr1,arr2,len)		wl_axrl(arr1,arr2,len)
+#	define antl(arr,len)			wl_antl(arr,len)
+#	define annl(arr1,arr2,len)		wl_annl(arr1,arr2,len)
+#	define anrl(arr1,arr2,len)		wl_anrl(arr1,arr2,len)
+#	define anxl(arr1,arr2,len)		wl_anxl(arr1,arr2,len)
+#	define aeq(arr1,arr2,len)		wl_aeq(arr1,arr2,len)
+#	define anq(arr1,arr2,len)		wl_anq(arr1,arr2,len)
+#	define act(src,off,len,slice)	wl_act(src,off,len,slice)
+#	define asb(haystack,len,byte)	wl_asb(haystack,len,byte)
+#	define asbr(haystack,len,byte)	wl_asbr(haystack,len,byte)
+#	define asbc(haystack,len,byte)	wl_asbc(haystack,len,byte)
+#	define asa(haystack,needle,lenh,lenn)	wl_asa(haystack,needle,lenh,lenn)
 #	define asar			wl_asar
 #	define asac			wl_asac
+#	define arb(haystack,len,needle,rep) wl_arb(haystack,len,needle,rep)
+#	define ara(src,ndl,rep,lens,lenn,lenr)	wl_ara(src,ndl,rep,lens,lenn,lenr)
 
 #	define _ano			wl__ano
 #	define _aan			wl__aan
 #	define _aor			wl__aor
 #	define _axr			wl__axr
+#	define _asl			wl__asl
+#	define _asr			wl__asr
 #	define _anol		wl__anol
 #	define _aanl		wl__aanl
 #	define _aorl		wl__aorl
 #	define _asb			wl__asb
 #	define _asbr		wl__asbr
 #	define _asbc		wl__asbc
+#	define _asa			wl__asa
+#	define _arb			wl__arb
+#	define _ara			wl__ara
 #	define afla			wl_afla
 #	define aflv			wl_aflv
 
@@ -395,13 +419,18 @@
 		(!wl_axr((arr1), (arr1), (len), (res)))
 #endif
 
+#define	wl_asl(arr, len, by)	\
+		(wl__asl((char*)(arr), (len), (by)))
+
+#define	wl_asr(arr, len, by)	\
+		(wl__asr((char*)(arr), (len), (by)))
+
 
 
 /**
  * \brief	Array No Operation Logical
  * \def		wl_anol(arr1, len)
  * \arg		arr1	First array operand
- * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * Returns TRUE, unless all data of the array is set to 0
  */
@@ -445,7 +474,6 @@
  * \brief	Array NOT Logical
  * \def		wl_antl(arr1, arr2, len)
  * \arg		arr1	First array operand
- * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * Returns TRUE, if all data of the array is set to 0
@@ -460,7 +488,7 @@
  * \return	Bl
  * Returns TRUE, if either of the arrays is filled with 0
  */
-#define wl_annl(arr1, arr2, len)	(!wl_aanl((arr1), (arr2), (len)))
+#define wl_annl(arr1, arr2, len)	(anol((arr1),(len)) && anol((arr2),(len)))
 /**
  * \brief	Array NAND Logical
  * \def		wl_antl(arr1, arr2, len)
@@ -487,9 +515,21 @@
 
 
 #define wl_anq(arr1,arr2,len)	\
-	(wl__anq((wl_UMax*)(arr1), (wl_UMax*)(arr2), (len)))
+	(wl__anq((char*)(arr1), (char*)(arr2), (len)))
 
 #define wl_aeq(arr1,arr2,len)	(!wl_anq((arr1), (arr2), (len)))
+
+/**
+ * \brief	Array Cut
+ * \def		wl_act(arr,off,len,slice)
+ * \param	arr		The source array
+ * \param	off 	Offset of \a arr
+ * \param	len		Length of the slice
+ * \param	slice	Pointer to where slice will be stored
+ * 
+ * Cuts off a \a len byte slice from the source array starting after \a off bytes from base of the source array. The slice is stored at \a slice.
+ */
+#define wl_act(arr,off,len,slice)	(wl_ano((arr)+(off), (len), (slice)))
 
 /**
  * \brief	Array Fill
@@ -513,13 +553,13 @@
 #if WL_C_VA_MACRO
 #	define wl_afl(dst, ldst, src, ...)			\
 		(__VA_ARGS__+0)							\
-		? afla(dst, ldst, src, (__VA_ARGS__))	\
-		: aflv(dst, ldst, src, sizeof(src));
+		? wl_afla((char*)(dst), (ldst), (char*)(src), (__VA_ARGS__))	\
+		: wl_aflv((char*)(dst), (ldst), (src), sizeof(src))
 #else
 #	define wl_afl(dst, ldst, src, lsrc)		\
-		lsrc+0								\
-		? afla(dst, ldst, src, lsrc)		\
-		: aflv(dst, ldst, src, sizeof(src));
+		(lsrc)+0								\
+		? wl_afla((char*)(dst), (ldst), (char*)(src), (lsrc))		\
+		: wl_aflv((char*)(dst), (ldst), (src), sizeof(src))
 #endif
 
 /**
@@ -538,7 +578,7 @@
  * Returns NULL, if `haystack` is NULL or `len` is 0
  */
 #	define wl_asb(haystack, len, byte)	\
-	((void*)wl__asb((UMax*)(haystack), (len), (byte)))
+	((void*)wl__asb((char*)(haystack), (len), (byte)))
 
 /**
  * \brief	Array Search Byte Reverse
@@ -555,7 +595,7 @@
  * Returns NULL, if `haystack` is NULL or `len` is 0
  */
 #	define wl_asbr(haystack, len, byte)	\
-	((void*)wl__asbr((UMax*)(haystack), (len), (byte)))
+	((void*)wl__asbr((char*)(haystack), (len), (byte)))
 
 /**
  * \brief	Array Search Byte Count
@@ -571,20 +611,29 @@
  * Returns NULL, if `haystack` is NULL or `len` is 0
  */
 #	define wl_asbc(haystack, len, byte)	\
-	(wl__asbc((UMax*)(haystack), (len), (byte)))
+	(wl__asbc((char*)(haystack), (len), (byte)))
+
+#	define wl_asa(haystack, needle, lenh, lenn) \
+	((void*)wl__asa((char*)(haystack), (char*)(needle), (lenh), (lenn)))
+
+#	define wl_arb(haystack, len, needle, rep)	\
+	((void*)wl__arb((char*)(haystack), (len), (needle), (rep)))
+
+#	define wl_ara(src, ndl, rep, lens, lenn, lenr) \
+	((src) = (void*)wl__ara((char*)(src), (char*)(ndl), (char*)(rep), (lens), (lenn), (lenr)))
 
 
 
 /* Defined in `array/afl.c` */
-EXTERN const void* wl_afla(
+EXTERN void wl_afla(
 			char* restrict arr1,		wl_U32 len1,
 	const	char* restrict arr2, const	wl_U32 len2
 ) nonnull((1,2));
 
 /* Defined in `array/afl.c` */
-EXTERN const void* wl_aflv(
-	wl_UMax* restrict	arr, wl_U32	lena, 
-	wl_UMax				val, wl_U32	lenv
+EXTERN void wl_aflv(
+	char* restrict	arr, wl_U32	lena, 
+	wl_UMax				val, wl_U8	lenv
 ) nonnull((1));
 
 /* Defined in `array/axx.c` */
@@ -619,44 +668,83 @@ EXTERN const void* wl__axr(
 			char* restrict	res
 ) nonnull((1,2));
 
-/* Defined in `array/axxl.c` */
-EXTERN wl_Bl wl__anol(const wl_UMax* restrict arr1, wl_U32 len) nonnull((1));
+/* Defined in `array/asl.c` */
+EXTERN void wl__asl(
+	const	char*	restrict const	arr,
+			wl_U32					len,
+			wl_U32					by
+) nonnull((1));
 
-/* Defined in `array/axxl.c` */
-EXTERN wl_Bl wl__aanl(
+/* Defined in `array/asr.c` */
+EXTERN void wl__asr(
+			char*	restrict const	arr,
+			wl_U32					len,
+			wl_U32					by
+) nonnull((1));
+
+/* Defined in `array/anol.c` */
+EXTERN wl_Bl wl__anol(const char* restrict arr1, wl_U32 len) nonnull((1));
+
+/* Defined in `array/aanl.c` */
+/*EXTERN wl_Bl wl__aanl(
 	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
 )
-nonnull((1,2));
+nonnull((1,2));*/
 
-/* Defined in `array/axxl.c` */
+/* Defined in `array/aorl.c` */
 EXTERN wl_Bl wl__aorl(
-	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
+	const char* restrict arr1, const char* restrict arr2, wl_U32 len
 ) nonnull((1,2));
 
 EXTERN wl_Bl wl__anq(
-	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
+	const char* restrict arr1, const char* restrict arr2, wl_U32 len
 ) nonnull((1,2));
 
 /* Defined in `array/asb.c` */
 EXTERN const char* wl__asb(
-	const	UMax*	restrict	haystack,
-			U32					len,
-	const	char				byte
+	const	char* restrict	haystack,
+			wl_U32			len,
+	const	char			byte
 ) nonnull((1));
 
 /* Defined in `array/asb.c` */
 EXTERN const char* wl__asbr(
-	const	UMax*	restrict	haystack,
-			U32					len,
+	const	char*	restrict	haystack,
+			wl_U32				len,
 	const	char				byte
 ) nonnull((1));
 
 /* Defined in `array/asb.c` */
 EXTERN wl_U32 wl__asbc(
-	const	UMax*	restrict	haystack,
-			U32					len,
+	const	char*	restrict	haystack,
+			wl_U32				len,
 	const	char				byte
 ) nonnull((1));
 
+/* Defined in `array/asa.c` */
+EXTERN const char* wl__asa(
+	const	char*	restrict			haystack,
+	const	char*	restrict	const	needle,
+			wl_U32						lenh,
+	const	wl_U32 						lenn
+) nonnull((1,2));
+
+/* Defined in `array/arb.c` */
+EXTERN void wl__arb(
+	const	char*	restrict	const	haystack,
+	const	wl_U32						len,
+	const	char						byte,
+	const	char						rep	
+) nonnull((1));
+
+/* Defined in `array/ara.c` */
+EXTERN const char* wl__ara(
+	const	char*	restrict	const	src,
+	const	char*	restrict	const	ndl,
+	const	char*	restrict	const	rep,
+	const	U32		lens,
+	const	U32		lenn,
+	const	U32		lenr
+) nonnull((1,2,3));
 
 #endif
