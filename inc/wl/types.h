@@ -152,7 +152,7 @@
 #	define U16X		WL_U16X
 #	define U32X		WL_U32X
 #	define U64X		WL_U64X
-#endif
+#endif /* !WL_PREFIX */
 
 
 
@@ -435,7 +435,6 @@ preprocessor */
 #endif /* WL_C_LONG_LONG */
 
 
-<<<<<<< HEAD
 #if WL_DM == WL_DM_SILP64
 #	define WL_SHB	64
 #	define WL_SHN	((short)0x8000000000000000)
@@ -444,7 +443,7 @@ preprocessor */
 #	define WL_USB	64
 #	define WL_USN	((unsigned short)0x000000000000000)
 #	define WL_USX	((unsigned short)0xFFFFFFFFFFFFFFF)
-#else
+#else	/* WL_DM == WL_DM_SILP64 */
 #	define WL_SHB	16
 #	define WL_SHN	((short)0x8000)
 #	define WL_SHX	((short)0x7FFF)
@@ -452,7 +451,7 @@ preprocessor */
 #	define WL_USB	16
 #	define WL_USN	((unsigned short)0x0000)
 #	define WL_USX	((unsigned short)0xFFFF)
-#endif
+#endif	/* WL_DM == WL_DM_SILP64 */
 
 /* For some reason if `WL_DM` is not defined, this exoression is TRUE, so
  * lets also check that the macro is defined first.
@@ -465,7 +464,7 @@ preprocessor */
 #	define WL_UIB	64
 #	define WL_UIN	((unsigned int)0x000000000000000)
 #	define WL_UIX	((unsigned int)0xFFFFFFFFFFFFFFF)
-#else
+#else	/* defined(WL_DM) && (WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64) */
 #	define WL_INB	32
 #	define WL_INN	((int)0x80000000)
 #	define WL_INX	((int)0x7FFFFFFF)
@@ -473,7 +472,7 @@ preprocessor */
 #	define WL_UIB	32
 #	define WL_UIN	((unsigned int)0x00000000)
 #	define WL_UIX	((unsigned int)0xFFFFFFFF)
-#endif
+#endif	/* defined(WL_DM) && (WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64) */
 
 #if WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64
 #	define WL_LOB	64
@@ -483,7 +482,7 @@ preprocessor */
 #	define WL_ULB	64
 #	define WL_ULN	((unsigned long)0x000000000000000)
 #	define WL_ULX	((unsigned long)0xFFFFFFFFFFFFFFF)
-#else
+#else /* WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64 */
 #	define WL_LOB	32
 #	define WL_LON	((long)0x80000000)
 #	define WL_LOX	((long)0x7FFFFFFF)
@@ -491,7 +490,7 @@ preprocessor */
 #	define WL_ULB	32
 #	define WL_ULN	((unsigned long)0x00000000)
 #	define WL_ULX	((unsigned long)0xFFFFFFFF)
-#endif
+#endif	/* WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64 */
 
 #if WL_C_LONG_LONG
 #	define WL_LLB	64
@@ -501,12 +500,9 @@ preprocessor */
 #	define WL_ULLB	64
 #	define WL_ULLN	((unsigned long long)0x000000000000000)
 #	define WL_ULLX	((unsigned long long)0xFFFFFFFFFFFFFFF)
-#endif
+#endif	/* WL_C_LONG_LONG */
 
-#endif
-=======
 /* # Fixed-size type */
->>>>>>> 054df80e1ad3c7b0a66f5e8481c37a50e59af007
 
 /* Types `I8`, `I16`, `I32`, `I64` will not be their nominated bit width on
  * systems where the width of byte is not 8 bit. Their actual widths are 1, 2,
