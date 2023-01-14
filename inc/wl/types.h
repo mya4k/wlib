@@ -4,8 +4,20 @@
  * \brief 
  * \version 0.1
  * \date 2023-01-03
- * \todo No C library fixed-width
  * 
+ * This header file defines: 
+ * -	widths and limits of integer types,
+ * -	fixed-size integer types,
+ * -	widths and limits of fixed-size integer types,
+ * -	pointer types, maximal-width type,
+ * 		their widths and their limits,
+ * -	boolean type and it's values
+ * 
+ * This header file serves as the alternative to libc's <limits.h>, <stdint.h>,
+ * and <stdbool.h>
+ * 
+ * This file doesn't have special architecture or standard revision 
+ * requirements to be included.
  */
 #ifndef WL_TYPES_H
 #	define WL_TYPES_H	1
@@ -152,6 +164,36 @@
 #	define U16X		WL_U16X
 #	define U32X		WL_U32X
 #	define U64X		WL_U64X
+
+#	define IMax		wl_IMax
+#	define UMax		wl_UMax
+#	define Pt		wl_Pt
+#	define SPt		wl_SPt
+#	define Bl		wl_Bl
+
+#	define IMB		WL_IMB
+#	define UMB		WL_UMB
+#	define PTB		WL_PTB
+#	define SPTB		WL_SPTB
+#	define BLB		WL_BLB
+
+#	define IMX		WL_IMX
+#	define UMX		WL_UMX
+#	define PTX		WL_PTX
+#	define SPTX		WL_SPTX
+
+#	define IMN		WL_IMN
+#	define UMN		WL_UMN
+#	define PTN		WL_PTN
+#	define SPTN		WL_SPTN
+
+#	ifndef FALSE
+#		define FALSE	WL_FALSE
+#	endif
+#	ifndef TRUE
+#		define TRUE		WL_TRUE
+#	endif
+
 #endif /* !WL_PREFIX */
 
 
@@ -416,91 +458,26 @@ preprocessor */
 	 * \def		WL_ULLX
 	 * \note	>=C99
 	 */
-#	define WL_ULLX			((unsigned long long)-1)
+#	define WL_ULLX			(WL_NOX((unsigned long long)-1))
 
 	/**
 	 * \brief	Maximal value of `long long`
 	 * \def		WL_LLX
 	 * \note	>=C99
 	 */
-#	define WL_LLX			((WL_ULLX/2))
+#	define WL_LLX			(WL_NOX((WL_ULLX/2)))
 
 	/**
 	 * \brief	Minimal value of `long long`
 	 * \def		WL_LLN
 	 * \note	>=C99
 	 */
-#	define WL_LLN			((long long)(WL_LLX+1))
+#	define WL_LLN			(WL_NOX((long long)(WL_LLX+1)))
 
 #endif /* WL_C_LONG_LONG */
 
 
-#if WL_DM == WL_DM_SILP64
-#	define WL_SHB	64
-#	define WL_SHN	((short)0x8000000000000000)
-#	define WL_SHX	((short)0x7FFFFFFFFFFFFFFF)
 
-#	define WL_USB	64
-#	define WL_USN	((unsigned short)0x000000000000000)
-#	define WL_USX	((unsigned short)0xFFFFFFFFFFFFFFF)
-#else	/* WL_DM == WL_DM_SILP64 */
-#	define WL_SHB	16
-#	define WL_SHN	((short)0x8000)
-#	define WL_SHX	((short)0x7FFF)
-
-#	define WL_USB	16
-#	define WL_USN	((unsigned short)0x0000)
-#	define WL_USX	((unsigned short)0xFFFF)
-#endif	/* WL_DM == WL_DM_SILP64 */
-
-/* For some reason if `WL_DM` is not defined, this exoression is TRUE, so
- * lets also check that the macro is defined first.
- */
-#if defined(WL_DM) && (WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64)
-#	define WL_INB	64
-#	define WL_INN	((int)0x8000000000000000)
-#	define WL_INX	((int)0x7FFFFFFFFFFFFFFF)
-
-#	define WL_UIB	64
-#	define WL_UIN	((unsigned int)0x000000000000000)
-#	define WL_UIX	((unsigned int)0xFFFFFFFFFFFFFFF)
-#else	/* defined(WL_DM) && (WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64) */
-#	define WL_INB	32
-#	define WL_INN	((int)0x80000000)
-#	define WL_INX	((int)0x7FFFFFFF)
-
-#	define WL_UIB	32
-#	define WL_UIN	((unsigned int)0x00000000)
-#	define WL_UIX	((unsigned int)0xFFFFFFFF)
-#endif	/* defined(WL_DM) && (WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64) */
-
-#if WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64
-#	define WL_LOB	64
-#	define WL_LON	((long)0x8000000000000000)
-#	define WL_LOX	((long)0x7FFFFFFFFFFFFFFF)
-
-#	define WL_ULB	64
-#	define WL_ULN	((unsigned long)0x000000000000000)
-#	define WL_ULX	((unsigned long)0xFFFFFFFFFFFFFFF)
-#else /* WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64 */
-#	define WL_LOB	32
-#	define WL_LON	((long)0x80000000)
-#	define WL_LOX	((long)0x7FFFFFFF)
-
-#	define WL_ULB	32
-#	define WL_ULN	((unsigned long)0x00000000)
-#	define WL_ULX	((unsigned long)0xFFFFFFFF)
-#endif	/* WL_DM == WL_DM_LP64 || WL_DM == WL_DM_ILP64 || WL_DM == WL_DM_SILP64 */
-
-#if WL_C_LONG_LONG
-#	define WL_LLB	64
-#	define WL_LLN	((long long)0x8000000000000000)
-#	define WL_LLX	((long long)0x7FFFFFFFFFFFFFFF)
-
-#	define WL_ULLB	64
-#	define WL_ULLN	((unsigned long long)0x000000000000000)
-#	define WL_ULLX	((unsigned long long)0xFFFFFFFFFFFFFFF)
-#endif	/* WL_C_LONG_LONG */
 
 /* # Fixed-size type */
 
@@ -1035,5 +1012,99 @@ widths are multiples of byte's width, not 8.")
 #	define	WL_U64X				WL_U64FX
 #endif	/* WL_FIXED == WL_FIXED_LEAST */
 
+/* # Aliased Types */
+/* ## Maximal-width integer types */
+#if WL_C_LIMITS
+	typedef intmax_t				wl_IMax;
+	typedef uintmax_t				wl_UMax;
 
-#endif
+#	ifdef INTMAX_WIDTH
+#		define WL_IMB				INTMAX_WIDTH
+#	else	/* INTMAX_WIDTH */
+#		define WL_IMB				WL_I64FB
+#	endif	/* INTMAX_WIDTH */
+
+#	define WL_IMN					INTMAX_MIN
+#	define WL_IMX					INTMAX_MAX
+
+#	ifdef UINTMAX_WIDTH
+#		define WL_IMB				UINTMAX_WIDTH
+#	else	/* UINTMAX_WIDTH */
+#		define WL_IMB				WL_U64FB
+#	endif	/* UINTMAX_WIDTH */
+
+#	define WL_UMN					UINTMAX_MIN
+#	define WL_UMX					UINTMAX_MAX
+#else	/* WL_C_LIMITS */
+	typedef wl_I64f					wl_IMax;
+	typedef wl_U64f					wl_UMax;
+#	define WL_IMB					WL_I64FB
+#	define WL_IMN					WL_I64FN
+#	define WL_IMX					WL_I64FX
+#	define WL_UMB					WL_U64FB
+#	define WL_UMN					WL_U64FN
+#	define WL_UMX					WL_U64FX
+#endif	/* WL_C_LIMITS */
+
+/* ## Pointer type */
+/**
+ * \brief	(Unsigned) PoinTer type (uintptr_t)
+ * \typedef	wl_Pt
+ */
+/**
+ * \brief	Signed PoinTer type (ptrdiff_t)
+ * \typedef	wl_SPt
+ */
+
+#if WL_C_LIMITS && (__intptr_t_defined || INTPTR_MIN)
+	typedef uintptr_t				wl_Pt;
+	typedef intptr_t				wl_SPt;
+
+#	define WL_PTN					UINTPTR_MIN
+#	define WL_PTX					UINTPTR_MAX
+#	define WL_SPTN					INTPTR_MIN
+#	define WL_SPTX					INTPTR_MAX
+
+#	if UINTPTR_MAX & 0x8000000000000000
+#		define WL_PTB				WL_U64LB
+#		define WL_SPTB				WL_I64LB
+#	elif UINTPTR_MAX & 0x80000000
+#		define WL_PTB				WL_U32LB
+#		define WL_SPTB				WL_I32LB
+#	elif UINTPTR_MAX & 0x8000
+#		define WL_PTB				WL_U16LB
+#		define WL_SPTB				WL_I16LB
+#	endif	/* UINTPTR_MAX & 0x8000000000000000 */
+#else	/* WL_C_LIMITS && (__intptr_t_defined || INTPTR_MIN) */ 
+#	define WL_PTN					(0)
+#	define WL_PTX					(WL_NOX((void*)-1))
+#	define WL_SPTX					(WL_NOX((WL_PTX/2)))
+#	define WL_SPTN					(WL_NOX((SPt)(WL_SPTX+1)))
+
+#	if WL_PTX == WL_U64LX
+		typedef U64l				wl_Pt;
+		typedef I64l				wl_SPt;
+#	elif WL_PTX == WL_U32LX
+		typedef U32l				wl_Pt;
+		typedef I32l				wl_SPt;
+#	else	/* WL_PTX == WL_U64LX */
+		typedef U16l				wl_Pt;
+		typedef I16l				wl_SPt;
+#	endif	/* WL_PTX == WL_U64LX */
+#endif	/* WL_C_LIMITS && (__intptr_t_defined || INTPTR_MIN) */ 
+
+/* ## Boolean type */
+#if		WL_C_BOOL
+	typedef _Bool					wl_Bl;
+#elif	WL_CPP_BOOL
+	typedef bool					wl_Bl;
+#else	/* WL_C_BOOL*/
+	typedef char					wl_Bl, wl_bl;
+#endif	/* WL_C_BOOL*/
+
+#define WL_TRUE						((wl_Bl)+1u)
+#define WL_FALSE					((wl_Bl)+0u)
+
+
+
+#endif	/* WL_TYPES_H */
