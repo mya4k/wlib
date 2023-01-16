@@ -194,6 +194,10 @@
 #		define TRUE		WL_TRUE
 #	endif
 
+#	ifndef NULL
+#		define NULL		WL_NULL
+#	endif
+
 #endif /* !WL_PREFIX */
 
 
@@ -1104,6 +1108,8 @@ widths are multiples of byte's width, not 8.")
 
 #define WL_TRUE						((wl_Bl)+1u)
 #define WL_FALSE					((wl_Bl)+0u)
+
+#define WL_NULL						((void*)0)
 
 
 
