@@ -11,9 +11,12 @@ char* _asrsw(
 	U32				rem,
 	U8f				by
 ) {
-	U8f carry0 = 0, carry1 = 0;
+	U8f carry0 = 0;
 
 #if		UMB >= 64
+	/* This variable is set on systems, where UMax is 32-bit*/
+	U8f carry1 = 0;
+
 	if (rem&4) {
 		/* Eject bits that will be carried over */
 		carry0 = *(U32*)_arr & ~(((U32)1<<by)-1);
@@ -32,7 +35,9 @@ char* _asrsw(
 	}
 #endif
 	if (rem) {
+#if	UMB >= 64
 		carry1 = *_arr & ~(((U8)1<<by)-1);
+#endif
 		*_arr >>= by;
 		*_arr |= carry0 << (8-by);
 	}
@@ -82,5 +87,5 @@ void _asr(
 	ano(arr, len-bytes, arr+bytes);
 
 	/* Fill the gap with zeros */
-	aflv((UMax*)arr, bytes, (UMax)0, sizeof(UMax));
+	aflv(arr, bytes, (UMax)0, sizeof(UMax));
 }
