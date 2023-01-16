@@ -686,8 +686,8 @@ EXTERN const void* wl__axr(
 
 /* Defined in `array/asl.c` */
 EXTERN void wl__asl(
-	const	char*	restrict const	arr,
-			wl_U32					len,
+			char*	restrict const	arr,
+	const	wl_U32					len,
 			wl_U32					by
 ) nonnull((1));
 
