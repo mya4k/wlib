@@ -471,7 +471,7 @@
  * 
  * Returns TRUE, if any array is not filled with 0
  */
-#define wl_aanl(arr1, arr2, len) (				\
+#define wl_aorl(arr1, arr2, len) (				\
 	wl__anol((char*)(arr1), (len)) 				\
 	? 1  										\
 	: (wl__anol((char*)(arr2), (len)) ? 1 : 0) )

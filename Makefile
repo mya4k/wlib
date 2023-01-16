@@ -17,60 +17,60 @@ undef:
 
 # Compile with Clang (ISO)
 cmpci:
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c90
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=iso9899:199409 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c99 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c11 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c17 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c2x 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c90
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=iso9899:199409 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c99 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c11 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c17 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c2x 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c90
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=iso9899:199409 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c99 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c11 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c17 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c2x 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c90
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=iso9899:199409 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c99 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c11 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c17 
+	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c2x 
 # Compile with Clang (GNU)
 cmpcg:
-	$(clang) -std=gnu90 -DWL_FIXED=0
-	$(clang) -std=gnu99 -DWL_FIXED=0
-	$(clang) -std=gnu11 -DWL_FIXED=0
-	$(clang) -std=gnu17 -DWL_FIXED=0
-	$(clang) -std=gnu2x -DWL_FIXED=0
-	$(clang) -std=gnu90 -DWL_FIXED=1
-	$(clang) -std=gnu99 -DWL_FIXED=1
-	$(clang) -std=gnu11 -DWL_FIXED=1
-	$(clang) -std=gnu17 -DWL_FIXED=1
-	$(clang) -std=gnu2x -DWL_FIXED=1
+	$(clang) -std=gnu90 -DWL_FIXED=0 -DWL_PREFIX=0 
+	$(clang) -std=gnu99 -DWL_FIXED=0 -DWL_PREFIX=0 
+	$(clang) -std=gnu11 -DWL_FIXED=0 -DWL_PREFIX=0 
+	$(clang) -std=gnu17 -DWL_FIXED=0 -DWL_PREFIX=0 
+	$(clang) -std=gnu2x -DWL_FIXED=0 -DWL_PREFIX=0 
+	$(clang) -std=gnu90 -DWL_FIXED=1 -DWL_PREFIX=0 
+	$(clang) -std=gnu99 -DWL_FIXED=1 -DWL_PREFIX=0 
+	$(clang) -std=gnu11 -DWL_FIXED=1 -DWL_PREFIX=0 
+	$(clang) -std=gnu17 -DWL_FIXED=1 -DWL_PREFIX=0 
+	$(clang) -std=gnu2x -DWL_FIXED=1 -DWL_PREFIX=0 
 # Compile with Clang (All)
 cmpc: cmpci cmpcg
 # Compile with GCC (ISO)
 cmpgi:
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c90 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=iso9899:199409 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c99 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c11 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c17 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -std=c2x 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c90 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=iso9899:199409 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c99 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c11 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c17 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -std=c2x 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c90 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=iso9899:199409 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c99 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c11 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c17 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c2x 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c90 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=iso9899:199409 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c99 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c11 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c17 
+	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c2x 
 # Compile with GCC (GNU)
 cmpgg:
-	$(gcc) -std=gnu90 -DWL_FIXED=0
-	$(gcc) -std=gnu99 -DWL_FIXED=0
-	$(gcc) -std=gnu11 -DWL_FIXED=0
-	$(gcc) -std=gnu17 -DWL_FIXED=0
-	$(gcc) -std=gnu2x -DWL_FIXED=0
-	$(gcc) -std=gnu90 -DWL_FIXED=1
-	$(gcc) -std=gnu99 -DWL_FIXED=1
-	$(gcc) -std=gnu11 -DWL_FIXED=1
-	$(gcc) -std=gnu17 -DWL_FIXED=1
-	$(gcc) -std=gnu2x -DWL_FIXED=1
+	$(gcc) -std=gnu90 -DWL_PREFIX=0 -DWL_FIXED=0
+	$(gcc) -std=gnu99 -DWL_PREFIX=0 -DWL_FIXED=0
+	$(gcc) -std=gnu11 -DWL_PREFIX=0 -DWL_FIXED=0
+	$(gcc) -std=gnu17 -DWL_PREFIX=0 -DWL_FIXED=0
+	$(gcc) -std=gnu2x -DWL_PREFIX=0 -DWL_FIXED=0
+	$(gcc) -std=gnu90 -DWL_PREFIX=0 -DWL_FIXED=1
+	$(gcc) -std=gnu99 -DWL_PREFIX=0 -DWL_FIXED=1
+	$(gcc) -std=gnu11 -DWL_PREFIX=0 -DWL_FIXED=1
+	$(gcc) -std=gnu17 -DWL_PREFIX=0 -DWL_FIXED=1
+	$(gcc) -std=gnu2x -DWL_PREFIX=0 -DWL_FIXED=1
 cmp65:
-	cc65 -Iinc -D__STDC__ -o /dev/null $(F)
+	cc65 -v -Iinc -D__STDC__ -o /dev/null $(F)
 cmpt:
 	tcc -Iinc -o /dev/null -c $(F) -Wall -Werror -Wunsupported -Wwrite-strings
 # Compile with GCC (All)

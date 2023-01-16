@@ -34,19 +34,8 @@
 
 
 
-/**
- * \brief	String length type
- * \typedef	wl_Sl
- * This type is used as type that for a length of a string. It is useful because
- * any string function will only support strings, which length can be stored
- * using this type.
- */
-typedef wl_U16 wl_Sl;
-
-
-
 /* String length */
-EXTERN wl_Sl wl_sl(const char* restrict const s);
+EXTERN wl_U16 wl_sl(const char* restrict const string);
 
 
 
