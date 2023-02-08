@@ -1,20 +1,5 @@
 #include <wl/array.h>
-#if WL_C_ALLOCA
-#	include <alloca.h>
-#endif
-
-
-/* WLib does not have `mal` and `mfr` functions yet, so just use libc 
-definitions */
-#ifndef mal
-#	include <stdlib.h>
-#	define mal(n)	malloc(n)
-#endif
-
-#ifndef mfr
-#	include <stdlib.h>
-#	define mfr(n)	free(n)
-#endif
+#include <wl/memory.h>
 
 
 

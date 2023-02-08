@@ -1,5 +1,4 @@
 #include <wl/types.h>
-#include <wl/core.h>
 
 Bl isprime(U64 n) {
 	if (unlikely(n == 0)) return FALSE;

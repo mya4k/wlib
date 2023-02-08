@@ -14,9 +14,14 @@
 
 
 
-#include <stdlib.h>
-#define wl_mal	malloc
-#define wl_mfr	free
+#if WL_LIBC
+#	include <stdlib.h>
+#	define wl_mal(n)	malloc(n)
+#	define wl_mfr(p)	free(p)
+#else
+#	define wl_mal(n)	(NULL)
+#	define wl_mfr(p)
+#endif
 
 
 

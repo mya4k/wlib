@@ -9,12 +9,12 @@
 
 #ifdef WL_CPP
 /* Extern compatibility */
-#	ifndef EXTERN
-#		define EXTERN		extern "C"
+#	ifndef extern
+#		define extern		extern "C"
 #	endif
 /* Beginning of a set of external definitions */
 #	ifndef C_DECL_BEGIN
-#		define C_DECL_BEGIN	EXTERN {
+#		define C_DECL_BEGIN	extern {
 #	endif
 /* End of a set of external definitions */
 #	ifndef C_DECL_END
@@ -25,8 +25,8 @@
 #	endif
 #else
 /* Extern compatibility */
-#	ifndef EXTERN
-#		define EXTERN		extern
+#	ifndef extern
+#		define extern		extern
 #	endif
 /* Beginning of a set of external definitions */
 #	ifndef C_DECL_BEGIN
@@ -66,13 +66,24 @@
 #	define always_inline	inline
 #endif
 
-#if WL_GCCLIKE
+#ifndef __GNUC_PREREQ
+#	define __GNUC_PREREQ(major, minor) \
+		((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
+#endif	/* __GNUC_PREREQ */
+
+
+#ifdef __glibc_likely
 #define likely(cond)	__glibc_likely((long)(cond))	
-#define unlikely(cond)	__glibc_unlikely((long)(cond))
 #else
 #define likely(cond)	(cond)
+#endif
+
+#ifdef __glibc_unlikely	
+#define unlikely(cond)	__glibc_unlikely((long)(cond))
+#else
 #define unlikely(cond)	(cond)
 #endif
+
 
 
 /* Some compilers complain about an illegal function call even when the code 

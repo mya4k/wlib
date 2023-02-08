@@ -12,6 +12,10 @@
  * 	- search for a specific byte or data in memory
  * 	- replace occurrences of byte or data in memory
  * 	- fill memory with data
+ * 
+ * Proposals:
+ * 	- search functions without object limits (like glibc's `rawmemchr`)
+ * 
  */
 
 
@@ -22,7 +26,12 @@
 
 
 #include <wl/types.h>
-#include <wl/core.h>
+
+
+
+#if WL_STRING_H
+#	include <string.h>
+#endif
 
 
 
@@ -71,6 +80,8 @@
 #	define asac			wl_asac
 #	define arb(haystack,len,needle,rep) wl_arb(haystack,len,needle,rep)
 #	define ara(src,ndl,rep,lens,lenn,lenr)	wl_ara(src,ndl,rep,lens,lenn,lenr)
+#	define acp(src,len,dst)					wl_acp(src,len,dst)
+#	define amv(src,len,dst)					wl_amv(src,len,dst)
 
 #	define _ano			wl__ano
 #	define _aan			wl__aan
@@ -121,13 +132,15 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_STRING
+#if WL_STRING_H
 #	if WL_C_VA_MACRO
-#		define wl_ano(arr, len, ...)	memcpy((__VA_ARGS__+0), (arr), (len))
+#		define wl_ano(arr, len, ...)	\
+			memcpy((__VA_ARGS__+0), (char*)(arr), (len))
 #	else
-#		define wl_ano(arr, len, res)	memcpy((res), (arr), (len))
+#		define wl_ano(arr, len, res)	\
+			memcpy((char*)(res), (char*)(arr), (len))
 #	endif
-#else
+#else	/* WL_STRING_H */
 #	if WL_C_VA_MACRO
 #		define wl_ano(arr, len, ...)	\
 	wl__ano((char*)(arr), (len), (char*)(__VA_ARGS__+0))
@@ -135,7 +148,7 @@
 #		define wl_ano(arr, len, res)	\
 	wl__ano((char*)(arr), (len), (char*)(res))
 #	endif
-#endif
+#endif	/* WL_STRING_H */
 
 /**
  * \brief	Array AND
@@ -638,129 +651,139 @@
 #	define wl_ara(src, ndl, rep, lens, lenn, lenr) \
 	((src) = (void*)wl__ara((char*)(src), (char*)(ndl), (char*)(rep), (lens), (lenn), (lenr)))
 
+#	define wl_acp(src, len, dst)	wl_ano((src), (len), (dst))
+#	define wl_amv(src, len, dst)	wl__amv((char*)(src), (len), (char*)(dst));
+
 
 
 /* Defined in `array/afl.c` */
-EXTERN void wl_afla(
+extern void wl_afla(
 			char* restrict arr1,		wl_U32 len1,
 	const	char* restrict arr2, const	wl_U32 len2
-) nonnull((1,2));
+) /* nonnull((1,3)) */;
 
 /* Defined in `array/afl.c` */
-EXTERN void wl_aflv(
+extern void wl_aflv(
 	char* restrict	arr, wl_U32	lena, 
 	wl_UMax				val, wl_U8	lenv
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/axx.c` */
-EXTERN const void* wl__ano(
+extern const void* wl__ano(
 	const	char* restrict	arr, 
 			wl_U32					len,
 			char* restrict	res
 )
-nonnull((1));
+/* nonnull((1)) */;
 
 /* Defined in `array/axx.c` */
-EXTERN const void* wl__aan(
+extern const void* wl__aan(
 	const	char* restrict	arr1, 
 	const	char* restrict	arr2, 
 			wl_U32					len, 
 			char* restrict	res
-) nonnull((1,2));
+) /* nonnull((1,2)) */;
 
 /* Defined in `array/axx.c` */
-EXTERN const void* wl__aor(
+extern const void* wl__aor(
 	const	char* restrict	arr1, 
 	const	char* restrict	arr2, 
 			wl_U32					len, 
 			char* restrict	res
-) nonnull((1,2));
+) /* nonnull((1,2)) */;
 
 /* Defined in `array/axx.c` */
-EXTERN const void* wl__axr(
+extern const void* wl__axr(
 	const	char* restrict	arr1, 
 	const	char* restrict	arr2, 
 			wl_U32					len, 
 			char* restrict	res
-) nonnull((1,2));
+) /* nonnull((1,2)) */;
 
 /* Defined in `array/asl.c` */
-EXTERN void wl__asl(
+extern void wl__asl(
 			char*	restrict const	arr,
 	const	wl_U32					len,
 			wl_U32					by
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/asr.c` */
-EXTERN void wl__asr(
+extern void wl__asr(
 			char*	restrict const	arr,
 			wl_U32					len,
 			wl_U32					by
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/anol.c` */
-EXTERN wl_Bl wl__anol(const char* restrict arr1, wl_U32 len) nonnull((1));
+extern wl_Bl wl__anol(const char* restrict arr1, wl_U32 len) /* nonnull((1)) */;
 
 /* Defined in `array/aanl.c` */
-/*EXTERN wl_Bl wl__aanl(
+/*extern wl_Bl wl__aanl(
 	const wl_UMax* restrict arr1, const wl_UMax* restrict arr2, wl_U32 len
 )
 nonnull((1,2));*/
 
 /* Defined in `array/aorl.c` */
-EXTERN wl_Bl wl__aorl(
+extern wl_Bl wl__aorl(
 	const char* restrict arr1, const char* restrict arr2, wl_U32 len
-) nonnull((1,2));
+) /* nonnull((1,2)) */;
 
-EXTERN wl_Bl wl__anq(
+extern wl_Bl wl__anq(
 	const char* restrict arr1, const char* restrict arr2, wl_U32 len
-) nonnull((1,2));
+) /* nonnull((1,2)) */;
 
 /* Defined in `array/asb.c` */
-EXTERN const char* wl__asb(
+extern const char* wl__asb(
 	const	char* restrict	haystack,
 			wl_U32			len,
 	const	char			byte
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/asb.c` */
-EXTERN const char* wl__asbr(
+extern const char* wl__asbr(
 	const	char*	restrict	haystack,
 			wl_U32				len,
 	const	char				byte
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/asb.c` */
-EXTERN wl_U32 wl__asbc(
+extern wl_U32 wl__asbc(
 	const	char*	restrict	haystack,
 			wl_U32				len,
 	const	char				byte
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/asa.c` */
-EXTERN const char* wl__asa(
+extern const char* wl__asa(
 	const	char*	restrict			haystack,
 	const	char*	restrict	const	needle,
 			wl_U32						lenh,
 	const	wl_U32 						lenn
-) nonnull((1,2));
+)/*  nonnull((1,2)) */;
 
 /* Defined in `array/arb.c` */
-EXTERN void wl__arb(
+extern void wl__arb(
 	const	char*	restrict	const	haystack,
 	const	wl_U32						len,
 	const	char						byte,
 	const	char						rep	
-) nonnull((1));
+) /* nonnull((1)) */;
 
 /* Defined in `array/ara.c` */
-EXTERN const char* wl__ara(
+extern const char* wl__ara(
 	const	char*	restrict	const	src,
 	const	char*	restrict	const	ndl,
 	const	char*	restrict	const	rep,
-	const	U32		lens,
-	const	U32		lenn,
-	const	U32		lenr
-) nonnull((1,2,3));
+	const	wl_U32		lens,
+	const	wl_U32		lenn,
+	const	wl_U32		lenr
+) /* nonnull((1,2,3)) */;
+
+/* Defined in `array/amv.c` */
+extern const void* wl__amv(
+	const char* restrict const src, 
+	const wl_U32 len, 
+	const char* restrict const dst
+) /* nonnull((1,3)) */;
 
 #endif

@@ -3,6 +3,7 @@
 
 
 /* Copy less than word bytes efficiently (may read out of bounds) */
+#if !WL_STRING_H
 #if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
 	always_inline
 #endif
@@ -40,16 +41,17 @@ static void _anosws(
 			res++; arr++;
 		}
 }
+#endif	/* !WL_STRING_H */
 
 
 
 const void* _ano(const char* restrict arr, U32 len, char* restrict res) {
-#	if !WL_C_STRING
+#	if !WL_STRING_H
 		/* Preserve `res` for return */
 		const char* const _res = res;
 #	endif
 
-#	if WL_C_STRING
+#	if WL_STRING_H
 		/* If allowed, we make a call to libc's analogous function */
 		return memcpy(res, arr, len);
 #	else

@@ -1,7 +1,9 @@
-cc = /bin/gcc 
-flags = -Wall -Wextra -Iinc -c $(F) -Werror
+cc = /bin/cc
+86gcc = /bin/i686-elf-gcc -nostdlib -ffreestanding
+flags = -Wall -Wextra -Iinc -c $(F) -Werror -DWL_PREFIX=0
 clang = /bin/clang $(flags)
 gcc = /bin/gcc $(flags) # -fanalyzer -Wanalyzer-too-complex
+ccx = $(cc) $(flags)
 
 dirobj:
 	mkdir -p obj/
@@ -15,68 +17,52 @@ macro:
 undef:
 	$(cc) -c $(F) -Iinc -Wall -Wextra -pedantic-errors -Wpedantic -Wundef
 
+# Compile (ISO)
+cmp_i:
+	$(ccx) -pedantic-errors -Wpedantic -std=c90 
+	$(ccx) -pedantic-errors -Wpedantic -std=iso9899:199409 
+	$(ccx) -pedantic-errors -Wpedantic -std=c99 
+	$(ccx) -pedantic-errors -Wpedantic -std=c11 
+	$(ccx) -pedantic-errors -Wpedantic -std=c17 
+	$(ccx) -pedantic-errors -Wpedantic -std=c2x 
+# Compile (GNU)
+cmp_g:
+	$(ccx) -std=gnu90
+	$(ccx) -std=gnu99
+	$(ccx) -std=gnu11
+	$(ccx) -std=gnu17
+	$(ccx) -std=gnu2x
 # Compile with Clang (ISO)
 cmpci:
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c90
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=iso9899:199409 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c99 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c11 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c17 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c2x 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c90
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=iso9899:199409 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c99 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c11 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c17 
-	$(clang) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c2x 
-# Compile with Clang (GNU)
-cmpcg:
-	$(clang) -std=gnu90 -DWL_FIXED=0 -DWL_PREFIX=0 
-	$(clang) -std=gnu99 -DWL_FIXED=0 -DWL_PREFIX=0 
-	$(clang) -std=gnu11 -DWL_FIXED=0 -DWL_PREFIX=0 
-	$(clang) -std=gnu17 -DWL_FIXED=0 -DWL_PREFIX=0 
-	$(clang) -std=gnu2x -DWL_FIXED=0 -DWL_PREFIX=0 
-	$(clang) -std=gnu90 -DWL_FIXED=1 -DWL_PREFIX=0 
-	$(clang) -std=gnu99 -DWL_FIXED=1 -DWL_PREFIX=0 
-	$(clang) -std=gnu11 -DWL_FIXED=1 -DWL_PREFIX=0 
-	$(clang) -std=gnu17 -DWL_FIXED=1 -DWL_PREFIX=0 
-	$(clang) -std=gnu2x -DWL_FIXED=1 -DWL_PREFIX=0 
-# Compile with Clang (All)
-cmpc: cmpci cmpcg
+	make cmp_i cc="/bin/clang"
 # Compile with GCC (ISO)
 cmpgi:
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c90 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=iso9899:199409 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c99 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c11 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c17 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=0 -DWL_PREFIX=0 -std=c2x 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c90 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=iso9899:199409 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c99 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c11 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c17 
-	$(gcc) -pedantic-errors -Wpedantic -DWL_FIXED=1 -DWL_PREFIX=0 -std=c2x 
+	make cmp_i cc="/bin/gcc"
+# Compile with i686-efi-gcc (ISO)
+cmp86i:
+	make cmp_i cc="/bin/i686-elf-gcc -DWL_LIBC=0"
+# Compile with Clang (GNU)
+cmpcg:
+	make cmp_g cc="/bin/clang"
 # Compile with GCC (GNU)
 cmpgg:
-	$(gcc) -std=gnu90 -DWL_PREFIX=0 -DWL_FIXED=0
-	$(gcc) -std=gnu99 -DWL_PREFIX=0 -DWL_FIXED=0
-	$(gcc) -std=gnu11 -DWL_PREFIX=0 -DWL_FIXED=0
-	$(gcc) -std=gnu17 -DWL_PREFIX=0 -DWL_FIXED=0
-	$(gcc) -std=gnu2x -DWL_PREFIX=0 -DWL_FIXED=0
-	$(gcc) -std=gnu90 -DWL_PREFIX=0 -DWL_FIXED=1
-	$(gcc) -std=gnu99 -DWL_PREFIX=0 -DWL_FIXED=1
-	$(gcc) -std=gnu11 -DWL_PREFIX=0 -DWL_FIXED=1
-	$(gcc) -std=gnu17 -DWL_PREFIX=0 -DWL_FIXED=1
-	$(gcc) -std=gnu2x -DWL_PREFIX=0 -DWL_FIXED=1
+	make cmp_g cc="/bin/gcc"
+# Compile with i686-efi-gcc (GNU)
+cmp86g:
+	make cmp_g cc="/bin/i686-elf-gcc -DWL_LIBC=0"
+# Compile with GCC (All)
+cmpg: cmpgg cmpgi
+# Compile with GCC (All)
+cmpc: cmpgg cmpgi
+# Compile with GCC (All)
+cmp86: cmp86g cmp86i 
+# Compile with CC65
 cmp65:
 	cc65 -v -Iinc -D__STDC__ -o /dev/null $(F)
 cmpt:
 	tcc -Iinc -o /dev/null -c $(F) -Wall -Werror -Wunsupported -Wwrite-strings
-# Compile with GCC (All)
-cmpg: cmpgi cmpgg
 # Compile with all compilers
-compile comp cmp: cmpc cmpg cmp65 cmpt
+compile comp cmp: cmpci cmpgi cmpci cmp86i cmpcg cmpgg cmpcg cmp86g # cmp65 cmpt
 # Compile with all compiler (for headers)
 compile_header cmph: cmpgg cmpcg cmpgi cmpci cmp65 cmpt
 # Compilation time statistics
@@ -96,14 +82,29 @@ asm:
 .DEFAULT:
 
 
-carray carr:
-	make cmp F="src/array/axx.c"
-	make cmp F="src/array/axxl.c"
-oarray oarr: dirobj
-	$(cc) -Iinc -O2 -c src/array/axx.c -o obj/axx.o
+ca:
+	for FILE in `echo src/array/*.c`; \
+	do \
+		make cmp F="$$FILE -o /dev/null"; \
+	done || exit 1
+
+
+oa: dirobj
+	for FILE in `echo src/array/*.c`; \
+	do \
+		export _FILE=$$FILE; \
+		$(ccx) -Iinc -Ofast -c $$FILE -o obj/array/`basename $$_FILE .c`.o; \
+	done || exit 1
+oa86g:
+	make oa cc="$(86gcc)" F="-DWL_LIBC=0"
+
+
 # $(cc) -O2 -c src/array/axxl.c -o obj/axxl.o
-wlib lib: oarray dirlib
-	ar -rc lib/libwca.a obj/axx.o obj/axxl.o
+.PHONY: lib
+wlib lib:
+	ar -rc lib/libwa.a obj/array/*.o
+wlib86g lib86g:
+	make lib cc="$(86gcc)"
 
 	
 

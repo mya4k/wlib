@@ -13,7 +13,6 @@
 
 
 #include <wl/types.h>
-#include <wl/core.h>
 
 
 #if !WL_PREFIX

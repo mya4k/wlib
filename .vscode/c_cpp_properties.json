@@ -11,7 +11,7 @@
             "cStandard": "c17",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x64",
-            "compilerArgs": []
+            "compilerArgs": ["-DWL_PREFIX=0", "-DWL_LIBC=0"]
         }
     ],
     "version": 4
