@@ -1,5 +1,5 @@
 cc = /bin/cc
-86gcc = /bin/i686-elf-gcc -nostdlib -ffreestanding
+86gcc = gcc -march=i386 -m32 -nostdlib -ffreestanding
 flags = -Wall -Wextra -Iinc -c $(F) -Werror -DWL_PREFIX=0
 clang = /bin/clang $(flags)
 gcc = /bin/gcc $(flags) # -fanalyzer -Wanalyzer-too-complex
@@ -96,7 +96,7 @@ oa: dirobj
 		$(ccx) -Iinc -Ofast -c $$FILE -o obj/array/`basename $$_FILE .c`.o; \
 	done || exit 1
 oa86g:
-	make oa cc="$(86gcc)" F="-DWL_LIBC=0"
+	make oa cc="$(86gcc)" F="-DWL_LIBC=0 -fno-pie"
 
 
 # $(cc) -O2 -c src/array/axxl.c -o obj/axxl.o
