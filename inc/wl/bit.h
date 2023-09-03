@@ -7,6 +7,26 @@
 
 
 
+#if !WL_PREFIX
+#	define bs	wl_bs
+#	define bc	wl_bc
+#	define br	wl_br
+#	define brs	wl_brs
+#	define bt	wl_bt
+#	define bct0	wl_bct0
+#	define bls1	wl_bls1
+#	define bmc	wl_bmc
+
+#	define clz	wl_clz
+#	define ctz	wl_ctz
+#endif
+
+
+
+extern wl_U8f wl__ctz_table[64];
+
+
+
 /**
  * \brief	Bit Set
  * \def		wl_bs(x,n)
@@ -79,7 +99,7 @@
  * Extracts the least significant set bit
  * This function does not override the value of `x`
  */
-#define wl_bls1(x)	((x) & ~(x))
+#define wl_bls1(x)	((x) & -(x))
 
 /**
  * \brief	Bit Masked Copy
@@ -91,19 +111,40 @@
  */
 #define wl_bmc(a,b,m)	((a & m) | (b & ~m))
 
-#if	WL_CONF_B
+
+
+/**
+ * \brief	Count trailing zeros
+ * \def		wl_ctz(x)
+ * \param	x
+ * 
+ * If WL_BUILTIN_CTZ is disabled, we use de Bruijn sequences in order to do
+ * this branchless
+ */
+#if	WL_BUILTIN_CTZ
+#	define wl_ctz(x)	__builtin_ctzll(x)
 #else
-#	if		UMB == 32
+#	if		UMB == 64
 #		define WL__DEBRUIJN	0x218A392CD3D5DBF
-		extern wl_U8f wl__ctz_table[UMB];
-#		define ctz(x)\
+#		define wl_ctz(x)\
 	(wl__ctz_table[((-(U64l)(x)&(U64l)(x)) * WL__DEBRUIJN) >> 58])
 #	else
-		extern wl_U8f wl__ctz_table[UMB];
 #		define WL__DEBRUIJN	0x4653ADF
 #		define wl_ctz(x)\
 	(wl__ctz_table[((-(U32l)(x)&(U32l)(x)) * WL__DEBRUIJN) >> 27])
 #	endif
+#endif
+
+/**
+ * \brief	Count leading zeros
+ * \def		wl_clz(x)
+ * \param	x
+ * 
+ */
+#if	WL_BUILTIN_CLZ
+#	define wl_clz(x)	__builtin_clzll(x)
+#else
+extern inline U8f wl_clz(register UMax x);
 #endif
 
 

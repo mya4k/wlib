@@ -15,6 +15,13 @@
 #	include <limits.h>
 #endif	/* WL_LIMITS_H */
 
+/* Make sure we undef whatever the definition of NULL is because CC65 expands it
+ as `0`. (WHY???) */
+#if WL_STDDEF_H && WL_CC65
+#	include <stddef.h>
+#	undef NULL
+#endif
+
 
 
 #if !WL_PREFIX

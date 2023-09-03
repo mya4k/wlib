@@ -36,7 +36,7 @@
 
 
 #if !WL_CONF_PREFIX
-#	ifdef WL_C_VA_MACRO
+#	if WL_C_VA_MACRO
 #		define ano(arr,len,...)			wl_ano(arr,len,__VA_ARGS__)
 #		define aan(arr1,arr2,len,...)	wl_aan(arr1,arr2,len,__VA_ARGS__)
 #		define aor(arr1,arr2,len,...)	wl_aor(arr1,arr2,len,__VA_ARGS__)
@@ -306,10 +306,10 @@
  */
 #if WL_C_VA_MACRO
 #	define wl_ant(arr, len, ...)	\
-		(!wl_ano((arr), (len), (__VA_ARGS__+0)))
+		wl__ant((char*)(arr), (len), (char*)(__VA_ARGS__+0))
 #else
 #	define wl_ant(arr, len, res)	\
-		(!wl_ano((arr), (len), (res)))
+		wl__ant((char*)(arr), (len), (char*)(res))
 #endif
 
 /**
@@ -345,11 +345,11 @@
  * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
-#	define wl_ann(arr1, arr2, len, ...)\
-		(!wl_aan((arr1), (arr1), (len), (__VA_ARGS__+0)))
+#	define wl_ann(arr1, arr2, len, ...)	\
+		wl__ann((char*)(arr1), (char*)(arr2), (len), (char*)(__VA_ARGS__+0))
 #else
-#	define wl_ann(arr1, arr2, len, res)\
-		(!wl_aan((arr1), (arr1), (len), (res)))
+#	define wl_ann(arr1, arr2, len, res)	\
+		wl__ann((char*)(arr), (char*)(arr2), (len), (char*)(res))
 #endif
 
 /**
@@ -385,11 +385,11 @@
  * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
-#	define wl_anr(arr1, arr2, len, ...)\
-		(!wl_aor((arr1), (arr1), (len), (__VA_ARGS__+0)))
+#	define wl_anr(arr1, arr2, len, ...)	\
+		wl__anr((char*)(arr1), (char*)(arr2), (len), (char*)(__VA_ARGS__+0))
 #else
-#	define wl_anr(arr1, arr2, len, res)\
-		(!wl_aor((arr1), (arr1), (len), (res)))
+#	define wl_anr(arr1, arr2, len, res)	\
+		wl__anr((char*)(arr), (char*)(arr2), (len), (char*)(res))
 #endif
 
 /**
@@ -425,11 +425,11 @@
  * macro, rather than the function definition.
  */
 #if WL_C_VA_MACRO
-#	define wl_anx(arr1, arr2, len, ...)\
-		(!wl_axr((arr1), (arr1), (len), (__VA_ARGS__+0)))
+#	define wl_anx(arr1, arr2, len, ...)	\
+		wl__anx((char*)(arr1), (char*)(arr2), (len), (char*)(__VA_ARGS__+0))
 #else
-#	define wl_anx(arr1, arr2, len, res)\
-		(!wl_axr((arr1), (arr1), (len), (res)))
+#	define wl_anx(arr1, arr2, len, res)	\
+		wl__anx((char*)(arr), (char*)(arr2), (len), (char*)(res))
 #endif
 
 #define	wl_asl(arr, len, by)	\
@@ -665,13 +665,13 @@ extern void wl_afla(
 /* Defined in `array/afl.c` */
 extern void wl_aflv(
 	char* restrict	arr, wl_U32	lena, 
-	wl_UMax				val, wl_U8	lenv
+	wl_UMax			val, wl_U8	lenv
 ) /* nonnull((1)) */;
 
 /* Defined in `array/axx.c` */
 extern const void* wl__ano(
 	const	char* restrict	arr, 
-			wl_U32					len,
+			wl_U32			len,
 			char* restrict	res
 )
 /* nonnull((1)) */;
@@ -680,7 +680,7 @@ extern const void* wl__ano(
 extern const void* wl__aan(
 	const	char* restrict	arr1, 
 	const	char* restrict	arr2, 
-			wl_U32					len, 
+			wl_U32			len, 
 			char* restrict	res
 ) /* nonnull((1,2)) */;
 
@@ -688,7 +688,7 @@ extern const void* wl__aan(
 extern const void* wl__aor(
 	const	char* restrict	arr1, 
 	const	char* restrict	arr2, 
-			wl_U32					len, 
+			wl_U32			len, 
 			char* restrict	res
 ) /* nonnull((1,2)) */;
 
@@ -696,7 +696,7 @@ extern const void* wl__aor(
 extern const void* wl__axr(
 	const	char* restrict	arr1, 
 	const	char* restrict	arr2, 
-			wl_U32					len, 
+			wl_U32			len, 
 			char* restrict	res
 ) /* nonnull((1,2)) */;
 

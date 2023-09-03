@@ -1,9 +1,8 @@
-#include <stdio.h>
-#include <wl/types.h>
 #include <wl/bit.h>
 
 
-#if		UMB == 32
+
+#if		UMB >= 32
 U8f wl__ctz_table[64] = {
 	0, 1, 2, 7, 3, 13, 8, 19, 4, 25, 14, 28, 9, 34, 20, 40, 5, 17, 26, 38, 15,
 	46, 29, 48, 10, 31, 35, 54, 21, 50, 41, 57, 63, 6, 12, 18, 24, 27, 33, 39,
@@ -16,3 +15,28 @@ U8f wl__ctz_table[32] = {
 	0, 9, 19, 24, 175, 18, 28, 27
 };
 #endif
+
+
+
+/* Count leading zeros */
+inline U8f clz(register UMax x) {
+	register U8f r, q;
+
+#if UMB >= 64
+	r = (x > 0xFFFFFFFF)	<< 5;	x >>= r;
+	q = (x > 0xFFFF)		<< 4;	x >>= q;	r |= q;
+#else
+	r = (x > 0xFFFF)		<< 4;	x >>= r;
+#endif
+
+	q = (x > 0xFF)			<< 3;	x >>= q;	r |= q;
+	q = (x > 0xF)			<< 2;	x >>= q;	r |= q;
+	q = (x > 0x3)			<< 1;	x >>= q;	r |= q;
+	r |= (x >> 1);
+
+#if UMB >= 64
+	return 63 - r;
+#else
+	return 31 - r;
+#endif
+}

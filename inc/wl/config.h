@@ -46,7 +46,7 @@
  * By default `WL_PREFIX` is enabled
  */
 #ifndef WL_PREFIX
-#	define WL_PREFIX	1
+#	define WL_PREFIX	0
 #endif	/* WL_PREFIX */
 
 /**
@@ -74,6 +74,8 @@
 #		else	/* __STDC_VERSION__ */
 #			define WL_C	WL_VER_ANSI
 #		endif	/* __STDC_VERSION__ */
+#	else
+#		define WL_C	0
 #	endif	/* __STDC__ */
 #endif	/* WL_C */
 
@@ -95,6 +97,8 @@
 #ifndef WL_CPP
 #	ifdef __cplusplus
 #		define WL_CPP	__cplusplus	
+#	else
+#		define WL_CPP	0
 #	endif	/* __cplusplus */
 #endif	/* WL_CPP */
 
@@ -146,7 +150,7 @@
 #	ifdef WL_C
 #		define WL_LIBC		1
 #	else
-#		define WL_LIBCPP	0
+#		define WL_LIBC		0
 #	endif /* WL_C */
 #endif /* WL_LIBC */
 
@@ -166,14 +170,14 @@
 #	endif /* WL_CPP */
 #endif /* WL_LIBCPP */
 
+#	ifndef WL_STDDEF_H
+#		define WL_STDDEF_H	(WL_LIBC || WL_LIBCPP)
+#	endif	/* WL_STDDEF_H */
+
 /* #if WL_LIBC || WL_LIBCPP */
 #	ifndef WL_LIMITS_H
 #		define WL_LIMITS_H	(WL_LIBC || WL_LIBCPP)
 #	endif	/* WL_LIMITS_H */
-
-#	ifndef WL_STDINT_H
-#		define WL_STDINT_H	(WL_LIBC || WL_LIBCPP)
-#	endif	/* WL_STDINT_H */
 
 #	ifndef WL_STDLIB_H
 #		define WL_STDLIB_H	(WL_LIBC || WL_LIBCPP)
@@ -187,6 +191,8 @@
 #		ifndef WL_STDINT_H
 #			define WL_STDINT_H	(WL_LIBC || WL_LIBCPP)
 #		endif	/* WL_STDINT_H */ 
+#	else
+#		define WL_STDINT_H		0
 #	endif /* WL_C >= WL_VER_C99 */
 /* #endif	 *//* WL_LIBC | WL_LIBCPP */
 
@@ -216,8 +222,10 @@
  * The size of a word in a current architecture  
  */
 #ifndef WL_WORDSIZE
-#	ifdef __WORDSIZE
+#	ifdef	__WORDSIZE
 #		define WL_WORDSIZE	__WORDSIZE
+#	elif	WL_CC65
+#		define WL_WORDSIZE	32
 #	else	/* __WORDSIZE */
 #		define WL_WORDSIZE	64
 #	endif	/* __WORDSIZE */
@@ -294,6 +302,19 @@
 #ifndef WL_CONFIG_H_COMPILERS
 
 /**
+ * \brief	CC65 compiler
+ * \def		WL_CLANG
+ * If compiler is CC65, this macro is expands to the hex version of the compiler
+ */ 
+#ifndef WL_CC65
+#	ifdef __CC65__
+#		define WL_CC65	__CC65__
+#	else	/* __CC65__ */
+#		define WL_CC65	0
+#	endif	/* __CC65__ */
+#endif	/* WL_CC65 */
+
+/**
  * \brief	Clang compiler
  * \def		WL_CLANG
  * If compiler is Clang, this macro is expands to the major version of Clang
@@ -336,7 +357,7 @@
 #			define WL_MINGW32		1
 #		endif	/* WL__MINGW_MAC_H */
 #	else	/* __MINGW32__ */
-#		define	WL_MINGW64	0
+#		define	WL_MINGW32	0
 #	endif	/* __MINGW32__ */
 #endif	/* WL_MINGW32 */
 
@@ -507,19 +528,6 @@
 #endif /* WL__BOOL */
 
 /**
- * \brief `_Bool` type (C99)
- * \def WL__BOOL
- * Whether `_Bool` type is available
- */
-#ifndef WL__BOOL
-#	if WL_C>=WL_VER_C99
-#		define WL__BOOL	1
-#	else	/* WL_C>=WL_VER_C99 */
-#		define WL__BOOL	0
-#	endif	/* WL_C>=WL_VER_C99 */
-#endif /* WL__BOOL */
-
-/**
  * \brief `bool` type (C23/C++)
  * \def WL_BOOL
  * Whether `bool` type is available
@@ -537,7 +545,7 @@
  * \def WL_MIXED
  * Support for mixed declaration and code (C99)
  */
-#ifdef WL_MIXED
+#ifndef WL_MIXED
 #	if WL_C>=WL_VER_C99
 #		define WL_MIXED	1
 #	else	/* WL_C>=WL_VER_C99 */
@@ -576,7 +584,7 @@
  * \def WL_VA_MACRO
  * Support for variadic macro functions
  */
-#if defined(WL_C_VA_MACRO) 
+#ifndef WL_C_VA_MACRO
 #	if WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11
 #		define WL_C_VA_MACRO	1
 #	else	/* WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11 */
@@ -588,8 +596,15 @@
  * \brief	`__builtin_` functions 
  * \def		WL_BUILTIN	
  * 
- * Support for `__builtin_` functions
+ * This macro permits ALL built-in functions to be used by WLib
  */
+#ifndef WL_BUILTIN
+#	define WL_BUILTIN	0
+#elif WL_BUILTIN == 1
+#	ifndef WL_BUILTIN_CLZ
+#		define	WL_BUILTIN_CLZ	1
+#	endif	/* WL_BUILTIN_CLZ */
+#endif	/* WL_BUILTIN */
 
 #endif	/* WL_CONFIG_H_FEATURES */
 
@@ -617,11 +632,22 @@
 
 /**
  * \brief	C89 compatible `inline`
- * \def		restrict
+ * \def		inline
  */
 #if WL_C < WL_VER_C99
 #	define inline
 #endif	/* WL_C < WL_VER_C99 */
+
+/**
+ * \brief	C89 compatible forced `inline`
+ * \def		always_inline
+ */
+#undef	always_inline
+#if WL_GCC
+#	define always_inline	inline __attribute__((always_inline))
+#else
+#	define always_inline	inline
+#endif
 
 #ifdef __glibc_likely
 #define likely(cond)	__glibc_likely((long)(cond))	

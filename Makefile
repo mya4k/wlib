@@ -1,84 +1,95 @@
-cc = /bin/cc
-86gcc = gcc -march=i386 -m32 -nostdlib -ffreestanding
-flags = -Wall -Wextra -Iinc -c $(F) -Werror -DWL_PREFIX=0
-clang = /bin/clang $(flags)
-gcc = /bin/gcc $(flags) # -fanalyzer -Wanalyzer-too-complex
-ccx = $(cc) $(flags)
+#############
+# Variables #
+#############
 
+# Path to the default C compiler
+cc = /bin/cc $(flags)
+# Path to Clang compiler
+clang = /bin/clang $(flags)
+# Path to GCC
+gcc = /bin/gcc $(flags) $(fa)
+# Path to TCC
+tcc = /bin/tcc
+# Path to CC65
+cc65 = /bin/cc65
+# Default flags
+flags = -Wall -Wextra -Iinc -c $(F) -Werror -DWL_PREFIX=0
+# Flags for elf-i386 freestanding systems
+fs86 = $(cc) -march=i386 -m32 -nostdlib -ffreestanding
+# Analyzer flags
+fa = -fanalyzer -Wno-analyzer-too-complex
+# Pedantic flags
+pedantic = -pedantic-errors -Wpedantic
+
+
+
+#############
+# Direction	#
+#############
+
+# Create object directory
 dirobj:
 	mkdir -p obj/
+# Create library directory
 dirlib:
 	mkdir -p lib/
 
-# Macro dump
-macro:
-	$(cc) -E $(F) -dM -Iinc -std=c90 -Wall -Wextra -pedantic-errors -Wpedantic
-# Check for undefined macros
-undef:
-	$(cc) -c $(F) -Iinc -Wall -Wextra -pedantic-errors -Wpedantic -Wundef
+################################################################################
+# Compilation targets
+#
+# You need to provide the defintion of $(F), where you must specify the input
+# files and may as well append additional compiler options
+################################################################################
 
-# Compile (ISO)
+# Compile (ISO C compliency)
 cmp_i:
-	$(ccx) -pedantic-errors -Wpedantic -std=c90 
-	$(ccx) -pedantic-errors -Wpedantic -std=iso9899:199409 
-	$(ccx) -pedantic-errors -Wpedantic -std=c99 
-	$(ccx) -pedantic-errors -Wpedantic -std=c11 
-	$(ccx) -pedantic-errors -Wpedantic -std=c17 
-	$(ccx) -pedantic-errors -Wpedantic -std=c2x 
-# Compile (GNU)
+	$(ccx) $(pedantic) -std=c90 
+	$(ccx) $(pedantic) -std=iso9899:199409 
+	$(ccx) $(pedantic) -std=c99 
+	$(ccx) $(pedantic) -std=c11 
+	$(ccx) $(pedantic) -std=c17 
+	$(ccx) $(pedantic) -std=c2x
+# Compile (GNU version compliency)
 cmp_g:
 	$(ccx) -std=gnu90
 	$(ccx) -std=gnu99
 	$(ccx) -std=gnu11
 	$(ccx) -std=gnu17
 	$(ccx) -std=gnu2x
-# Compile with Clang (ISO)
-cmpci:
-	make cmp_i cc="/bin/clang"
-# Compile with GCC (ISO)
 cmpgi:
-	make cmp_i cc="/bin/gcc"
-# Compile with i686-efi-gcc (ISO)
-cmp86i:
-	make cmp_i cc="/bin/i686-elf-gcc -DWL_LIBC=0"
-# Compile with Clang (GNU)
-cmpcg:
-	make cmp_g cc="/bin/clang"
-# Compile with GCC (GNU)
+	make cmp_i ccx="$(gcc)"
 cmpgg:
-	make cmp_g cc="/bin/gcc"
-# Compile with i686-efi-gcc (GNU)
-cmp86g:
-	make cmp_g cc="/bin/i686-elf-gcc -DWL_LIBC=0"
-# Compile with GCC (All)
-cmpg: cmpgg cmpgi
-# Compile with GCC (All)
-cmpc: cmpgg cmpgi
-# Compile with GCC (All)
-cmp86: cmp86g cmp86i 
+	make cmp_g ccx="$(gcc)"
+cmpci:
+	make cmp_i ccx="$(clang)"
+cmpcg:
+	make cmp_g ccx="$(clang)"
+cmp86:
+	make cmp_g ccx="$(fs86)"
 # Compile with CC65
 cmp65:
-	cc65 -v -Iinc -D__STDC__ -o /dev/null $(F)
+	cc65 -v -t c64 -Iinc -DWL_PREFIX=0 -D__STDC__ -o /dev/null $(F)
+# Compile with TCC
 cmpt:
 	tcc -Iinc -o /dev/null -c $(F) -Wall -Werror -Wunsupported -Wwrite-strings
-# Compile with all compilers
-compile comp cmp: cmpci cmpgi cmpci cmp86i cmpcg cmpgg cmpcg cmp86g # cmp65 cmpt
-# Compile with all compiler (for headers)
-compile_header cmph: cmpgg cmpcg cmpgi cmpci cmp65 cmpt
-# Compilation time statistics
-cmptm:
-	$(gcc) -std=gnu2x -pedantic-errors -Wpedantic -ftime-report
-# Compilation time statistics (for headers)
-cmpth:
-	$(gcc) -std=gnu2x -ftime-report
-# Generate assembly
-BASE = `basename $(F) | sed 's/\.c//'`
-asm:
-#	$(cc) -fverbose-asm -Iinc -S $(F) -Ofast -o asm/`basename $(F) | sed 's/\.c/\.s/'` -masm=intel
+# Compile with All
+cmp: cmpgi cmpgg cmpci cmpcg cmp86 cmp65 cmpt
+# Compile for assembly analysis
+asm: dirobj
+	BASE = `basename $(F) | sed 's/\.c//'`
 	$(cc) -std=c2x -Iinc -S $(F) -o asm/$(BASE).s -Ofast -g -fverbose-asm -masm=intel
-#	objdump -d -Mintel obj/$(BASE).o -l > asm/$(BASE).s
 
-.PHONY: asm
+
+
+##########
+# Extras #
+##########
+
+# Macro dump
+macro:
+	$(cc) -E $(F) -dM -Iinc -std=c90 -Wall -Wextra -pedantic-errors -Wpedantic
+
+	
 .DEFAULT:
 
 
