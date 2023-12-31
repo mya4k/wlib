@@ -661,6 +661,12 @@
 #define unlikely(cond)	(cond)
 #endif
 
+#ifdef __builtin_expect_with_probability
+#	define if_probability(cond, probability) if(__builtin_expect_with_probability((long)(cond), 1, (probability)))
+#else
+#	define if_probability(cond, probability) if(cond)
+#endif
+
 #if !WL_PREFIX
 #define if_likely(cond)		if(likely(cond))
 #define if_unlikely(cond)	if(unlikely(cond))
