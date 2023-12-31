@@ -1,21 +1,20 @@
 /**
  * \file array.h
  * \author Wispy (wspvlv@gmail.com)
- * \brief Array manipulation functions
+ * \brief Array module
  * \version 0.1
  * \date 2022-08-19
  * 
- * This header provides functions:
- * 	- copy data
- * 	- perform binary operations on data
- * 	- perform logical operation on data
- * 	- search for a specific byte or data in memory
- * 	- replace occurrences of byte or data in memory
- * 	- fill memory with data
+ * Array module provides functions operating on arrays.
+ * \note An array here refer to an object of a defined size, storing a continuous collection of bytes, unless stated otherwise 
  * 
- * Proposals:
- * 	- search functions without object limits (like glibc's `rawmemchr`)
- * 
+ * Types of operations:
+ * -	array coping (acp)
+ * -	bitwise operations (aor)
+ * -	logical operations (aorl)
+ * -	array filling
+ * -	byte search
+ * -	array search 
  */
 
 
@@ -432,9 +431,41 @@
 		wl__anx((char*)(arr), (char*)(arr2), (len), (char*)(res))
 #endif
 
+/**
+ * \brief	Array Shift Left
+ * 
+ * \def		asl(arr, len, by)
+ * \arg		arr		Array to shift
+ * \arg		len		Array size
+ * \arg		by		Shift degree in bits
+ * \return	void*	Address of \a arr
+ * 
+ * Logical left shift of \a arr of size \a len by \a by bits
+ * 
+ * Visualization:
+ * \code 
+ * *arr <<= by
+ * \endcode
+ */
 #define	wl_asl(arr, len, by)	\
 		(wl__asl((char*)(arr), (len), (by)))
 
+/**
+ * \brief	Array Shift Right
+ * 
+ * \def		asr(arr, len, by)
+ * \arg		arr		Array to shift
+ * \arg		len		Array size
+ * \arg		by		Shift degree in bits
+ * \return	void*	Address of \a arr
+ * 
+ * Logical right shift of \a arr of size \a len by \a by bits
+ * 
+ * Visualization:
+ * \code 
+ * *arr >>= by
+ * \endcode
+ */
 #define	wl_asr(arr, len, by)	\
 		(wl__asr((char*)(arr), (len), (by)))
 
@@ -462,13 +493,18 @@
 #define wl_anol(arr, len)	wl__anol((char*)(arr), (len))
 /**
  * \brief	Array AND Logical
- * \def		wl_aanl(arr1, arr2, len)
+ * \def		aanl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * 
  * Returns TRUE, if both array are not filled with 0
+ * 
+ * Visualization:
+ * \code 
+ * return (*arr1)&&(*arr2)
+ * \endcode
  */
 #define wl_aanl(arr1, arr2, len) (				\
 	wl__anol((char*)(arr1), (len)) 				\
@@ -476,13 +512,18 @@
 	: 0 )
 /**
  * \brief	Array OR Logical
- * \def		wl_aorl(arr1, arr2, len)
+ * \def		aorl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * 
  * Returns TRUE, if any array is not filled with 0
+ * 
+ * Visualization:
+ * \code 
+ * return (*arr1)||(*arr2)
+ * \endcode
  */
 #define wl_aorl(arr1, arr2, len) (				\
 	wl__anol((char*)(arr1), (len)) 				\
@@ -490,67 +531,123 @@
 	: (wl__anol((char*)(arr2), (len)) ? 1 : 0) )
 /**
  * \brief	Array XOR Logical
- * \def		wl_axrl(arr1, arr2, len)
+ * \def		axrl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * 
  * Returns TRUE, if one array initalized with 0 and the other one is not
+ * 
+ * Visualization:
+ * \code 
+ * return (!!*arr1) ^ (!!*arr2)
+ * \endcode
  */
 #define wl_axrl(arr1, arr2, len)	(wl_anol((arr1), (len)) != wl_anol((arr2), (len)))
 /**
  * \brief	Array NOT Logical
- * \def		wl_antl(arr1, arr2, len)
+ * \def		antl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * Returns TRUE, if all data of the array is set to 0
+ * 
+ * Visualization:
+ * \code 
+ * return !*arr
+ * \endcode
  */
 #define wl_antl(arr, len)			(!wl_anol((arr), (len)))
 /**
  * \brief	Array NAND Logical
- * \def		wl_antl(arr1, arr2, len)
+ * \def		annl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * Returns TRUE, if either of the arrays is filled with 0
+ * 
+ * Visualization:
+ * \code 
+ * return !(*arr1 && *arr2)
+ * \endcode
  */
 #define wl_annl(arr1, arr2, len)	(anol((arr1),(len)) && anol((arr2),(len)))
 /**
- * \brief	Array NAND Logical
- * \def		wl_antl(arr1, arr2, len)
+ * \brief	Array NOR Logical
+ * \def		anrl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * 
  * Returns TRUE, if both  arrays are filled with 0
+ * 
+ * Visualization:
+ * \code 
+ * return !(*arr1 || *arr2)
+ * \endcode
  */
 #define wl_anrl(arr1, arr2, len)	(!wl_aorl((arr1), (arr2), (len)))
 /**
- * \brief	Array XOR Logical
- * \def		wl_axrl(arr1, arr2, len)
+ * \brief	Array NXOR Logical
+ * \def		anxl(arr1, arr2, len)
  * \arg		arr1	First array operand
  * \arg		arr2	Second array operand
  * \arg		len		Length of the operands in bytes
  * \return	Bl
  * 
  * Returns TRUE, if both arrays are true or false
+ * 
+ * Visualization:
+ * \code 
+ * return !((!!*arr) ^ (!!*arr))
+ * \endcode
  */
 #define wl_anxl(arr1, arr2, len)\
 	(wl_anol((arr1), (len)) == wl_anol((arr2), (len)))
 
-
+/**
+ * \brief	Array Not Equal 
+ * 
+ * \def		anq(arr1,arr2,len)
+ * \arg		arr1	Array 1
+ * \arg		arr2	Array 2
+ * \arg		len		Size of both arrays
+ * \return	Bl		True, if not equal
+ * 
+ * If the value of two objects are not equal, return true
+ * 
+ * Visualization:
+ * ```
+ * *arr1 != *arr2
+ * ```
+ */
 #define wl_anq(arr1,arr2,len)	\
 	(wl__anq((char*)(arr1), (char*)(arr2), (len)))
 
+/**
+ * \brief	Array Equal 
+ * 
+ * \def		aeq(arr1,arr2,len)
+ * \arg		arr1	Array 1
+ * \arg		arr2	Array 2
+ * \arg		len		Size of both arrays
+ * \return	Bl		True, if equal
+ * 
+ * If the value of two objects are equal, return true
+ * 
+ * Visualization:
+ * ```
+ * *arr1 == *arr2
+ * ```
+ */
 #define wl_aeq(arr1,arr2,len)	(!wl_anq((arr1), (arr2), (len)))
 
 /**
  * \brief	Array Cut
- * \def		wl_act(arr,off,len,slice)
+ * \def		act(arr,off,len,slice)
  * \param	arr		The source array
  * \param	off 	Offset of \a arr
  * \param	len		Length of the slice
@@ -562,7 +659,7 @@
 
 /**
  * \brief	Array Fill
- * \def		define wl_afl(dst, ldst, src, opt_lsrc)
+ * \def		afl(dst, ldst, src, lsrc)
  * \arg		dst		Array to be filled
  * \arg		ldst	Byte length of `dst`
  * \arg		src		Fill object or pointer to fill object
@@ -593,7 +690,7 @@
 
 /**
  * \brief	Array Search Byte
- * \def		wl_asb(haystack, len, byte)
+ * \def		asb(haystack, len, byte)
  * \arg		haystack	Pointer to haystack array
  * \arg		len			Length of haystack array in bytes
  * \arg		byte		Needle byte
@@ -611,7 +708,7 @@
 
 /**
  * \brief	Array Search Byte Reverse
- * \def		wl_asbr(haystack, len, byte)
+ * \def		asbr(haystack, len, byte)
  * \arg		haystack	Pointer to haystack array
  * \arg		len			Length of haystack array in bytes
  * \arg		byte		Needle byte
@@ -628,7 +725,7 @@
 
 /**
  * \brief	Array Search Byte Count
- * \def		wl_asbc(haystack, len, byte)
+ * \def		asbc(haystack, len, byte)
  * \arg		haystack	Pointer to haystack array
  * \arg		len			Length of haystack array in bytes
  * \arg		byte		Needle byte
@@ -642,6 +739,15 @@
 #	define wl_asbc(haystack, len, byte)	\
 	(wl__asbc((char*)(haystack), (len), (byte)))
 
+/**
+ * \brief	Array Search Array
+ * \def		asa(haystack, needle, lenh, lenn)
+ * \param	haystack	Pointer to haystack array
+ * \param	needle		Pointer to needle array
+ * \param	lenh		Size of haystack array
+ * \param	lenn		Size of needle array
+ * \return	
+ */
 #	define wl_asa(haystack, needle, lenh, lenn) \
 	((void*)wl__asa((char*)(haystack), (char*)(needle), (lenh), (lenn)))
 
