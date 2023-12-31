@@ -22,6 +22,7 @@
  * \fn		U16 sl(const char* restrict const string)
  * \param	string	Pointer to string
  * \return	U16
+ * \todo	String length caching to prevent calculating the length of the same string several time
  */
 U16 sl(const char* restrict const string) {
 		/* 1. Creates a variable which will store the pointer to a character of
