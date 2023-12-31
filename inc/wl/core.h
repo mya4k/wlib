@@ -7,7 +7,7 @@
 
 
 
-#ifdef WL_CPP
+#if WL_CPP
 /* Extern compatibility */
 #	ifndef extern
 #		define extern		extern "C"
@@ -41,7 +41,7 @@
 #	endif
 #endif
 
-#if defined(WL_C) && WL_C < WL_VER_C99
+#if WL_C < WL_VER_C99
 /* Inline */
 #	if WL_GCC
 #		undef	inline
