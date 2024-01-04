@@ -10,9 +10,9 @@
  * 
  * Performs OR Logical operation when we need to work on less than word bytes 
  */
-Bl _aorlsw(
-	const char* restrict arr1,
-	const char* restrict arr2,
+static Bl _aorlsw(
+	char* restrict arr1,
+	char* restrict arr2,
 	const U32 rem
 ) {
 #if UMB >= 64
@@ -37,8 +37,8 @@ Bl _aorlsw(
 
 /* Array OR Logical */
 Bl _aorl(
-	const char* restrict arr1,
-	const char* restrict arr2,
+	char* restrict arr1,
+	char* restrict arr2,
 	U32 len
 ) {
 	/* Align at least one of the pointers */

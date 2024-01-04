@@ -1,11 +1,6 @@
 #include <wl/array.h>
 
 
-#if WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE
-#	define inline_if_opt_size always_inline
-#else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
-#	define inline_if_opt_size
-#endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
 
 #define NO(X)	(X)
 #define NT(X)	(~(X))
@@ -18,16 +13,16 @@
 
 #if WL_OPTIMIZE != WL_OPTIMIZE_MEMORY_EXTRA
 #	define T_AXXSW1(NAME,FUNC)											\
-		inline_if_opt_size static void _##NAME##sw(						\
-			const char* restrict arr, const U32 len, char* restrict res	\
+		inline_unless_opt_size static void _##NAME##sw(						\
+			char* restrict arr, const U32 len, char* restrict res		\
 		) {																\
 			register const UMax m = ((UMax)1<<(CHB*len)) - 1;			\
 			*(UMax*)res = FUNC((*(UMax*)arr)&m) + ((*(UMax*)res)&(~m));	\
 		}
 #else	/* WL_OPTIMIZE != WL_OPTIMIZE_MEMORY_EXTRA */
 #	define T_AXXSW1(NAME,FUNC)												\
-		inline_if_opt_size static void _##NAME##sw(							\
-			const char* restrict arr, const U32 len, char* restrict res		\
+		inline_unless_opt_size static void _##NAME##sw(							\
+			char* restrict arr, const U32 len, char* restrict res			\
 		) {																	\
 			((*(UMax*)res) = FUNC((*(UMax*)arr)&(((UMax)1<<(CHB*len)) - 1))	\
 			+ ((*(UMax*)res)&(UMX>>(CHB*len)<<(CHB*len)))));					\
@@ -35,8 +30,8 @@
 #endif	/* WL_OPTIMIZE != WL_OPTIMIZE_MEMORY_EXTRA */
 
 #define T_AXXSW2(NAME,FUNC)											\
-	inline_if_opt_size static void _##NAME##sw(						\
-		const char* restrict arr1, const char* restrict arr2,		\
+	inline_unless_opt_size static void _##NAME##sw(						\
+		char* restrict arr1,char* restrict arr2,					\
 		const U32 len, char* restrict res							\
 	) {																\
 		register const UMax m = ((UMax)1<<(CHB*len)) - 1;			\
@@ -47,8 +42,8 @@
 
 #if UMB > 32
 #	define T_AXXSWS1(NAME,FUNC)											\
-		inline_if_opt_size static void _##NAME##sws(					\
-			const char* restrict arr, const U32 len, char* restrict res	\
+		inline_unless_opt_size static void _##NAME##sws(					\
+			char* restrict arr, const U32 len, char* restrict res		\
 		) {																\
 			if (unlikely(len&4)) {										\
 				*(U32l*)res = FUNC(*(U32l*)arr);						\
@@ -65,8 +60,8 @@
 		}
 
 #	define T_AXXSWS2(NAME,FUNC)										\
-		inline_if_opt_size static void _##NAME##sws(				\
-			const char* restrict arr1, const char* restrict arr2, 	\
+		inline_unless_opt_size static void _##NAME##sws(				\
+			char* restrict arr1, char* restrict arr2, 				\
 			const U32 len, char* restrict res						\
 		) {															\
 			if (unlikely(len&4)) {									\
@@ -84,8 +79,8 @@
 		}
 #else	/* UMB > 32 */
 #	define T_AXXSWS1(NAME,FUNC)											\
-		inline_if_opt_size static void _##NAME##sws(					\
-			const char* restrict arr, const U32 len, char* restrict res	\
+		inline_unless_opt_size static void _##NAME##sws(					\
+			char* restrict arr, const U32 len, char* restrict res		\
 		) {																\
 			if (unlikely(len&2)) {										\
 				*(U16l*)res = FUNC(*(U16l*)arr);						\
@@ -98,8 +93,8 @@
 		}
 
 #	define T_AXXSWS2(NAME,FUNC)										\
-		inline_if_opt_size static void _##NAME##sws(				\
-			const char* restrict arr1, const char* restrict arr2, 	\
+		inline_unless_opt_size static void _##NAME##sws(				\
+			char* restrict arr1, char* restrict arr2, 				\
 			const U32 len, char* restrict res						\
 		) {															\
 			if (unlikely(len&2)) {									\
@@ -116,7 +111,7 @@
 #if WL_AUTOVECTOR_LOOPS
 #	define T_AXX1(NAME, FUNC) 												\
 		const void* _##NAME(												\
-			const char* restrict arr, U32 len, char* restrict res			\
+			char* restrict arr, U32 len, char* restrict res					\
 		) {																	\
 			const char* const _res = res;									\
 			while (unlikely(len > 0)) {										\
@@ -128,7 +123,7 @@
 
 #	define T_AXX2(NAME, FUNC) 												\
 		const void* _##NAME(												\
-			const char* restrict arr1, const char* restrict arr2, 			\
+			char* restrict arr1, char* restrict arr2, 						\
 			U32 len, char* restrict res										\
 		) {																	\
 			const char* const _res = res;									\
@@ -141,7 +136,7 @@
 #else
 #	define T_AXX1(NAME, FUNC) 												\
 		const void* _##NAME(												\
-			const char* restrict arr, U32 len, char* restrict res			\
+			char* restrict arr, U32 len, char* restrict res					\
 		) {																	\
 			const char* const _res = res;									\
 			if (unlikely(len <= sizeof(UMax))) {							\
@@ -172,7 +167,7 @@
 
 #	define T_AXX2(NAME, FUNC) 												\
 		const void* _##NAME(												\
-			const char* restrict arr1, const char* restrict arr2,			\
+			char* restrict arr1, char* restrict arr2,						\
 			U32 len, char* restrict res										\
 		) {																	\
 			const char* const _res = res;									\

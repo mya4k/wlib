@@ -10,9 +10,9 @@
  * 
  * Performs Not Equal operation when we need to work on less than word bytes 
  */
-Bl _anqsw(
-	const char* restrict arr1,
-	const char* restrict arr2,
+static Bl _anqsw(
+	char* restrict arr1,
+	char* restrict arr2,
 	const U32 rem
 ) {
 #if UMB >= 64
@@ -37,8 +37,8 @@ Bl _anqsw(
 
 /* Array Not Equal */
 Bl _anq(
-	const char* restrict arr1,
-	const char* restrict arr2,
+	char* restrict arr1,
+	char* restrict arr2,
 	U32 len
 ) {
 	/* Align at least one of the pointers */
