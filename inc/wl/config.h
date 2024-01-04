@@ -649,6 +649,14 @@
 #	define always_inline	inline
 #endif
 
+#ifndef inline_unless_opt_size
+#	if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
+#		define inline_unless_opt_size always_inline
+#	else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
+#		define inline_unless_opt_size
+#	endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
+#endif
+
 #ifdef __glibc_likely
 #define likely(cond)	__glibc_likely((long)(cond))	
 #else
@@ -680,6 +688,10 @@
 
 #ifndef nonnull
 #	define nonnull(X)	__attribute__((nonnull X))
+#endif
+
+#ifndef pure
+#	define pure			__attribute__((pure))
 #endif
 
 
