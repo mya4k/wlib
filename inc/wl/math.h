@@ -83,7 +83,7 @@
  */
 extern U64 pwu(U64 base, U8 exponent);
 
-extern U32 rt2(U64 power);
+extern U32 rt2u(U64 power);
 
 
 
