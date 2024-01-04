@@ -36,56 +36,60 @@
 
 #if !WL_CONF_PREFIX
 #	if WL_C_VA_MACRO
-#		define ano(arr,len,...)			wl_ano(arr,len,__VA_ARGS__)
-#		define aan(arr1,arr2,len,...)	wl_aan(arr1,arr2,len,__VA_ARGS__)
-#		define aor(arr1,arr2,len,...)	wl_aor(arr1,arr2,len,__VA_ARGS__)
-#		define axr(arr1,arr2,len,...)	wl_axr(arr1,arr2,len,__VA_ARGS__)
-#		define ant(arr,len,...)			wl_ant(arr,len,__VA_ARGS__)
-#		define ann(arr1,arr2,len,...)	wl_ann(arr1,arr2,len,__VA_ARGS__)
-#		define anr(arr1,arr2,len,...)	wl_anr(arr1,arr2,len,__VA_ARGS__)
-#		define anx(arr1,arr2,len,...)	wl_anx(arr1,arr2,len,__VA_ARGS__)
-#		define afl(dst,ldst,src,...)	wl_afl(dst,ldst,src,__VA_ARGS__)
+#		define ano(arr,len,...)				wl_ano(arr,len,__VA_ARGS__)
+#		define aan(arr1,arr2,len,...)		wl_aan(arr1,arr2,len,__VA_ARGS__)
+#		define aor(arr1,arr2,len,...)		wl_aor(arr1,arr2,len,__VA_ARGS__)
+#		define axr(arr1,arr2,len,...)		wl_axr(arr1,arr2,len,__VA_ARGS__)
+#		define ant(arr,len,...)				wl_ant(arr,len,__VA_ARGS__)
+#		define ann(arr1,arr2,len,...)		wl_ann(arr1,arr2,len,__VA_ARGS__)
+#		define anr(arr1,arr2,len,...)		wl_anr(arr1,arr2,len,__VA_ARGS__)
+#		define anx(arr1,arr2,len,...)		wl_anx(arr1,arr2,len,__VA_ARGS__)
+#		define afl(dst,ldst,src,...)		wl_afl(dst,ldst,src,__VA_ARGS__)
 #	else
-#		define ano(arr,len,res)			wl_ano(arr,len,res)
-#		define aan(arr1,arr2,len,res)	wl_aan(arr1,arr2,len,res)
-#		define aor(arr1,arr2,len,res)	wl_aor(arr1,arr2,len,res)
-#		define axr(arr1,arr2,len,res)	wl_axr(arr1,arr2,len,res)
-#		define ant(arr,len,res)			wl_ant(arr,len,res)
-#		define ann(arr1,arr2,len,res)	wl_ann(arr1,arr2,len,res)
-#		define anr(arr1,arr2,len,res)	wl_anr(arr1,arr2,len,res)
-#		define anx(arr1,arr2,len,res)	wl_anx(arr1,arr2,len,res)
-#		define afl(dst,ldst,src,lsrc)	wl_afl(dst,ldst,src,lsrc)
+#		define ano(arr,len,res)				wl_ano(arr,len,res)
+#		define aan(arr1,arr2,len,res)		wl_aan(arr1,arr2,len,res)
+#		define aor(arr1,arr2,len,res)		wl_aor(arr1,arr2,len,res)
+#		define axr(arr1,arr2,len,res)		wl_axr(arr1,arr2,len,res)
+#		define ant(arr,len,res)				wl_ant(arr,len,res)
+#		define ann(arr1,arr2,len,res)		wl_ann(arr1,arr2,len,res)
+#		define anr(arr1,arr2,len,res)		wl_anr(arr1,arr2,len,res)
+#		define anx(arr1,arr2,len,res)		wl_anx(arr1,arr2,len,res)
+#		define afl(dst,ldst,src,lsrc)		wl_afl(dst,ldst,src,lsrc)
 #	endif
 
-#	define asl(arr,len,by)			wl_asl(arr,len,by)
-#	define asr(arr,len,by)			wl_asr(arr,len,by)
+#	define asl(arr,len,by)					wl_asl(arr,len,by)
+#	define asr(arr,len,by)					wl_asr(arr,len,by)
 
-#	define anol(arr,len)			wl_anol(arr,len)
-#	define aanl(arr1,arr2,len)		wl_aanl(arr1,arr2,len)
-#	define aorl(arr1,arr2,len)		wl_aorl(arr1,arr2,len)
-#	define axrl(arr1,arr2,len)		wl_axrl(arr1,arr2,len)
-#	define antl(arr,len)			wl_antl(arr,len)
-#	define annl(arr1,arr2,len)		wl_annl(arr1,arr2,len)
-#	define anrl(arr1,arr2,len)		wl_anrl(arr1,arr2,len)
-#	define anxl(arr1,arr2,len)		wl_anxl(arr1,arr2,len)
-#	define aeq(arr1,arr2,len)		wl_aeq(arr1,arr2,len)
-#	define anq(arr1,arr2,len)		wl_anq(arr1,arr2,len)
-#	define act(src,off,len,slice)	wl_act(src,off,len,slice)
-#	define asb(haystack,len,byte)	wl_asb(haystack,len,byte)
-#	define asbr(haystack,len,byte)	wl_asbr(haystack,len,byte)
-#	define asbc(haystack,len,byte)	wl_asbc(haystack,len,byte)
+#	define anol(arr,len)					wl_anol(arr,len)
+#	define aanl(arr1,arr2,len)				wl_aanl(arr1,arr2,len)
+#	define aorl(arr1,arr2,len)				wl_aorl(arr1,arr2,len)
+#	define axrl(arr1,arr2,len)				wl_axrl(arr1,arr2,len)
+#	define antl(arr,len)					wl_antl(arr,len)
+#	define annl(arr1,arr2,len)				wl_annl(arr1,arr2,len)
+#	define anrl(arr1,arr2,len)				wl_anrl(arr1,arr2,len)
+#	define anxl(arr1,arr2,len)				wl_anxl(arr1,arr2,len)
+#	define aeq(arr1,arr2,len)				wl_aeq(arr1,arr2,len)
+#	define anq(arr1,arr2,len)				wl_anq(arr1,arr2,len)
+#	define act(src,off,len,slice)			wl_act(src,off,len,slice)
+#	define asb(haystack,len,byte)			wl_asb(haystack,len,byte)
+#	define asbr(haystack,len,byte)			wl_asbr(haystack,len,byte)
+#	define asbc(haystack,len,byte)			wl_asbc(haystack,len,byte)
 #	define asa(haystack,needle,lenh,lenn)	wl_asa(haystack,needle,lenh,lenn)
-#	define asar			wl_asar
-#	define asac			wl_asac
-#	define arb(haystack,len,needle,rep) wl_arb(haystack,len,needle,rep)
+#	define asar								wl_asar
+#	define asac								wl_asac
+#	define arb(haystack,len,needle,rep) 	wl_arb(haystack,len,needle,rep)
 #	define ara(src,ndl,rep,lens,lenn,lenr)	wl_ara(src,ndl,rep,lens,lenn,lenr)
 #	define acp(src,len,dst)					wl_acp(src,len,dst)
 #	define amv(src,len,dst)					wl_amv(src,len,dst)
 
 #	define _ano			wl__ano
+#	define _ant			wl__ant
 #	define _aan			wl__aan
 #	define _aor			wl__aor
 #	define _axr			wl__axr
+#	define _ann			wl__ann
+#	define _anr			wl__anr
+#	define _anx			wl__anx
 #	define _asl			wl__asl
 #	define _asr			wl__asr
 #	define _anol		wl__anol
@@ -99,6 +103,8 @@
 #	define _ara			wl__ara
 #	define afla			wl_afla
 #	define aflv			wl_aflv
+#	define _amv			wl__amv
+#	define _anq			wl__anq
 
 #endif
 
@@ -126,18 +132,27 @@
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning If two objects overlap, object \a arr will be overwritten in the proccess
+ * \warning If two objects overlap, object \a arr will be overwritten in the 
+ * proccess
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
 #if WL_STRING_H
+#	include <wl/memory.h>  
+
 #	if WL_C_VA_MACRO
 #		define wl_ano(arr, len, ...)	\
-			memcpy((__VA_ARGS__+0), (char*)(arr), (len))
+		memcpy(	\
+			(unlikely(__VA_ARGS__+0)\
+			? (void*)(__VA_ARGS__)\
+			: wl_mal(len)), (const char*)(arr), (len))
 #	else
 #		define wl_ano(arr, len, res)	\
-			memcpy((char*)(res), (char*)(arr), (len))
+		memcpy(	\
+			(unlikely(res)\
+			? (void*)(res)\
+			: wl_mal(len)), (const char*)(arr), (len))
 #	endif
 #else	/* WL_STRING_H */
 #	if WL_C_VA_MACRO
@@ -176,7 +191,8 @@
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with 
+ * \a res
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -213,12 +229,13 @@
  * *res = *arr1 | *arr2
  * \endcode
  * 
- * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
- * pointer to freshly allocated object of \a len bytes.
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned 
+ * a pointer to freshly allocated object of \a len bytes.
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with 
+ * \a res
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -255,12 +272,13 @@
  * *res = *arr1 ^ *arr2
  * \endcode
  * 
- * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
- * pointer to freshly allocated object of \a len bytes.
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned 
+ * a pointer to freshly allocated object of \a len bytes.
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with 
+ * \a res
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -298,7 +316,8 @@
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning If two objects overlap, object \a arr will be overwritten in the proccess
+ * \warning If two objects overlap, object \a arr will be overwritten in the 
+ * proccess
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -333,12 +352,13 @@
  * *res = ~(*arr1 & *arr2)
  * \endcode
  * 
- * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
- * pointer to freshly allocated object of \a len bytes.
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned 
+ * a pointer to freshly allocated object of \a len bytes.
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with 
+ * \a res
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -373,12 +393,13 @@
  * *res = ~(*arr1 | *arr2)
  * \endcode
  * 
- * \note If \a res is a null pointer or omitted (C99), \a res will be assigned a 
- * pointer to freshly allocated object of \a len bytes.
+ * \note If \a res is a null pointer or omitted (C99), \a res will be assigned 
+ * a pointer to freshly allocated object of \a len bytes.
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with 
+ * \a res
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -418,7 +439,8 @@
  * 
  * \note \a len is interpreted as \e U32
  * 
- * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with \a res
+ * \warning Behavior is undefined if either \a arr1 or \a arr2 overlap with 
+ * \a res
  * 
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
@@ -544,7 +566,8 @@
  * return (!!*arr1) ^ (!!*arr2)
  * \endcode
  */
-#define wl_axrl(arr1, arr2, len)	(wl_anol((arr1), (len)) != wl_anol((arr2), (len)))
+#define wl_axrl(arr1, arr2, len)\
+	(wl_anol((arr1), (len)) != wl_anol((arr2), (len)))
 /**
  * \brief	Array NOT Logical
  * \def		antl(arr1, arr2, len)
@@ -653,7 +676,8 @@
  * \param	len		Length of the slice
  * \param	slice	Pointer to where slice will be stored
  * 
- * Cuts off a \a len byte slice from the source array starting after \a off bytes from base of the source array. The slice is stored at \a slice.
+ * Cuts off a \a len byte slice from the source array starting after \a off 
+ * bytes from base of the source array. The slice is stored at \a slice.
  */
 #define wl_act(arr,off,len,slice)	(wl_ano((arr)+(off), (len), (slice)))
 
@@ -766,62 +790,92 @@
 extern void wl_afla(
 			char* restrict arr1,		wl_U32 len1,
 	const	char* restrict arr2, const	wl_U32 len2
-) /* nonnull((1,3)) */;
+) nonnull((1,3));
 
 /* Defined in `array/afl.c` */
 extern void wl_aflv(
 	char* restrict	arr, wl_U32	lena, 
 	wl_UMax			val, wl_U8	lenv
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__ano(
-	const	char* restrict	arr, 
+	char* restrict	arr, 
 			wl_U32			len,
 			char* restrict	res
-)
-/* nonnull((1)) */;
+) nonnull((1));
+
+/* Defined in `array/axx.c` */
+extern const void* wl__ant(
+	char* restrict	arr, 
+			wl_U32			len,
+			char* restrict	res
+) nonnull((1));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__aan(
-	const	char* restrict	arr1, 
-	const	char* restrict	arr2, 
-			wl_U32			len, 
-			char* restrict	res
-) /* nonnull((1,2)) */;
+	char* restrict	arr1, 
+	char* restrict	arr2, 
+	wl_U32			len, 
+	char* restrict	res
+) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__aor(
-	const	char* restrict	arr1, 
-	const	char* restrict	arr2, 
-			wl_U32			len, 
-			char* restrict	res
-) /* nonnull((1,2)) */;
+	char* restrict	arr1, 
+	char* restrict	arr2, 
+	wl_U32			len, 
+	char* restrict	res
+) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__axr(
-	const	char* restrict	arr1, 
-	const	char* restrict	arr2, 
-			wl_U32			len, 
-			char* restrict	res
-) /* nonnull((1,2)) */;
+	char* restrict	arr1, 
+	char* restrict	arr2, 
+	wl_U32			len, 
+	char* restrict	res
+) nonnull((1,2));
+
+/* Defined in `array/axx.c` */
+extern const void* wl__ann(
+	char* restrict	arr1, 
+	char* restrict	arr2, 
+	wl_U32			len, 
+	char* restrict	res
+) nonnull((1,2));
+
+/* Defined in `array/axx.c` */
+extern const void* wl__anr(
+	char* restrict	arr1, 
+	char* restrict	arr2, 
+	wl_U32			len, 
+	char* restrict	res
+) nonnull((1,2));
+
+/* Defined in `array/axx.c` */
+extern const void* wl__anx(
+	char* restrict	arr1, 
+	char* restrict	arr2, 
+	wl_U32			len, 
+	char* restrict	res
+) nonnull((1,2));
 
 /* Defined in `array/asl.c` */
 extern void wl__asl(
 			char*	restrict const	arr,
 	const	wl_U32					len,
 			wl_U32					by
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/asr.c` */
 extern void wl__asr(
 			char*	restrict const	arr,
 			wl_U32					len,
 			wl_U32					by
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/anol.c` */
-extern wl_Bl wl__anol(const char* restrict arr1, wl_U32 len) /* nonnull((1)) */;
+extern wl_Bl wl__anol(char* restrict arr1, wl_U32 len) pure nonnull((1));
 
 /* Defined in `array/aanl.c` */
 /*extern wl_Bl wl__aanl(
@@ -831,33 +885,33 @@ nonnull((1,2));*/
 
 /* Defined in `array/aorl.c` */
 extern wl_Bl wl__aorl(
-	const char* restrict arr1, const char* restrict arr2, wl_U32 len
-) /* nonnull((1,2)) */;
+	char* restrict arr1, char* restrict arr2, wl_U32 len
+) pure nonnull((1,2));
 
 extern wl_Bl wl__anq(
-	const char* restrict arr1, const char* restrict arr2, wl_U32 len
-) /* nonnull((1,2)) */;
+	char* restrict arr1, char* restrict arr2, wl_U32 len
+) pure nonnull((1,2));
 
 /* Defined in `array/asb.c` */
 extern const char* wl__asb(
 	const	char* restrict	haystack,
 			wl_U32			len,
 	const	char			byte
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/asb.c` */
 extern const char* wl__asbr(
 	const	char*	restrict	haystack,
 			wl_U32				len,
 	const	char				byte
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/asb.c` */
 extern wl_U32 wl__asbc(
 	const	char*	restrict	haystack,
 			wl_U32				len,
 	const	char				byte
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/asa.c` */
 extern const char* wl__asa(
@@ -865,7 +919,7 @@ extern const char* wl__asa(
 	const	char*	restrict	const	needle,
 			wl_U32						lenh,
 	const	wl_U32 						lenn
-)/*  nonnull((1,2)) */;
+) nonnull((1,2));
 
 /* Defined in `array/arb.c` */
 extern void wl__arb(
@@ -873,7 +927,7 @@ extern void wl__arb(
 	const	wl_U32						len,
 	const	char						byte,
 	const	char						rep	
-) /* nonnull((1)) */;
+) nonnull((1));
 
 /* Defined in `array/ara.c` */
 extern const char* wl__ara(
@@ -883,13 +937,13 @@ extern const char* wl__ara(
 	const	wl_U32		lens,
 	const	wl_U32		lenn,
 	const	wl_U32		lenr
-) /* nonnull((1,2,3)) */;
+) nonnull((1,2,3));
 
 /* Defined in `array/amv.c` */
 extern const void* wl__amv(
 	const char* restrict const src, 
 	const wl_U32 len, 
-	const char* restrict const dst
-) /* nonnull((1,3)) */;
+	char* restrict const dst
+) nonnull((1));
 
 #endif
