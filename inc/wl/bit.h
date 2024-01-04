@@ -179,8 +179,8 @@ extern wl_U8f wl__ctz_table[64];
 #	else
 #		define wl_clz(x)	__builtin_clzll(x)
 #	endif
-#else
-	extern inline U8 wl_clz(register UMax x);
+#elif WL_OPTIMIZE&3 == WL_OPTIMIZE_SIZE
+	extern U8 wl_clz(register UMax x);
 #endif
 
 /**
@@ -202,8 +202,13 @@ extern wl_U8f wl__ctz_table[64];
 #	else
 #		define wl_pop(x)	__builtin_popcountll(x)
 #	endif
-#else
-	extern inline U8 wl_pop(register UMax x);
+#elif WL_OPTIMIZE&3 == WL_OPTIMIZE_SIZE
+	extern U8 wl_pop(register UMax x);
+#endif
+
+/* Unless optimized for size, inline define clz & pop */
+#if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
+#	include <wl/bit.c.h>
 #endif
 
 #endif
