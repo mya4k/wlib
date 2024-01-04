@@ -13,11 +13,11 @@ tcc = /bin/tcc
 # Path to CC65
 cc65 = /bin/cc65
 # Default flags
-flags = -Wall -Wextra -Iinc -c $(F) -Werror -DWL_PREFIX=0
+flags = -Wall -Wextra -Iinc -c $(F) -Werror -DWL_PREFIX=0 -Wdouble-promotion -Wformat=2 -Wnull-dereference -Wswitch-default -Wswitch-enum -Wunused-parameter -Wuninitialized -Wstrict-overflow=5 -Walloca -Wfloat-equal -Wunused-macros -Wcast-qual -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wno-openmp -Wpacked -Wpadded -Wredundant-decls -Wnested-externs -Winline -Wint-in-bool-context -Winvalid-pch -Winvalid-utf8 -Wvariadic-macros 
 # Flags for elf-i386 freestanding systems
 fs86 = $(cc) -march=i386 -m32 -nostdlib -ffreestanding
 # Analyzer flags
-fa = -fanalyzer -Wno-analyzer-too-complex
+fa = -fanalyzer -Wno-analyzer-too-complex -Wno-analyzer-possible-null-argument -fipa-pure-const -Wsuggest-attribute=pure -Wsuggest-attribute=const -Wsuggest-attribute=noreturn -Wsuggest-attribute=format -Wsuggest-attribute=cold -Wsuggest-attribute=malloc -fstrict-flex-arrays=3 -Wstrict-flex-arrays -Wabi=2 -Wformat-overflow -Wformat-signedness -Winit-self -Wsync-nand -Wstringop-overflow=4 -Walloc-zero -Warith-conversion -Wattribute-alias=2 -Wbidi-chars=any -Wduplicated-branches -Wduplicated-cond -Wtrampolines -Wunsafe-loop-optimizations -Wbad-function-cast -Wjump-misses-init -Wlogical-op -Wopenacc-parallelism -Wopenmp-simd -Wpacked-not-aligned -Wvector-operation-performance -Wunsuffixed-float-constants -Wno-analyzer-malloc-leak
 # Pedantic flags
 pedantic = -pedantic-errors -Wpedantic
 
@@ -42,20 +42,40 @@ dirlib:
 ################################################################################
 
 # Compile (ISO C compliency)
-cmp_i:
-	$(ccx) $(pedantic) -std=c90 
-	$(ccx) $(pedantic) -std=iso9899:199409 
-	$(ccx) $(pedantic) -std=c99 
-	$(ccx) $(pedantic) -std=c11 
-	$(ccx) $(pedantic) -std=c17 
-	$(ccx) $(pedantic) -std=c2x
+cmp_in:
+	$(ccx) $(pedantic) -DWL_LIBC=0 -std=c90 -Wno-attributes
+	$(ccx) $(pedantic) -DWL_LIBC=0 -std=iso9899:199409 -Wno-attributes
+	$(ccx) $(pedantic) -DWL_LIBC=0 -std=c99  
+	$(ccx) $(pedantic) -DWL_LIBC=0 -std=c11 
+	$(ccx) $(pedantic) -DWL_LIBC=0 -std=c17 
+	$(ccx) $(pedantic) -DWL_LIBC=0 -std=c2x
 # Compile (GNU version compliency)
+cmp_gn:
+	$(ccx) -DWL_LIBC=0 -std=gnu90 -Wno-attributes
+	$(ccx) -DWL_LIBC=0 -std=gnu99
+	$(ccx) -DWL_LIBC=0 -std=gnu11
+	$(ccx) -DWL_LIBC=0 -std=gnu17
+	$(ccx) -DWL_LIBC=0 -std=gnu2x
+cmp_is:
+	$(ccx) $(pedantic) -DWL_LIBC=1 -std=c90 -Wno-attributes
+	$(ccx) $(pedantic) -DWL_LIBC=1 -std=iso9899:199409 -Wno-attributes
+	$(ccx) $(pedantic) -DWL_LIBC=1 -std=c99 
+	$(ccx) $(pedantic) -DWL_LIBC=1 -std=c11 
+	$(ccx) $(pedantic) -DWL_LIBC=1 -std=c17 
+	$(ccx) $(pedantic) -DWL_LIBC=1 -std=c2x
+# Compile (GNU version compliency)
+cmp_gs:
+	$(ccx) -DWL_LIBC=1 -std=gnu90 -Wno-attributes
+	$(ccx) -DWL_LIBC=1 -std=gnu99
+	$(ccx) -DWL_LIBC=1 -std=gnu11
+	$(ccx) -DWL_LIBC=1 -std=gnu17
+	$(ccx) -DWL_LIBC=1 -std=gnu2x
+cmp_i:
+	make cmp_in
+	make cmp_is
 cmp_g:
-	$(ccx) -std=gnu90
-	$(ccx) -std=gnu99
-	$(ccx) -std=gnu11
-	$(ccx) -std=gnu17
-	$(ccx) -std=gnu2x
+	make cmp_gn
+	make cmp_gs
 cmpgi:
 	make cmp_i ccx="$(gcc)"
 cmpgg:
@@ -134,3 +154,7 @@ clean clear:
 	find . -name "*.s" -type f -delete
 
 array wca:
+
+testa:
+	/bin/cc -Iinc -lwa -Llib -DWL_LIBC=0 
+# -o test/array.o
