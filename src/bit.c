@@ -1,7 +1,6 @@
 #include <wl/bit.h>
 
 
-
 #if		UMB >= 32
 U8f wl__ctz_table[64] = {
 	0, 1, 2, 7, 3, 13, 8, 19, 4, 25, 14, 28, 9, 34, 20, 40, 5, 17, 26, 38, 15,
@@ -18,34 +17,6 @@ U8f wl__ctz_table[32] = {
 
 
 
-/* Count leading zeros */
-inline U8f clz(register UMax x) {
-	register U8f r, q;
-
-#if UMB >= 64
-	r = (x > 0xFFFFFFFF)	<< 5;	x >>= r;
-	q = (x > 0xFFFF)		<< 4;	x >>= q;	r |= q;
-#else
-	r = (x > 0xFFFF)		<< 4;	x >>= r;
+#if WL_OPTIMIZE&3 == WL_OPTIMIZE_SIZE
+#	include <wl/bit.c.h>
 #endif
-
-	q = (x > 0xFF)			<< 3;	x >>= q;	r |= q;
-	q = (x > 0xF)			<< 2;	x >>= q;	r |= q;
-	q = (x > 0x3)			<< 1;	x >>= q;	r |= q;
-	r |= (x >> 1);
-
-#if UMB >= 64
-	return 63 - r;
-#else
-	return 31 - r;
-#endif
-}
-
-/* Popcount */
-extern inline U8f wl_pop(register UMax x)
-{
-	x -= (x >> 1) & 0x5555555555555555;
-	x = (x & 0x3333333333333333) + ((x >> 2) & 0x3333333333333333);
-	x = (x + (x >> 4)) & 0x0f0f0f0f0f0f0f0f;
-	return (x * 0x0101010101010101) >> 56;
-}
