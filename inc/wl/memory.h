@@ -14,7 +14,7 @@
 
 
 
-#if WL_LIBC
+#if WL_STDLIB_H
 #	include <stdlib.h>
 #	define wl_mal(n)	malloc(n)
 #	define wl_mfr(p)	free(p)
