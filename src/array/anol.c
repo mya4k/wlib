@@ -7,7 +7,7 @@
 	always_inline
 #endif
 static Bl _anolsw(
-	const char* restrict arr, const U8 len
+	char* restrict arr, const U8 len
 ) {
 	if (likely(*(UMax*)arr & (((UMax)1<<(CHB*len)) - 1))) 
 		return TRUE;
@@ -18,7 +18,7 @@ static Bl _anolsw(
 	always_inline
 #endif
 static Bl _anolsws(
-	const char* restrict arr, const U8 len
+	char* restrict arr, const U8 len
 ) {
 #	if UMB > 32
 		if (unlikely(len&4)) {
@@ -39,7 +39,7 @@ static Bl _anolsws(
 
 
 
-Bl _anol(const char* restrict arr, U32 len) {
+Bl _anol(char* restrict arr, U32 len) {
 	/* If loops are auto-vectorized we should use the primitive 
 	implementation and trust the compiler. Otherwise use a smarter method 
 	*/
