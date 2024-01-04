@@ -1,18 +1,19 @@
 #include <wl/array.h>
+#include <wl/math.h>
 
 
 
 const void* _amv(
 	const char* restrict const src, 
-	const U32 len, 
-	const char* restrict const dst
+	const wl_U32 len, 
+	char* restrict const dst
 ) {
-#	if WL_C_STRING
+#	if WL_STRING_H
 		/* If allowed, we make a call to libc's analogous function */
 		return memmove(dst, src, len);
 #	else
 		/* If dst overlaps the object at `src` */
-		if (unlikely(dst < src+len && dst+len > src && src != dst)) {
+		if (unlikely(abi(src-dst) < len && src != dst)) {
 			/* Get the length of overlapping data */
 #			define delta ((src+len) - dst)
 			/* Get the offset from `src` where overlap happens */
