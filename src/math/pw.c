@@ -2,8 +2,8 @@
 
 
 
-U64 pw(U64 base, U8 exponent) {
-	if_likely(base == 2) return pw2(exponent);
+U64 pwu(U64 base, U8 exponent) {
+	if_likely(base == 2) return pw2u(exponent);
 	
 	/* Now base is > 3, so 3^41 would already overflow U64 maximum value */
 	if_unlikely(exponent > 40) return U64X;
