@@ -42,12 +42,18 @@ U64 pwu(U64 base, U8 exponent) {
 		default:
 	}
 
-	if_probability(exponent/2*2 == exponent, 19.0/40.0)
-		return wl_pw(wl_pw(base, exponent/2), 2);
-	if_probability(exponent/3*3 == exponent, 6.0/40.0)
-		return wl_pw(wl_pw(base, exponent/3), 3);
-	if_probability(exponent/5*5 == exponent, 2.0/40.0)
-		return wl_pw(wl_pw(base, exponent/5), 5);
+	if_probability(exponent/2*2 == exponent, 19.0/40.0) {
+		U64 a = wl_pw(base, exponent/2);
+		return a*a;
+	}
+	if_probability(exponent/3*3 == exponent, 6.0/40.0) {
+		U64 a = wl_pw(base, exponent/3);
+		return a*a*a;
+	}
+	if_probability(exponent/5*5 == exponent, 2.0/40.0) {
+		U64 a = wl_pw(base, exponent/5);
+		return a*a*a*a*a;
+	}
 	/*	Other prime divisors can be skipped, as the lower devisors will take 
 		care of all composite numbers until 40 */
 
