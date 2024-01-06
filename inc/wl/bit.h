@@ -16,6 +16,8 @@
 #	define bct0	wl_bct0
 #	define bls1	wl_bls1
 #	define bmc	wl_bmc
+#	define bt1	wl_bt1
+#	define bl1	wl_bl1
 
 #	define clz	wl_clz
 #	define ctz	wl_ctz
@@ -45,7 +47,7 @@ extern wl_U8f wl__ctz_table[64];
  * 
  * Returns a bit-string full of set bits, but with \a n bit clear
  */
-#define wl_b0(x,n)	(~wl_b1(n))
+#define wl_b0(n)	(~wl_b1(n))
 
 /**
  * \brief	Bit Read
