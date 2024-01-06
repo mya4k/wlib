@@ -30,11 +30,28 @@
 
 /**
  * \brief	Absolute value Integer
- * \def		wl_abi(x)
+ * \def		abi(x)
  * \param	x
  * \return	Absolute value of \a x
  */
 #define wl_abi(x)	(((x)<0)*(-1)*(x))
+
+/**
+ * \brief	Square
+ * \def		sq(x)
+ * \param	x
+ * \return	Square of x
+ */
+#define wl_sq(x)	((x)*(x))
+
+/**
+ * \brief	Average of two
+ * \def		av2(min, max)
+ * \param	min	Lower Value
+ * \param	max	Higher Value
+ * \return	Average of min and max
+ */
+#define av2(min, max)	((min) + ((max)-(min))/(U8f)2)
 
 /**
  * \brief	Binary Exponentiation (U64)
@@ -68,8 +85,8 @@
  * \param	power	Anti-logarithm (UMax)
  * \return	float	Result of operation
  */
-#define wl_lgu(base, power)	((float)wl_lg2(power) / (float)wl_lg2(base))
-
+/* #define wl_lgu(base, power)	((float)wl_lg2(power) / (float)wl_lg2(base))
+ */
 
 
 /**
