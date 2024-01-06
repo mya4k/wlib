@@ -604,6 +604,14 @@
 #	ifndef WL_BUILTIN_CLZ
 #		define	WL_BUILTIN_CLZ	1
 #	endif	/* WL_BUILTIN_CLZ */
+
+#	ifndef WL_BUILTIN_CTZ
+#		define	WL_BUILTIN_CTZ	1
+#	endif	/* WL_BUILTIN_CTZ */
+
+#	ifndef WL_BUILTIN_POPCOUNT
+#		define	WL_BUILTIN_POPCOUNT	1
+#	endif	/* WL_BUILTIN_POPCOUNT */
 #endif	/* WL_BUILTIN */
 
 #endif	/* WL_CONFIG_H_FEATURES */
