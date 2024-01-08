@@ -121,10 +121,11 @@ ca:
 
 
 oa: dirobj
+	export ccx=$(ccx);\
 	for FILE in `echo src/array/*.c`; \
 	do \
 		export _FILE=$$FILE; \
-		$(ccx) -Iinc -Ofast -c $$FILE -o obj/array/`basename $$_FILE .c`.o; \
+		$$ccx -Iinc -Ofast -c $$FILE -o obj/array/`basename $$_FILE .c`.o; \
 	done || exit 1
 oa86g:
 	make oa cc="$(86gcc)" F="-DWL_LIBC=0 -fno-pie"

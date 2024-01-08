@@ -147,7 +147,7 @@
  * function is to enable other options related to use of C library.  
  */
 #ifndef WL_LIBC
-#	ifdef WL_C
+#	if WL_C
 #		define WL_LIBC		1
 #	else
 #		define WL_LIBC		0
@@ -163,7 +163,7 @@
  * function is to enable other options related to use of C library.  
  */
 #ifndef WL_LIBCPP
-#	ifdef WL_CPP
+#	if WL_CPP
 #		define WL_LIBCPP	1
 #	else
 #		define WL_LIBCPP	0

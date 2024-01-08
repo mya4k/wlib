@@ -81,6 +81,7 @@
 #	define ara(src,ndl,rep,lens,lenn,lenr)	wl_ara(src,ndl,rep,lens,lenn,lenr)
 #	define acp(src,len,dst)					wl_acp(src,len,dst)
 #	define amv(src,len,dst)					wl_amv(src,len,dst)
+/* #	define amg(srcs,lens,count,dst)			wl_amg(srcs,lens,count,dst) */
 
 #	define _ano			wl__ano
 #	define _ant			wl__ant
@@ -145,7 +146,7 @@
 #		define wl_ano(arr, len, ...)	\
 		memcpy(	\
 			(unlikely(__VA_ARGS__+0)\
-			? (void*)(__VA_ARGS__)\
+			? (void*)(__VA_ARGS__+0)\
 			: wl_mal(len)), (const char*)(arr), (len))
 #	else
 #		define wl_ano(arr, len, res)	\
