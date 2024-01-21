@@ -25,12 +25,7 @@
 
 
 #include <wl/types.h>
-
-
-
-#if WL_STRING_H
-#	include <string.h>
-#endif
+#include <wl/core.h>
 
 
 
@@ -140,7 +135,8 @@
  * macro, rather than the function definition.
  */
 #if WL_STRING_H
-#	include <wl/memory.h>  
+#	include <string.h>
+#	include <wl/memory.h>
 
 #	if WL_C_VA_MACRO
 #		define wl_ano(arr, len, ...)	\
@@ -801,64 +797,64 @@ extern void wl_aflv(
 
 /* Defined in `array/axx.c` */
 extern const void* wl__ano(
-	char* restrict	arr, 
-			wl_U32			len,
-			char* restrict	res
+	char*	restrict	arr, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__ant(
-	char* restrict	arr, 
-			wl_U32			len,
-			char* restrict	res
+	char*	restrict	arr, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__aan(
-	char* restrict	arr1, 
-	char* restrict	arr2, 
-	wl_U32			len, 
-	char* restrict	res
+	char*	restrict	arr1,
+	char*	restrict	arr2, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__aor(
-	char* restrict	arr1, 
-	char* restrict	arr2, 
-	wl_U32			len, 
-	char* restrict	res
+	char*	restrict	arr1,
+	char*	restrict	arr2, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__axr(
-	char* restrict	arr1, 
-	char* restrict	arr2, 
-	wl_U32			len, 
-	char* restrict	res
+	char*	restrict	arr1,
+	char*	restrict	arr2, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__ann(
-	char* restrict	arr1, 
-	char* restrict	arr2, 
-	wl_U32			len, 
-	char* restrict	res
+	char*	restrict	arr1,
+	char*	restrict	arr2, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__anr(
-	char* restrict	arr1, 
-	char* restrict	arr2, 
-	wl_U32			len, 
-	char* restrict	res
+	char*	restrict	arr1,
+	char*	restrict	arr2, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1,2));
 
 /* Defined in `array/axx.c` */
 extern const void* wl__anx(
-	char* restrict	arr1, 
-	char* restrict	arr2, 
-	wl_U32			len, 
-	char* restrict	res
+	char*	restrict	arr1,
+	char*	restrict	arr2, 
+	wl_U32				len,
+	char*				res
 ) nonnull((1,2));
 
 /* Defined in `array/asl.c` */
@@ -946,5 +942,13 @@ extern const void* wl__amv(
 	const wl_U32 len, 
 	char* restrict const dst
 ) nonnull((1));
+
+/* Defined in `array/amg.c` */
+extern const char* amg(
+	char** restrict srcs,
+	const U32* restrict const lens,
+	const U8 count,
+	char* restrict dst
+);
 
 #endif
