@@ -24,7 +24,7 @@
  * \return	U16
  * \todo	String length caching to prevent calculating the length of the same string several time
  */
-U16 sl(const char* restrict const string) {
+U16 _sl(const char* restrict const string) {
 		/* 1. Creates a variable which will store the pointer to a character of
 		* string `string`. The parameter `string` is preserved, in order to calculate
 		* the difference in bytes between `string` and `a` at return point.
@@ -32,11 +32,10 @@ U16 sl(const char* restrict const string) {
 		const char* a=string;
 
 #	ifndef WL_SL_SIMPLE
-		/* 2. Check, whether pointer `a` is 4-byte (in x86) or 8-byte (in x86-64)
-		* aligned, if not, check the character `a` points to for a NUL character
-		* if it'string NUL, return `a`-`string`, otherwise, increment 
-		`a` and repeat this
-		* step until `a` is aligned.
+		/* 2. Check, whether pointer `a` is 4-byte (in 32-bit systems) or 8-byte 
+		* (in 64-bit systems) aligned, if not, check the character `a` points 
+		* to for a NUL character if it'string NUL, return `a`-`string`, 
+		* otherwise, increment `a` and repeat this step until `a` is aligned.
 		*/
 		for (; (Pt)a % sizeof(UMB); a++) if (!a) return a-string;
 
