@@ -1,4 +1,5 @@
 #include <wl/array.h>
+#include <wl/memory.h>
 
 
 
@@ -13,7 +14,7 @@
 
 #if WL_OPTIMIZE != WL_OPTIMIZE_MEMORY_EXTRA
 #	define T_AXXSW1(NAME,FUNC)											\
-		inline_unless_opt_size static void _##NAME##sw(						\
+		inline_unless_opt_size static void _##NAME##sw(					\
 			char* restrict arr, const U32 len, char* restrict res		\
 		) {																\
 			register const UMax m = ((UMax)1<<(CHB*len)) - 1;			\
@@ -25,12 +26,12 @@
 			char* restrict arr, const U32 len, char* restrict res			\
 		) {																	\
 			((*(UMax*)res) = FUNC((*(UMax*)arr)&(((UMax)1<<(CHB*len)) - 1))	\
-			+ ((*(UMax*)res)&(UMX>>(CHB*len)<<(CHB*len)))));					\
+			+ ((*(UMax*)res)&(UMX>>(CHB*len)<<(CHB*len))));					\
 		}
 #endif	/* WL_OPTIMIZE != WL_OPTIMIZE_MEMORY_EXTRA */
 
 #define T_AXXSW2(NAME,FUNC)											\
-	inline_unless_opt_size static void _##NAME##sw(						\
+	inline_unless_opt_size static void _##NAME##sw(					\
 		char* restrict arr1,char* restrict arr2,					\
 		const U32 len, char* restrict res							\
 	) {																\
@@ -60,7 +61,7 @@
 		}
 
 #	define T_AXXSWS2(NAME,FUNC)										\
-		inline_unless_opt_size static void _##NAME##sws(				\
+		inline_unless_opt_size static void _##NAME##sws(			\
 			char* restrict arr1, char* restrict arr2, 				\
 			const U32 len, char* restrict res						\
 		) {															\
@@ -136,31 +137,34 @@
 #else
 #	define T_AXX1(NAME, FUNC) 												\
 		const void* _##NAME(												\
-			char* restrict arr, U32 len, char* restrict res					\
+			char* restrict arr, U32 len, char* _res							\
 		) {																	\
-			const char* const _res = res;									\
-			if (unlikely(len <= sizeof(UMax))) {							\
-				if (likely(len < sizeof(UMax))) {							\
-					goto copyrem_##NAME;									\
-				}															\
-				else *(UMax*)res = FUNC(*(UMax*)arr);						\
-			}																\
-			else {															\
-				{															\
-					Pt rem = (Pt)res % sizeof(UMax);						\
-					if (unlikely(rem > 0)) {								\
-						_##NAME##sw(arr, rem, res);							\
-						arr += rem; res += rem; len -= rem;					\
+			if_unlikely (!_res) _res = wl_mal(len);							\
+			if_likely (_res) {												\
+				char* res = _res;											\
+				if (unlikely(len <= sizeof(UMax))) {						\
+					if (likely(len < sizeof(UMax))) {						\
+						goto copyrem_##NAME;								\
 					}														\
+					else *(UMax*)res = FUNC(*(UMax*)arr);					\
 				}															\
-				while (unlikely(len >= sizeof(UMax))) {						\
-					*(UMax*)res = FUNC(*(UMax*)arr);						\
-					res += sizeof(UMax);									\
-					arr += sizeof(UMax);									\
-					len -= sizeof(UMax);									\
+				else {														\
+					{														\
+						Pt rem = (Pt)res % sizeof(UMax);					\
+						if (unlikely(rem > 0)) {							\
+							_##NAME##sw(arr, rem, res);						\
+							arr += rem; res += rem; len -= rem;				\
+						}													\
+					}														\
+					while (unlikely(len >= sizeof(UMax))) {					\
+						*(UMax*)res = FUNC(*(UMax*)arr);					\
+						res += sizeof(UMax);								\
+						arr += sizeof(UMax);								\
+						len -= sizeof(UMax);								\
+					}														\
+					copyrem_##NAME:											\
+						_##NAME##sws(arr, len, res);						\
 				}															\
-				copyrem_##NAME:												\
-					_##NAME##sws(arr, len, res);							\
 			}																\
 			return _res;													\
 		}
@@ -168,32 +172,35 @@
 #	define T_AXX2(NAME, FUNC) 												\
 		const void* _##NAME(												\
 			char* restrict arr1, char* restrict arr2,						\
-			U32 len, char* restrict res										\
+			U32 len, char* _res												\
 		) {																	\
-			const char* const _res = res;									\
-			if (unlikely(len <= sizeof(UMax))) {							\
-				if (likely(len < sizeof(UMax))) {							\
-					goto copyrem_##NAME;									\
-				}															\
-				else *(UMax*)res = FUNC(*(UMax*)arr1, (*(UMax*)arr2));		\
-			}																\
-			else {															\
-				{															\
-					Pt rem = (Pt)res % sizeof(UMax);						\
-					if (unlikely(rem > 0)) {								\
-						_##NAME##sw(arr1, arr2, rem, res);					\
-						arr1 += rem; arr2 += rem; res += rem; len -= rem;	\
+			if_unlikely (!_res) _res = wl_mal(len);							\
+			if_likely (_res) {												\
+				char* res = _res;											\
+				if (unlikely(len <= sizeof(UMax))) {						\
+					if (likely(len < sizeof(UMax))) {						\
+						goto copyrem_##NAME;								\
 					}														\
+					else *(UMax*)res = FUNC(*(UMax*)arr1, (*(UMax*)arr2));	\
 				}															\
-				while (unlikely(len >= sizeof(UMax))) {						\
-					*(UMax*)res = FUNC(*(UMax*)arr1, (*(UMax*)arr2));		\
-					res += sizeof(UMax);									\
-					arr1 += sizeof(UMax);									\
-					arr2 += sizeof(UMax);									\
-					len -= sizeof(UMax);									\
+				else {														\
+					{														\
+						Pt rem = (Pt)res % sizeof(UMax);					\
+						if (unlikely(rem > 0)) {							\
+							_##NAME##sw(arr1, arr2, rem, res);				\
+							arr1 += rem; arr2 += rem; res += rem; len -= rem;\
+						}													\
+					}														\
+					while (unlikely(len >= sizeof(UMax))) {					\
+						*(UMax*)res = FUNC(*(UMax*)arr1, (*(UMax*)arr2));	\
+						res += sizeof(UMax);								\
+						arr1 += sizeof(UMax);								\
+						arr2 += sizeof(UMax);								\
+						len -= (U32)sizeof(UMax);							\
+					}														\
+					copyrem_##NAME:											\
+					_##NAME##sws(arr1, arr2, len, res);						\
 				}															\
-				copyrem_##NAME:												\
-				_##NAME##sws(arr1, arr2, len, res);							\
 			}																\
 			return _res;													\
 		}
