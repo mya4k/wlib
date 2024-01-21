@@ -584,13 +584,13 @@
  * \def WL_VA_MACRO
  * Support for variadic macro functions
  */
-#ifndef WL_C_VA_MACRO
+#ifndef WL_VA_MACRO
 #	if WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11
-#		define WL_C_VA_MACRO	1
+#		define WL_VA_MACRO	1
 #	else	/* WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11 */
-#		define WL_C_VA_MACRO	0
+#		define WL_VA_MACRO	0
 #	endif	/* WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11 */
-#endif /* WL_C_VA_MACRO */
+#endif /* WL_VA_MACRO */
 
 /**
  * \brief	`__builtin_` functions 
@@ -615,96 +615,6 @@
 #endif	/* WL_BUILTIN */
 
 #endif	/* WL_CONFIG_H_FEATURES */
-
-
-
-#ifndef WL_CONFIG_H_COMPATIBILITY
-
-
-/**
- * \brief	C++ compatible `extern`
- * \def		extern
- * 
- */
-#if WL_CPP
-#	define extern	extern "C"
-#endif	/* WL_CPP */
-
-/**
- * \brief	C89 compatible `restrict`
- * \def		restrict
- */
-#if WL_C < WL_VER_C99
-#	define restrict
-#endif	/* WL_C < WL_VER_C99 */
-
-/**
- * \brief	C89 compatible `inline`
- * \def		inline
- */
-#if WL_C < WL_VER_C99
-#	define inline
-#endif	/* WL_C < WL_VER_C99 */
-
-/**
- * \brief	C89 compatible forced `inline`
- * \def		always_inline
- */
-#undef	always_inline
-#if WL_GCC
-#	define always_inline	inline __attribute__((always_inline))
-#else
-#	define always_inline	inline
-#endif
-
-#ifndef inline_unless_opt_size
-#	if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
-#		define inline_unless_opt_size always_inline
-#	else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
-#		define inline_unless_opt_size
-#	endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
-#endif
-
-#ifdef __glibc_likely
-#define likely(cond)	__glibc_likely((long)(cond))	
-#else
-#define likely(cond)	(cond)
-#endif
-
-#ifdef __glibc_unlikely	
-#define unlikely(cond)	__glibc_unlikely((long)(cond))
-#else
-#define unlikely(cond)	(cond)
-#endif
-
-#ifdef __builtin_expect_with_probability
-#	define if_probability(cond, probability) if(__builtin_expect_with_probability((long)(cond), 1, (probability)))
-#else
-#	define if_probability(cond, probability) if(cond)
-#endif
-
-#if !WL_PREFIX
-#define if_likely(cond)		if(likely(cond))
-#define if_unlikely(cond)	if(unlikely(cond))
-#endif
-
-#ifndef __attribute__
-#  if !WL_GNUC_PREREQ(2,8)
-#    define __attribute__(x)
-#  endif
-#endif
-
-#ifndef nonnull
-#	define nonnull(X)	__attribute__((nonnull X))
-#endif
-
-#ifndef pure
-#	define pure			__attribute__((pure))
-#endif
-
-
-
-#endif	/* WL_CONFIG_H_COMPATIBILITY */
 
 
 

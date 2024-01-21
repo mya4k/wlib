@@ -7,70 +7,65 @@
 
 
 
+#if !WL_PREFIX
+#	define vaa	wl_vaa
+#endif
+
+
+
+#ifndef __attribute__
+#  if !WL_GNUC_PREREQ(2,8)
+#    define __attribute__(x)
+#  endif
+#endif
+
+/**
+ * \brief	C++ compatible `extern`
+ * \def		extern
+ * 
+ */
 #if WL_CPP
-/* Extern compatibility */
-#	ifndef extern
-#		define extern		extern "C"
-#	endif
-/* Beginning of a set of external definitions */
-#	ifndef C_DECL_BEGIN
-#		define C_DECL_BEGIN	extern {
-#	endif
-/* End of a set of external definitions */
-#	ifndef C_DECL_END
-#		define C_DECL_END	}
-#	endif
-#	ifndef ENUM
-#		define ENUM(NAME)	enum ENUM_##NAME
-#	endif
-#else
-/* Extern compatibility */
-#	ifndef extern
-#		define extern		extern
-#	endif
-/* Beginning of a set of external definitions */
-#	ifndef C_DECL_BEGIN
-#		define C_DECL_BEGIN
-#	endif
-/* End of a set of external definitions */
-#	ifndef C_DECL_END
-#		define C_DECL_END
-#	endif
-#	ifndef ENUM
-#		define ENUM(NAME)	enum NAME
-#	endif
-#endif
+#	define extern	extern "C"
+#endif	/* WL_CPP */
 
+/**
+ * \brief	C89 compatible `restrict`
+ * \def		restrict
+ */
 #if WL_C < WL_VER_C99
-/* Inline */
-#	if WL_GCC
-#		undef	inline
-#		define	inline
+#	define restrict
+#endif	/* WL_C < WL_VER_C99 */
+
+/**
+ * \brief	C89 compatible `inline`
+ * \def		inline
+ */
+#if WL_C < WL_VER_C99
+#	if	WL_GCC
+#		define inline	gnu_inline
 #	else
-#		undef	inline
-#		define	inline	gnu_inline
+#		define inline
 #	endif
-/* Restrict */
-#	undef	restrict
-#	define	restrict
-#elif defined(WL_CPP)
-/* Restrict */
-#	undef	restrict
-#	define	restrict
-#endif
+#endif	/* WL_C < WL_VER_C99 */
 
+/**
+ * \brief	C89 compatible forced `inline`
+ * \def		always_inline
+ */
 #undef	always_inline
-#if WL_GCC
-#	define always_inline	inline __attribute__((always_inline))
-#else
-#	define always_inline	inline
+#	if WL_GCC
+#		define always_inline	inline __attribute__((always_inline))
+#	else
+#		define always_inline	inline
 #endif
 
-#ifndef __GNUC_PREREQ
-#	define __GNUC_PREREQ(major, minor) \
-		((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-#endif	/* __GNUC_PREREQ */
-
+#ifndef inline_unless_opt_size
+#	if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
+#		define inline_unless_opt_size always_inline
+#	else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
+#		define inline_unless_opt_size
+#	endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
+#endif
 
 #ifdef __glibc_likely
 #define likely(cond)	__glibc_likely((long)(cond))	
@@ -84,11 +79,15 @@
 #define unlikely(cond)	(cond)
 #endif
 
+#ifdef __builtin_expect_with_probability
+#	define if_probability(cond, probability) if(__builtin_expect_with_probability((long)(cond), 1, (probability)))
+#else
+#	define if_probability(cond, probability) if(cond)
+#endif
 
+#define if_likely(cond)		if(likely(cond))
+#define if_unlikely(cond)	if(unlikely(cond))
 
-/* Some compilers complain about an illegal function call even when the code 
- * should not be compiled
- */
 #if !WL_GCC_ATTRIBUTE && !defined(__attribute__)
 #	define __attribute__(X)
 #endif
@@ -182,12 +181,30 @@
 
 #endif
 
-#if WL_CONF_GNU_ATTRIBUTE
+#if WL_GNU_ATTRIBUTE
 #	define nonnull(X)				[[gnu::nonnull##X##]]
 #	define returns_nonnull			[[gnu::returns_nonnull]]
+#	define pure						[[gnu::pure]]
 #else
-#	define nonnull(X)
-#	define returns_nonnull
+#ifndef nonnull
+#	define nonnull(X)				__attribute__((nonnull X))
+#endif
+
+#ifndef returns_nonnull
+#	define returns_nonnull(X)		__attribute__((returns_nonnull X))
+#endif
+
+#ifndef pure
+#	define pure						__attribute__((pure))
+#endif
+#endif
+
+
+
+#if WL_VA_MACRO
+#	define	wl_vaa(type, ...)		(type[]){__VA_ARGS__}
+#else
+/* Not supported */
 #endif
 
 
