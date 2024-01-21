@@ -9,8 +9,7 @@ const char* amg(
 	const U8 count,
 	char* _dst
 ) {
-	U32 tmp = smu(lens, count);
-	if_likely (!_dst) _dst = mal(tmp);
+	if_likely (!_dst) _dst = mal(smu(lens, count));
 	if_likely (_dst) {
 		char* dst = _dst;
 		U8 i;
