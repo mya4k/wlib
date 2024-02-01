@@ -194,6 +194,10 @@
 #	else
 #		define WL_STDINT_H		0
 #	endif /* WL_C >= WL_VER_C99 */
+
+#	ifndef WL_STDARG_H
+#		define WL_STDARG_H	(WL_LIBC || WL_LIBCPP)
+#	endif
 /* #endif	 *//* WL_LIBC | WL_LIBCPP */
 
 /**
