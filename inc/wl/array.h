@@ -944,11 +944,17 @@ extern const void* wl__amv(
 ) nonnull((1));
 
 /* Defined in `array/amg.c` */
-extern const char* amg(
-	char** restrict srcs,
-	const U32* restrict const lens,
+extern char* amga(
+	char* _dst,
 	const U8 count,
-	char* restrict dst
+	char** restrict	srcs,
+	const U32* restrict const lens
+);
+
+extern char* amgv(
+	char* _dst,
+	const U8 count,
+	...
 );
 
 #endif
