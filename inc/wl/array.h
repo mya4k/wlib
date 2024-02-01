@@ -30,7 +30,7 @@
 
 
 #if !WL_CONF_PREFIX
-#	if WL_C_VA_MACRO
+#	if WL_VA_MACRO
 #		define ano(arr,len,...)				wl_ano(arr,len,__VA_ARGS__)
 #		define aan(arr1,arr2,len,...)		wl_aan(arr1,arr2,len,__VA_ARGS__)
 #		define aor(arr1,arr2,len,...)		wl_aor(arr1,arr2,len,__VA_ARGS__)
@@ -138,7 +138,7 @@
 #	include <string.h>
 #	include <wl/memory.h>
 
-#	if WL_C_VA_MACRO
+#	if WL_VA_MACRO
 #		define wl_ano(arr, len, ...)	\
 		memcpy(	\
 			(unlikely(__VA_ARGS__+0)\
@@ -152,7 +152,7 @@
 			: wl_mal(len)), (const char*)(arr), (len))
 #	endif
 #else	/* WL_STRING_H */
-#	if WL_C_VA_MACRO
+#	if WL_VA_MACRO
 #		define wl_ano(arr, len, ...)	\
 	wl__ano((char*)(arr), (len), (char*)(__VA_ARGS__+0))
 #	else
@@ -194,7 +194,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_aan(arr1, arr2, len, ...)										\
 	(wl__aan((char*)(arr1), (char*)(arr2), (len),	\
 	(char*)(__VA_ARGS__+0)))
@@ -237,7 +237,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_aor(arr1, arr2, len, ...)										\
 	(wl__aor((char*)(arr1), (char*)(arr2), (len),	\
 	(char*)(__VA_ARGS__+0)))
@@ -280,7 +280,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_axr(arr1, arr2, len, ...)										\
 	(wl__axr((char*)(arr1), (char*)(arr2), (len),	\
 	(char*)(__VA_ARGS__+0)))
@@ -319,7 +319,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_ant(arr, len, ...)	\
 		wl__ant((char*)(arr), (len), (char*)(__VA_ARGS__+0))
 #else
@@ -360,7 +360,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_ann(arr1, arr2, len, ...)	\
 		wl__ann((char*)(arr1), (char*)(arr2), (len), (char*)(__VA_ARGS__+0))
 #else
@@ -401,7 +401,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_anr(arr1, arr2, len, ...)	\
 		wl__anr((char*)(arr1), (char*)(arr2), (len), (char*)(__VA_ARGS__+0))
 #else
@@ -442,7 +442,7 @@
  * \todo Integrate \a res null pointer handling into the expansion of the 
  * macro, rather than the function definition.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_anx(arr1, arr2, len, ...)	\
 		wl__anx((char*)(arr1), (char*)(arr2), (len), (char*)(__VA_ARGS__+0))
 #else
@@ -697,7 +697,7 @@
  * copy to, only the remaining amount of bytes from `src` object will be 
  * copied.
  */
-#if WL_C_VA_MACRO
+#if WL_VA_MACRO
 #	define wl_afl(dst, ldst, src, ...)			\
 		(__VA_ARGS__+0)							\
 		? wl_afla((char*)(dst), (ldst), (char*)(src), (__VA_ARGS__))	\
