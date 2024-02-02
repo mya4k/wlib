@@ -4,11 +4,15 @@
 
 
 #include <wl/config.h>
+#include <wl/types.h>
 
 
 
 #if !WL_PREFIX
-#	define vaa	wl_vaa
+#	define vaa				wl_vaa
+#	define genericSigned	wl_genericSigned
+#	define genericUnsigned	wl_genericUnsigned
+#	define genericInt		wl_genericInt
 #endif
 
 
@@ -206,6 +210,89 @@
 #else
 /* Not supported */
 #endif
+
+
+
+#if WL__GENERIC
+
+#	define WL_GENERIC_SIGNED_CHAR\
+		signed char:			funcI8
+#	define WL_GENERIC_UNSIGNED_CHAR\
+		unsigned char:			funcU8
+
+#	define WL_GENERIC_SHORT\
+		short:					funcI16
+#	define WL_GENERIC_UNSIGNED_CHAR\
+		unsigned char:			funcU16	
+
+#	if WL_DATAMODEL == WL_LP32
+#		define WL_GENERIC_INT\
+			int:				funcI16
+#		define WL_GENERIC_UNSIGNED_INT\
+			unsigned int:		funcU16
+#	else
+#		define WL_GENERIC_INT\
+			int:				funcI32
+#		define WL_GENERIC_UNSIGNED_INT\
+			unsigned int:		funcU32
+#	endif
+
+#	if WL_DATAMODEL == WL_LP32 || WL_DATAMODEL == WL_ILP32\
+	|| WL_DATAMODEL == WL_LLP64
+#		define WL_GENERIC_LONG\
+			long:				funcI32
+#		define WL_GENERIC_UNSIGNED_LONG\
+			unsigned long:		funcU32
+#	else
+#		define WL_GENERIC_LONG\
+			long:				funcI64
+#		define WL_GENERIC_UNSIGNED_LONG\
+			unsigned long:		funcU64
+#	endif
+
+#	if WL_LONG_LONG
+#		define WL_GENERIC_LONG_LONG\
+			long long:	funcI64,
+#		define WL_GENERIC_UNSIGNED_LONG_LONG\
+			unsigned long long:	funcU64,
+#	else	/* WL_LONG_LONG */
+#		define WL_GENERIC_SIGNED_LONG_LONG
+#		define WL_GENERIC_UNSIGNED_LONG_LONG
+#	endif	/* WL_LONG_LONG */
+
+#	define WL_GENERIC_FLOATS\
+		float:				funcFloat,\
+		double:				funcDouble,\
+		long double:		funcLongDouble
+
+#	define WL_GENERIC_SIGNED_BODY\
+		WL_GENERIC_LONG_LONG\
+		WL_GENERIC_SIGNED_CHAR,\
+		WL_GENERIC_SHORT,\
+		WL_GENERIC_INT,\
+		WL_GENERIC_LONG
+
+#	define WL_GENERIC_UNSIGNED_BODY\
+		WL_GENERIC_UNSIGNED_LONG_LONG\
+		WL_GENERIC_UNSIGNED_SIGNED_CHAR,\
+		WL_GENERIC_UNSIGNED_SHORT,\
+		WL_GENERIC_UNSIGNED_INT,\
+		WL_GENERIC_UNSIGNED_LONG\
+
+#	define wl_genericSigned(control, funcI8, funcI16, funcI32, funcI64)\
+		_Generic((control), WL_GENERIC_SIGNED_BODY)
+
+#	define wl_genericUnsigned(control, funcU8, funcU16, funcU32, funcU64)\
+		_Generic((control), WL_GENERIC_UNSIGNED_BODY)
+
+#	define wl_genericInt(control,\
+		funcU8, funcU16, funcU32, funcU64, funcI8, funcI16, funcI32, funcI64\
+	) _Generic((control),\ 
+		WL_GENERIC_SIGNED_BODY,\
+		WL_GENERIC_UNSIGNED_BODY\
+	)
+
+#endif /* WL__GENERIC */
 
 
 
