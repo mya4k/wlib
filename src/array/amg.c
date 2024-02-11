@@ -4,13 +4,13 @@
 
 
 
-char* amga(
+static inline_unless_opt_size char* _amga(
 	char* _dst,
 	const U8 count,
 	char** restrict srcs,
 	const U32* restrict const lens
 ) {
-	if_likely (!_dst) _dst = mal(smu(lens, count));
+	if_likely (!_dst) _dst = (char*)mal(smu(lens, count));
 	if_likely (_dst) {
 		char* dst = _dst;
 		U8 i;
@@ -24,6 +24,15 @@ char* amga(
 	return _dst;
 }
 
+char* amga(
+	char* _dst,
+	const U8 count,
+	char** restrict srcs,
+	const U32* restrict const lens
+) {
+	return _amga(_dst, count, srcs, lens);
+}
+
 char* amgv(char* restrict dst, const U8 count, ...) {
 	Va va;
 	U8 i;
@@ -33,11 +42,11 @@ char* amgv(char* restrict dst, const U8 count, ...) {
 	vi(va, count);
 
 	for (i = 0; i < count; i++) {
-		array[i] = va_arg(va, char*);
-		size[i] = va_arg(va, U32);
+		array[i] = vn(va, char*);
+		size[i] = vn(va, U32);
 	}
 
 	vq(va);
 
-	return amga(dst, (const U8)count, array, size);
+	return _amga(dst, count, array, size);
 }

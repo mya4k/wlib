@@ -63,11 +63,11 @@
 #		define always_inline	inline
 #endif
 
-#ifndef inline_unless_opt_size
+#ifndef inline_unless_opt_len
 #	if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
-#		define inline_unless_opt_size always_inline
+#		define inline_unless_opt_len always_inline
 #	else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
-#		define inline_unless_opt_size
+#		define inline_unless_opt_len
 #	endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
 #endif
 
@@ -279,12 +279,25 @@
 		WL_GENERIC_UNSIGNED_INT,\
 		WL_GENERIC_UNSIGNED_LONG\
 
+/**
+ * \brief	Generic selection for signed integer types
+ * \def		genericSigned(control, funcI8, funcI16, funcI32, funcI64)
+ */
 #	define wl_genericSigned(control, funcI8, funcI16, funcI32, funcI64)\
 		_Generic((control), WL_GENERIC_SIGNED_BODY)
 
+/**
+ * \brief	Generic selection for unsigned integer types
+ * \def		genericSigned(control, funcU8, funcU16, funcU32, funcU64)
+ */
 #	define wl_genericUnsigned(control, funcU8, funcU16, funcU32, funcU64)\
 		_Generic((control), WL_GENERIC_UNSIGNED_BODY)
 
+/**
+ * \brief	Generic selection for integer types
+ * \def		genericSigned(control, funcI8, funcI16, funcI32, funcI64, funcU8, 
+ * 			funcU16, funcU32, funcU64)
+ */
 #	define wl_genericInt(control,\
 		funcU8, funcU16, funcU32, funcU64, funcI8, funcI16, funcI32, funcI64\
 	) _Generic((control),\ 
@@ -294,6 +307,132 @@
 
 #endif /* WL__GENERIC */
 
+/**
+ * \brief	Heap allocate if Null
+ * \def		alhIfNull(lvaluePtr, len)
+ * \arg		lvaluePtr	Non-constant L-value pointer
+ * \arg		len		Bytes to allocate
+ * \return	`lvaluePtr` 
+ * 
+ * Allocate `len` bytes in the heap if `lvaluePtr` pointer is NULL, and 
+ * assigns the address of successfully allocated object or NULL on failure.
+ */
+#define wl_alhIfNull(lvaluePtr, len)\
+	(lvaluePtr = likely(lvaluePtr) ? lvaluePtr : alh(len))
+
+/**
+ * \brief	Heap allocate if Null Execute
+ * \def		alhIfNull(lvaluePtr, len)
+ * \arg		lvaluePtr	Non-constant L-value pointer
+ * \arg		len		Bytes to allocate
+ * \return	void
+ * 
+ * Same as \sa alhIfNull but will execute code after the macro call, given that
+ * the allocation was successful
+ * 
+ * You may define a scope after the macro call to execute it. After the scope
+ * you may also use an else-clause to execute code on allocation failure
+ * 
+ * \example
+```c
+	alhIfNullExecute(ptr, 64) {
+		printf("Allocation was successful.\n");
+	}
+	else printf("Allocation failed.\n")
+```
+ */
+#define wl_alhIfNullExec(lvaluePtr, len)\
+	if_unlikely(!lvaluePtr)	lvaluePtr = alh(len);\
+	if_likely(lvaluePtr)
+
+#if UMB >= 64
+#	define funcArrayArrayRemaining\		
+		switch (len) {\
+			case 1:	*dst = (func1); break;\
+			case 2: *(U16l*)dst = (func2); break;\
+			case 3:\
+				*(U16l*)dst = (func2);\
+				dst += 2; src += 2;\
+				*dst = (func1);\
+			break;\
+			case 4: *(U32l*)dst = (func4); break;\
+			case 5:\
+				*(U32l*)dst = (func4);\
+				dst += 4; src += 4;\
+				*dst = (func1);\
+			break;\
+			case 6:\
+				*(U32l*)dst = (func4);\
+				dst += 4; src += 4;\
+				*(U16l*)dst = (func2);\
+			break;\
+			case 7:\
+				*(U32l*)dst = (func4);\
+				dst += 4; src += 4;\
+				*(U16l*)dst = (func2);\
+				dst += 2; src += 2;\
+				*dst = (func1);\
+			default:\
+			break;\
+		}
+#else	/* UMB >= 64 */
+#	define funcArrayArrayRemaining\		
+		switch (len) {\
+			case 1:	*dst = (func1); break;\
+			case 2: *(U16l*)dst = (func2); break;\
+			case 3:\
+				*(U16l*)dst = (func2);\
+				dst += 2; src += 2;\
+				*dst = (func1);\
+			default:\
+			break;\
+		}
+#endif	/* UMB >= 64 */
+
+#define wl_funcDeclArrayArray(name, dstType, srcType)\
+	dstType* name(dstType* _dst, wl_U32 len, srcType* restrict src)
+
+#if WL_AUTOVECTOR_LOOPS
+#	define wl_funcDefArrayArray(\
+	name, dstType, srcType, func1, func2, func4, func8\
+)\
+		funcDeclArrayArray(name, dstType, srcType) {\
+			alhIfNullExec(_dst, len) {\
+				dstType* dst = _dst;\
+				while (len) {\
+					*dst = (func1);\
+					len--; dst++; src + sizeof(srcType)/sizeof(dstType);\
+				}\
+			}\
+			return _dst;\
+		}
+#else	/* WL_AUTOVECTOR_LOOPS */
+#	define wl_funcDefArrayArray(\
+	name, dstType, srcType, func1, func2, func4, func8\
+)\
+		funcDeclArrayArray(name, dstType, srcType) {\
+			alhIfNullExec(_dst, len) {\
+				dstType* dst = _dst;\
+				if (len > sizeof(UMax)) {\
+					{\
+						Pt rem = (Pt)dst % sizeof(UMax);\
+						if_unlikely(rem) {\
+							register const UMax m = wl_b1(CHB*rem) - 1;\
+							*(UMax*)dst = (func8)&m + ((*(UMax*)dst)&(~m));\
+						}\
+					}\
+					while (len >= sizeof(UMax)) {\
+						*(UMax)dst = (func8);\
+						dst += sizeof(UMax);\
+						src += sizeof(UMax)*sizeof(srcType)/sizeof(dstType);\
+						len -= sizeof(UMax);\
+					}\
+				}\
+				funcArrayArrayRemaining\
+			}\
+			return _dst;\
+		}
+#endif	/* WL_AUTOVECTOR_LOOPS */
 
 
 #endif

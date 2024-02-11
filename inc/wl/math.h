@@ -88,6 +88,20 @@
 /* #define wl_lgu(base, power)	((float)wl_lg2(power) / (float)wl_lg2(base))
  */
 
+#if WL__GENERIC
+#	define wl_sma(count, addends) wl_genericInt((*(addends)),\
+		wl_smab, wl_smaw, wl_smau, wl_smaq, wl_smac, wl_smah, wl_smai, wl_smal\
+	)((count), (addends))
+#endif
+
+#define wl_smac(count, addends)	((wl_I8 )wl_smab((count), (const wl_I8 * const)(addends)))
+#define wl_smah(count, addends)	((wl_I16)wl_smaw((count), (const wl_I16* const)(addends)))
+#define wl_smai(count, addends)	((wl_I32)wl_smau((count), (const wl_I32* const)(addends)))
+#define wl_smal(count, addends)	((wl_I64)wl_smaq((count), (const wl_I64* const)(addends)))
+#define wl_smvc					(wl_I8)(wl_smvb)
+#define wl_smvh					(wl_I16)(wl_smvw)
+#define wl_smvi					(wl_I32)(wl_smvu)
+#define wl_smvl					(wl_I64)(wl_smvl)
 
 /**
  * \brief	Exponentiation (U64)
@@ -98,9 +112,18 @@
  * 
  * A clever algorithm that quickly computes a power of two unsigned integers.
  */
-extern U64 pwu(U64 base, U8 exponent);
+extern wl_U64 wl_pwu(wl_U64 base, wl_U8 exponent);
 
-extern U32 rt2u(U64 power);
+extern wl_U32 wl_rt2u(wl_U64 power);
+
+extern wl_U8	wl_smab(wl_U8 count, const wl_U8 * restrict const addends);
+extern wl_U16	wl_smaw(wl_U8 count, const wl_U16* restrict const addends);
+extern wl_U32	wl_smau(wl_U8 count, const wl_U32* restrict const addends);
+extern wl_U64	wl_smaq(wl_U8 count, const wl_U64* restrict const addends);
+extern wl_U8	wl_smvb(wl_U8 count, ...);
+extern wl_U16	wl_smvw(wl_U8 count, ...);
+extern wl_U32	wl_smvu(wl_U8 count, ...);
+extern wl_U64	wl_smvq(wl_U8 count, ...);
 
 
 

@@ -14,6 +14,8 @@
             "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
                 "-DWL_PREFIX=0",
+                "-DWL_STDARG_H=1",
+                "-DWL_STDLIB_H=1",
                 "-DWL_LIBC=0",
                 "-DWL_LIBCPP=0"
             ]

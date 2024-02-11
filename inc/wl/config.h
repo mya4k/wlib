@@ -597,6 +597,19 @@
 #endif /* WL_VA_MACRO */
 
 /**
+ * \brief _Generic keyword (C11)
+ * \def WL__GENERIC
+ * Support for generic selection
+ */
+#ifndef WL__GENERIC
+#	if WL_C >= WL_VER_C11
+#		define WL__GENERIC	1
+#	else	/* WL_C >= WL_VER_C11 */
+#		define WL__GENERIC	0
+#	endif	/* WL_C >= WL_VER_C11 */
+#endif /* WL__GENERIC */
+
+/**
  * \brief	`__builtin_` functions 
  * \def		WL_BUILTIN	
  * 

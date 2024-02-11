@@ -33,7 +33,7 @@ int main() {
 	p(WL_MIXED);
 	p(WL_LONG_LONG);
 	p(WL_RESTRICT);
-	p(WL_C_VA_MACRO);
+	p(WL_VA_MACRO);
 	p(WL_BUILTIN);
 	return 0;
 }

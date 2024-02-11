@@ -425,13 +425,13 @@
 #endif /* WL_C_VA_COPY */
 
 /* Support for Variadic macros */
-#if defined(WL_C_VA_MACRO) 
+#if defined(WL_VA_MACRO) 
 #	if WL_C >= WL_VER_C99 ||  WL_CPP >= WL_VER_CPP11
-#		define WL_C_VA_MACRO	1
+#		define WL_VA_MACRO	1
 #	else
-#		define WL_C_VA_MACRO	0
+#		define WL_VA_MACRO	0
 #	endif
-#endif /* WL_C_VA_MACRO */
+#endif /* WL_VA_MACRO */
 
 /* Implicit int (removed in C99) */
 #ifndef WL_C_IMPLICIT_INT
