@@ -230,7 +230,7 @@
  * where if *X* is `I`, the type is signed, and if *X* is `U`, the type is 
  * unsigned. Acceptable configuration of the number X are: 8, 16, 32, 64. 
  */
-#if STDINT_H
+#if WL_STDINT_H
 	typedef	int_fast8_t					wl_I8f;
 	typedef int_fast16_t				wl_I16f;
 	typedef int_fast32_t				wl_I32f;

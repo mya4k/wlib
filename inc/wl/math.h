@@ -13,6 +13,7 @@
 
 
 #include <wl/types.h>
+#include <wl/core.h>
 #include <wl/bit.h>
 
 
@@ -24,6 +25,7 @@
 #	define pw2u wl_pw2u
 #	define pwu wl_pwu
 #	define pwi wl_pwi
+#	define rt2b wl_rt2b
 #endif
 
 
@@ -114,6 +116,7 @@
  */
 extern wl_U64 wl_pwu(wl_U64 base, wl_U8 exponent);
 
+extern wl_U8 pure wl_rt2b(const wl_U16 power);
 extern wl_U32 wl_rt2u(wl_U64 power);
 
 extern wl_U8	wl_smab(wl_U8 count, const wl_U8 * restrict const addends);

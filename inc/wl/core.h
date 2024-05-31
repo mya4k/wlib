@@ -63,11 +63,11 @@
 #		define always_inline	inline
 #endif
 
-#ifndef inline_unless_opt_len
+#ifndef inline_unless_opt_size
 #	if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
-#		define inline_unless_opt_len always_inline
+#		define inline_unless_opt_size always_inline
 #	else	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
-#		define inline_unless_opt_len
+#		define inline_unless_opt_size
 #	endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
 #endif
 
@@ -169,7 +169,7 @@
 #		define _Noreturn
 #	endif
 
-#	if WL_CONF_GNU_ATTRIBUTE
+#	if WL_GCC_ATTRIBUTE
 #		define fallthrough			__attribute__((fallthrough))
 #		define maybe_unused			__attribute__((unused))
 #		define unused				__attribute__((unused))
@@ -185,22 +185,24 @@
 
 #endif
 
-#if WL_GNU_ATTRIBUTE
-#	define nonnull(X)				[[gnu::nonnull##X##]]
-#	define returns_nonnull			[[gnu::returns_nonnull]]
-#	define pure						[[gnu::pure]]
-#else
-#ifndef nonnull
-#	define nonnull(X)				__attribute__((nonnull X))
-#endif
+#if WL_GCC_ATTRIBUTE
+#	if WL_GNU_ATTRIBUTE
+#		define nonnull(X)				[[gnu::nonnull##X##]]
+#		define returns_nonnull			[[gnu::returns_nonnull]]
+#		define pure						[[gnu::pure]]
+#	else
+#		ifndef nonnull
+#			define nonnull(X)				__attribute__((nonnull X))
+#		endif
 
-#ifndef returns_nonnull
-#	define returns_nonnull(X)		__attribute__((returns_nonnull X))
-#endif
+#		ifndef returns_nonnull
+#			define returns_nonnull(X)		__attribute__((returns_nonnull X))
+#		endif
 
-#ifndef pure
-#	define pure						__attribute__((pure))
-#endif
+#		ifndef pure
+#			define pure						__attribute__((pure))
+#		endif
+#	endif
 #endif
 
 
@@ -222,7 +224,7 @@
 
 #	define WL_GENERIC_SHORT\
 		short:					funcI16
-#	define WL_GENERIC_UNSIGNED_CHAR\
+#	define WL_GENERIC_UNSIGNED_SHORT\
 		unsigned char:			funcU16	
 
 #	if WL_DATAMODEL == WL_LP32
@@ -300,7 +302,7 @@
  */
 #	define wl_genericInt(control,\
 		funcU8, funcU16, funcU32, funcU64, funcI8, funcI16, funcI32, funcI64\
-	) _Generic((control),\ 
+	) _Generic((control),\
 		WL_GENERIC_SIGNED_BODY,\
 		WL_GENERIC_UNSIGNED_BODY\
 	)
@@ -346,7 +348,7 @@
 	if_likely(lvaluePtr)
 
 #if UMB >= 64
-#	define funcArrayArrayRemaining\		
+#	define funcArrayArrayRemaining\
 		switch (len) {\
 			case 1:	*dst = (func1); break;\
 			case 2: *(U16l*)dst = (func2); break;\
@@ -376,7 +378,7 @@
 			break;\
 		}
 #else	/* UMB >= 64 */
-#	define funcArrayArrayRemaining\		
+#	define funcArrayArrayRemaining\
 		switch (len) {\
 			case 1:	*dst = (func1); break;\
 			case 2: *(U16l*)dst = (func2); break;\

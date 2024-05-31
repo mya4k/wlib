@@ -10,7 +10,7 @@ static inline_unless_opt_size char* _amga(
 	char** restrict srcs,
 	const U32* restrict const lens
 ) {
-	if_likely (!_dst) _dst = (char*)mal(smu(lens, count));
+	if_likely (!_dst) _dst = (char*)mal(smvu(2, lens, count));
 	if_likely (_dst) {
 		char* dst = _dst;
 		U8 i;

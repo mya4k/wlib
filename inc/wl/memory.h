@@ -36,8 +36,8 @@
 #	define wl_als(n)	alloca(n)
 #	define wl_frs(p)
 #else
-#	define wl_alh(n)	wl_alh(n)
-#	define wl_frh(p)	wl_frh(p)
+#	define wl_als(n)	wl_alh(n)
+#	define wl_frs(p)	wl_frh(p)
 #endif
 
 

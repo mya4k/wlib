@@ -219,22 +219,6 @@
 /* Architectures */
 #ifndef WL_CONFIG_H_ARCHITECTURE
 
-/**
- * \brief	Word size
- * \def		WL_WORDSIZE
- * 
- * The size of a word in a current architecture  
- */
-#ifndef WL_WORDSIZE
-#	ifdef	__WORDSIZE
-#		define WL_WORDSIZE	__WORDSIZE
-#	elif	WL_CC65
-#		define WL_WORDSIZE	32
-#	else	/* __WORDSIZE */
-#		define WL_WORDSIZE	64
-#	endif	/* __WORDSIZE */
-#endif	/* WL_WORDSIZE */
-
 /**@{*/
 /**
  * \brief Data Model
@@ -412,24 +396,6 @@
 
 /**
  * \brief	GNU extensions version testing
- * \def		__GNUC_PREREQ(major, minor)
- * \param	major	Major version number
- * \param	minor	Minor version number
- * 
- * Returns 1, if the version of GNU extensions is newer or equal to the version
- * provided with parameters
- */
-#ifndef __GNUC_PREREQ
-#	if defined(__GNUC__) && defined(__GNUC_MINOR__)
-#		define __GNUC_PREREQ(major, minor) \
-		((__GNUC__ << 16) + __GNUC_MINOR__ >= ((major) << 16) + (minor))
-#	else	/* defined(__GNUC__) && defined(__GNUC_MINOR__) */
-#		define __GNUC_PREREQ(major, minor)	0
-#	endif	/* defined(__GNUC__) && defined(__GNUC_MINOR__) */
-#endif	/* __GNUC_PREREQ */
-
-/**
- * \brief	GNU extensions version testing
  * \def		WL_GNUC_PREREQ(major, minor)
  * \param	major	Major version number
  * \param	minor	Minor version number
@@ -438,7 +404,14 @@
  * provided with parameters
  */
 #ifndef WL_GNUC_PREREQ
-#	define WL_GNUC_PREREQ(major, minor) __GNUC_PREREQ((major), (minor))
+#	ifdef __GNUC_PREREQ
+#		define WL_GNUC_PREREQ(major, minor) __GNUC_PREREQ((major), (minor))
+#	elif defined(__GNUC__) && defined(__GNUC_MINOR__)
+#		define WL_GNUC_PREREQ(major, minor)\
+			((__GNUC__ << 16) + __GNUC_MINOR__ >= ((major) << 16) + (minor))
+#	else
+#		define WL_GNUC_PREREQ	0
+#	endif
 #endif
 
 /**
@@ -470,7 +443,7 @@
  */
 #ifndef WL_GCC_PREREQ
 #	ifdef WL_GCC
-#		define WL_GCC_PREREQ(major, minor)	__GNUC_PREREQ((major), (minor))
+#		define WL_GCC_PREREQ(major, minor)	WL_GNUC_PREREQ((major), (minor))
 #	endif	/* WL_GCC */
 #endif	/* WL_GCC_PREREQ */
 
@@ -517,6 +490,36 @@
 #endif	/* WL_CONFIG_H_COMPILERS */
 
 #ifndef WL_CONFIG_H_FEATURES
+
+/**
+ * \brief	Word size
+ * \def		WL_WORDSIZE
+ * 
+ * The size of a word in a current architecture  
+ */
+#ifndef WL_WORDSIZE
+#	ifdef	__WORDSIZE
+#		define WL_WORDSIZE	__WORDSIZE
+#	elif	WL_CC65
+#		define WL_WORDSIZE	32
+#	else	/* __WORDSIZE */
+#		define WL_WORDSIZE	64
+#	endif	/* __WORDSIZE */
+#endif	/* WL_WORDSIZE */
+
+/**
+ * 
+ */
+#define WL_FIXED_LEAST	0
+#define WL_FIXED_FAST	1
+
+#ifndef WL_FIXED
+#	if WL_OPTIMIZE_MEMORY
+#		define WL_FIXED	WL_FIXED_LEAST
+#	else
+#		define WL_FIXED WL_FIXED_FAST
+#	endif
+#endif
 
 /**
  * \brief `_Bool` type (C99)
@@ -617,6 +620,18 @@
  */
 #ifndef WL_BUILTIN
 #	define WL_BUILTIN	0
+
+#	ifndef WL_BUILTIN_CLZ
+#		define	WL_BUILTIN_CLZ	0
+#	endif	/* WL_BUILTIN_CLZ */
+
+#	ifndef WL_BUILTIN_CTZ
+#		define	WL_BUILTIN_CTZ	0
+#	endif	/* WL_BUILTIN_CTZ */
+
+#	ifndef WL_BUILTIN_POPCOUNT
+#		define	WL_BUILTIN_POPCOUNT	0
+#	endif	/* WL_BUILTIN_POPCOUNT */
 #elif WL_BUILTIN == 1
 #	ifndef WL_BUILTIN_CLZ
 #		define	WL_BUILTIN_CLZ	1
@@ -630,6 +645,42 @@
 #		define	WL_BUILTIN_POPCOUNT	1
 #	endif	/* WL_BUILTIN_POPCOUNT */
 #endif	/* WL_BUILTIN */
+
+#ifndef WL_GCC_ATTRIBUTE
+#	if WL_GCC_PREREQ(2, 95)
+#		define WL_GCC_ATTRIBUTE	1
+#	else
+#		define WL_GCC_ATTRIBUTE 0
+#	endif
+#endif
+
+#ifndef WL_C_ATTRIBUTE
+#	if WL_C > WL_VER_C23
+#		define WL_C_ATTRIBUTE	1
+#	else
+#		define WL_C_ATTRIBUTE	0
+#	endif
+#endif
+
+#ifndef WL_CPP_ATTRIBUTE
+#	if WL_CPP > WL_VER_CPP11
+#		define WL_CPP_ATTRIBUTE	1
+#	else
+#		define WL_CPP_ATTRIBUTE	0
+#	endif
+#endif
+
+#ifndef WL_GNU_ATTRIBUTE
+#	if WL_C_ATTRIBUTE || WL_C_ATTRIBUTE && defined(WL_GCC_ATTRIBUTE)
+#		define WL_GNU_ATTRIBUTE	1
+#	else
+#		define WL_GNU_ATTRIBUTE 0
+#	endif
+#endif
+
+#ifndef WL_AUTOVECTOR_LOOPS
+#	define WL_AUTOVECTOR_LOOPS	0	/* Not implemented */
+#endif
 
 #endif	/* WL_CONFIG_H_FEATURES */
 
