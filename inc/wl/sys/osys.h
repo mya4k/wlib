@@ -1,5 +1,5 @@
-#ifndef WC_SYS_ARCH_H
-#define WC_SYS_ARCH_H
+#ifndef WL_SYS_OSYS_H
+#define WL_SYS_OSYS_H
 
 
 

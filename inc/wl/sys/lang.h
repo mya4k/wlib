@@ -1,5 +1,5 @@
-#ifndef LANG_H
-#define LANG_H
+#ifndef WL_SYS_LANG_H
+#define WL_SYS_LANG_H
 
 
 
@@ -39,6 +39,14 @@
 #	else
 #		define	WL_LG_C	WL_VR_K_R_C
 #	endif
+#endif
+
+#if WL_LG_CPP >= WL_VR_CPP11
+#	define WL_CPP_ATTR	1
+#endif
+
+#if WL_LG_C >= WL_VR_C23
+#	define WL_C_ATTR	1
 #endif
 
 /* "WLib" only supports:

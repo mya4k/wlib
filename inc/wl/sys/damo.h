@@ -1,21 +1,22 @@
-#ifndef WC_SYS_DAMO_H
-#define WC_SYS_DAMO_H
+#ifndef WL_SYS_DAMO_H
+#define WL_SYS_DAMO_H
 
 
 
-#include <wc/sys/arch.h>
-#include <wc/sys/osys.h>
-#include <wc/sys/comp.h>
+#include <wl/sys/arch.h>
+#include <wl/sys/osys.h>
+#include <wl/sys/comp.h>
 
 
-
-#define WL_DM_UNKNOWN	0	/* */
-#define WL_DM_LP32		1	/* 1/2/2/4/4 */
-#define WL_DM_ILP32		2	/* 1/2/4/4/4 */
-#define WL_DM_LLP64		3	/* 1/2/4/4/8/8 */
-#define WL_DM_LP64		4	/* 1/2/4/8/8/8 */
-#define WL_DM_ILP64		5	/* 1/2/8/8/8/8 */
-#define WL_DM_SILP64	6	/* 1/8/8/8/8/8 */
+							/* c/s/i/l/p*/
+#define WL_DM_UNKNOWN	0	
+#define WL_DM_IP16		1	/* 1/2/2/4/2 */
+#define WL_DM_LP32		2	/* 1/2/2/4/4 */
+#define WL_DM_ILP32		3	/* 1/2/4/4/4 */
+#define WL_DM_LLP64		4	/* 1/2/4/4/8 */
+#define WL_DM_LP64		5	/* 1/2/4/8/8 */
+#define WL_DM_ILP64		6	/* 1/2/8/8/8 */
+#define WL_DM_SILP64	7	/* 1/8/8/8/8 */
 
 
 

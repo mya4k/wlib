@@ -4,14 +4,20 @@
             "name": "Linux",
             "includePath": [
                 "${default}",
-                "inc"
+                "${workspaceFolder}/inc",
+                "inc",
+                "${workspaceFolder}"
             ],
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
-                "-include inc/wc/config.h"
+                "-DWL_PREFIX=0",
+                "-DWL_STDARG_H=1",
+                "-DWL_STDLIB_H=1",
+                "-DWL_LIBC=0",
+                "-DWL_LIBCPP=0"
             ]
         }
     ],
