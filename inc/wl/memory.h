@@ -7,7 +7,7 @@
 
 
 
-#if !WL_CONF_PREFIX
+#if !WL_PREFIX
 #	define mal	wl_mal
 #	define mfr	wl_mfr
 #	define alh	wl_alh
@@ -19,8 +19,8 @@
 
 
 /* Depricated */
-#define wl_mal	wl_alh
-#define wl_mfr	wl_frh
+#define wl_mal	wl_hal
+#define wl_mfr	wl_hfr
 
 #if WL_STDLIB_H
 #	include <stdlib.h>

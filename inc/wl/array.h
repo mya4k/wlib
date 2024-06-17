@@ -29,7 +29,7 @@
 
 
 
-#if !WL_CONF_PREFIX
+#if !WL_PREFIX
 #	if WL_VA_MACRO
 #		define ano(arr,len,...)				wl_ano(arr,len,__VA_ARGS__)
 #		define aan(arr1,arr2,len,...)		wl_aan(arr1,arr2,len,__VA_ARGS__)
