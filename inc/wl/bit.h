@@ -130,37 +130,9 @@ extern wl_U8f wl__ctz_table[64];
 #define wl_bl1(n)	(~wl_b1((sizeof(n)*WL_CHB) -n) -1)
 
 
-/**
- * \brief	Count trailing zeros
- * \def		wl_ctz(x)
- * \param	x
- * 
- * If WL_BUILTIN_CTZ is disabled, we use de Bruijn sequences in order to do
- * this branchless
- */
-#if	WL_BUILTIN_CTZ
-#	if WL__GENERIC
-#		define wl_ctz(x) _Generic((x),				\
-			default:			__builtin_ctz(x),	\
-			long:				__builtin_ctzl(x),	\
-			long long:			__builtin_ctzll(x),	\
-			unsigned long:		__builtin_ctzl(x),	\
-			unsigned long long:	__builtin_ctzll(x)	\
-		)(x)
-#	else
-#		define wl_ctz(x)	__builtin_ctzll(x)
-#	endif
-#else
-#	if		UMB == 64
-#		define WL__DEBRUIJN	0x218A392CD3D5DBF
-#		define wl_ctz(x)\
-	(wl__ctz_table[((-(U64l)(x)&(U64l)(x)) * WL__DEBRUIJN) >> 58])
-#	else
-#		define WL__DEBRUIJN	0x4653ADF
-#		define wl_ctz(x)\
-	(wl__ctz_table[((-(U32l)(x)&(U32l)(x)) * WL__DEBRUIJN) >> 27])
-#	endif
-#endif
+
+/* Count trailing zeros */
+#include <wl/bit/ctz.h>
 
 /**
  * \brief	Count leading zeros
