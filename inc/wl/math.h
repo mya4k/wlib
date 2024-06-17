@@ -20,6 +20,10 @@
 
 #if !WL_PREFIX
 #	define abi	wl_abi
+#	define abc	wl_abc
+#	define abh	wl_abh
+#	define abl	wl_abl
+
 #	define lg2u wl_lg2u
 #	define lgu wl_lgu
 #	define pw2u wl_pw2u
@@ -31,12 +35,13 @@
 
 
 /**
- * \brief	Absolute value Integer
+ * \brief	Absolute value (Type-Generic)
  * \def		abi(x)
  * \param	x
- * \return	Absolute value of \a x
+ * \return	Absolute value of \a x. While the function is type-generic. It
+ * works best with integers.
  */
-#define wl_abi(x)	(((x)<0)*(-1)*(x))
+#define wl_ab(x)	(likely(x>=0) ? x : -x)
 
 /**
  * \brief	Square
@@ -53,10 +58,10 @@
  * \param	max	Higher Value
  * \return	Average of min and max
  */
-#define av2(min, max)	((min) + ((max)-(min))/(U8f)2)
-
+#define av2(min, max)	((min) + ((max)-(min))/2)
+ 
 /**
- * \brief	Binary Exponentiation (U64)
+ * \brief	Binary Exponentiation (Unsigned Integer)
  * \def		pw2u(exponent)
  * \param	exponent	Exponent
  * \return	Binary exponentiation by the exponent \a y 
@@ -68,8 +73,8 @@
  * \def		pwi(base,exponent)
  * 
  */
-#define wl_pwi(base, exponent)\
-	(1 - 2*(exponent%2 * (base<0))) * wl_pwu(base, exponent)
+#define wl_pwi32(base, exponent)\
+	(1 - 2*(exponent%2 * (base<0))) * wl_pwu32(base, exponent)
 
 /**
  * \brief	Binary Logarithm (UMax)
