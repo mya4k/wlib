@@ -28,17 +28,21 @@
  * \def		extern
  * 
  */
-#if WL_CPP
-#	define extern	extern "C"
-#endif	/* WL_CPP */
+#ifndef extern
+#	if WL_CPP
+#		define extern	extern "C"
+#	endif	/* WL_CPP */
+#endif
 
 /**
  * \brief	C89 compatible `restrict`
  * \def		restrict
  */
-#if WL_C < WL_VER_C99
-#	define restrict
-#endif	/* WL_C < WL_VER_C99 */
+#ifndef restrict
+#	if WL_C < WL_VER_C99
+#		define restrict
+#	endif	/* WL_C < WL_VER_C99 */
+#endif
 
 /**
  * \brief	C89 compatible `inline`
@@ -56,13 +60,22 @@
  * \brief	C89 compatible forced `inline`
  * \def		always_inline
  */
-#undef	always_inline
+#ifndef always_inline
 #	if WL_GCC
 #		define always_inline	inline __attribute__((always_inline))
 #	else
 #		define always_inline	inline
 #endif
 
+/**
+ * \brief	Inline Unless Optimize Size
+ * \def		always_inline
+ * 
+ * When this macro is used in a function declaration, the function will always
+ * be inlined unless WL_OPTIMIZE is set to WL_OPTIMIZE_SIZE or WL_OPTIMIZE_SIZE_EXTRA
+ * 
+ * \sa WL_OPTIMIZE
+ */
 #ifndef inline_unless_opt_size
 #	if WL_OPTIMIZE&3 != WL_OPTIMIZE_SIZE
 #		define inline_unless_opt_size always_inline
@@ -71,29 +84,36 @@
 #	endif	/* WL_OPTIMIZE&4 != WL_OPTIMIZE_SIZE*/
 #endif
 
-#ifdef __glibc_likely
-#define likely(cond)	__glibc_likely((long)(cond))	
-#else
-#define likely(cond)	(cond)
+#ifndef likely
+#	ifdef __glibc_likely
+#		define likely(cond)	__glibc_likely((long)(cond))	
+#	else
+#		define likely(cond)	(cond)
+#	endif
 #endif
 
-#ifdef __glibc_unlikely	
-#define unlikely(cond)	__glibc_unlikely((long)(cond))
-#else
-#define unlikely(cond)	(cond)
+#ifndef unlikely
+#	ifdef __glibc_unlikely
+#		define unlikely(cond)	__glibc_unlikely((long)(cond))	
+#	else
+#		define unlikely(cond)	(cond)
+#	endif
 #endif
 
-#ifdef __builtin_expect_with_probability
-#	define if_probability(cond, probability) if(__builtin_expect_with_probability((long)(cond), 1, (probability)))
-#else
-#	define if_probability(cond, probability) if(cond)
+#ifndef if_probability
+#	ifdef __builtin_expect_with_probability
+#		define if_probability(cond, probability) if(__builtin_expect_with_probability((long)(cond), 1, (probability)))
+#	else
+#		define if_probability(cond, probability) if(cond)
+#	endif
 #endif
 
-#define if_likely(cond)		if(likely(cond))
-#define if_unlikely(cond)	if(unlikely(cond))
+#ifndef if_likely
+#	define if_likely(cond)		if(likely(cond))
+#endif
 
-#if !WL_GCC_ATTRIBUTE && !defined(__attribute__)
-#	define __attribute__(X)
+#ifndef if_unlikely
+#	define if_unlikely(cond)	if(unlikely(cond))
 #endif
 
 #if !WL_C_ATTRIBUTE && !defined(__has_c_attribute)
