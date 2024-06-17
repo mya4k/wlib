@@ -190,6 +190,7 @@
 #		define nonnull(X)				[[gnu::nonnull##X##]]
 #		define returns_nonnull			[[gnu::returns_nonnull]]
 #		define pure						[[gnu::pure]]
+#		define malloc_like				[[gnu::malloc]]
 #	else
 #		ifndef nonnull
 #			define nonnull(X)				__attribute__((nonnull X))
@@ -201,6 +202,10 @@
 
 #		ifndef pure
 #			define pure						__attribute__((pure))
+#		endif
+
+#		ifndef malloc_like
+#			define malloc_like				__attribute__((malloc))
 #		endif
 #	endif
 #endif
@@ -222,25 +227,36 @@
 #	define WL_GENERIC_UNSIGNED_CHAR\
 		unsigned char:			funcU8
 
-#	define WL_GENERIC_SHORT\
-		short:					funcI16
-#	define WL_GENERIC_UNSIGNED_SHORT\
-		unsigned char:			funcU16	
+#	if WL_SHB == 16
+#		define WL_GENERIC_SHORT\
+			short:					funcI16
+#		define WL_GENERIC_UNSIGNED_SHORT\
+			unsigned short:			funcU16	
+#	else
+#		define WL_GENERIC_SHORT\
+			short:					funcI64
+#		define WL_GENERIC_UNSIGNED_SHORT\
+			unsigned short:			funcU64
+#	endif
 
-#	if WL_DATAMODEL == WL_LP32
+#	if WL_INB == 16
 #		define WL_GENERIC_INT\
 			int:				funcI16
 #		define WL_GENERIC_UNSIGNED_INT\
 			unsigned int:		funcU16
-#	else
+#	elif WL_INB == 32
 #		define WL_GENERIC_INT\
 			int:				funcI32
 #		define WL_GENERIC_UNSIGNED_INT\
 			unsigned int:		funcU32
+#	else
+#		define WL_GENERIC_INT\
+			int:				funcI64
+#		define WL_GENERIC_UNSIGNED_INT\
+			unsigned int:		funcU64
 #	endif
 
-#	if WL_DATAMODEL == WL_LP32 || WL_DATAMODEL == WL_ILP32\
-	|| WL_DATAMODEL == WL_LLP64
+#	if WL_LOB == 32
 #		define WL_GENERIC_LONG\
 			long:				funcI32
 #		define WL_GENERIC_UNSIGNED_LONG\
@@ -258,7 +274,7 @@
 #		define WL_GENERIC_UNSIGNED_LONG_LONG\
 			unsigned long long:	funcU64,
 #	else	/* WL_LONG_LONG */
-#		define WL_GENERIC_SIGNED_LONG_LONG
+#		define WL_GENERIC_LONG_LONG
 #		define WL_GENERIC_UNSIGNED_LONG_LONG
 #	endif	/* WL_LONG_LONG */
 
@@ -279,7 +295,7 @@
 		WL_GENERIC_UNSIGNED_SIGNED_CHAR,\
 		WL_GENERIC_UNSIGNED_SHORT,\
 		WL_GENERIC_UNSIGNED_INT,\
-		WL_GENERIC_UNSIGNED_LONG\
+		WL_GENERIC_UNSIGNED_LONG
 
 /**
  * \brief	Generic selection for signed integer types
@@ -307,6 +323,12 @@
 		WL_GENERIC_UNSIGNED_BODY\
 	)
 
+#else
+#	define wl_genericSigned(control, funcI8, funcI16, funcI32, funcI64)	funcI64
+#	define wl_genericUnsigned(control, funcU8, funcU16, funcU32, funcU64) funcU64
+#	define wl_genericInt(control,\
+		funcU8, funcU16, funcU32, funcU64, funcI8, funcI16, funcI32, funcI64)
+		funcU64
 #endif /* WL__GENERIC */
 
 /**
