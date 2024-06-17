@@ -24,20 +24,22 @@
 
 #if WL_STDLIB_H
 #	include <stdlib.h>
-#	define wl_alh(n)	malloc(n)
-#	define wl_frh(p)	free(p)
+#	define wl_hal(n)	malloc(n)
+#	define wl_hra(n,s)	realloc(n,s)
+#	define wl_hfr(p)	free(p)
 #else
-#	define wl_alh(n)	(NULL)
-#	define wl_frh(p)
+#	define wl_hal(n)	(NULL)
+#	define wl_hra(n,s)	(NULL)
+#	define wl_hfr(p)
 #endif
 
 #if WL_ALLOCA_H
 #	include <alloca.h>
-#	define wl_als(n)	alloca(n)
-#	define wl_frs(p)
+#	define wl_sal(n)	alloca(n)
+#	define wl_sfr(p)
 #else
-#	define wl_als(n)	wl_alh(n)
-#	define wl_frs(p)	wl_frh(p)
+#	define wl_sal(n)	wl_alh(n)
+#	define wl_sfr(p)	wl_frh(p)
 #endif
 
 
