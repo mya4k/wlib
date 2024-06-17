@@ -40,9 +40,9 @@ typedef struct wl_Da {
 
 #define wl_dad(ptr)	(void*)((wl_Pt)(ptr)+(sizeof(Da)))
 
-#define wl_dal(elmSize, elmCount)			wl_dad(wl__dal((elmSize), (elmCount)))
-#define wl_dra(array, elmCount)				wl_dad(wl__dra(wl_dam(array), (elmCount)))
-#define wl_daa(array, appendData, count)	wl_dad(wl__dra(wl_dam(array), (void*)(appendData), count))
+#define wl_dal(elmSize, elmCount)			wl__dal(wl__dal((elmSize), (elmCount)))
+#define wl_dra(array, elmCount)				wl__dra(wl__dra(wl_dam(array), (elmCount)))
+#define wl_daa(array, appendData, count)	wl__daa(wl__dra(wl_dam(array), (void*)(appendData), count))
 
 
 
