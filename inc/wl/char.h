@@ -11,7 +11,7 @@
  *     |_|  |_|  \__,_|  \___| |_|     \___/  |___/
  *                                                 
  */
-#ifndef WL_NO_SHORT_NAMES
+#if !WL_PREFIX
 #	define NUL		WL_NUL
 #	define SOH		WL_SOH
 #	define STX		WL_STX
@@ -234,74 +234,118 @@
  *************/
 /**
  * \brief	Is Lowercase Letter
- * \def		wl_cill(a)
+ * \def		wl_cil(a)
  * \param	a	character
  * \return	True, if character is a lowercase letter, false, otherwise
  */
-#define wl_cill(a) ((a) >= 'a' && (a) <= 'z')					/* Is Lowercase Character	*/
+#define wl_cil(a)	((a) >= 'a' && (a) <= 'z')
 /**
  * \brief	Is Uppercase Letter
  * \def		wl_ciul(a)
  * \param	a	character
  * \return	True, if character is an uppercase letter, false otherwise
  */
-#define wl_ciul(a) ((a) >= 'A' && (a) <= 'Z')					/* Is Uppercase Character	*/
+#define wl_ciu(a)	((a) >= 'A' && (a) <= 'Z')
 /**
  * \brief	Is Contol Character
  * \def		wl_cic(a)
  * \param	a	character
  * \return	True, if character is a control character, false otherwise
  */
-#define wl_cic(a) ((a) < ' ' || (a) == WL_DEL)					/* Is Contol Character		*/
+#define wl_cic(a)	((a) < ' ' || (a) == WL_DEL)
 /**
- * \brief	Is Digit Character
+ * \brief	Is Decimal digit Character
  * \def		wl_cid(a)
  * \param	a	character
  * \return	True, if character is a decimal digit character, false otherwise
  */
-#define wl_cid(a) ((a) >= '0' && (a) <= '9')					/* Is Digit Character		*/
+#define wl_cid(a)	((a) >= '0' && (a) <= '9')
 /**
  * \brief	Is Symbol Character
  * \def		wl_cis(a)
  * \param	a	character
  * \return	True, if character is a symbol character, false otherwise
  */
-#define wl_cis(a)												/* Is Symbol Character		*/\
-	((a) >= '!' && (a) <= '/' || (a) >= ':' && (a) <= '@' || (a) >= '[' && (a) <= '`' || (a) >= '{' && (a) <= '~')
+#define wl_cis(a)												\
+	((a) >= '!' && (a) <= '/' || (a) >= ':' && (a) <= '@' ||	\
+	(a) >= '[' && (a) <= '`' || (a) >= '{' && (a) <= '~')
 /**
  * \brief	Is Whitespace Character
  * \def		wl_ciw(a)
  * \param	a	character
  * \return	True, if character is a whitespace character, false otherwise
  */
-#define wl_ciw(a) ((a) >= WL_HT && (a) <= WL_CR || (a) == ' ')	/* Is Whitespace Character	*/
+#define wl_ciw(a)	((a) >= WL_HT && (a) <= WL_CR || (a) == ' ')
 /**
- * \brief	Is Ext. ASCII Character
- * \def		wl_cie(a)
+ * \brief	Is eXt. ASCII Character
+ * \def		wl_cix(a)
  * \param	a	character
  * \return	True, if character from extended character set, false otherwise
  */
-#define wl_cie(a) ((a) > WL_DEL)								/* Is Ext. ASCII Character	*/
+#define wl_cix(a)	((a) > WL_DEL)
 /**
- * \brief	Is Alphanumeric Character
+ * \brief	Is Alphanumeric or Decimal digit Character
  * \def		wl_cia(a)
  * \param	a	character
  * \return	True, if character is an alphanumeric character, false otherwise
  */
-#define wl_cia(a) (wl_cil(a) || wl_cid(a))						/* Is Alphanumeric Character*/
+#define wl_ciad(a)	(wl_cil(a) || wl_cid(a))
 /**
- * \brief	Is Letter Character
+ * \brief	Is Alphabetical Character
  * \def		wl_cil(a)
  * \param	a	character
  * \return	True, if character is a letter, false otherwise
  */
-#define wl_cil(a) (wl_cill(a) || wl_ciul(a))					/* Is Letter Character		*/
+#define wl_cia(a)	(wl_cil(a) || wl_ciu(a))
+/**
+ * \brief	Is Binary digit Character
+ * \def		wl_cib(a)
+ * \param	a	character
+ * \return	True, if character is a binary digit, false otherwise
+ */
+#define wl_cib(a) 	((a)&0xFE == '0')
+/**
+ * \brief	Is BLank Character
+ * \def		wl_cib(a)
+ * \param	a	character
+ * \return	True, if character is a blank character, false otherwise
+ */
+#define wl_cibl(a)	((a)==WL_HT || (a)==' ')
+/**
+ * \brief	Is Graphical Character
+ * \def		wl_cig(a)
+ * \param	a	character
+ * \return	True, if character is a graphical character, false otherwise
+ */
+#define wl_cig(a)	((a)>' ' && (a)<DEL)
+/**
+ * \brief	Is Printable Character
+ * \def		wl_cig(a)
+ * \param	a	character
+ * \return	True, if character is a printable character, false otherwise
+ */
+#define wl_cip(a)	((a)>=' ' && (a)<DEL)
+/**
+ * \brief	Is Hexadecimal digit Character
+ * \def		wl_cig(a)
+ * \param	a	character
+ * \return	True, if character is a hexadecimal digit, false otherwise
+ */
+#define wl_cih(a)	(cid(a) || (a&0xDF)>='A' && (a&0xDF)>='F')
+/**
+ * \brief	Is Octal digit Character
+ * \def		wl_cig(a)
+ * \param	a	character
+ * \return	True, if character is a octal digit, false otherwise
+ */
+#define wl_cio(a)	((a) >= '0' && (a) <= '7')
 /**
  * \brief	Character To Lowercase
  * \def		wl_c2l(a)
  * \param	a	character
  * \return	\a a or its modified value
- * If the character is uppercase, changes its case and returns it, otherwise returns \a
+ * If the character is uppercase, changes its case and returns it, otherwise 
+ * returns \a
  */
 #define wl_c2l(a) ((a) - wl_ciul(a)*32)
 /**
@@ -309,7 +353,8 @@
  * \def		wl_c2u(a)
  * \param	a	character
  * \return	\a a or its modified value
- * If the character is lowercase, changes its case and returns it, otherwise returns \a
+ * If the character is lowercase, changes its case and returns it, otherwise 
+ * returns \a
  */
 #define wl_c2u(a) ((a) + wl_cill(a)*32)
 /**
