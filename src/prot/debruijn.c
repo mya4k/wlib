@@ -3,7 +3,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <wl/bit.h>
+#include <wl/core.h>
 
+
+#define bc(x,y) ((x) & b0(y))
+#define bs(x,y)	((x) | b1(y))
 
 
 U64 debruijn(const U8 k) {
@@ -85,13 +89,26 @@ redo:			front |= 1;
 
 
 int main() {
-	U8f n = 5;
+	U8f n = 3;
 	clock_t t0 = clock();
 	U64 b = debruijn(n);
 	printf("%f\n", (double)(clock()-t0)/(double)CLOCKS_PER_SEC);
 	printf("%0llx\n", b);
-	for (I8f i = (1<<n)-1; i > 0; i--) {
+	/* for (I8f i = (1<<n)-1; i > 0; i--) {
 		printf("%02lld ", brs(b, i, n));
+	} */
+
+	const U8f _1sln = 1<<n;
+
+	U8f table[_1sln];
+
+	for (U8f i = 0; i < _1sln; i++) {
+		table[(b >> (_1sln-n)) & (1<<n)-1] = i;
+		b <<= 1;
+	}
+
+	for (U8f i = 0; i < _1sln; i++) {
+		printf("%lld, ", table[i]);
 	}
 	return 0;
 }
