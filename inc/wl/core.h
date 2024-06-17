@@ -65,6 +65,7 @@
 #		define always_inline	inline __attribute__((always_inline))
 #	else
 #		define always_inline	inline
+#	endif
 #endif
 
 /**
