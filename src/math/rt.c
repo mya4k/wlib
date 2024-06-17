@@ -1,10 +1,10 @@
 #include <wl/math.h>
 #include <wl/core.h>
 
-
-
 U8 rt2b(const U16 power) {
 	if_unlikely (power < 4) return !!power;	
+
+	U8 guess = 1 << lg2b
 	
 	/* This function is an accurate approximation for square root */
 	U16 guess = (U16)(lg2u(power)*(198+power))/197;
@@ -25,10 +25,32 @@ U8 rt2b(const U16 power) {
 	return (U8)guess;
 }
 
-U16 rt2w(const U16 power) {
-	if_likely(power <= 255) return rt2b(power);
+U8 rt2w(const U32 power) {
+	if_unlikely(power <= 255) return rt2b(power);
 
-	if_likely()
+	U16 guess;
+
+	if_unlikely(power <= 4096);
+	if_unlikely(power <= 16384);
+	else {
+		guess = (656*power+5931642)/(power+102279);
+	}
+
+	if (guess*guess > power - power%guess) return guess++;
+	if (guess*guess < power - power%guess) return guess--;
+
+	if (guess*guess > power) {
+		guess--;
+		if (guess*guess > power) return guess;
+		else return guess++;
+	}
+
+	if (guess*guess < power) {
+		guess++;
+		if (guess*guess > power) return guess;
+	}
+
+	return guess;
 }
 
 #ifdef unusedgggrgrg5t
